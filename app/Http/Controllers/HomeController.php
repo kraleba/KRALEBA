@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customers;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -33,7 +34,10 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('adminHome');
+        $customers = Customers::latest()->paginate(5);
+
+        return view('customers.index',compact('customers'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
