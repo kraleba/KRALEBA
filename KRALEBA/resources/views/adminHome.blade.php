@@ -1,4 +1,4 @@
-extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -8,13 +8,7 @@ extends('layouts.app')
                     <div class="card-header">{{ __('Dashboard') }}</div>
 
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        You are a User.
+                        You are a Admin User.
                     </div>
                 </div>
             </div>
