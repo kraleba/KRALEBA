@@ -23,157 +23,177 @@
     <form action="{{ route('customers.store') }}" method="POST">
         @csrf
         <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="check1" name="option1" value="something" checked>
-            <label class="form-check-label" for="check1">Beneficiar</label>
+            <input type="checkbox" class="form-check-input" id="checkCustomer" name="type" onclick="checkBoxCustomer()"
+                   value="customer">
+            <label class="form-check-label" for="checkCustomer">Beneficiar</label>
         </div>
+
+
         <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="check2" name="option2" value="something">
+            <input type="checkbox" class="form-check-input" id="checkProvider" name="type"
+                   onclick="checkBoxProvider()" value="provider">
             <label class="form-check-label" for="check2">Furnizor</label>
         </div>
 
-{{--        categorie--}}
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Name:</strong>
-                    <input type="text" name="name" class="form-control" placeholder="Name">
-                </div>
-            </div>
+        {{--        categorie--}}
+        <div class="col-xs-1 col-sm-12 col-md-5" id="categoryProduct" style="padding-left: 65px; display: none">
+            <strong>Categorii:</strong>
+            <select name="category" id="department" class="form-control" onchange="showSubcategory(this)">
+                <option value="0"> -- Selecteaza o categorie --</option>
+                @foreach ($furnace_categories as $furnace_category)
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Detail:</strong>
-                    <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
-                </div>
-            </div>
+                    <option value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
+                @endforeach
+            </select>
 
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Cod:</strong>
-                    <input type="number" name="cod" class="form-control" placeholder="Cod">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Adress:</strong>
-                    <input type="text" name="adress" class="form-control" placeholder="Adress">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Cod Postal:</strong>
-                    <input type="number" name="cod postal" class="form-control" placeholder="Cod Postal">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Oras :</strong>
-                    <input type="text" name="oras" class="form-control" placeholder="Oras">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Tara:</strong>
-                </div>
-            </div>
-
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Selecteaza tara</button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Romania</a>
-                    <a class="dropdown-item" href="#">UE</a>
-                    <a class="dropdown-item" href="#">non-UE</a>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>CIF :</strong>
-                    <input type="text" name="cif" class="form-control" placeholder="CIF">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>OCR :</strong>
-                    <input type="text" name="ocr" class="form-control" placeholder="OCR">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>IBAN :</strong>
-                    <input type="text" name="IBAN" class="form-control" placeholder="IBAN">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>SWIFT :</strong>
-                    <input type="text" name="swift" class="form-control" placeholder="SWIFT">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>BANCA :</strong>
-                    <input type="text" name="banca" class="form-control" placeholder="BANCA">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>CONTACT :</strong>
-                    <input type="text" name="contact" class="form-control" placeholder="CONTACT">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Telefon 1:</strong>
-                    <input type="number" name="telefon 1" class="form-control" placeholder="Telefon 1">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Telefon 2:</strong>
-                    <input type="number" name="telefon 2" class="form-control" placeholder="Telefon 2">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>e-mail:</strong>
-                    <input type="text" name="e-mail" class="form-control" placeholder="e-mail">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>www:</strong>
-                    <input type="text" name="www" class="form-control" placeholder="www">
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Note:</strong>
-                    <textarea class="form-control" style="height:70px" name="note" placeholder="Note"></textarea>
-                </div>
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
         </div>
 
+        <div class="col-xs-1 col-sm-12 col-md-6" style="padding-left: 130px; display: none" id="subcategoryProduct">
+            <strong id="subcategory"></strong>
+            <select name="subcategory" id="department" class="form-control" onchange="showDataForm(this)">
+                <option value=""> -- Selecteaza o sub-categorie --</option>
+                @foreach ($subcategories as $subcategory)
+
+                    <option value="1 {{$subcategory->subcategory_id}}">{{ $subcategorie->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        {{--ssssss--}}
+
+        <div id="customerOrProviderForm" style="display: none">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Name:</strong>
+                        <input type="text" name="name" class="form-control" placeholder="Name">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Cod:</strong>
+                        <input type="number" name="uniqueCode" class="form-control" placeholder="Cod">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Adress:</strong>
+                        <input type="text" name="address" class="form-control" placeholder="Adresa">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Cod Postal:</strong>
+                        <input type="number" name="zipCode" class="form-control" placeholder="Cod Postal">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Oras :</strong>
+                        <input type="text" name="city" class="form-control" placeholder="Oras">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <strong>Tara:</strong>
+                    <select name="countries" id="department" class="form-control">
+                        <option value=""> -- Selecteaza o tara --</option>
+                        @foreach ($countries as $country)
+                            @php($i = 1)
+                            <option value="{{$i}}">{{ $country }}</option>
+                            @php($i++)
+                        @endforeach
+                    </select>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>CIF :</strong>
+                        <input type="text" name="cif" class="form-control" placeholder="CIF">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>OCR :</strong>
+                        <input type="text" name="ocr" class="form-control" placeholder="OCR">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>IBAN :</strong>
+                        <input type="text" name="iban" class="form-control" placeholder="IBAN">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>SWIFT :</strong>
+                        <input type="text" name="swift" class="form-control" placeholder="SWIFT">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>BANCA :</strong>
+                        <input type="text" name="bank" class="form-control" placeholder="BANCA">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>CONTACT :</strong>
+                        <input type="text" name="contact" class="form-control" placeholder="CONTACT">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Telefon 1:</strong>
+                        <input type="number" name="phone" class="form-control" placeholder="Telefon 1">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Telefon 2:</strong>
+                        <input type="number" name="phone2" class="form-control" placeholder="Telefon 2">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>e-mail:</strong>
+                        <input type="text" name="email" class="form-control" placeholder="e-mail">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>www:</strong>
+                        <input type="text" name="www" class="form-control" placeholder="www">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Note:</strong>
+                        <textarea class="form-control" style="height:70px" name="note" placeholder="Note"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Creaza</button>
+                </div>
+            </div>
+        </div>
     </form>
 
 @endsection
