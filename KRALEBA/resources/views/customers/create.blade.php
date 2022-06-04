@@ -14,12 +14,11 @@
 
     @if ($errors->any())
 
-        @foreach ($errors->all() as $error)
-            {{--            {{ $error }}--}}
-            <div class="alert alert-danger">
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
                 <p>{{ $error }}</p>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
 
     @endif
 
@@ -38,8 +37,6 @@
             <label class="form-check-label" for="check2">Furnizor</label>
         </div>
 
-
-        {{--        categorie--}}
         <div class="col-xs-1 col-sm-12 col-md-5" id="categoryProduct" style="padding-left: 65px; display: none">
             <strong>Categorii:</strong>
             <select name="category" id="department" class="form-control" onchange="showSubcategory(this)">
@@ -54,7 +51,6 @@
 
         <div class="col-xs-1 col-sm-12 col-md-6" style="padding-left: 130px; display: none" id="subcategoryProduct">
 
-
             <strong id="subcategory"></strong>
             <select name="subcategory" id="department" class="form-control" onchange="showDataForm(this)">
 
@@ -67,20 +63,6 @@
             </select>
 
         </div>
-
-
-        {{--        <label for="exampleDataList" class="form-label">Datalist example</label>--}}
-        {{--        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">--}}
-        {{--        <datalist id="datalistOptions">--}}
-        {{--            <option value="San Francisco">--}}
-        {{--            <option value="New York">--}}
-        {{--            <option value="Seattle">--}}
-        {{--            <option value="Los Angeles">--}}
-        {{--            <option value="Chicago">--}}
-        {{--        </datalist>--}}
-
-
-        {{--ssssss--}}
 
         <div id="customerOrProviderForm" style="display: none">
             <div class="row">

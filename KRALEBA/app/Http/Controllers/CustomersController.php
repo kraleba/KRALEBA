@@ -60,16 +60,27 @@ class CustomersController extends Controller
 
     public function edit(Customers $customer)
     {
-        return view('customers.edit', compact('customer'));
+        $customerCountries = array(
+            1 => 'Romania',
+            2 => 'UE',
+            3 => 'non-UE'
+        );
+        $data['countries'] = $customerCountries;
+        $product = new Products();
+        $data['furnace_categories'] = $product->get_furnace_categories();
+        $data['subcategories'] = $product->get_subcategory_for_customer_category();
+
+
+        $data['customers'] = $customer->attributesToArray();
+        return view('customers.edit', $data);
     }
 
     public function update(Request $request, Customers $customer)
     {
         $request->validate([
-            'customerType' => 'required',
             'name' => 'required',
             'uniqueCode' => 'required',
-            'detail' => 'required',
+            'country' => 'required',
         ]);
 
         $customer->update($request->all());
