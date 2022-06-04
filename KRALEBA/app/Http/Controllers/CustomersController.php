@@ -35,12 +35,9 @@ class CustomersController extends Controller
 
     public function store(Request $request)
     {
-//        dump($request->input());
-//        die('store');
-        if($request->input('type') == 'provider') {
+        if ($request->input('type') == 'provider') {
             $request->validate([
-                'countries' => 'required',
-                'detail' => 'required',
+                'country' => 'required',
             ]);
         }
         $request->validate([
@@ -48,7 +45,7 @@ class CustomersController extends Controller
             'type' => 'required',
             'uniqueCode' => 'required'
         ]);
-die();
+
         Customers::create($request->all());
 
         return redirect()->route('customers.index')

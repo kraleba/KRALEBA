@@ -15,7 +15,10 @@
     @if ($errors->any())
 
         @foreach ($errors->all() as $error)
-            {{ $error }}
+            {{--            {{ $error }}--}}
+            <div class="alert alert-danger">
+                <p>{{ $error }}</p>
+            </div>
         @endforeach
 
     @endif
@@ -50,15 +53,32 @@
         </div>
 
         <div class="col-xs-1 col-sm-12 col-md-6" style="padding-left: 130px; display: none" id="subcategoryProduct">
+
+
             <strong id="subcategory"></strong>
             <select name="subcategory" id="department" class="form-control" onchange="showDataForm(this)">
+
                 <option value=""> -- Selecteaza o sub-categorie --</option>
+
                 @foreach ($subcategories as $subcategory)
 
-                    <option value="1 {{$subcategory->subcategory_id}}">{{ $subcategorie->name }}</option>
+                    <option value="1 {{$subcategory->subcategory_id}}">{{ $subcategory->name }}</option>
                 @endforeach
             </select>
+
         </div>
+
+
+        {{--        <label for="exampleDataList" class="form-label">Datalist example</label>--}}
+        {{--        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">--}}
+        {{--        <datalist id="datalistOptions">--}}
+        {{--            <option value="San Francisco">--}}
+        {{--            <option value="New York">--}}
+        {{--            <option value="Seattle">--}}
+        {{--            <option value="Los Angeles">--}}
+        {{--            <option value="Chicago">--}}
+        {{--        </datalist>--}}
+
 
         {{--ssssss--}}
 
@@ -80,7 +100,7 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Adress:</strong>
+                        <strong>Adresa:</strong>
                         <input type="text" name="address" class="form-control" placeholder="Adresa">
                     </div>
                 </div>
@@ -101,10 +121,10 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <strong>Tara:</strong>
-                    <select name="countries" id="department" class="form-control">
+                    <select name="country" id="department" class="form-control">
                         <option value=""> -- Selecteaza o tara --</option>
+                        @php($i = 1)
                         @foreach ($countries as $country)
-                            @php($i = 1)
                             <option value="{{$i}}">{{ $country }}</option>
                             @php($i++)
                         @endforeach
@@ -197,3 +217,10 @@
     </form>
 
 @endsection
+<script>
+    import InputError from "../../../vendor/laravel/breeze/stubs/inertia-vue/resources/js/Components/InputError";
+
+    export default {
+        components: {InputError}
+    }
+</script>
