@@ -9,11 +9,29 @@ use Illuminate\Http\Request;
 class CustomersController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customers::latest()->paginate(5);
+        $product = new Products();
+        $customers = new Customers();
 
-        return view('customers.index', compact('customers'))
+        $data['furnace_categories'] = $product->get_furnace_categories();
+        $data['subcategories'] = $product->get_subcategory_for_customer_category();
+        $data['customers'] = Customers::get_customers();
+
+
+        if ($request->input()) {
+
+            $customer_type = $request->input('type') ?? '';
+            $category = $request->input('category') ?? '';
+            $subcategory = $request->input('subcategory') ?? '';
+            $subcategory = $product->find_subcategory_by_label($subcategory) ?? '';
+            $subcategory_id = $subcategory->subcategory_id ?? '';
+            $data['customers'] = $customers->get_customers_after_filter($customer_type, $category, $subcategory_id);
+            $data['filter_title'] = "Toti ". $customer_type. "-ii care au categoria ". $category. " si sub-categoria ". $subcategory_id;
+
+        }
+
+        return view('customers.index', $data)
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -35,6 +53,8 @@ class CustomersController extends Controller
 
     public function store(Request $request)
     {
+        dump($request->input());
+//        die();
         if ($request->input('type') == 'provider') {
             $request->validate([
                 'country' => 'required',
@@ -77,6 +97,7 @@ class CustomersController extends Controller
 
     public function update(Request $request, Customers $customer)
     {
+
         $request->validate([
             'name' => 'required',
             'uniqueCode' => 'required',

@@ -20,7 +20,11 @@ class Products extends Model
     public function get_subcategory_for_customer_category()
     {
         return DB::table('customer_subcategory')->get();
+    }
 
+    public function find_subcategory_by_label($label)
+    {
+        return DB::table('customer_subcategory')->where('name', $label)->first();
     }
 
 }

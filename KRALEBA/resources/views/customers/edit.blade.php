@@ -27,19 +27,17 @@
         @csrf
         @method('PUT')
 
-        @if($customers['type'] == 'customer')
+        @if($customers['type'] == 'provider')
             <div class="col-xs-1 col-sm-12 col-md-5">
                 <strong>Categorii:</strong>
-                <select name="category" id="department" class="form-control">
+                <select name="category_id" id="department" class="form-control">
                     <option
-                        value="{{$customers['category_id']}}">{{$furnace_categories[$customers['category_id']]->name ?? ''}}</option>
+                        value="{{$customers['category_id']    }}">{{$furnace_categories[$customers['category_id']-1]->name}}
+                    </option>
 
-                @foreach ($furnace_categories as $furnace_category)
+                    @foreach ($furnace_categories as $furnace_category)
 
-                    @if($customers['category_id'] + 1 != $furnace_category->category_id)
-                            <option value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
-
-                        @endif
+                        <option value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
 
                     @endforeach
                 </select>
@@ -50,14 +48,12 @@
 
 
                 <strong id="subcategory"></strong>
-                <select name="subcategory" id="department" class="form-control">
-
+                <select name="subcategory_id" id="department" class="form-control">
                     <option
-                        value="{{$customers['subcategory_id']}}"> {{$subcategories[$customers['subcategory_id']]->name ?? ''}}</option>
+                        value="{{$customers['subcategory_id']}}"> {{$subcategories[$customers['subcategory_id']-1]->name}}</option>
 
                     @foreach ($subcategories as $subcategory)
-
-                        <option value="1 {{$subcategory->subcategory_id}}">{{ $subcategory->name }}</option>
+                        <option value="{{$subcategory->subcategory_id}}">{{ $subcategory->name }}</option>
                     @endforeach
                 </select>
 

@@ -39,7 +39,7 @@
 
         <div class="col-xs-1 col-sm-12 col-md-5" id="categoryProduct" style="padding-left: 65px; display: none">
             <strong>Categorii:</strong>
-            <select name="category" id="department" class="form-control" onchange="showSubcategory(this)">
+            <select name="category_id" id="department" class="form-control" onchange="showSubcategory(this)">
                 <option value="0"> -- Selecteaza o categorie --</option>
                 @foreach ($furnace_categories as $furnace_category)
 
@@ -52,13 +52,13 @@
         <div class="col-xs-1 col-sm-12 col-md-6" style="padding-left: 130px; display: none" id="subcategoryProduct">
 
             <strong id="subcategory"></strong>
-            <select name="subcategory" id="department" class="form-control" onchange="showDataForm(this)">
+            <select name="subcategory_id" id="department" class="form-control" onchange="showDataForm(this)">
 
                 <option value=""> -- Selecteaza o sub-categorie --</option>
 
                 @foreach ($subcategories as $subcategory)
 
-                    <option value="1 {{$subcategory->subcategory_id}}">{{ $subcategory->name }}</option>
+                    <option value="{{$subcategory->subcategory_id}}">{{ $subcategory->name }}</option>
                 @endforeach
             </select>
 
@@ -206,3 +206,4 @@
         components: {InputError}
     }
 </script>
+
