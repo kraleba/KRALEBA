@@ -69,8 +69,8 @@ class CustomerHelper
     {
         $product = new Products();
 
-        $furnace_categories = $product->get_furnace_categories();
-        $subcategories = $product->get_subcategory_for_customer_category();
+//        $furnace_categories = $product->get_furnace_categories();
+//        $subcategories = $product->get_subcategory_for_customer_category();
 
         if ($customer_type == 'Provider') {
             $customer_type = "Furnizori";
@@ -84,10 +84,10 @@ class CustomerHelper
             $title_text .= ' tipul ' . $customer_type;
         }
         if ($category) {
-            $title_text .= ' categoria ' . $furnace_categories[$category - 1]->name;
+            $title_text .= ' categoria ' . $product->get_customer_category_by_id($category)->name;
         }
         if ($subcategory_id) {
-            $title_text .= ' sub-categoria ' . $subcategories[$subcategory_id - 1]->name;
+            $title_text .= ' sub-categoria ' . $product->get_customer_subcategory_by_id($subcategory_id)->name;
         }
 
         return $title_text;

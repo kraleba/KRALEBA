@@ -20,7 +20,6 @@ class CustomersController extends Controller
         $data['customers'] = Customers::get_customers();
 
         if ($request->input()) {
-            dd($request->input());
             $customer_type = $request->input('type') ?? '';
             $category = $request->input('category') ?? '';
             $subcategory = $request->input('subcategory') ?? '';

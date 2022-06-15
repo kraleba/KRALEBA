@@ -5,8 +5,6 @@
     {{----}}
     <h3> Clienti</h3>
 
-
-
     <div class="container">
         <div class="row searchFilter">
             <div class="col-sm-12">
@@ -15,17 +13,14 @@
 
                     <div class="input-group">
                         <div>
-                            <select name="type" id="department" class="form-control rounded-pill"
-                                    onchange="showSubcategory(this)">
-
+                            <select name="type" id="department" class="form-control rounded-pill">
                                 <option value=""> -- Selecteaza tipul --</option>
                                 <option value="Customer"> Beneficiar</option>
                                 <option value="Provider">Furnizor</option>
                             </select>
                         </div>
                         <div>
-                            <select name="category" id="department" class="form-control rounded-pill"
-                                    onchange="showSubcategory(this)">
+                            <select name="category" id="department" class="form-control rounded-pill">
 
                                 <option value=""> -- Selecteaza o categorie --</option>
 
@@ -38,55 +33,15 @@
                         </div>
 
                         <div>
-                            <input list="browsers" name="subcategory" class="corm-control rounded-pill">
+                            <input type='text' name="subcategory" list="browsers"
+                                   placeholder="Selecteaza o subcategorie" class="form-control rounded-pill">
+
                             <datalist id="browsers" class="dropdown">
 
                                 @foreach ($subcategories as $subcategory)
                                     <option>{{ $subcategory->name }}</option>
                                 @endforeach
                             </datalist>
-                        </div>
-{{--subcategorii--}}
-
-
-
-                        <div class="col-xs-1 col-sm-12 col-md-6" style="padding-left: 130px;">
-                            <input type='text' autoComplete='none' name="subcategory" data-bs-toggle="dropdown"
-                                   aria-expanded="false"
-                                   placeholder="Selecteaza o subcategorie"
-                                   value="{{$customers['subcategory_id']['name'] ?? ''}}" class="form-control"
-                                   id="dropdownInput">
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-
-                                @foreach ($subcategories as $subcategory)
-
-                                    <li>
-                                        <div>
-                                            <b class="dropdown-item list-subcategor"
-                                               onclick="dropDownValue('subcategory' + {{$subcategory->subcategory_id}})"
-                                               id="subcategory{{$subcategory->subcategory_id}}">{{$subcategory->name}}
-
-                                                <a onclick="deleteSubcategory({{$subcategory->subcategory_id}})"
-                                                   id="optionDropdown"
-                                                   class="bi bi-trash">
-                                                    <div class="delete-icon">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                             fill="currentColor"
-                                                             class="bi bi-trash" viewBox="0 0 16 16">
-                                                            <path
-                                                                d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                            <path fill-rule="evenodd"
-                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                                        </svg>
-                                                    </div>
-                                                </a>
-
-                                            </b>
-                                        </div>
-
-                                    </li>
-                                @endforeach
-                            </ul>
                         </div>
 
                         <button id="searchBtn" type="submit" class="btn btn-secondary btn-search"><span
@@ -95,27 +50,30 @@
                     </div>
                 </form>
 
-
                 <form>
                     <button type="submit"> Scoate filtrele</button>
                 </form>
+
 
             </div>
         </div>
     </div>
 
     <!--end filter-->
+    <div>
+        <div class="row">
+            <div class="col-lg-12 margin-tb">
+                <div class="pull-left">
+                </div>
+                <div class="pull-right">
+                    <a class="btn btn-secondary" href="{{ route('customers.create') }}"> Creaza clinet</a>
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
-            </div>
-            <div class="pull-right">
-                <a class="btn btn-secondary" href="{{ route('customers.create') }}"> Creaza clinet</a>
-            </div>
+        {{--    print pdf --}}
+            <button class="btn btn-secondary">Printeaza PDF</button>
         </div>
     </div>
-
     <h3>{{$filter_title ?? ''}}</h3>
 
     @if ($message = Session::get('success'))
@@ -246,7 +204,6 @@
             <h5>Nici un client!</h5>
         </div>
     @endif
-
 
 @endsection
 <script>
