@@ -27,7 +27,10 @@ class Products extends Model
 
     public function get_customer_subcategory_by_id($id)
     {
-        return DB::table('customer_subcategory')->where('subcategory_id', $id)->first();
+        if (is_numeric($id))
+            return DB::table('customer_subcategory')->where('subcategory_id', $id)->first();
+
+        return false;
 
     }
 
@@ -39,6 +42,7 @@ class Products extends Model
     public function find_subcategory_by_label($label)
     {
         return DB::table('customer_subcategory')->where('name', $label)->first();
+
     }
 
     public function set_customers_subcategory($data)
@@ -46,7 +50,8 @@ class Products extends Model
         DB::table('customer_subcategory')->insert($data);
     }
 
-    public function delete_subcategory_by($id) {
+    public function delete_subcategory_by($id)
+    {
         DB::table('customer_subcategory')->where('subcategory_id', $id)->delete();
 
     }

@@ -96,7 +96,8 @@ function deleteSubcategory(id) {
                 $('#subcategory' + id).remove();
                 console.log("it Works");
             }
-        });
+        }
+    );
 }
 
 // search
@@ -125,3 +126,29 @@ const showOptions = () => {
         el.style.display = 'flex';
     })
 }
+
+//download pdf Jquery
+
+$(".download-pdf").click(function(){
+    console.log('sssssss')
+    var data = '';
+    $.ajax({
+        type: 'GET',
+        url: '/downloadPDF',
+        data: data,
+        xhrFields: {
+            responseType: 'blob'
+        },
+        success: function(response){
+            var blob = new Blob([response]);
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "Sample.pdf";
+            link.click();
+        },
+        error: function(blob){
+            console.log(blob);
+        }
+    });
+});
+

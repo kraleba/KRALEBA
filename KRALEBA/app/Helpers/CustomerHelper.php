@@ -2,15 +2,19 @@
 
 namespace App\Helpers;
 
+use App\Models\Customers;
 use App\Models\Products;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerHelper
 {
     public $product;
+    public $customers;
 
     public function __construct()
     {
         $this->product = new Products();
+        $this->customers = new Customers();
     }
 
     public function helper_get_categories_to_customers($customers)
@@ -64,18 +68,16 @@ class CustomerHelper
         return $subcategoryData['subcategory_id'];
 
     }
+
 //generate title afrer filter
     public function helper_generate_title_after_filter($customer_type, $category, $subcategory_id)
     {
-        $product = new Products();
-
-//        $furnace_categories = $product->get_furnace_categories();
-//        $subcategories = $product->get_subcategory_for_customer_category();
-
+//        dd($customer_type);
         if ($customer_type == 'Provider') {
-            $customer_type = "Furnizori";
-        } elseif ($customer_type) {
-            $customer_type = 'Beneiciari';
+            $customer_type = "Furnizor";
+        }
+        if ($customer_type == 'Customer') {
+            $customer_type = 'Beneficiar';
         }
 
         $title_text = "Ai aplicat filtrele: ";
@@ -84,13 +86,37 @@ class CustomerHelper
             $title_text .= ' tipul ' . $customer_type;
         }
         if ($category) {
-            $title_text .= ' categoria ' . $product->get_customer_category_by_id($category)->name;
+            $title_text .= ' categoria ' . $this->product->get_customer_category_by_id($category)->name;
         }
-        if ($subcategory_id) {
-            $title_text .= ' sub-categoria ' . $product->get_customer_subcategory_by_id($subcategory_id)->name;
+        if (!is_numeric($subcategory_id) && $subcategory_id) {
+            $subcategory_id = $this->product->find_subcategory_by_label($subcategory_id)->subcategory_id;
+        }
+
+//
+        if ($subcategory_id && is_numeric($subcategory_id)) {
+            $title_text .= ' sub-categoria ' . $this->product->get_customer_subcategory_by_id($subcategory_id)->name;
         }
 
         return $title_text;
+    }
+
+    public function helper_show_filter($data)
+    {
+
+        $customer_type = $data['type'] ?? '';
+        $category = $data['category'] ?? '';
+        $subcategory = $data['subcategory'] ?? '';
+
+        $subcategory = $this->product->find_subcategory_by_label($subcategory) ?? '';
+        $subcategory_id = $subcategory->subcategory_id ?? '';
+
+        return array(
+            'customers' => $this->customers->get_customers_after_filter($customer_type, $category, $subcategory_id),
+            'filter_title' => $this->helper_generate_title_after_filter($customer_type, $category, $subcategory_id),
+            'type' => $customer_type,
+            'category' => $category,
+            'subcategory' => $subcategory_id
+        );
     }
 
 }

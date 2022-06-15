@@ -45,7 +45,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 //    Route::resource('admin/subcategory', CustomersSubcategoryController::class);
     Route::get('admin/customers/{id}/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/customers/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
-
+    Route::get('admin/downloadPDF', [CustomersController::class, 'downloadPDF']);
 
 });
 

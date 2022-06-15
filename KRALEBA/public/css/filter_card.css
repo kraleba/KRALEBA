@@ -1,0 +1,20 @@
+.round3 {
+    border-radius: 35px;
+    padding: 20px;
+    height: 200px
+}
+
+.box-filter {
+    padding-top: 25px;
+}
+.item-left {
+    padding-left: 15%;
+
+}
+.filter-item1 {
+    padding-right: 10px;
+}
+
+.filter-control {
+    width: 240px;
+}
