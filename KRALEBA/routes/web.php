@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\CustomersSubcategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -41,7 +42,11 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::resource('admin/customers', CustomersController::class);
 
-//    Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
+//    Route::resource('admin/subcategory', CustomersSubcategoryController::class);
+    Route::get('admin/customers/{id}/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
+    Route::get('admin/customers/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
+
+
 });
 
 /*------------------------------------------

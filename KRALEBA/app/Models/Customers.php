@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\CustomerHelper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -15,11 +16,21 @@ class Customers extends Model
         'cif', 'ocr', 'iban', 'swift', 'bank', 'contact', 'phone', 'phone2', 'email', 'www'
     ];
 
+    /**
+     * Get all customers with subcategory name
+     * @return $reslut
+     */
+
     public static function get_customers()
     {
-        return DB::table('customers')
-            ->orderBy('name', 'asc')
+
+        $results = DB::table('customers')
+            ->orderBy('name')
             ->get();
+
+        $helper = new CustomerHelper();
+        return $helper->helper_get_categories_to_customers($results->toArray());
+
     }
 
     public function get_customers_after_filter($type, $category_id, $subcategory)

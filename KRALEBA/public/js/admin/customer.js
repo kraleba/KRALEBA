@@ -43,23 +43,85 @@ function showSubcategory(isSelected) {
     if (isSelected.options[isSelected.selectedIndex].value > 0) {
 
         document.getElementById('subcategoryProduct').style.display = 'block';
-    } else {
-        document.getElementById('subcategoryProduct').style.display = 'none';
-    }
-
-}
-
-function showDataForm(isSelected) {
-
-    if (isSelected.options[isSelected.selectedIndex].value) {
         document.getElementById('customerOrProviderForm').style.display = 'block';
 
     } else {
+        document.getElementById('subcategoryProduct').style.display = 'none';
         document.getElementById('customerOrProviderForm').style.display = 'none';
 
     }
+
 }
 
 //filter index.blade.php
 
 
+function filterFunction() {
+
+    document.getElementById("myDropdown").classList.toggle("show");
+
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+        txtValue = a[i].textContent || a[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}
+
+//Dropdown put in input selected value
+
+function dropDownValue(id) {
+    document.getElementById("dropdownInput").value = document.getElementById(id).innerText;
+
+}
+
+//delete subcategory
+function deleteSubcategory(id) {
+
+    $.ajax(
+        {
+            url: "subcategory/" + id,
+            type: 'get',
+            data: {
+                "id": id,
+            },
+            success: function () {
+                $('#subcategory' + id).remove();
+                console.log("it Works");
+            }
+        });
+}
+
+// search
+
+const searchInputDropdown = document.getElementById('search-input-dropdown');
+const dropdownOptions = document.querySelectorAll('.input-group-dropdown-item');
+
+searchInputDropdown.addEventListener('input', () => {
+    const filter = searchInputDropdown.value.toLowerCase();
+    showOptions();
+    const valueExist = !!filter.length;
+
+    if (valueExist) {
+        dropdownOptions.forEach((el) => {
+            const elText = el.textContent.trim().toLowerCase();
+            const isIncluded = elText.includes(filter);
+            if (!isIncluded) {
+                el.style.display = 'none';
+            }
+        });
+    }
+});
+
+const showOptions = () => {
+    dropdownOptions.forEach((el) => {
+        el.style.display = 'flex';
+    })
+}
