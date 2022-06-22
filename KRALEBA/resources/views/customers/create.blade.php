@@ -46,7 +46,6 @@
                     <option value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
                 @endforeach
             </select>
-
         </div>
 
 
