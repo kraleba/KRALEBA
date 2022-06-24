@@ -3,11 +3,25 @@
 @section('content')
 
     {{----}}
+    <div>
+        <div class="row">
+            <div class="col-lg-12 margin-tb">
+                <div class="pull-right">
+                    <a class="btn btn-secondary" href="{{ route('customers.create') }}"> ADAUGA CLIENT</a>
+                </div>
+            </div>
 
+        </div>
+    </div>
     <div class="container">
         <div class="row searchFilter card round3">
+
             <div class="col-sm-12 box-filter">
                 <form action="{{ route('customers.index') }}" method="get">
+
+                    <div>
+                        <h4>SELECTEAZA:</h4>
+                    </div>
 
                     <div class="input-group">
                         <div class="filter-item1 item-left">
@@ -51,48 +65,36 @@
                             </datalist>
 
                         </div>
+
                         <div class="filter-item1">
-                            <button id="searchBtn" type="submit" class="btn btn-secondary  btn-search"><span
-                                    class="glyphicon glyphicon-search">&nbsp;</span> <span
-                                    class="label-icon">Search</span>
+                            <button id="searchBtn" type="submit" class="btn btn-secondary  searchFliterButton"> OK
                             </button>
                         </div>
-                        <div class="item-left">
 
-{{--                            @include('customers.pdf')--}}
-{{--                            <div class="text-center pdf-btn">--}}
-{{--                                <button type="button" class="btn btn-info download-pdf">Download Pdf</button>--}}
-{{--                            </div>--}}
-
-                            @if($customers)
-                                <input type="submit" name="downloadPDF" value="PDF">
-                            @endif
-                        </div>
                     </div>
                 </form>
+
+                <div class="pdf-style">
+
+                    @if($customers)
+                        <input type="submit" name="downloadPDF" value="SALVEAZA ca .pdf">
+                    @endif
+                </div>
+
+
                 <form>
-                    <button type="submit"> Scoate filtrele</button>
-
+                    <div style="position:relative; top: auto; left: 10px">
+                        <button type="submit"> REVERT</button>
+                    </div>
                 </form>
-
             </div>
+
         </div>
     </div>
     <!--end filter-->
 
     <div>
-        <div class="row" style="float: right; padding-bottom: 30px;">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-right">
-                    <a class="btn btn-secondary" href="{{ route('customers.create') }}"> Creaza clinet</a>
-                </div>
-            </div>
-
-            {{--    print pdf --}}
-        </div>
-    </div>
-    <div>
-        <h3> {{$filter_title ?? 'Clienti'}}</h3>
+        <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
     </div>
 
     @if ($message = Session::get('success'))
