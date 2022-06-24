@@ -29,10 +29,6 @@
     transform: translate(0%, -50%);
 }
 
-/* Filter css*/
-.searchFilter {
-    margin-bottom: 20px;
-}
 
 
 /*search subcategory*/
@@ -182,4 +178,10 @@
     float: right;
 }
 
+/*PDF*/
+.pdf-style {
+    position: relative;
+    float: right;
+    bottom: -95px;
 
+}
