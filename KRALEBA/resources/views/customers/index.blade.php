@@ -72,15 +72,14 @@
                         </div>
 
                     </div>
+
+                    <div class="pdf-style">
+
+                        @if($customers)
+                            <button type="submit" name="downloadPDF" value="PDF">SALVEAZA ca .pdf</button>
+                        @endif
+                    </div>
                 </form>
-
-                <div class="pdf-style">
-
-                    @if($customers)
-                        <input type="submit" name="downloadPDF" value="SALVEAZA ca .pdf">
-                    @endif
-                </div>
-
 
                 <form>
                     <div style="position:relative; top: auto; left: 10px">
