@@ -66,10 +66,10 @@
 
                         </div>
 
-                        <div class="filter-item_OK">
-                            <button id="searchBtn" type="submit" class="btn btn-secondary  searchFliterButton"> OK</button>
-                        </div>
 
+                    </div>
+                    <div class="filter-item_OK">
+                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                     </div>
 
                     <div class="pdf-style">
