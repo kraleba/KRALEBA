@@ -66,9 +66,8 @@
 
                         </div>
 
-                        <div class="filter-item1">
-                            <button id="searchBtn" type="submit" class="btn btn-secondary  searchFliterButton"> OK
-                            </button>
+                        <div class="filter-item_OK">
+                            <button id="searchBtn" type="submit" class="btn btn-secondary  searchFliterButton"> OK</button>
                         </div>
 
                     </div>
@@ -82,7 +81,7 @@
                 </form>
 
                 <form>
-                    <div style="position:relative; top: auto; left: 10px">
+                    <div style="position:; top: auto; left: 10px">
                         <button type="submit"> REVERT</button>
                     </div>
                 </form>

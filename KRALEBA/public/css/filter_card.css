@@ -8,7 +8,7 @@
 .round3 {
     border-radius: 35px;
     padding: 20px;
-    height: 200px
+    height: 200px;
 }
 
 .box-filter {
@@ -30,11 +30,14 @@
 
 /*search button*/
 
-.searchFliterButton {
-    /*position: absolute;*/
-    top: -60px;
-    right: -330px;
-    /*left: 295px;*/
-    /*top: -55px;*/
+ .searchFliterButton {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}  
 
+.filter-item_OK {
+    position: fixed;
+    top: 160px;
+    right:110px;
 }
