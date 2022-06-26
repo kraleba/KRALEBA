@@ -7,7 +7,7 @@
                 <h2>Add New Product</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('customers.index') }}"> Back</a>
+                <a class="btn btn-primary" href="{{ route('customers.index') }}"> Renunta</a>
             </div>
         </div>
     </div>
@@ -88,15 +88,16 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Name:</strong>
-                        <input type="text" name="name" class="form-control" placeholder="Name">
+                  
+                        <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Name:</strong>
+                        <input type="text" name="name" class="form-control" placeholder="Name ">
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Cod:</strong>
-                        <input type="number" name="uniqueCode" class="form-control" placeholder="Cod">
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
+                        <input type="number" name="uniqueCode" class="form-control" placeholder="Cod ">
                     </div>
                 </div>
 
@@ -116,13 +117,13 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Oras :</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Oras :</strong>
                         <input type="text" name="city" class="form-control" placeholder="Oras">
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <strong>Tara:</strong>
+                    <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Tara:</strong>
                     <select name="country" id="department" class="form-control">
                         <option value=""> -- Selecteaza o tara --</option>
                         @php($i = 1)
