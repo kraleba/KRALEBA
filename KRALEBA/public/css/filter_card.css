@@ -37,7 +37,12 @@
 }
 
 .filter-item_OK {
-    position: relative;
-    float: right;
-    top: -80px;
+    position: fixed;
+    right: 140px;
+    top:  150px;
+}
+.revert-b {
+    position: absolute; 
+    top: 140px; 
+    left: 10px;
 }

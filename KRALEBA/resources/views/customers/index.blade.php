@@ -17,11 +17,13 @@
         <div class="row searchFilter card round3">
 
             <div class="col-sm-12 box-filter">
+                
                 <form action="{{ route('customers.index') }}" method="get">
 
                     <div>
                         <h4>SELECTEAZA:</h4>
                     </div>
+                    <br>
 
                     <div class="input-group">
                         <div class="filter-item1 item-left">
@@ -66,10 +68,10 @@
 
                         </div>
 
+                        <div class="filter-item_OK">
+                            <button id="searchBtn" type="submit" class="btn btn-secondary  searchFliterButton"> OK</button>
+                        </div>
 
-                    </div>
-                    <div class="filter-item_OK">
-                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                     </div>
 
                     <div class="pdf-style">
@@ -81,8 +83,8 @@
                 </form>
 
                 <form>
-                    <div style="position:; top: auto; left: 10px">
-                        <button type="submit"> REVERT</button>
+                    <div class="revert-b">
+                        <button type="submit">REVERT</button>
                     </div>
                 </form>
             </div>
