@@ -84,18 +84,27 @@ class CustomersController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->input('type') == 'Provider') {
+            $request->validate([
+                'name' => 'required',
+                'type' => 'required',
+                'uniqueCode' => 'required',
+                'country' => 'required',
+                'subcategory' => 'required'
+            ]);
+        } else {
+            $request->validate([
+                'name' => 'required',
+                'type' => 'required',
+                'uniqueCode' => 'required',
+                'country' => 'required',
+            ]);
+        }
 
-        $request->validate([
-            'name' => 'required',
-            'type' => 'required',
-            'uniqueCode' => 'required',
-            'country' => 'required',
-            'subcategory' => 'required'
-        ]);
         $helper = new CustomerHelper();
 
         $data = $request->input();
-        $data['subcategory_id'] = $helper->helper_add_subcategory($request->input('subcategory'));
+        $data['subcategory_id'] = $helper->helper_add_subcategory($request->input('category_id'), $request->input('subcategory'));
 
         unset($data['subcategory']);
 
@@ -127,14 +136,13 @@ class CustomersController extends Controller
 
         $helper = new CustomerHelper();
         $data['customers'] = $helper->helper_get_categories_to_customer($customer->attributesToArray());
-//        dump($data['customers']);
-//die();
+
         return view('customers.edit', $data);
     }
 
     public function update(Request $request, Customers $customer)
     {
-//dd($request->input());
+//        dd($request->input());
         $request->validate([
             'name' => 'required',
             'uniqueCode' => 'required',
@@ -144,7 +152,7 @@ class CustomersController extends Controller
         $data = $request->input();
         $helper = new CustomerHelper();
 
-        $data['subcategory_id'] = $helper->helper_add_subcategory($request->input('subcategory'));
+        $data['subcategory_id'] = $helper->helper_add_subcategory($request->input('category_id'), $request->input('subcategory'));
         unset($data['subcategory']);
 
         $customer->update($data);
