@@ -84,13 +84,13 @@ class CustomerHelper extends Controller
             $customer_type = 'Beneficiar';
         }
 
-        $title_text = "Ai aplicat filtrele: ";
+        $title_text = " ";
 
         if ($customer_type) {
-            $title_text .= ' tipul ' . $customer_type;
+            $title_text .= ' ' . $customer_type;
         }
         if ($category) {
-            $title_text .= ' categoria ' . $this->product->get_customer_category_by_id($category)->name;
+            $title_text .= ' / ' . $this->product->get_customer_category_by_id($category)->name;
         }
         if (!is_numeric($subcategory_id) && $subcategory_id) {
             $subcategory_id = $this->product->find_subcategory_by_label($subcategory_id)->subcategory_id;
@@ -98,7 +98,7 @@ class CustomerHelper extends Controller
 
 //
         if ($subcategory_id && is_numeric($subcategory_id)) {
-            $title_text .= ' sub-categoria ' . $this->product->get_customer_subcategory_by_id($subcategory_id)->name;
+            $title_text .= ' / ' . $this->product->get_customer_subcategory_by_id($subcategory_id)->name;
         }
 
         return $title_text;
@@ -112,7 +112,9 @@ class CustomerHelper extends Controller
         $subcategory = $data['subcategory'] ?? '';
 
         $subcategory = $this->product->find_subcategory_by_label($subcategory) ?? '';
+        
         $subcategory_id = $subcategory->subcategory_id ?? '';
+        // dump($subcategory_id);
 
         return array(
             'customers' => $this->customers->get_customers_after_filter($customer_type, $category, $subcategory_id),

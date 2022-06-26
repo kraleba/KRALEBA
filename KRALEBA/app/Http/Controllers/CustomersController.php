@@ -50,10 +50,12 @@ class CustomersController extends Controller
 
         if ($request->input('downloadPDF') == 'PDF') {
 
+
             $data['filter_title'] = $this->helper->helper_generate_title_after_filter(
                 $request->input('type'),
                 $request->input('category'),
-                $request->input('subcategory'));
+                $request->input('subcategory')
+            );
 
             $pdf = PDF::loadView('customers.pdf', $data);
             return $pdf->download('invoice.pdf');

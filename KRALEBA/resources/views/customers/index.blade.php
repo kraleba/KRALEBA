@@ -81,7 +81,7 @@
                         @endif
                     </div>
                 </form>
-
+                
                 <form>
                     <div class="revert-b">
                         <button type="submit">REVERT</button>
@@ -92,7 +92,7 @@
         </div>
     </div>
     <!--end filter-->
-
+    <br>
     <div>
         <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
     </div>
