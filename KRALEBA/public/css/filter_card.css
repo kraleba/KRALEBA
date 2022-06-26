@@ -11,10 +11,6 @@
     height: 200px;
 }
 
-.box-filter {
-    padding-top: 18px;
-}
-
 .item-left {
     padding-left: 10%;
 
@@ -45,6 +41,6 @@
 
 .revert-b {
     position: absolute;
-    top: 140px;
+    top: 130px;
     left: 10px;
 }

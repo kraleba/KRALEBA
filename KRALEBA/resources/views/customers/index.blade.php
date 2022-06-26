@@ -17,12 +17,12 @@
         <div class="row searchFilter card round3">
 
             <div class="col-sm-12 box-filter">
-
                 <form action="{{ route('customers.index') }}" method="get">
-
                     <div>
                         <h4>SELECTEAZA:</h4>
                     </div>
+
+
                     <br>
 
                     <div class="input-group">
