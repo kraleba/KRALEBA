@@ -2,11 +2,13 @@
 
 namespace App\Helpers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Customers;
 use App\Models\Products;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
-class CustomerHelper
+
+class CustomerHelper extends Controller
 {
     public $product;
     public $customers;
@@ -53,15 +55,17 @@ class CustomerHelper
         return $customer;
     }
 
-    public function helper_add_subcategory($data)
+    public function helper_add_subcategory($category_id, $subcategory)
     {
         $product = new Products();
-        $ifSubcategoryExist = (array)$product->find_subcategory_by_label($data);
+        $ifSubcategoryExist = (array)$product->find_subcategory_by_label($subcategory);
 
         if (!$ifSubcategoryExist) {
-            $product->set_customers_subcategory(array('name' => $data));
-            $subcategoryData = (array)$product->find_subcategory_by_label($data);
+            $product->set_customers_subcategory(array('name' => $subcategory, 'category_id' => $category_id));
+            $subcategoryData = (array)$product->find_subcategory_by_label($subcategory);
+
         } else {
+
             $subcategoryData = $ifSubcategoryExist;
         }
 
@@ -118,5 +122,13 @@ class CustomerHelper
             'subcategory' => $subcategory_id
         );
     }
+
+
+    public function show_subcategory_by_category_id(Request $request)
+    {
+        return $this->product->get_subcategory_by_category_id($request->input('category_id'));
+
+    }
+
 
 }
