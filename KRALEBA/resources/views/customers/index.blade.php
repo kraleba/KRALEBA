@@ -17,7 +17,7 @@
         <div class="row searchFilter card round3">
 
             <div class="col-sm-12 box-filter">
-                
+
                 <form action="{{ route('customers.index') }}" method="get">
 
                     <div>
@@ -68,10 +68,10 @@
 
                         </div>
 
-                        <div class="filter-item_OK">
-                            <button id="searchBtn" type="submit" class="btn btn-secondary  searchFliterButton"> OK</button>
-                        </div>
+                    </div>
 
+                    <div class="filter-item_OK">
+                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                     </div>
 
                     <div class="pdf-style">

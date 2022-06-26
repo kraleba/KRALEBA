@@ -12,7 +12,7 @@
 }
 
 .box-filter {
-    padding-top:18px;
+    padding-top: 18px;
 }
 
 .item-left {
@@ -30,19 +30,21 @@
 
 /*search button*/
 
- .searchFliterButton {
+.searchFliterButton {
     position: absolute;
     left: 0px;
     top: 0px;
 }
 
 .filter-item_OK {
-    position: fixed;
-    right: 140px;
-    top:  150px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display:inline-block;
 }
+
 .revert-b {
-    position: absolute; 
-    top: 140px; 
+    position: absolute;
+    top: 140px;
     left: 10px;
 }
