@@ -85,7 +85,7 @@ class CustomersController extends Controller
     }
 
     public function store(Request $request)
-    {   
+    {
         // dd($request->input());
         if ($request->input('type') == 'Provider') {
             $request->validate([
@@ -106,7 +106,7 @@ class CustomersController extends Controller
 
         $helper = new CustomerHelper();
         // dd($request->input());
-        $data = $request->input(); 
+        $data = $request->input();
 
         if($request->input('type') == 'Customer') {
 
@@ -187,6 +187,5 @@ class CustomersController extends Controller
         $products = new Products();
         $products->delete_subcategory_by($id);
     }
-
 
 }

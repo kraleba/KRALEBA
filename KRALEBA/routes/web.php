@@ -1,6 +1,7 @@
 <?php
 
 use App\Helpers\CustomerHelper;
+use App\Http\Controllers\BillsController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('admin/show_subcategory_by_category_id', [CustomerHelper::class, 'show_subcategory_by_category_id']);
 
-    Route::resource('companies', CompanyCRUDController::class);
+    Route::resource('bills', BillsController::class);
 
 });
 
