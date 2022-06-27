@@ -48,6 +48,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('admin/show_subcategory_by_category_id', [CustomerHelper::class, 'show_subcategory_by_category_id']);
 
+    Route::resource('companies', CompanyCRUDController::class);
 
 });
 
