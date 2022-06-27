@@ -85,7 +85,8 @@ class CustomersController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {   
+        // dd($request->input());
         if ($request->input('type') == 'Provider') {
             $request->validate([
                 'name' => 'required',
@@ -104,13 +105,17 @@ class CustomersController extends Controller
         }
 
         $helper = new CustomerHelper();
+        // dd($request->input());
+        $data = $request->input(); 
 
-        $data = $request->input();
+        if($request->input('type') == 'Customer') {
+
         $data['subcategory_id'] = $helper->helper_add_subcategory($request->input('category_id'), $request->input('subcategory'));
 
         unset($data['subcategory']);
 
         $request->input('subcategory');
+        }
 
         Customers::create($data);
 

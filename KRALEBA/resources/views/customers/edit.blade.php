@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Name:</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Name:</strong>
                         <input type="text" name="name" class="form-control" placeholder="Name"
                                value="{{$customers['name']}}">
                     </div>
@@ -106,7 +106,7 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Cod:</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
                         <input type="number" name="uniqueCode" class="form-control" placeholder="Cod"
                                value="{{$customers['uniqueCode']}}">
                     </div>
@@ -130,14 +130,14 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Oras :</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Oras :</strong>
                         <input type="text" name="city" class="form-control" placeholder="Oras"
                                value="{{$customers['city']}}">
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <strong>Tara:</strong>
+                    <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Tara:</strong>
                     <select name="country" id="department" class="form-control">
                         <option value="{{$customers['country']}}"> {{$countries[$customers['country']]}} </option>
                         @php($i = 1)
