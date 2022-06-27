@@ -37,15 +37,35 @@
             <label class="form-check-label" for="check2">Furnizor</label>
         </div>
 
-        <div class="col-xs-1 col-sm-12 col-md-5" id="categoryProduct" style="padding-left: 65px; display: none">
+        <div class="col-xs-1 col-sm-12 col-md-5  show-subcategory" id="categoryProduct" style="padding-left: 65px; display: none">
             <strong>Categorii:</strong>
-            <select name="category_id" id="department" class="form-control" onchange="showSubcategory(this)">
+            <select name="category_id" id="category_id" class="form-control" onchange="showSubcategory(this)">
                 <option value="0"> -- Selecteaza o categorie --</option>
                 @foreach ($furnace_categories as $furnace_category)
 
                     <option value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
                 @endforeach
             </select>
+        </div>
+
+
+        <div class="col-xs-1 col-sm-12 col-md-6 dropdown"
+             style="padding-left: 130px; display: none"
+             id="subcategoryProduct"
+        >
+            <strong id="subcategory"></strong>
+
+            <div class="searchable">
+                <input type="text"
+                       autoComplete='none'
+                       name="subcategory"
+                       class="show-subcategory"
+                       placeholder="search countries"
+                       onkeyup="filterFunction(this,event)">
+                <ul id="ddlNationality">
+
+                </ul>
+            </div>
         </div>
 
 
@@ -88,7 +108,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                  
+
                         <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Name:</strong>
                         <input type="text" name="name" class="form-control" placeholder="Name ">
                     </div>
