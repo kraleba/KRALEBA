@@ -34,6 +34,11 @@ class Products extends Model
 
     }
 
+    public function get_subcategory_by_category_id($category_id)
+    {
+        return DB::table('customer_subcategory')->where('category_id', $category_id)->get();
+    }
+
     public function get_subcategory_for_customer_category()
     {
         return DB::table('customer_subcategory')->get();

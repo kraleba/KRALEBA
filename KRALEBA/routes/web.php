@@ -1,7 +1,7 @@
 <?php
 
+use App\Helpers\CustomerHelper;
 use App\Http\Controllers\CustomersController;
-use App\Http\Controllers\CustomersSubcategoryController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +45,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/customers/{id}/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/customers/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/downloadPDF', [CustomersController::class, 'downloadPDF']);
+
+    Route::get('admin/show_subcategory_by_category_id', [CustomerHelper::class, 'show_subcategory_by_category_id']);
+
 
 });
 
