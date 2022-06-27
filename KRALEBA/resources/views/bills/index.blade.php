@@ -15,7 +15,7 @@
                     <h2>Laravel 9 CRUD Example Tutorial</h2>
                 </div>
                 <div class="pull-right mb-2">
-                    <a class="btn btn-success" href="{{ route('companies.create') }}"> Create Company</a>
+                    <a class="btn btn-success" href="{{ route('bills.create') }}"> Create Company</a>
                 </div>
             </div>
         </div>
@@ -32,15 +32,15 @@
                 <th>Company Address</th>
                 <th width="280px">Action</th>
             </tr>
-            @foreach ($companies as $company)
+            @foreach ($bills as $bill)
             <tr>
-                <td>{{ $company->id }}</td>
-                <td>{{ $company->name }}</td>
-                <td>{{ $company->email }}</td>
-                <td>{{ $company->address }}</td>
+                <td>{{ $bill->id }}</td>
+                <td>{{ $bill->name }}</td>
+                <td>{{ $bill->email }}</td>
+                <td>{{ $bill->address }}</td>
                 <td>
-                    <form action="{{ route('companies.destroy',$company->id) }}" method="Post">
-                        <a class="btn btn-primary" href="{{ route('companies.edit',$company->id) }}">Edit</a>
+                    <form action="{{ route('bills.destroy',$bill->id) }}" method="Post">
+                        <a class="btn btn-primary" href="{{ route('bills.edit',$bill->id) }}">Edit</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -49,7 +49,7 @@
             </tr>
             @endforeach
         </table>
-        {!! $companies->links() !!}
+        {!! $bills->links() !!}
 </body>
 
 </html>

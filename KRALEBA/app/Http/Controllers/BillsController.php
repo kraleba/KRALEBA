@@ -14,8 +14,8 @@ class BillsController extends Controller
      */
     public function index()
     {
-        $data['companies'] = Bills::orderBy('id', 'desc')->paginate(5);
-        return view('companies.index', $data);
+        $data['bills'] = Bills::orderBy('id', 'desc')->paginate(5);
+        return view('bills.index', $data);
     }
 
     /**
@@ -25,7 +25,7 @@ class BillsController extends Controller
      */
     public function create()
     {
-        return view('companies.create');
+        return view('bills.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class BillsController extends Controller
         $bills->email = $request->email;
         $bills->address = $request->address;
         $bills->save();
-        return redirect()->route('companies.index')
+        return redirect()->route('bills.index')
             ->with('success', 'Bills has been created successfully.');
     }
 
@@ -58,7 +58,7 @@ class BillsController extends Controller
      */
     public function show(Bills $bills)
     {
-        return view('companies.show', compact('bills'));
+        return view('bills.show', compact('bills'));
     }
 
     /**
@@ -69,7 +69,7 @@ class BillsController extends Controller
      */
     public function edit(Bills $bills)
     {
-        return view('companies.edit', compact('bills'));
+        return view('bills.edit', compact('bills'));
     }
 
     /**
@@ -91,7 +91,7 @@ class BillsController extends Controller
         $bills->email = $request->email;
         $bills->address = $request->address;
         $bills->save();
-        return redirect()->route('companies.index')
+        return redirect()->route('bills.index')
             ->with('success', 'Bills Has Been updated successfully');
     }
 
@@ -104,7 +104,7 @@ class BillsController extends Controller
     public function destroy(Bills $bills)
     {
         $bills->delete();
-        return redirect()->route('companies.index')
+        return redirect()->route('bills.index')
             ->with('success', 'Bills has been deleted successfully');
     }
 }
