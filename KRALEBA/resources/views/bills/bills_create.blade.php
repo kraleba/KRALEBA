@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left mb-2">
-                    <h2>Adauga Factura</h2>
+                    <h3>Adauga Factura</h3>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-primary" href="{{ route('bills.index') }}"> Back</a>
@@ -113,11 +113,14 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <select name=" type" class="form-select" aria-label="Default select example">
-                        <option selected>Tipul</option>
-                        <option value="1">Proforma</option>
-                        <option value="2">Definitiva</option>
-                    </select>
+                    <div class="form-group">
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Tipul:</strong>
+                        <select name="type" class="form-select" aria-label="Default select example">
+                            <br>
+                            <option value="1">Proforma</option>
+                            <option value="2">Definitiva</option>
+                        </select>
+                    </div>
                 </div>
                 <br>
                 <br>

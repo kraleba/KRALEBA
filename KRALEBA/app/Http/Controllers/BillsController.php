@@ -77,7 +77,8 @@ class BillsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Bills $bill)
-    {
+    {   
+        // dd($bill->attributesToArray());
         return view('bills.bills_edit', compact('bill'));
     }
 
