@@ -15,7 +15,7 @@ class BillsController extends Controller
     public function index()
     {
         $data['bills'] = Bills::orderBy('id', 'desc')->paginate(5);
-        return view('bills.index', $data);
+        return view('bills.bills_index', $data);
     }
 
     /**
@@ -25,7 +25,7 @@ class BillsController extends Controller
      */
     public function create()
     {
-        return view('bills.create');
+        return view('bills.bills_create');
     }
 
     /**
@@ -36,16 +36,25 @@ class BillsController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->input());
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'address' => 'required'
+            'custumer_id' => 'required',
+            'bill_date' => 'required',
+            'bill_number' => 'required',
+            'currency' => 'required',
+            'exchange' => 'required',
+            'TVA' => 'required',
+            'item' => 'required',
+            'type' => 'required',
+            // 'category_id' => 'required',
+            // 'specify_id' => 'required',
         ]);
-        $bills = new Bills;
-        $bills->name = $request->name;
-        $bills->email = $request->email;
-        $bills->address = $request->address;
-        $bills->save();
+        // $bills = new Bills;
+        Bills::create($request->input());
+        // $bills->name = $request->name;
+        // $bills->email = $request->email;
+        // $bills->address = $request->address;
+        // $bills->save();
         return redirect()->route('bills.index')
             ->with('success', 'Bills has been created successfully.');
     }
@@ -58,7 +67,7 @@ class BillsController extends Controller
      */
     public function show(Bills $bills)
     {
-        return view('bills.show', compact('bills'));
+        // return view('bills.show', compact('bills'));
     }
 
     /**
@@ -67,9 +76,9 @@ class BillsController extends Controller
      * @param \App\Bills $bills
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bills $bills)
+    public function edit(Bills $bill)
     {
-        return view('bills.edit', compact('bills'));
+        return view('bills.bills_edit', compact('bill'));
     }
 
     /**

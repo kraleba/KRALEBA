@@ -8,6 +8,17 @@
 </head>
 
 <body>
+
+@if ($errors->any())
+
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+
+    @endif
+
     <div class="container mt-2">
         <div class="row">
             <div class="col-lg-12 margin-tb">
@@ -30,7 +41,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
-                        <input type="text" name="name" class="form-control" placeholder="Client Name">
+                        <input type="text" name="custumer_id" class="form-control" placeholder="Client Name">
                         @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -39,8 +50,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                        <input type="number" name="Cod" class="form-control" placeholder="Cod">
-                        @error('email')
+                        <input type="number" name="unique_code" class="form-control" placeholder="Cod">
+                        @error('Cod')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -48,8 +59,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Data Facturarii:</strong>
-                        <input type="text" name="data facturarii" class="form-control" placeholder="Data Facturarii">
-                        @error('address')
+                        <input type="text" name="bill_date" class="form-control" placeholder="Data Facturarii">
+                        @error('data facturarii')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -57,8 +68,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Numar:</strong>
-                        <input type="number" name="number" class="form-control" placeholder="Numar">
-                        @error('address')
+                        <input type="number" name="bill_number" class="form-control" placeholder="Numar">
+                        @error('number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -66,7 +77,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
-                        <select class="form-select" aria-label="Default select example">
+                        <select name="currency" class="form-select" aria-label="Default select example">
                             <option selected>Selecteaza Moneda</option>
                             <option value="1">Lei</option>
                             <option value="2">Euro</option>
@@ -77,8 +88,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Curs Valutar:</strong>
-                        <input type="number" name="curs valutar" class="form-control" placeholder="Curs Valutar">
-                        @error('address')
+                        <input type="number" name="exchange" class="form-control" placeholder="Curs Valutar">
+                        @error('number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -86,8 +97,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>TVA:</strong>
-                        <input type="text" name="tva" class="form-control" placeholder="TVA">
-                        @error('address')
+                        <input type="text" name="TVA" class="form-control" placeholder="TVA">
+                        @error('tva')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
@@ -95,14 +106,14 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
-                        <input type="number" name="articole" class="form-control" placeholder="#Articole">
-                        @error('address')
+                        <input  type="number" name="item" class="form-control" placeholder="#Articole">
+                        @error('articole')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <select class="form-select" aria-label="Default select example">
+                    <select name=" type" class="form-select" aria-label="Default select example">
                         <option selected>Tipul</option>
                         <option value="1">Proforma</option>
                         <option value="2">Definitiva</option>
