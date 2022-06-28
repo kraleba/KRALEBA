@@ -51,25 +51,26 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ url('admin/customers') }}">
                 {{ config('app.name', '') }}
             </a>
 
-            <div class="nav ">
-                <div class="nav-item">
-                    <a class="nav-link disabled" href="#">Active</a>
+            @auth
+                <div class="navbar-nav ">
+                    <div class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/customers') }}">Clienti</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/billsx') }}">Facturi</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link " href="{{ url('admin/customers') }}">Link</a>
+                    </div>
+                    <div class="nav-item">
+                        <a class="nav-link" href="#">Disabled</a>
+                    </div>
                 </div>
-                <div class="nav-item">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </div>
-                <div class="nav-item">
-                    <a class="nav-link disabled" href="#">Link</a>
-                </div>
-                <div class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </div>
-            </div>
-
+            @endauth
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -99,6 +100,7 @@
                             </li>
                         @endif
                     @else
+
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -108,7 +110,7 @@
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                   document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
@@ -126,9 +128,6 @@
     <main class="py-4 container">
         @yield('content')
     </main>
-
-
-
 
 </div>
 </body>
