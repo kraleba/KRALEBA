@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h3>Edit Bill</h3>
+                    <h3>Edit</h3>
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-primary" href="{{ route('bills.index') }}" enctype="multipart/form-data">Renunta</a>

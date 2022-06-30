@@ -26,7 +26,7 @@
                     <h3>Adauga Factura</h3>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('bills.index') }}"> Back</a>
+                    <a class="btn btn-primary" href="{{ route('bills.index') }}"> Inapoi</a>
                 </div>
             </div>
         </div>
@@ -56,15 +56,30 @@
                         @enderror
                     </div>
                 </div>
+                
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Data Facturarii:</strong>
-                        <input type="text" name="bill_date" class="form-control" placeholder="Data Facturarii">
                         @error('data facturarii')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+                    <strong>Start Date</strong>
+                    <input id="startdate">
+                    <strong>End Date </strong>
+                    <input id="enddate">
+                    <script>
+                        $(document).ready(function(){
+                        $("#startdate").datepicker();
+                        $("#enddate").datepicker();
+                        });
+                        </script>
                 </div>
+
+                <br>
+                <br>
+
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Numar:</strong>

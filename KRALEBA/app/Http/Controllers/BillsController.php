@@ -1,16 +1,35 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Models\Bills;
 use Illuminate\Http\Request;
+use App\Models\Customers;
+use App\Models\Products;
+use App\Helpers\CustomerHelper;
+
 
 class BillsController extends Controller
 {
+    public Products $product;
+    public Customers $customers;
+    public CustomerHelper $helper;
+
+    public function __construct()
+    {
+        $this->product = new Products();
+        $this->customers = new Customers();
+        $this->helper = new CustomerHelper();
+    }
 
     public function index()
-    {
+    {   
+        $data['furnace_categories'] = $this->product->get_furnace_categories();
+
         $data['bills'] = Bills::orderBy('id', 'desc')->paginate(5);
+        $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
+
         return view('bills.bills_index', $data);
     }
 
