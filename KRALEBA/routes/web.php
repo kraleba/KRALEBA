@@ -41,15 +41,18 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
+    //customers
     Route::resource('admin/customers', CustomersController::class);
-
     Route::get('admin/customers/{id}/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/customers/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/downloadPDF', [CustomersController::class, 'downloadPDF']);
-
     Route::get('admin/show_subcategory_by_category_id', [CustomerHelper::class, 'show_subcategory_by_category_id']);
+    Route::get('admin/customers/{id}/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 
+
+    //bils
     Route::resource('admin/bills', BillsController::class);
+
 
 });
 
