@@ -14,7 +14,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/admin/customer.js') }}" defer></script>
-   
+
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -63,7 +63,7 @@
                         <a class="nav-link" href="{{ url('admin/customers') }}">Clienti</a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/billsx') }}">Facturi</a>
+                        <a class="nav-link" href="{{ url('admin/bills') }}">Facturi</a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link " href="{{ url('admin/customers') }}">Link</a>
