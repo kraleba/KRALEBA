@@ -64,11 +64,13 @@
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+                    <div class="form-row">
                     <strong>Start Date</strong>
-                    <input id="startdate">
+                    <input id="startdate" class="form-control col-md-2" >
                     <strong>End Date </strong>
-                    <input id="enddate">
+                    <input id="enddate" class="form-control col-md-2">
+                    </div>
+
                     <script>
                         $(document).ready(function(){
                         $("#startdate").datepicker();

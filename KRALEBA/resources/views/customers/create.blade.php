@@ -109,7 +109,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Tara:</strong>
                     <select name="country" id="department" class="form-control">
-                        <option value=""> -- Selecteaza o tara --</option>
+                        <option value=""> -- Selecteaza o Tara --</option>
                         @php($i = 1)
                         @foreach ($countries as $country)
                             <option value="{{$i}}">{{ $country }}</option>
@@ -177,14 +177,14 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>e-mail:</strong>
-                        <input type="text" name="email" class="form-control" placeholder="e-mail">
+                        <strong>E-mail:</strong>
+                        <input type="text" name="email" class="form-control" placeholder="E-mail">
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>www:</strong>
+                        <strong>WWW:</strong>
                         <input type="text" name="www" class="form-control" placeholder="www">
                     </div>
                 </div>

@@ -82,16 +82,9 @@
                         </div>
                     </div>
 
-                    <div class="filter-item_OK">
+                    <div class="filter-item_OK col-3">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                     </div>
-
-                    {{-- <div class="pdf-style">
-
-                        @if($customers)
-                            <button type="submit" name="downloadPDF" value="PDF">SALVEAZA ca .pdf</button>
-                        @endif
-                    </div> --}}
                 </form>
                 
 
@@ -147,17 +140,10 @@
 
                         </div>
                     </div>
-{{-- 
+
                     <div class="filter-item_OK">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
-                    </div> --}}
-
-                    {{-- <div class="pdf-style">
-
-                        @if($customers)
-                            <button type="submit" name="downloadPDF" value="PDF">SALVEAZA ca .pdf</button>
-                        @endif
-                    </div> --}}
+                    </div>
                 </form>
 
 
@@ -213,9 +199,9 @@
                         </div>
                     </div>
 
-                    {{-- <div class="filter-item_OK">
+                    <div class="filter-item_OK">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
-                    </div> --}}
+                    </div>
 
                     {{-- <div class="pdf-style">
 
