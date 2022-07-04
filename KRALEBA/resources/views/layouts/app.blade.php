@@ -45,6 +45,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/customers.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bills.css') }}" rel="stylesheet">
     {{--  style filter card  --}}
     <link href="{{ asset('css/filter_card.css') }}" rel="stylesheet">
 

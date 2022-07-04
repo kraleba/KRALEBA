@@ -29,7 +29,7 @@
         <div class="container">
         <div class="row searchFilter card round3">
 
-            <div class="col-sm-12 box-filter">
+            <div class="col-sm-12 box-filter-b">
                 <form action="{{ route('bills.index') }}" method="get">
                     <div>
                         <h4>SELECTEAZA:</h4>
@@ -82,69 +82,11 @@
                         </div>
                     </div>
 
-                    <div class="filter-item_OK col-3">
+                    {{-- <div class="filter-item_OK col-3">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
-                    </div>
+                    </div> --}}
                 </form>
                 
-
-
-                <form action="{{ route('bills.index') }}" method="get">
-                    <div>
-                        <h4>SELECTEAZA:</h4>
-                    </div>
-
-
-                    <br>
-
-                    <div class="input-group">
-                        <div class="filter-item1 item-left">
-                            <select name="type" id="department" class="form-control rounded-pill filter-control">
-                                <option
-                                    value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
-                                <option value="Customer"> Beneficiar</option>
-                                <option value="Provider">Furnizor</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-item1">
-                            <select name="category" id="department" class="form-control filter-control  rounded-pill">
-
-                                <option
-                                    value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
-
-                                @foreach ($furnace_categories as $furnace_category)
-
-                                    <option
-                                        value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
-
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="filter-item1">
-                            <input type='text'
-                                   name="subcategory"
-                                   list="browsers"
-                                   placeholder="Selecteaza o subcategorie"
-                                   class="form-control filter-control rounded-pill"
-                                   value="{{$filtering_criteria['subcategory'] ?? ''}}"
-                            >
-
-                            <datalist id="browsers" class="dropdown">
-
-                                @foreach ($subcategories as $subcategory)
-                                    <option>{{ $subcategory->name }}</option>
-                                @endforeach
-                            </datalist>
-
-                        </div>
-                    </div>
-
-                    <div class="filter-item_OK">
-                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
-                    </div>
-                </form>
 
 
                 <form action="{{ route('bills.index') }}" method="get">
@@ -211,10 +153,69 @@
                     </div> --}}
                 </form>
 
+
+                <form action="{{ route('bills.index') }}" method="get">
+                    <div>
+                        <h4>SELECTEAZA:</h4>
+                    </div>
+
+
+                    <br>
+
+                    <div class="input-group">
+                        <div class="filter-item1 item-left">
+                            <select name="type" id="department" class="form-control rounded-pill filter-control">
+                                <option
+                                    value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
+                                <option value="Customer"> Beneficiar</option>
+                                <option value="Provider">Furnizor</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-item1">
+                            <select name="category" id="department" class="form-control filter-control  rounded-pill">
+
+                                <option
+                                    value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
+
+                                @foreach ($furnace_categories as $furnace_category)
+
+                                    <option
+                                        value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
+
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="filter-item1">
+                            <input type='text'
+                                   name="subcategory"
+                                   list="browsers"
+                                   placeholder="Selecteaza o subcategorie"
+                                   class="form-control filter-control rounded-pill"
+                                   value="{{$filtering_criteria['subcategory'] ?? ''}}"
+                            >
+
+                            <datalist id="browsers" class="dropdown">
+
+                                @foreach ($subcategories as $subcategory)
+                                    <option>{{ $subcategory->name }}</option>
+                                @endforeach
+                            </datalist>
+
+                        </div>
+                    </div>
+
+                    {{-- <div class="filter-item_OK">
+                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
+                    </div> --}}
+
+                </form>
+
                 
             </div>
             <form>
-                <div class="revert-b">
+                <div class="revert-bills">
                     <button type="submit">REVERT</button>
                 </div>
             </form>

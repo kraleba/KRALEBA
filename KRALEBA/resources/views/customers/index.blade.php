@@ -13,10 +13,10 @@
 
         </div>
     </div>
-    <div class="container">
+    <div class="container ">
         <div class="row searchFilter card round3">
 
-            <div class="col-sm-12 box-filter">
+            <div class="col-lg-12 box-filter">
                 <form action="{{ route('customers.index') }}" method="get">
                     <div>
                         <h4>SELECTEAZA:</h4>
@@ -70,7 +70,7 @@
 
                     </div>
 
-                    <div class="filter-item_OK">
+                    <div class="filter-item_OK col-3">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                     </div>
 

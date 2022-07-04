@@ -1,0 +1,10 @@
+.revert-bills {
+    position: absolute;
+    top: 355px;
+    left: 10px;
+}
+.box-filter-b {
+    border-radius: 35px;
+    padding: 20px;
+    height: 400px;
+}

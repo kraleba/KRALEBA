@@ -5,10 +5,10 @@
     margin-bottom: 60px;
 }
 
-.round3 {
+.box-filter {
     border-radius: 35px;
     padding: 20px;
-    height: 400px;
+    height: 200px;
 }
 
 .item-left {
@@ -41,7 +41,7 @@
 
 .revert-b {
     position: absolute;
-    top: 350px;
+    top: 158px;
     left: 10px;
 }
 
