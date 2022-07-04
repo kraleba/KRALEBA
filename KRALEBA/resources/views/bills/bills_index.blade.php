@@ -27,7 +27,7 @@
         
 
         <div class="container">
-        <div class="row searchFilter card round3">
+        <div class="row searchFilter card round3b">
 
             <div class="col-sm-12 box-filter-b">
                 <form action="{{ route('bills.index') }}" method="get">

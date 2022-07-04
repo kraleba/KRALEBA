@@ -70,7 +70,7 @@
 
                     </div>
 
-                    <div class="filter-item_OK col-3">
+                    <div class="filter-item_OK ">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                     </div>
 
