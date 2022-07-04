@@ -65,10 +65,10 @@
                         @enderror
                     </div>
                     <div class="form-row">
-                    <strong>Start Date</strong>
-                    <input id="startdate" class="form-control col-md-2" >
-                    <strong>End Date </strong>
-                    <input id="enddate" class="form-control col-md-2">
+                        <strong>Start Date</strong>
+                        <input id="startdate" class="form-control col-md-2" >
+                        <strong>End Date </strong>
+                        <input id="enddate" class="form-control col-md-2">
                     </div>
 
                     <script>
@@ -76,7 +76,7 @@
                         $("#startdate").datepicker();
                         $("#enddate").datepicker();
                         });
-                        </script>
+                    </script>
                 </div>
 
                 <br>
