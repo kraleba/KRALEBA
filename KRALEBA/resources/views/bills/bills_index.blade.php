@@ -218,7 +218,7 @@
             </div>
             <form>
                 <div class="revert-bills">
-                    <button type="submit">REVERT</button>
+                    <button type="submit" class="btn btn-secondary">REVERT</button>
                 </div>
             </form>
         </div>
@@ -235,62 +235,64 @@
             <p>{{ $message }}</p>
         </div>
          @endif
-        <div>
-            <ul class="list-body">
+        <div >
+            <ul class="list-body"  >
                 @if($bills)
 
                     @foreach ($bills as $bills)
+                        
+                        <div class="list-group-item rounded-pill" style=" border-radius: 0; height: 80px; ">
+                            <div class="align-b">    
+                                <div>
+                                {{ $bills->custumer_id }} </b>
+                                    @if($bills->custumer_id)
+                                        /
+                                    @endif
+                                    {{ $bills->custumer_id }}
 
-                        <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
-                            <div>
-                                <!-- <b>{{ $bills->custumer_id }} </b> / -->
-                                @if($bills->custumer_id)
-                                    /
-                                @endif
-                                {{ $bills->custumer_id }}
+                                    @if($bills->uniqueCode)
+                                        /
+                                    @endif
+                                    {{ $bills->uniqueCode }}
+                                    <!-- {{ $bills->uniqueCode }} -->
 
-                                @if($bills->uniqueCode)
-                                    /
-                                @endif
-                                {{ $bills->uniqueCode }}
-                                <!-- {{ $bills->uniqueCode }} -->
+                                    @if($bills->bill_date)
+                                        /
+                                    @endif
+                                    {{ $bills->bill_date }}
 
-                                @if($bills->bill_date)
-                                    /
-                                @endif
-                                {{ $bills->bill_date }}
+                                    @if($bills->bill_number)
+                                        /
+                                    @endif
+                                    {{ $bills->bill_number }}
 
-                                @if($bills->bill_number)
-                                    /
-                                @endif
-                                {{ $bills->bill_number }}
+                                    @if($bills->type)
+                                        /
+                                    @endif
+                                    {{ $bills->type }}
+                                </div>
+                                <div >
+                                    @if($bills->currency)
+                                        /
+                                    @endif
+                                    {{ $bills->currency }}
 
-                                @if($bills->type)
-                                    /
-                                @endif
-                                {{ $bills->type }}
-                            </div>
-                            <div>
-                                @if($bills->currency)
-                                    /
-                                @endif
-                                {{ $bills->currency }}
+                                    @if($bills->exchange)
+                                        /
+                                    @endif
+                                    {{ $bills->exchange }}
 
-                                @if($bills->exchange)
-                                    /
-                                @endif
-                                {{ $bills->exchange }}
+                                    @if($bills->TVA)
+                                        /
+                                    @endif
+                                    {{ $bills->TVA }}
 
-                                @if($bills->TVA)
-                                    /
-                                @endif
-                                {{ $bills->TVA }}
+                                    @if($bills->item)
+                                        /
+                                    @endif
+                                    {{ $bills->item }}
 
-                                @if($bills->item)
-                                    /
-                                @endif
-                                {{ $bills->item }}
-
+                                </div>
                             </div>
 
                             <div class="dropdown option-button">

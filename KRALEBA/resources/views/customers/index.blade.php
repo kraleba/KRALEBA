@@ -77,14 +77,14 @@
                     <div class="pdf-style">
 
                         @if($customers)
-                            <button type="submit" name="downloadPDF" value="PDF">SALVEAZA ca .pdf</button>
+                            <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf</button>
                         @endif
                     </div>
                 </form>
                 
                 <form>
                     <div class="revert-b">
-                        <button type="submit">REVERT</button>
+                        <button type="submit" class="btn btn-secondary">REVERT</button>
                     </div>
                 </form>
             </div>
@@ -109,7 +109,8 @@
                 @foreach ($customers as $customer)
 
                     <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
-                        <div>
+                        
+                        <div class="align">
                             <b>{{ $customer->name }} </b> /
 
                             {{ $customer->uniqueCode }}
@@ -134,7 +135,7 @@
                             @endif
                             {{ $customer->country }}
                         </div>
-                        <div>
+                        <div class="align">
 
                             {{ $customer->cif }}
 
@@ -160,7 +161,7 @@
 
                         </div>
 
-                        <div>
+                        <div class="align">
                             {{$customer->contact}}
 
                             @if($customer->phone)

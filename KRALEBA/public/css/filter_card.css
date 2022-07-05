@@ -8,7 +8,7 @@
 .round3 {
     border-radius: 35px;
     padding: 20px;
-    height: 230px;
+    height: 220px;
 }
 .box-filter {
     border-radius: 35px;
@@ -46,7 +46,10 @@
 
 .revert-b {
     position: absolute;
-    top: 158px;
+    top: 150px;
     left: 10px;
+}
+.align {
+    padding-left: 20px;
 }
 
