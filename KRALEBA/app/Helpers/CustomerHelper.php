@@ -46,30 +46,34 @@ class CustomerHelper extends Controller
 //for edit when is a single customer
     public function helper_get_categories_to_customer($customer)
     {
-        $category = (array)$this->product->get_customer_category_by_id($customer['category_id']);
-        $customer['category_id'] = $category;
-
-        $subcategory = (array)$this->product->get_customer_subcategory_by_id($customer['subcategory_id']);
-        $customer['subcategory_id'] = $subcategory;
-
-        return $customer;
+//        $category = (array)$this->product->get_customer_category_by_id($customer['category_id']);
+//        $customer['category_id'] = $category;
+//
+//        $subcategory = (array)$this->product->get_customer_subcategory_by_id($customer['subcategory_id']);
+//        $customer['subcategory_id'] = $subcategory;
+//
+//        return $customer;
     }
 
-    public function helper_add_subcategory($category_id, $subcategory)
+    public function helper_add_subcategory(Request $request)
     {
-        $product = new Products();
-        $ifSubcategoryExist = (array)$product->find_subcategory_by_label($subcategory);
+        if (!is_numeric($request->input('category_id'))) {
+            return false;
+        }
+            $category_id = $request->input('category_id');
+            $subcategory = $request->input('subcategory_label');
+
+        $ifSubcategoryExist = (array)$this->product->find_subcategory_by_label($subcategory);
 
         if (!$ifSubcategoryExist) {
-            $product->set_customers_subcategory(array('name' => $subcategory, 'category_id' => $category_id));
-            $subcategoryData = (array)$product->find_subcategory_by_label($subcategory);
+            $this->product->set_customers_subcategory(array('name' => $subcategory, 'category_id' => $category_id));
+            $subcategory = (array)$this->product->find_subcategory_by_label($subcategory);
 
         } else {
-
-            $subcategoryData = $ifSubcategoryExist;
+            return false;
         }
 
-        return $subcategoryData['subcategory_id'];
+        return $subcategory;
 
     }
 
@@ -95,7 +99,6 @@ class CustomerHelper extends Controller
         if (!is_numeric($subcategory_id) && $subcategory_id) {
             $subcategory_id = $this->product->find_subcategory_by_label($subcategory_id)->subcategory_id;
         }
-
 //
         if ($subcategory_id && is_numeric($subcategory_id)) {
             $title_text .= ' / ' . $this->product->get_customer_subcategory_by_id($subcategory_id)->name;
@@ -112,7 +115,7 @@ class CustomerHelper extends Controller
         $subcategory = $data['subcategory'] ?? '';
 
         $subcategory = $this->product->find_subcategory_by_label($subcategory) ?? '';
-        
+
         $subcategory_id = $subcategory->subcategory_id ?? '';
         // dump($subcategory_id);
 

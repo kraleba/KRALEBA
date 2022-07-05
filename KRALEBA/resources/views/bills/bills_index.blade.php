@@ -24,7 +24,7 @@
             <p>{{ $message }}</p>
         </div>
         @endif
-        
+
 
         <div class="container">
         <div class="row searchFilter card round3b">
@@ -86,7 +86,7 @@
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                     </div> --}}
                 </form>
-                
+
 
 
                 <form action="{{ route('bills.index') }}" method="get">
@@ -105,7 +105,7 @@
                                     <input  id="startdate" class="form-control filter-control  rounded-pill" placeholder="--Start Date--">
                                 {{-- </option> --}}
                                 </div>
-            
+
                                 <script>
                                     $(document).ready(function(){
                                     $("#startdate").datepicker();
@@ -119,10 +119,10 @@
                                 <div class="form-row">
                                     {{-- <strong>End Date </strong> --}}
                                     <br>
-                                    
-                                    <input id="enddate" class="form-control filter-control  rounded-pill" placeholder="--End Date--"> 
+
+                                    <input id="enddate" class="form-control filter-control  rounded-pill" placeholder="--End Date--">
                                 </div>
-            
+
                                 <script>
                                     $(document).ready(function(){
                                     $("#enddate").datepicker();
@@ -208,13 +208,13 @@
                         </div>
                     </div>
 
-                    <div class="filter-item_OK">
-                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
-                    </div>
+{{--                    <div class="filter-item_OK">--}}
+{{--                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>--}}
+{{--                    </div>--}}
 
-                </form>  --}}
+                </form>
 
-                
+
             </div>
             <form>
                 <div class="revert-bills">
@@ -222,7 +222,7 @@
                 </div>
             </form>
         </div>
-        
+
     </div>
 
 
@@ -240,9 +240,9 @@
                 @if($bills)
 
                     @foreach ($bills as $bills)
-                        
+
                         <div class="list-group-item rounded-pill" style=" border-radius: 0; height: 80px; ">
-                            <div class="align-b">    
+                            <div class="align-b">
                                 <div>
                                 {{ $bills->custumer_id }} </b>
                                     @if($bills->custumer_id)
@@ -319,7 +319,7 @@
                         <br>
                     @endforeach
             </ul>
-        </div>    
+        </div>
     </div>
 
     @else

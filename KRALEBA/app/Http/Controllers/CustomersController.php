@@ -104,18 +104,14 @@ class CustomersController extends Controller
             ]);
         }
 
-        $helper = new CustomerHelper();
-        // dd($request->input());
         $data = $request->input();
+        $customer = Customers::create($data);
 
-        if ($request->input('type') == 'Customer') {
-
-            $data['subcategory_id'] = $helper->helper_add_subcategory($request->input('category_id'), $request->input('subcategory'));
-            unset($data['subcategory']);
-            $request->input('subcategory');
+        if ($request->input('type') == 'provider') {
+            $categories_id = $request->input('categories_id');
+            $subcategories_id = $request->input('subcategories_id');
+            $this->product->set_customer_categories_and_subcategories($customer->id, $categories_id, $subcategories_id);
         }
-
-        Customers::create($data);
 
         return redirect()->route('customers.index')
             ->with('success', 'customer created successfully.');
@@ -139,15 +135,16 @@ class CustomersController extends Controller
         $data['furnace_categories'] = $product->get_furnace_categories();
         $data['subcategories'] = $product->get_subcategory_for_customer_category();
 
-        $helper = new CustomerHelper();
-        $data['customers'] = $helper->helper_get_categories_to_customer($customer->attributesToArray());
+//        $helper = new CustomerHelper();
+//        $data['customers'] = $helper->helper_get_categories_to_customer($customer->attributesToArray());
+        $data['customers'] = $this->customers->get_customer_and_categoryes_by_id($customer->attributesToArray()['id']);
+//
 
         return view('customers.edit', $data);
     }
 
     public function update(Request $request, Customers $customer)
     {
-//        dd($request->input());
         $request->validate([
             'name' => 'required',
             'uniqueCode' => 'required',
@@ -155,12 +152,19 @@ class CustomersController extends Controller
         ]);
 
         $data = $request->input();
-        $helper = new CustomerHelper();
 
-        $data['subcategory_id'] = $helper->helper_add_subcategory($request->input('category_id'), $request->input('subcategory'));
-        unset($data['subcategory']);
+        $customer_id = $request->input('customer_id');
+        $categories_id = $request->input('categories_id');
+        $subcategories_id = $request->input('subcategories_id');
 
-        $customer->update($data);
+//        if (is_numeric($customer_id) && is_numeric($subcategories_id)) {
+        $this->product->set_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id);
+//        }
+//        dump($subcategories_id);
+
+//        dd($request->input());
+
+//        $customer->update($data);
 
 
         return redirect()->route('customers.index')
@@ -169,10 +173,14 @@ class CustomersController extends Controller
 
     public function destroy(Customers $customer)
     {
-        $customer->delete();
-
+//        $customer->delete();
+        $result = $this->customers->delete_customer($customer->attributesToArray()['id']);
+        $message = 'Client sters cu succes';
+        if(!$result) {
+            $message = 'Clientul nu a fost sters, a aparut o eroare';
+        }
         return redirect()->route('customers.index')
-            ->with('success', 'customer deleted successfully');
+            ->with('success', $message);
     }
 
 

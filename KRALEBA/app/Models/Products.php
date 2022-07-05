@@ -10,6 +10,13 @@ class Products extends Model
 {
     use HasFactory;
 
+
+    public function customers()
+    {
+        return $this->belongsToMany(User::class, 'customers_categories_subcategories');
+    }
+
+
 // customers category
     public function get_furnace_categories()
     {
@@ -61,4 +68,22 @@ class Products extends Model
 
     }
 
+    // customer_category_sbcategory ->money to money
+    public function set_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id)
+    {
+        foreach ($categories_id as $category_id) {
+            foreach ($subcategories_id as $subcategory_id) {
+                $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
+                if ($subcategory->category_id == $category_id) {
+                    DB::insert('insert into customers_categories_subcategories (customer_id, category_id, subcategory_id) values (?, ?, ?)',
+                        [$customer_id, $category_id, $subcategory_id]);
+                }
+            }
+        }
+    }
+
 }
+
+
+
+

@@ -39,34 +39,32 @@
 
         <div class="col-xs-1 col-sm-12 col-md-5  show-subcategory" id="categoryProduct" style="padding-left: 65px; display: none">
             <strong>Categorii:</strong>
-            <select name="category_id" id="category_id" class="form-control" onchange="showSubcategory(this)">
-                <option value="0"> -- Selecteaza o categorie --</option>
-                @foreach ($furnace_categories as $furnace_category)
+            <br>
 
-                    <option value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
-                @endforeach
-            </select>
+            @foreach ($furnace_categories as $furnace_category)
+
+                <input type="checkbox"
+                       id="category_id {{$furnace_category->category_id}}"
+                       onclick="showSubcategoryByCategoryId({{$furnace_category->category_id}})"
+                       class=""
+                       name="categories_id[]"
+                       value="{{ $furnace_category->category_id }}"
+                >
+                <label>{{ $furnace_category->name }}</label>
+                <br>
+
+                <div class="card subcategory-card" id="subcategory{{$furnace_category->category_id}}">
+                    <div id="subcategory_list{{$furnace_category->category_id}}"></div>
+
+                    <div id="category_id{{$furnace_category->category_id}}" style="display: none">
+                        <input placeholder="add subcategory" type="text" id="subcategoryLabel {{$furnace_category->category_id}}">
+                        <input onclick="addSubcategoryForCustomersId({{$furnace_category->category_id}})" type="button" value="Add">
+                    </div>
+                </div>
+
+            @endforeach
         </div>
 
-
-        <div class="col-xs-1 col-sm-12 col-md-6 dropdown"
-             style="padding-left: 130px; display: none"
-             id="subcategoryProduct"
-        >
-            <strong id="subcategory"></strong>
-
-            <div class="searchable">
-                <input type="text"
-                       autoComplete='none'
-                       name="subcategory"
-                       class="show-subcategory"
-                       placeholder="search countries"
-                       onkeyup="filterFunction(this,event)">
-                <ul id="ddlNationality">
-
-                </ul>
-            </div>
-        </div>
 
         <div id="customerOrProviderForm" style="display: none">
             <div class="row">
@@ -204,11 +202,5 @@
     </form>
 
 @endsection
-<script>
-    import InputError from "../../../vendor/laravel/breeze/stubs/inertia-vue/resources/js/Components/InputError";
 
-    export default {
-        components: {InputError}
-    }
-</script>
 

@@ -81,7 +81,7 @@
                         @endif
                     </div>
                 </form>
-                
+
                 <form>
                     <div class="revert-b">
                         <button type="submit" class="btn btn-secondary">REVERT</button>
@@ -93,23 +93,25 @@
     </div>
     <!--end filter-->
     <br>
-    <div>
-        <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
-    </div>
+
+    @if($customers)
+        <div>
+            <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
+        </div>
+    @endif
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
-    <div>
-        <ul class="list-body">
-            @if($customers)
-
+    @if($customers)
+        <div>
+            <ul class="list-body">
                 @foreach ($customers as $customer)
 
                     <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
-                        
+
                         <div class="align">
                             <b>{{ $customer->name }} </b> /
 
@@ -209,7 +211,10 @@
                             <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
                                     <a class="dropdown-item" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
+
+
                                     @csrf
                                     @method('DELETE')
                                     <button class="dropdown-item">Delete</button>
@@ -220,8 +225,8 @@
                     </div>
                     <br>
                 @endforeach
-        </ul>
-    </div>
+            </ul>
+        </div>
 
     @else
         <div class="alert alert-warning">

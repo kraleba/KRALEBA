@@ -9,7 +9,6 @@ function checkBoxCustomer() {
 
     if (boxCustomer.checked) {
         document.getElementById('checkProvider').checked = false;
-        document.getElementById('subcategoryProduct').style.display = 'none';
         document.getElementById('customerOrProviderForm').style.display = 'none';
         category.style.display = "none";
 
@@ -31,8 +30,12 @@ function checkBoxProvider() {
 
     if (boxProvider.checked) {
         category.style.display = "block";
+        document.getElementById('customerOrProviderForm').style.display = 'block';
+
     } else {
         category.style.display = "none";
+        document.getElementById('customerOrProviderForm').style.display = 'none';
+
     }
 
 }
@@ -80,25 +83,6 @@ $(".show-subcategory").click(function () {
     }
 );
 
-
-$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "/admin/show_subcategory_by_category_id",
-        dataType: "json",
-        contentType: "application/json",
-        success: function (res) {
-            $.each(res.d, function (data, value) {
-
-                $("#ddlNationality").append($("<option></option>").val(value.CountryId).html(value.CountryName));
-            })
-        }
-
-    });
-
-})
-
-
 //filter index.blade.php
 
 
@@ -130,6 +114,7 @@ function dropDownValue(id) {
 
 //delete subcategory
 function deleteSubcategory(id) {
+    console.log(id);
 
     $.ajax(
         {
@@ -139,38 +124,79 @@ function deleteSubcategory(id) {
                 "id": id,
             },
             success: function () {
-                $('#subcategory' + id).remove();
-                console.log("it Works");
+                $('#subcategory_id_input' + id).remove();
+                $("#subcategory_id_delete" + id).remove();
+                $("#subcategory_id_label" + id).remove();
+                $("#subcategory_id_br" + id).remove();
             }
         }
     );
 }
 
-// search
+function addSubcategoryForCustomersId(category_id) {
+    let subcategoryLabel = document.getElementById('subcategoryLabel ' + category_id).value;
+    if (!subcategoryLabel) {
+        return false;
+    }
 
-const searchInputDropdown = document.getElementById('search-input-dropdown');
-const dropdownOptions = document.querySelectorAll('.input-group-dropdown-item');
+    $.ajax(
+        {
+            url: "create_edit/helper_add_subcategory",
+            type: 'get',
+            data: {
+                "category_id": category_id,
+                "subcategory_label": subcategoryLabel
+            },
+            success: function (res) {
 
-// searchInputDropdown.addEventListener('input', () => {
-//     const filter = searchInputDropdown.value.toLowerCase();
-//     showOptions();
-//     const valueExist = !!filter.length;
-//
-//     if (valueExist) {
-//         dropdownOptions.forEach((el) => {
-//             const elText = el.textContent.trim().toLowerCase();
-//             const isIncluded = elText.includes(filter);
-//             if (!isIncluded) {
-//                 el.style.display = 'none';
-//             }
-//         });
-//     }
-// });
+                console.log(res);
+                if (res.subcategory_id) {
+                    $("#subcategory_list" + category_id)
+                        .append($("<input name='subcategories_id[]' id='subcategory_id_input" + res.subcategory_id + "' type='checkbox' value='" + res.subcategory_id + "'>" +
+                            " <label id='subcategory_id_label" + res.subcategory_id + "'>" + res.name + " </label>" +
+                            "<span style='color: red; cursor: pointer' id='subcategory_id_delete" + res.subcategory_id + "' onclick='deleteSubcategory(" + res.subcategory_id + ")'> X </span>" +
+                            "<br id='subcategory_id_br" + res.subcategory_id + "'>"))
 
-const showOptions = () => {
-    dropdownOptions.forEach((el) => {
-        el.style.display = 'flex';
-    })
+                    document.getElementById('subcategoryLabel ' + category_id).value = '';
+                }
+            }
+        }
+    );
+}
+
+function showSubcategoryByCategoryId(category_id) {
+
+    let category = document.getElementById('category_id ' + category_id);
+    if (category.checked) {
+        document.getElementById('category_id' + category_id).style.display = 'block';
+        $.ajax({
+            type: "GET",
+            url: "/admin/show_subcategory_by_category_id",
+            dataType: "json",
+            data: {
+                "category_id": category_id,
+            },
+            contentType: "application/json",
+            success: function (res) {
+                $.each(res, function (data, value) {
+                    $("#subcategory_list" + category_id)
+                        .append($("<input name='subcategories_id[]' id='subcategory_id_input" + value.subcategory_id + "' type='checkbox' value='" + value.subcategory_id + "'>" +
+                            " <label id='subcategory_id_label" + value.subcategory_id + "'> " + value.name + " </label>" +
+                            "<span style='color: red; cursor: pointer' id='subcategory_id_delete" + value.subcategory_id + "' onclick='deleteSubcategory(" + value.subcategory_id + ")'> X </span>" +
+                            "<br id='subcategory_id_br" + value.subcategory_id + "'>"))
+                })
+            }
+
+        });
+    } else {
+        document.getElementById('category_id' + category_id).style.display = 'none';
+        $("#subcategory_list" + category_id + ' input').remove();
+        $("#subcategory_list" + category_id + ' label').remove();
+        $("#subcategory_list" + category_id + ' span').remove();
+        $("#subcategory_list" + category_id + ' br').remove();
+
+    }
+
 }
 
 //download pdf Jquery
@@ -274,3 +300,7 @@ $(".searchable ul li").hover(function () {
     $(this).closest(".searchable").find("ul li.selected").removeClass("selected");
     $(this).addClass("selected");
 });
+
+
+
+
