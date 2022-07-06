@@ -2,15 +2,14 @@
 
 @section('content')
 
-@include('view.bills.ware.ware1')
-<head>
+    <head>
 
-    <title>Creeaza Factura</title>
-</head>
+        <title>Creeaza Factura</title>
+    </head>
 
-<body>
+    <body>
 
-@if ($errors->any())
+    @if ($errors->any())
 
         <div class="alert alert-danger">
             @foreach ($errors->all() as $error)
@@ -32,9 +31,9 @@
             </div>
         </div>
         @if(session('status'))
-        <div class="alert alert-success mb-1 mt-1">
-            {{ session('status') }}
-        </div>
+            <div class="alert alert-success mb-1 mt-1">
+                {{ session('status') }}
+            </div>
         @endif
         <form action="{{ route('bills.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -57,25 +56,26 @@
                         @enderror
                     </div>
                 </div>
-                
+
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Data Facturarii:</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Data
+                            Facturarii:</strong>
                         @error('data facturarii')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="form-row">
                         <strong>Start Date</strong>
-                        <input id="startdate" class="form-control col-md-2" >
+                        <input id="startdate" class="form-control col-md-2">
                         <strong>End Date </strong>
                         <input id="enddate" class="form-control col-md-2">
                     </div>
 
                     <script>
-                        $(document).ready(function(){
-                        $("#startdate").datepicker();
-                        $("#enddate").datepicker();
+                        $(document).ready(function () {
+                            $("#startdate").datepicker();
+                            $("#enddate").datepicker();
                         });
                     </script>
                 </div>
@@ -105,7 +105,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Curs Valutar:</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Curs
+                            Valutar:</strong>
                         <input type="number" name="exchange" class="form-control" placeholder="Curs Valutar">
                         @error('number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -124,7 +125,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
-                        <input  type="number" name="item" class="form-control" placeholder="#Articole">
+                        <input type="number" name="item" class="form-control" placeholder="#Articole">
                         @error('articole')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -142,6 +143,11 @@
                 </div>
                 <br>
                 <br>
+                @include('bills.ware.ware1')
+                @include('bills.ware.ware2')
+                @include('bills.ware.ware3')
+                @include('bills.ware.ware4')
+                @include('bills.ware.ware5')
 
                 <div>
                     <button type="submit" class="btn btn-primary ml-3">Adauga Articol</button>
@@ -151,5 +157,5 @@
             </div>
         </form>
     </div>
-</body>
+    </body>
 @endsection
