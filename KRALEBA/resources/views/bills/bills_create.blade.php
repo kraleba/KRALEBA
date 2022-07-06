@@ -2,6 +2,7 @@
 
 @section('content')
 
+@include('view.bills.ware.ware1')
 <head>
 
     <title>Creeaza Factura</title>
