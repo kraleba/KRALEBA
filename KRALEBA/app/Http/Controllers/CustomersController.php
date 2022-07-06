@@ -135,10 +135,12 @@ class CustomersController extends Controller
         $data['furnace_categories'] = $product->get_furnace_categories();
         $data['subcategories'] = $product->get_subcategory_for_customer_category();
 
-//        $helper = new CustomerHelper();
-//        $data['customers'] = $helper->helper_get_categories_to_customer($customer->attributesToArray());
-        $data['customers'] = $this->customers->get_customer_and_categoryes_by_id($customer->attributesToArray()['id']);
-//
+
+        if($customer->attributesToArray()['type'] == 'provider') {
+            $data['customers'] = $this->customers->get_customer_and_categoryes_by_id($customer->attributesToArray()['id']);
+        } else {
+            $data['customers'] = $customer;
+        }
 
         return view('customers.edit', $data);
     }
@@ -153,18 +155,14 @@ class CustomersController extends Controller
 
         $data = $request->input();
 
-        $customer_id = $request->input('customer_id');
         $categories_id = $request->input('categories_id');
         $subcategories_id = $request->input('subcategories_id');
 
-//        if (is_numeric($customer_id) && is_numeric($subcategories_id)) {
-        $this->product->set_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id);
-//        }
-//        dump($subcategories_id);
+        if($customer->attributesToArray()['type'] == 'provider') {
+            $this->product->update_customer_categories_and_subcategories($customer->attributesToArray()['id'], $categories_id, $subcategories_id);
+        }
 
-//        dd($request->input());
-
-//        $customer->update($data);
+        $customer->update($data);
 
 
         return redirect()->route('customers.index')
@@ -176,7 +174,7 @@ class CustomersController extends Controller
 //        $customer->delete();
         $result = $this->customers->delete_customer($customer->attributesToArray()['id']);
         $message = 'Client sters cu succes';
-        if(!$result) {
+        if (!$result) {
             $message = 'Clientul nu a fost sters, a aparut o eroare';
         }
         return redirect()->route('customers.index')

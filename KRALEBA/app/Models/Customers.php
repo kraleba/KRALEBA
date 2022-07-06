@@ -36,9 +36,24 @@ class Customers extends Model
     public function get_customer_and_categoryes_by_id($id)
     {
 
-        $customer = DB::table('customers')->where('id', $id)->first();
-        $categories_id_subcategories_id = DB::table('customers_categories_subcategories')->where('customer_id', $id)->get();
+        $query = "SELECT category_id FROM customers_categories_subcategories WHERE customer_id = {$id}";
+        $categories_obj = DB::select($query);
+
+        $i = 0;
+        foreach ($categories_obj as $unic_categories) {
+
+            $categories_obj[$unic_categories->category_id] = $unic_categories->category_id;
+            $i++;
+        }
+
         $categories = array();
+        foreach ($categories_obj as $category) {
+
+            if (!is_object($category)) {
+                $categories[$category] = $category;
+            }
+        }
+
         $subcategories = array();
 
         $query = "SELECT *
@@ -52,16 +67,13 @@ class Customers extends Model
         $i = 0;
         foreach ($customers as $customer) {
             $subcateogry = DB::table('customer_subcategory')->where('subcategory_id', $customer->subcategory_id)->get()->toArray();
-            $subcategories[$i] = array(
-                'subcategory_id' => $subcateogry[0]->subcategory_id,
-                'name' => $subcateogry[0]->name,
-                'category_id' => $subcateogry[0]->category_id,
-            );
+            $subcategories[$subcateogry[0]->subcategory_id] = $subcateogry[0]->subcategory_id;
             $i++;
         }
-
         $customer = (array)$customers[0];
-        $customer['category_id'] = $subcategories;
+        $customer['subcategory_id'] = $subcategories;
+        $customer['category_id'] = $categories;
+
 
         return $customer;
 
@@ -83,7 +95,7 @@ class Customers extends Model
     }
 
     public
-    function get_customers_after_filter($type, $category_id, $subcategory)
+    function get_customers_after_filter_OLD($type, $category_id, $subcategory)
     {
 
         $query = " SELECT * " .
@@ -125,6 +137,12 @@ class Customers extends Model
         $results = DB::select($query);
 
         return $results;
+
+    }
+
+
+    function get_customers_after_filter($type, $category_id, $subcategory)
+    {
 
     }
 

@@ -75,6 +75,21 @@ class Products extends Model
             foreach ($subcategories_id as $subcategory_id) {
                 $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
                 if ($subcategory->category_id == $category_id) {
+                    DB::insert('insert into customers_categories_subcategories (customer_id, category_id, subcategory_id, customer_type) values (?, ?, ?,?)',
+                        [$customer_id, $category_id, $subcategory_id, 'provider']);
+                }
+            }
+        }
+    }
+
+    public function update_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id)
+    {
+        DB::table('customers_categories_subcategories')->where('customer_id', $customer_id)->delete();
+
+        foreach ($categories_id as $category_id) {
+            foreach ($subcategories_id as $subcategory_id) {
+                $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
+                if ($subcategory->category_id == $category_id) {
                     DB::insert('insert into customers_categories_subcategories (customer_id, category_id, subcategory_id) values (?, ?, ?)',
                         [$customer_id, $category_id, $subcategory_id]);
                 }

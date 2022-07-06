@@ -74,8 +74,6 @@ $(".show-subcategory").click(function () {
                 $.each(res, function (data, value) {
                     $("#ddlNationality").append($('<span onclick="deleteSubcategory(' + value.subcategory_id + ')" class="fa fa-close" style="float:right; padding-top: 10px; padding-right: 10px"></span>')).append($('<li value=' + value.subcategory_id + '>' + value.name + '</li>'));
 
-                    // <span className="glyphicon" style="float:right">&#xe020; </
-                    // .val(value.subcategory_id).html(value.name)
                 })
                 // $("#ddlNationality").append(subcategories);
             }
@@ -84,8 +82,6 @@ $(".show-subcategory").click(function () {
 );
 
 //filter index.blade.php
-
-
 function filterFunction() {
 
     document.getElementById("myDropdown").classList.toggle("show");
@@ -133,6 +129,7 @@ function deleteSubcategory(id) {
     );
 }
 
+//when is added a new subcategory
 function addSubcategoryForCustomersId(category_id) {
     let subcategoryLabel = document.getElementById('subcategoryLabel ' + category_id).value;
     if (!subcategoryLabel) {
@@ -164,7 +161,29 @@ function addSubcategoryForCustomersId(category_id) {
     );
 }
 
-function showSubcategoryByCategoryId(category_id) {
+//show existences subcategories
+window.onload = (event) => {
+
+    var categories =$('#category').attr("categories");
+    var subcategories = $('#category').attr("subcategories");
+
+    if(categories || subcategories) {
+        showSubcategoryWhenIsEdited(JSON.parse(categories), JSON.parse(subcategories));
+    }
+}
+
+function showSubcategoryWhenIsEdited(categories, subcategories) {
+
+    $.each(categories, function (data, value) {
+
+        showSubcategoryByCategoryId(value, subcategories)
+        // console.log(value);
+    });
+}
+
+function showSubcategoryByCategoryId(category_id, existing_subcatelgory = null) {
+
+    console.log(existing_subcatelgory);
 
     let category = document.getElementById('category_id ' + category_id);
     if (category.checked) {
@@ -184,6 +203,12 @@ function showSubcategoryByCategoryId(category_id) {
                             " <label id='subcategory_id_label" + value.subcategory_id + "'> " + value.name + " </label>" +
                             "<span style='color: red; cursor: pointer' id='subcategory_id_delete" + value.subcategory_id + "' onclick='deleteSubcategory(" + value.subcategory_id + ")'> X </span>" +
                             "<br id='subcategory_id_br" + value.subcategory_id + "'>"))
+
+                    let subcategory = document.getElementById('subcategory_id_input' + value.subcategory_id).value;
+
+                    if (existing_subcatelgory && subcategory.toString() == existing_subcatelgory[subcategory.toString()]) {
+                        document.getElementById('subcategory_id_input' + value.subcategory_id).checked = true;
+                    }
                 })
             }
 

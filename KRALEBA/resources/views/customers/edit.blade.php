@@ -22,7 +22,7 @@
 
     @endif
 
-    <form action="{{ route('customers.update',$customers['id']) }}" method="POST">
+    <form action="{{ route('customers.update',$customers['customer_id'] ?? $customers['id']) }}" method="POST">
 
         @csrf
         @method('PUT')
@@ -33,32 +33,41 @@
 
             <div class="col-xs-1 col-sm-12 col-md-5 show-subcategory">
 
-                <strong>Categorii:</strong>
+                <strong id="category"
+                        categories="{{ json_encode($customers['category_id'])}}"
+                        subcategories="{{ json_encode($customers['subcategory_id']) }}"
+                >Categorii:</strong>
                 <br>
 
                 @foreach ($furnace_categories as $furnace_category)
 
                     <input type="checkbox"
                            id="category_id {{$furnace_category->category_id}}"
-                           onclick="showSubcategoryByCategoryId({{$furnace_category->category_id}})"
-                           class=""
+                           onclick="showSubcategoryByCategoryId({{$furnace_category->category_id}}, {{ json_encode($customers['subcategory_id']) }})"
                            name="categories_id[]"
                            value="{{ $furnace_category->category_id }}"
+                           @if($customers['category_id'][$furnace_category->category_id] ?? '' == $furnace_category->category_id)
+                               checked
+                        @endif
                     >
                     <label>{{ $furnace_category->name }}</label>
+
                     <br>
 
                     <div class="card subcategory-card" id="subcategory{{$furnace_category->category_id}}">
-                            <div id="subcategory_list{{$furnace_category->category_id}}"></div>
+                        <div id="subcategory_list{{$furnace_category->category_id}}"></div>
 
                         <div id="category_id{{$furnace_category->category_id}}" style="display: none">
-                            <input placeholder="add subcategory" type="text" id="subcategoryLabel {{$furnace_category->category_id}}">
-                            <input onclick="addSubcategoryForCustomersId({{$furnace_category->category_id}})" type="button" value="Add">
+                            <input placeholder="add subcategory" type="text"
+                                   id="subcategoryLabel {{$furnace_category->category_id}}">
+                            <input onclick="addSubcategoryForCustomersId({{$furnace_category->category_id}})"
+                                   type="button" value="Add">
                         </div>
                     </div>
 
                 @endforeach
             </div>
+
 
             <div class="col-xs-1 col-sm-12 col-md-6" style="padding-left: 130px;">
 
