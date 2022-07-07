@@ -117,6 +117,9 @@ class CustomersController extends Controller
             $categories_id = $request->input('categories_id');
             $subcategories_id = $request->input('subcategories_id');
             $this->product->set_customer_categories_and_subcategories($customer->id, $categories_id, $subcategories_id);
+        } else {
+            Customers::create($data);
+
         }
 
         return redirect()->route('customers.index')
