@@ -27,11 +27,11 @@
 
                     <div class="input-group">
                         <div class="filter-item1 item-left">
-                            <select name="type" id="department" class="form-control rounded-pill filter-control">
+                            <select name="customer_type" id="department" class="form-control rounded-pill filter-control">
                                 <option
                                     value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
-                                <option value="Customer"> Beneficiar</option>
-                                <option value="Provider">Furnizor</option>
+                                <option value="customer"> Beneficiar</option>
+                                <option value="provider">Furnizor</option>
                             </select>
                         </div>
 

@@ -37,7 +37,8 @@
             <label class="form-check-label" for="check2">Furnizor</label>
         </div>
 
-        <div class="col-xs-1 col-sm-12 col-md-5  show-subcategory" id="categoryProduct" style="padding-left: 65px; display: none">
+        <div class="col-xs-1 col-sm-12 col-md-5  show-subcategory" id="categoryProduct"
+             style="padding-left: 65px; display: none">
             <strong>Categorii:</strong>
             <br>
 
@@ -56,10 +57,14 @@
                 <div class="card subcategory-card" id="subcategory{{$furnace_category->category_id}}">
                     <div id="subcategory_list{{$furnace_category->category_id}}"></div>
 
-                    <div id="category_id{{$furnace_category->category_id}}" style="display: none">
-                        <input placeholder="add subcategory" type="text" id="subcategoryLabel {{$furnace_category->category_id}}">
-                        <input onclick="addSubcategoryForCustomersId({{$furnace_category->category_id}})" type="button" value="Add">
-                    </div>
+                    @if($furnace_category->category_id != 2)
+                        <div id="category_id{{$furnace_category->category_id}}" style="display: none">
+                            <input placeholder="add subcategory" type="text"
+                                   id="subcategoryLabel {{$furnace_category->category_id}}">
+                            <input onclick="addSubcategoryForCustomersId({{$furnace_category->category_id}})"
+                                   type="button" value="Add">
+                        </div>
+                    @endif
                 </div>
 
             @endforeach
@@ -99,13 +104,15 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Oras :</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Oras
+                            :</strong>
                         <input type="text" name="city" class="form-control" placeholder="Oras">
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Tara:</strong>
+                    <strong><i class="fa fa-asterisk"
+                               style="font-size:7px;color:red; vertical-align: top;"></i>Tara:</strong>
                     <select name="country" id="department" class="form-control">
                         <option value=""> -- Selecteaza o Tara --</option>
                         @php($i = 1)

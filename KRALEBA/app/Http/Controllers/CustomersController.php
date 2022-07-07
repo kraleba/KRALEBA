@@ -93,7 +93,7 @@ class CustomersController extends Controller
                 'type' => 'required',
                 'uniqueCode' => 'required',
                 'country' => 'required',
-                'subcategory' => 'required'
+                'categories_id' => 'required'
             ]);
         } else {
             $request->validate([
@@ -103,11 +103,17 @@ class CustomersController extends Controller
                 'country' => 'required',
             ]);
         }
-
         $data = $request->input();
-        $customer = Customers::create($data);
 
         if ($request->input('type') == 'provider') {
+
+            $categories_id = (array)$request->input('categories_id');
+            if (!in_array(2, $categories_id)) {
+                $request->validate([
+                    'subcategories_id' => 'required',
+                ]);
+            }
+            $customer = Customers::create($data);
             $categories_id = $request->input('categories_id');
             $subcategories_id = $request->input('subcategories_id');
             $this->product->set_customer_categories_and_subcategories($customer->id, $categories_id, $subcategories_id);
@@ -136,7 +142,7 @@ class CustomersController extends Controller
         $data['subcategories'] = $product->get_subcategory_for_customer_category();
 
 
-        if($customer->attributesToArray()['type'] == 'provider') {
+        if ($customer->attributesToArray()['type'] == 'provider') {
             $data['customers'] = $this->customers->get_customer_and_categoryes_by_id($customer->attributesToArray()['id']);
         } else {
             $data['customers'] = $customer;
@@ -147,6 +153,8 @@ class CustomersController extends Controller
 
     public function update(Request $request, Customers $customer)
     {
+
+
         $request->validate([
             'name' => 'required',
             'uniqueCode' => 'required',
@@ -155,15 +163,24 @@ class CustomersController extends Controller
 
         $data = $request->input();
 
-        $categories_id = $request->input('categories_id');
-        $subcategories_id = $request->input('subcategories_id');
+        if ($customer->attributesToArray()['type'] == 'provider') {
 
-        if($customer->attributesToArray()['type'] == 'provider') {
+            $subcategories_id = $request->input('subcategories_id');
+            $categories_id = (array)$request->input('categories_id');
+
+            if (!in_array(2, $categories_id)) {
+                $request->validate([
+                    'subcategories_id' => 'required',
+                ]);
+            }
+
             $this->product->update_customer_categories_and_subcategories($customer->attributesToArray()['id'], $categories_id, $subcategories_id);
+            $customer->update($data);
+
+        } else {
+
+            $customer->update($data);
         }
-
-        $customer->update($data);
-
 
         return redirect()->route('customers.index')
             ->with('success', 'customer updated successfully');
