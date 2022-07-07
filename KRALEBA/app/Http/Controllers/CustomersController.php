@@ -26,13 +26,13 @@ class CustomersController extends Controller
     {
         $product = new Products();
 
-        if ($request->input('type') || $request->input('category') || $request->input('subcategory')) {
+        if ($request->input('customer_type') || $request->input('category') || $request->input('subcategory')) {
             $data = $this->helper->helper_show_filter($request->input());
             $type = '';
-            if ($request->input('type') == 'Provider') {
+            if ($request->input('customer_type') == 'Provider') {
                 $type = 'Furnizor';
             }
-            if ($request->input('type') == 'Customer') {
+            if ($request->input('customer_type') == 'Customer') {
                 $type = 'Beneficiar';
             }
             $data['filtering_criteria'] = array(
@@ -178,12 +178,10 @@ class CustomersController extends Controller
             }
 
             $this->product->update_customer_categories_and_subcategories($customer->attributesToArray()['id'], $categories_id, $subcategories_id);
-            $customer->update($data);
 
-        } else {
-
-            $customer->update($data);
         }
+
+        $customer->update($data);
 
         return redirect()->route('customers.index')
             ->with('success', 'customer updated successfully');

@@ -110,7 +110,7 @@ class CustomerHelper extends Controller
     public function helper_show_filter($data)
     {
 
-        $customer_type = $data['type'] ?? '';
+        $customer_type = $data['customer_type'] ?? '';
         $category = $data['category'] ?? '';
         $subcategory = $data['subcategory'] ?? '';
 

@@ -24,7 +24,7 @@ class BillsController extends Controller
     }
 
     public function index()
-    {   
+    {
         $data['furnace_categories'] = $this->product->get_furnace_categories();
 
         $data['bills'] = Bills::orderBy('id', 'desc')->paginate(5);
@@ -93,6 +93,7 @@ class BillsController extends Controller
 
     public function destroy(Bills $bills)
     {
+        dd($bills);
         $bills->delete();
         return redirect()->route('bills.index')
             ->with('success', 'Bills has been deleted successfully');
