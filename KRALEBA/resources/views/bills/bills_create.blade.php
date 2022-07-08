@@ -149,7 +149,7 @@
                 @include('bills.ware.ware4')
                 @include('bills.ware.ware5')
 
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal 1</button>
 
                 <div>
                     <button type="submit" class="btn btn-primary ml-3">Adauga Articol</button>
