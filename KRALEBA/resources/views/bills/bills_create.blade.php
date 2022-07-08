@@ -41,7 +41,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
-                        <input type="text" name="custumer_id" value="{{$customer->name ?? ''}}" class="form-control"
+                        <input type="text" name="custumer_id" value="{{$customer['name'] ?? ''}}" class="form-control"
                                placeholder="Client Name">
                         @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -51,7 +51,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                        <input type="number" name="unique_code" value="{{$customer->uniqueCode ?? ''}}" class="form-control"
+                        <input type="number" name="unique_code" value="{{$customer['uniqueCode'] ?? ''}}"
+                               class="form-control"
                                placeholder="Cod">
                         @error('Cod')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -69,17 +70,10 @@
                     </div>
                     <div class="form-row">
                         <strong>Start Date</strong>
-                        <input id="startdate" class="form-control col-md-2">
-                        <strong>End Date </strong>
-                        <input id="enddate" class="form-control col-md-2">
+                        <input id="startdate" value="{{date('d/m/Y')}}" class="form-control col-md-2">
+
                     </div>
 
-                    <script>
-                        $(document).ready(function () {
-                            $("#startdate").datepicker();
-                            $("#enddate").datepicker();
-                        });
-                    </script>
                 </div>
 
                 <br>
@@ -121,7 +115,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
+                        <strong><i class="fa fa-asterisk" id="indexNumberOfArticle" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
                         <input type="number" name="item" class="form-control" placeholder="#Articole">
                         @error('articole')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -140,50 +134,19 @@
                 </div>
                 <br>
                 <br>
-                @include('bills.ware.ware1')
-                @include('bills.ware.ware2')
-                @include('bills.ware.ware3')
-                @include('bills.ware.ware4')
-                @include('bills.ware.ware5')
+
+                @include('bills.ware_modal.ware')
                 <div>
-                    <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target=".ware1-modal">articol 1
-                        </button>
-
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target=".ware2-modal">
-                            articol 2
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target=".ware3-modal">
-                            articol 3
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target=".ware4-modal">
-                            articol 4
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target=".ware5-modal">
-                            articol 5
-                        </button>
-                    </div>
-
-                    <div>
-                        <button type="submit" class="btn btn-primary ml-3">Adauga Articol</button>
-                    </div>
+                    <button type="button"
+                            id="generateNumberOfArticle"
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target=".ware1-modal">
+                        Adauga articol nou
+                    </button>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Creeaza</button>
                 </div>
             </div>
         </form>

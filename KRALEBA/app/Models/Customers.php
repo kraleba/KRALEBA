@@ -84,7 +84,6 @@ class Customers extends Model
         $customer['subcategory_id'] = $subcategories;
         $customer['category_id'] = $categories;
 
-
         return $customer;
 
     }

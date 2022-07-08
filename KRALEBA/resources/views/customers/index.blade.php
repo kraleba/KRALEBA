@@ -113,7 +113,9 @@
 
                     <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
 
-                        <div class="align">
+                        <div class="align" >
+                            <a href="{{ route('customers.show',$customer->id) }}">
+
                             <b>{{ $customer->name }} </b> /
 
                             {{ $customer->uniqueCode }}
@@ -137,6 +139,7 @@
                                 /
                             @endif
                             {{ $customer->country }}
+                                </a>
                         </div>
                         <div class="align">
 
@@ -214,8 +217,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                     <a class="dropdown-item" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
-                                    <a class="dropdown-item" href="{{ route('create_bill',$customer->id) }}">Genereaza
-                                        factura</a>
+                                    <a class="dropdown-item" href="{{ route('create_bill',$customer->id) }}">Genereaza factura</a>
 
 
                                     @csrf

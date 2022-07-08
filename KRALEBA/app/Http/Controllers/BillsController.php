@@ -41,6 +41,7 @@ class BillsController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->input());
         // dd($request->input());
         $request->validate([
             'custumer_id' => 'required',
@@ -93,12 +94,13 @@ class BillsController extends Controller
 
     public function generate_bill(Request $request)
     {
-        $customer = $this->customers->get_customer_by_id($request->id);
-
-
+        $customer = $this->customers->get_customer_and_categoryes_by_id($request->id);
+//dd($request->id);
         $data = array(
             'customer' => $customer,
-            'coin' => $this->helper->show_coin_by_country($customer->country),
+            'coin' => $this->helper->show_coin_by_country($customer['country']),
+            'furnace_categories' => $this->product->get_furnace_categories(),
+            'subcategories' => $this->product->get_subcategory_for_customer_category(),
         );
 //        dd($customer);
         return view('bills.bills_create', $data);
