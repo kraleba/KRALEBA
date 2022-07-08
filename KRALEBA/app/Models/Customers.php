@@ -16,11 +16,17 @@ class Customers extends Model
         'cif', 'ocr', 'iban', 'swift', 'bank', 'contact', 'phone', 'phone2', 'email', 'www'
     ];
 
+    public function get_customer_by_id($id)
+    {
+        if (is_numeric($id)) {
+            return DB::table('customers')->where('id', $id)->first();
+        }
+    }
+
     /**
      * Get all customers with subcategory name
      * @return $reslut
      */
-
     public static function get_customers()
     {
 
@@ -65,20 +71,18 @@ class Customers extends Model
         $customers = DB::select($query);
 
         $i = 0;
-//        dd($customers);
         foreach ($customers as $customer) {
             $subcateogry = DB::table('customer_subcategory')->where('subcategory_id', $customer->subcategory_id)->get()->toArray();
-            if($subcateogry) {
+            if ($subcateogry) {
                 $subcategories[$subcateogry[0]->subcategory_id] = $subcateogry[0]->subcategory_id;
             }
             $i++;
         }
-        if($customers) {
+        if ($customers) {
             $customer = (array)$customers[0];
         }
         $customer['subcategory_id'] = $subcategories;
         $customer['category_id'] = $categories;
-
 
         return $customer;
 
@@ -88,8 +92,7 @@ class Customers extends Model
      * @param $id
      * @return
      */
-    public
-    function delete_customer($id)
+    public function delete_customer($id)
     {
         if (is_numeric($id)) {
             DB::table('customers')->where('id', $id)->delete();
@@ -99,65 +102,21 @@ class Customers extends Model
         return false;
     }
 
-    public
-    function get_customers_after_filter_OLD($type, $category_id, $subcategory)
+
+    public function get_customers_after_filter($customer_type, $category_id, $subcategory)
     {
 
-        $query = " SELECT * " .
-            " FROM customers " .
-            " WHERE ";
-        $i = 0;
-
-        if ($type) {
-            $query .= 'type = ' . "'$type'";
-            $i++;
+        if ($customer_type && !$category_id && !$subcategory) {
+            return DB::table('customers')->where('type', $customer_type)->get();
         }
 
-        if ($category_id) {
-            if ($i == 0) {
-                $query .= 'category_id = ' . "'$category_id'";
-                $i++;
-            } else {
-                $query .= "AND " . 'category_id = ' . "'$category_id'";
-                $i++;
-            }
-        }
-
-        if ($subcategory) {
-            if ($i == 0) {
-                $query .= 'subcategory_id = ' . "'$subcategory'";
-                $i++;
-            } else {
-                $query .= "AND " . 'subcategory_id = ' . "'$subcategory'";
-                $i++;
-            }
-        }
-
-        if ($i == 0) {
-            return false;
-        }
-
-        $query .= ' ORDER BY name ASC';
-
-        $results = DB::select($query);
-
-        return $results;
-
-    }
-
-
-    function get_customers_after_filter($type, $category_id, $subcategory)
-    {
-dump($category_id);
-dump($subcategory);
-//        dd($type);
         $query = " SELECT * " .
             " FROM customers_categories_subcategories " .
             " WHERE ";
         $i = 0;
 
-        if ($type) {
-            $query .= 'type = ' . "'$type'";
+        if ($customer_type) {
+            $query .= 'customer_type = ' . "'$customer_type'";
             $i++;
         }
 
@@ -185,11 +144,15 @@ dump($subcategory);
             return false;
         }
 
-//        $query .= ' ORDER BY name ASC';
-
         $results = DB::select($query);
-dd($results);
-        return $results;
+        $customers = array();
+        $i = 0;
+
+        foreach ($results as $result) {
+            $customers[$i] = $this->get_customer_by_id($result->customer_id);
+            $i++;
+        }
+        return $customers;
 
     }
 

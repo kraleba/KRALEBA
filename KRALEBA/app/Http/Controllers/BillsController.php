@@ -3,11 +3,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CustomerHelper;
 use App\Models\Bills;
-use Illuminate\Http\Request;
 use App\Models\Customers;
 use App\Models\Products;
-use App\Helpers\CustomerHelper;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 
 
 class BillsController extends Controller
@@ -24,7 +25,7 @@ class BillsController extends Controller
     }
 
     public function index()
-    {   
+    {
         $data['furnace_categories'] = $this->product->get_furnace_categories();
 
         $data['bills'] = Bills::orderBy('id', 'desc')->paginate(5);
@@ -40,6 +41,7 @@ class BillsController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->input());
         // dd($request->input());
         $request->validate([
             'custumer_id' => 'required',
@@ -90,19 +92,20 @@ class BillsController extends Controller
             ->with('success', 'Bills Has Been updated successfully');
     }
 
-
-    public function destroy(Bills $bills)
+    public function generate_bill(Request $request)
     {
-        $bills->delete();
-        return redirect()->route('bills.index')
-            ->with('success', 'Bills has been deleted successfully');
+        $customer = $this->customers->get_customer_and_categoryes_by_id($request->id);
+//dd($request->id);
+        $data = array(
+            'customer' => $customer,
+            'coin' => $this->helper->show_coin_by_country($customer['country']),
+            'furnace_categories' => $this->product->get_furnace_categories(),
+            'subcategories' => $this->product->get_subcategory_for_customer_category(),
+        );
+//        dd($customer);
+        return view('bills.bills_create', $data);
+
     }
 
-
-    public function generate_bill(Request $request) {
-
-        return view('bills.bills_create');
-
-    }
 
 }

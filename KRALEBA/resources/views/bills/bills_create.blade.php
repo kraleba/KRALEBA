@@ -41,7 +41,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
-                        <input type="text" name="custumer_id" class="form-control" placeholder="Client Name">
+                        <input type="text" name="custumer_id" value="{{$customer['name'] ?? ''}}" class="form-control"
+                               placeholder="Client Name">
                         @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -50,7 +51,9 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                        <input type="number" name="unique_code" class="form-control" placeholder="Cod">
+                        <input type="number" name="unique_code" value="{{$customer['uniqueCode'] ?? ''}}"
+                               class="form-control"
+                               placeholder="Cod">
                         @error('Cod')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -67,17 +70,10 @@
                     </div>
                     <div class="form-row">
                         <strong>Start Date</strong>
-                        <input id="startdate" class="form-control col-md-2">
-                        <strong>End Date </strong>
-                        <input id="enddate" class="form-control col-md-2">
+                        <input id="startdate" value="{{date('d/m/Y')}}" class="form-control col-md-2">
+
                     </div>
 
-                    <script>
-                        $(document).ready(function () {
-                            $("#startdate").datepicker();
-                            $("#enddate").datepicker();
-                        });
-                    </script>
                 </div>
 
                 <br>
@@ -95,12 +91,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
-                        <select name="currency" class="form-select" aria-label="Default select example">
-                            <option selected>Selecteaza Moneda</option>
-                            <option value="1">Lei</option>
-                            <option value="2">Euro</option>
-                            <option value="3">Dolari</option>
-                        </select>
+                        <input class="form-control" value="{{$coin['label'] ?? ''}}">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -124,7 +115,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
+                        <strong><i class="fa fa-asterisk" id="indexNumberOfArticle" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
                         <input type="number" name="item" class="form-control" placeholder="#Articole">
                         @error('articole')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -143,19 +134,20 @@
                 </div>
                 <br>
                 <br>
-                @include('bills.ware.ware1')
-                @include('bills.ware.ware2')
-                @include('bills.ware.ware3')
-                @include('bills.ware.ware4')
-                @include('bills.ware.ware5')
 
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal 1</button>
-
+                @include('bills.ware_modal.ware')
                 <div>
-                    <button type="submit" class="btn btn-primary ml-3">Adauga Articol</button>
+                    <button type="button"
+                            id="generateNumberOfArticle"
+                            class="btn btn-primary"
+                            data-toggle="modal"
+                            data-target=".ware1-modal">
+                        Adauga articol nou
+                    </button>
                 </div>
-
-
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Creeaza</button>
+                </div>
             </div>
         </form>
     </div>

@@ -27,9 +27,9 @@
 
                     <div class="input-group">
                         <div class="filter-item1 item-left">
-                            <select name="customer_type" id="department" class="form-control rounded-pill filter-control">
-                                <option
-                                    value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
+                            <select name="customer_type" id="department"
+                                    class="form-control rounded-pill filter-control">
+                                <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
                                 <option value="customer"> Beneficiar</option>
                                 <option value="provider">Furnizor</option>
                             </select>
@@ -77,7 +77,8 @@
                     <div class="pdf-style">
 
                         @if($customers)
-                            <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf</button>
+                            <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf
+                            </button>
                         @endif
                     </div>
                 </form>
@@ -112,7 +113,9 @@
 
                     <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
 
-                        <div class="align">
+                        <div class="align" >
+                            <a href="{{ route('customers.show',$customer->id) }}">
+
                             <b>{{ $customer->name }} </b> /
 
                             {{ $customer->uniqueCode }}
@@ -136,6 +139,7 @@
                                 /
                             @endif
                             {{ $customer->country }}
+                                </a>
                         </div>
                         <div class="align">
 
@@ -213,6 +217,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                     <a class="dropdown-item" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
+                                    <a class="dropdown-item" href="{{ route('create_bill',$customer->id) }}">Genereaza factura</a>
 
 
                                     @csrf
