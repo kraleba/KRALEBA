@@ -60,8 +60,8 @@ class CustomerHelper extends Controller
         if (!is_numeric($request->input('category_id'))) {
             return false;
         }
-            $category_id = $request->input('category_id');
-            $subcategory = $request->input('subcategory_label');
+        $category_id = $request->input('category_id');
+        $subcategory = $request->input('subcategory_label');
 
         $ifSubcategoryExist = (array)$this->product->find_subcategory_by_label($subcategory);
 
@@ -133,6 +133,21 @@ class CustomerHelper extends Controller
     {
         return $this->product->get_subcategory_by_category_id($request->input('category_id'));
 
+    }
+
+//    show customer coin
+    public function show_coin_by_country($country_id)
+    {
+        $coin = array();
+        if ($country_id == 1) {
+            $coin['label'] = "LEI";
+            $coin['id'] = $country_id;
+        } else {
+            $coin['label'] = "EURO";
+            $coin['id'] = $country_id;
+
+        }
+        return $coin;
     }
 
 
