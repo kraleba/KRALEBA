@@ -128,8 +128,10 @@ class CustomersController extends Controller
 
 
     public function show(Customers $customer)
-    {
-        return view('customers.show', compact('customer'));
+    {   
+        //  dd($data["customer"]);
+        $data["customer"]=$this->customers->get_customer_and_categoryes_by_id($customer->id);
+        return view('customers.show', $data);
     }
 
     public function edit(Customers $customer)

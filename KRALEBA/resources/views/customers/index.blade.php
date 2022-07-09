@@ -2,7 +2,6 @@
 
 @section('content')
 
-    {{--test--}}
     <div>
         <div class="row">
             <div class="col-lg-12 margin-tb">
@@ -25,36 +24,35 @@
 
                     <br>
 
-                    <div class="input-group">
-                        <div class="filter-item1 item-left">
-                            <select name="customer_type" id="department"
-                                    class="form-control rounded-pill filter-control">
-                                <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
+                    <div class="input-group item-left">
+                        <div class="filter-item1 ">
+                            <select name="customer_type" id="department" class="form-control rounded-pill filter-control">
+                                {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
                                 <option value="customer"> Beneficiar</option>
                                 <option value="provider">Furnizor</option>
                             </select>
                         </div>
 
+                        
                         <div class="filter-item1">
-                            <select name="category" id="department" class="form-control filter-control  rounded-pill">
+                            <select name="category" id="department" class="form-control rounded-pill filter-control">
 
-                                <option
-                                    value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
+                                <option value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
 
                                 @foreach ($furnace_categories as $furnace_category)
 
-                                    <option
-                                        value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
+                                    <option value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
 
                                 @endforeach
                             </select>
+
                         </div>
 
                         <div class="filter-item1">
                             <input type='text'
                                    name="subcategory"
                                    list="browsers"
-                                   placeholder="Selecteaza o subcategorie"
+                                   placeholder="--Selecteaza o subcategorie--"
                                    class="form-control filter-control rounded-pill"
                                    value="{{$filtering_criteria['subcategory'] ?? ''}}"
                             >
@@ -65,7 +63,7 @@
                                     <option>{{ $subcategory->name }}</option>
                                 @endforeach
                             </datalist>
-
+ 
                         </div>
 
                     </div>
@@ -218,6 +216,7 @@
 
                                     <a class="dropdown-item" href="{{ route('customers.edit',$customer->id) }}">Edit</a>
                                     <a class="dropdown-item" href="{{ route('create_bill',$customer->id) }}">Genereaza factura</a>
+                                    <a class="dropdown-item" href="{{ route('customers.show',$customer->id) }}">Facturiile </a>
 
 
                                     @csrf
