@@ -57,7 +57,7 @@
                 <div class="card subcategory-card" id="subcategory{{$furnace_category->category_id}}">
                     <div id="subcategory_list{{$furnace_category->category_id}}"></div>
 
-                    @if($furnace_category->category_id != 2)
+                    @if($furnace_category->category_id != 8)
                         <div id="category_id{{$furnace_category->category_id}}" style="display: none">
                             <input placeholder="add subcategory" type="text"
                                    id="subcategoryLabel {{$furnace_category->category_id}}">

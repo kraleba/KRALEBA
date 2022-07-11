@@ -72,9 +72,9 @@ class Products extends Model
     public function set_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id)
     {
         if ($categories_id) {
-            if (in_array(2, $categories_id)) {
+            if (in_array(8, $categories_id)) {
                 DB::insert('insert into customers_categories_subcategories (customer_id, category_id, customer_type) values (?, ?, ?)',
-                    [$customer_id, 2, 'provider']);
+                    [$customer_id, 8, 'provider']);
                 if (count($categories_id) <= 1) {
                     return true;
                 }
@@ -97,9 +97,9 @@ class Products extends Model
         DB::table('customers_categories_subcategories')->where('customer_id', $customer_id)->delete();
 
         if ($categories_id) {
-            if (in_array(2, $categories_id)) {
+            if (in_array(8, $categories_id)) {
                 DB::insert('insert into customers_categories_subcategories (customer_id, category_id, customer_type) values (?, ?, ?)',
-                    [$customer_id, 2, 'provider']);
+                    [$customer_id, 8, 'provider']);
                 if (count($categories_id) <= 1) {
                     return true;
                 }

@@ -2,11 +2,12 @@
 
 @section('content')
 
+    <h3>Articole</h3>
     <div>
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-right">
-                    <a class="btn btn-secondary" href="{{ route('customers.create') }}"> ADAUGA CLIENT</a>
+                    <a class="btn btn-secondary" href="{{ route('wares.create', $customer_id) }}"> ADAUGA ARTICOl</a>
                 </div>
             </div>
 
@@ -25,14 +26,14 @@
                     <br>
 
                     <div class="input-group item-left">
-                        <div class="filter-item1 ">
-                            <select name="customer_type" id="department"
-                                    class="form-control rounded-pill filter-control">
-                                {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
-                                <option value="customer"> Beneficiar</option>
-                                <option value="provider">Furnizor</option>
-                            </select>
-                        </div>
+{{--                        <div class="filter-item1 ">--}}
+{{--                            <select name="customer_type" id="department"--}}
+{{--                                    class="form-control rounded-pill filter-control">--}}
+{{--                                --}}{{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
+{{--                                <option value="customer"> Beneficiar</option>--}}
+{{--                                <option value="provider">Furnizor</option>--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
 
 
                         <div class="filter-item1">
@@ -50,7 +51,6 @@
                             </select>
 
                         </div>
-
                         <div class="filter-item1">
                             <input type='text'
                                    name="subcategory"
@@ -77,10 +77,10 @@
 
                     <div class="pdf-style">
 
-                        @if($customers)
-                            <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf
-                            </button>
-                        @endif
+                        {{--                        @if($wares)--}}
+                        {{--                            <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf--}}
+                        {{--                            </button>--}}
+                        {{--                        @endif--}}
                     </div>
                 </form>
 
@@ -93,10 +93,18 @@
 
         </div>
     </div>
+
+<form action="{{ route('create_bill', $customer_id) }}">
+{{--    <form action="{{ route('wares.destroy', ['customer_id'=>$customer_id,'ware'=>$ware->id]) }}"--}}
+
+    <button >Genereaza factura</button>
+</form>
+
+
     <!--end filter-->
     <br>
 
-    @if($customers)
+    @if($wares)
         <div>
             <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
         </div>
@@ -107,100 +115,100 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    @if($customers)
+    @if($wares)
         <div>
             <ul class="list-body">
-                @foreach ($customers as $customer)
+                @foreach ($wares as $ware)
 
                     <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
 
                         <div class="align">
-                            <a href="{{ route('customers.show',$customer->id) }}">
+                            {{--                            <a href="{{ route('customers.show',$ware->id) }}">--}}
 
-                                <b>{{ $customer->name }} </b> /
+                            <b>{{ $ware->product_name }} </b> /
 
-                                {{ $customer->uniqueCode }}
+                            {{ $ware->custom_code }}
 
-                                @if($customer->address)
-                                    /
-                                @endif
-                                {{ $customer->address }}
+                            @if($ware->composition)
+                                /
+                            @endif
+                            {{ $ware->material }}
 
-                                @if($customer->city)
-                                    /
-                                @endif
-                                {{ $customer->city }}
+                            @if($ware->design)
+                                /
+                            @endif
+                            {{ $ware->weaving }}
 
-                                @if($customer->zipCode)
-                                    /
-                                @endif
-                                {{ $customer->zipCode }}
+                            @if($ware->color)
+                                /
+                            @endif
+                            {{ $ware->finishing }}
 
-                                @if($customer->country)
-                                    /
-                                @endif
-                                {{ $customer->country }}
-                            </a>
+                            @if($ware->softness)
+                                /
+                            @endif
+                            {{ $ware->country }}
+                            {{--                            </a>--}}
                         </div>
                         <div class="align">
 
-                            {{ $customer->cif }}
+                            {{ $ware->cif }}
 
-                            @if($customer->ocr)
+                            @if($ware->ocr)
                                 /
                             @endif
-                            {{ $customer->ocr }}
+                            {{ $ware->ocr }}
 
-                            @if($customer->iban)
+                            @if($ware->iban)
                                 /
                             @endif
-                            {{ $customer->iban }}
+                            {{ $ware->iban }}
 
-                            @if($customer->swift)
+                            @if($ware->swift)
                                 /
                             @endif
-                            {{ $customer->swift }}
+                            {{ $ware->swift }}
 
-                            @if($customer->bank)
+                            @if($ware->bank)
                                 /
                             @endif
-                            {{ $customer->bank }}
+                            {{ $ware->bank }}
 
                         </div>
 
                         <div class="align">
-                            {{$customer->contact}}
+                            {{$ware->contact}}
 
-                            @if($customer->phone)
+                            @if($ware->phone)
                                 /
                             @endif
 
-                            {{ $customer->phone }}
+                            {{ $ware->phone }}
 
-                            @if($customer->phone2)
+                            @if($ware->phone2)
                                 /
                             @endif
-                            {{ $customer->phone2 }}
+                            {{ $ware->phone2 }}
 
-                            @if($customer->type)
+                            @if($ware->type)
                                 /
                             @endif
-                            {{ $customer->type }}
+                            {{ $ware->type }}
 
-                            @if($customer->email)
+                            @if($ware->email)
                                 /
                             @endif
-                            {{ $customer->email }}
+                            {{ $ware->email }}
 
-                            @if($customer->www)
+                            @if($ware->www)
                                 /
                             @endif
-                            {{ $customer->www }}
+                            {{ $ware->www }}
 
-                            @if($customer->note)
+                            @if($ware->note)
                                 /
                             @endif
-                            {{ $customer->note }}
+                            {{ $ware->note }}
 
                         </div>
 
@@ -213,18 +221,25 @@
                                         d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                                 </svg>
                             </div>
-                            <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">
+                            <form action="{{ route('wares.destroy', ['customer_id'=>$customer_id,'ware'=>$ware->id]) }}"
+                                  method="POST">
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                    <a class="dropdown-item" href="{{ route('customers.edit', $customer->id) }}">Edit</a>
-                                    <a class="dropdown-item" href="{{ route('create_bill', $customer->id) }}">Genereaza
-                                        factura</a>
+                                    <a class="dropdown-item" href="{{ route('customers.edit', $ware->id) }}">
+                                        Edit
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('create_bill', $ware->id) }}">
+                                        Genereaza factura
+                                    </a>
 
-                                    <a class="dropdown-item" href="{{ route('customers.show', $customer->id) }}">Facturiile </a>
+                                    <a class="dropdown-item"
+                                       href="{{ route('customers.show', $ware->id) }}">Facturiile
+                                    </a>
 
-                                    <a class="dropdown-item" href="{{ route('wares.index', $customer->id) }}">
-                                        Articole </a>
+                                    <a class="dropdown-item" href="{{ route('wares.index', $ware->id) }}">
+                                        Articole
+                                    </a>
 
 
                                     @csrf

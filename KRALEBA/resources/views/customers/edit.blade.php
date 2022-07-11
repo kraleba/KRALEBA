@@ -58,7 +58,7 @@
                         <div id="subcategory_list{{$furnace_category->category_id}}"></div>
 
                             <div id="category_id{{$furnace_category->category_id}}" style="display: none">
-                                @if($furnace_category->category_id != 2)
+                                @if($furnace_category->category_id != 8)
 
                                 <input placeholder="add subcategory" type="text"
                                        id="subcategoryLabel {{$furnace_category->category_id}}">

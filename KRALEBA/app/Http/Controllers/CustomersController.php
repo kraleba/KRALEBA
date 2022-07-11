@@ -128,7 +128,7 @@ class CustomersController extends Controller
 
 
     public function show(Customers $customer)
-    {   
+    {
         //  dd($data["customer"]);
         $data["customer"]=$this->customers->get_customer_and_categoryes_by_id($customer->id);
         return view('customers.show', $data);
@@ -173,7 +173,7 @@ class CustomersController extends Controller
             $subcategories_id = $request->input('subcategories_id');
             $categories_id = (array)$request->input('categories_id');
 
-            if (!in_array(2, $categories_id)) {
+            if (!in_array(8, $categories_id)) {
                 $request->validate([
                     'subcategories_id' => 'required',
                 ]);

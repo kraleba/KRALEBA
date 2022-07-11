@@ -40,23 +40,6 @@ function checkBoxProvider() {
 
 }
 
-function showSubcategory(isSelected) {
-    document.getElementById('subcategory').innerText = isSelected.options[isSelected.selectedIndex].text;
-
-    if (isSelected.options[isSelected.selectedIndex].value > 0) {
-
-        document.getElementById('subcategoryProduct').style.display = 'block';
-        document.getElementById('customerOrProviderForm').style.display = 'block';
-
-    } else {
-        document.getElementById('subcategoryProduct').style.display = 'none';
-        document.getElementById('customerOrProviderForm').style.display = 'none';
-
-    }
-
-}
-
-
 $(".show-subcategory").click(function () {
 
         var category_id = $("#category_id").val();
@@ -183,7 +166,7 @@ function showSubcategoryWhenIsEdited(categories, subcategories) {
 
 function showSubcategoryByCategoryId(category_id, existing_subcatelgory = null) {
 
-    console.log(existing_subcatelgory);
+    console.log(category_id);
 
     let category = document.getElementById('category_id ' + category_id);
     if (category.checked) {

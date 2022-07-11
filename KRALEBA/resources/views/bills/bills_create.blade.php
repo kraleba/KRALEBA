@@ -115,8 +115,13 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" id="indexNumberOfArticle" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
-                        <input type="number" name="item" class="form-control" placeholder="#Articole">
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
+                        <input type="number"
+                               name="item"
+                               id="indexNumberOfArticle"
+                               class="form-control"
+                               placeholder="#Articole"
+                        >
                         @error('articole')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -134,14 +139,14 @@
                 </div>
                 <br>
                 <br>
-
                 @include('bills.ware_modal.ware')
+
                 <div>
                     <button type="button"
                             id="generateNumberOfArticle"
                             class="btn btn-primary"
                             data-toggle="modal"
-                            data-target=".ware1-modal">
+                            data-target=".ware-modal">
                         Adauga articol nou
                     </button>
                 </div>
@@ -149,7 +154,13 @@
                     <button type="submit" class="btn btn-primary">Creeaza</button>
                 </div>
             </div>
+
+
         </form>
+
     </div>
+
+
     </body>
 @endsection
+

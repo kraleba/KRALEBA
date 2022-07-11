@@ -53,10 +53,11 @@ class Customers extends Model
         }
 
         $categories = array();
+        $product = new Products();
         foreach ($categories_obj as $category) {
 
             if (!is_object($category)) {
-                $categories[$category] = $category;
+                $categories[$category] = (array)$product->get_customer_category_by_id($category);
             }
         }
 
@@ -74,7 +75,11 @@ class Customers extends Model
         foreach ($customers as $customer) {
             $subcateogry = DB::table('customer_subcategory')->where('subcategory_id', $customer->subcategory_id)->get()->toArray();
             if ($subcateogry) {
-                $subcategories[$subcateogry[0]->subcategory_id] = $subcateogry[0]->subcategory_id;
+                $subcategories[$subcateogry[0]->subcategory_id] = array(
+                    'id' => $subcateogry[0]->subcategory_id,
+                    'name' => $subcateogry[0]->name,
+                    'category_id' => $customer->category_id,
+                );
             }
             $i++;
         }

@@ -3,6 +3,7 @@
 use App\Helpers\CustomerHelper;
 use App\Http\Controllers\BillsController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\CustomerWaresControler;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/customers/{id}/create_edit/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 
+    //ware
+    Route::resource('admin/{customer_id}/wares', CustomerWaresControler::class);
 
 
 

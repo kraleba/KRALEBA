@@ -24,7 +24,7 @@
 
 
             </div>
-            <form action="{{ route('show.destroy',$customer['id']) }}" method="POST">
+{{--            <form action="{{ route('show.destroy',$customer['id']) }}" method="POST">--}}
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
@@ -34,7 +34,7 @@
                     <button class="dropdown-item">Delete</button>
 
                 </div>
-            </form>
+{{--            </form>--}}
         </ul>
-    <div>    
+    <div>
 @endsection

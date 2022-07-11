@@ -14,15 +14,36 @@ $("#validate_product").on("click", function (e) {
 
 });
 
-$("#generateNumberOfArticle").on("click", function () {
-    let indexNumberOfArticle = document.getElementById('indexNumberOfArticle').value;
-    let numberOfArticles = document.getElementById('numberOfArticles').innerHTML;
+let index = false;
 
-    console.log('test');
-    for (let i = 0; i < indexNumberOfArticle; ++i) {
-        document.getElementById('numberOfArticles').innerHTML += numberOfArticles;
+$("#generateNumberOfArticle").on("click", function () {
+
+    if (index) {
+        document.getElementById('numberOfArticles').innerHTML = '';
     }
+
+    let indexNumberOfArticle = document.getElementById('indexNumberOfArticle').value;
+
+    let numberOfArticles = document.getElementById('templateWareModal').innerHTML;
+    for (let i = 0; i < indexNumberOfArticle; ++i) {
+        document.getElementById('numberOfArticles').innerHTML +=
+            '<div id="boxTemplate' + i + '">' +
+            '<div id="test12' + i + '">'
+            + numberOfArticles + '<input type="button" value="Valideaza" onclick="articleValidation(' + i + ')">' +
+            '</div>' +
+            '</div>';
+        if (i > 0) {
+            // document.getElementById("test12" + i).style.display = 'none';
+        }
+    }
+    index = true;
 });
+
+function articleValidation(item) {
+    // document.getElementById("test12" + item).style.display = 'none';
+    document.getElementById("test12" + item + 1).style.display = 'block';
+}
+
 
 /*Datae time modal*/
 $(document).ready(function () {
@@ -30,3 +51,5 @@ $(document).ready(function () {
     $("#enddate").datepicker();
 });
 /*Datae time modal end*/
+
+
