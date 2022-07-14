@@ -46,7 +46,8 @@
 
                 </select>
             </div>
-
+            <br>
+            
             <div id="templateWare" style="display: none">
                 <div class="col-xs-1 col-sm-12 col-md-5 show-subcategory">
 

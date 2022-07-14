@@ -224,11 +224,106 @@
         </div>
 
     </div>
+    <br>
 
 
-        <div>
-            <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
-        </div>
+
+
+
+    <div>
+        <table >
+            
+            <tr > 
+                <th rowspan="2"> </th>
+                <th rowspan="2">Product</th>
+                <th rowspan="2">Code</th>
+                <th rowspan="2">Description</th>
+                <th colspan="4"> buc./UM</th>
+                <th colspan="2">Total fara TVA</th>
+                <th colspan="2">TVA</th>
+                <th colspan="2">Total incl. TVA</th>
+            </tr>
+
+            <tr>
+                <th>UM</th>
+                <th>Cantit.</th>
+                <th>Euro</th>
+                <th>Lei</th>
+                <th>Euro</th>
+                <th>Lei</th>
+                <th>Euro</th>
+                <th>Lei</th>
+                <th>Euro</th>
+                <th>Lei</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="8"></td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td ></td>
+            </tr>
+            
+        </table>
+
+    </div>
+    <br>
+
+
+
+
+    <div>
+        <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
+    </div>
 
         @if ($message = Session::get('success'))
         <div class="alert alert-success">

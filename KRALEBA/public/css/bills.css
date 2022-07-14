@@ -16,3 +16,15 @@
 .align-b {
     padding-left: 20px;
 }
+th {
+    border: 1px solid black;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+table, td {
+    padding-top: 30px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+}
