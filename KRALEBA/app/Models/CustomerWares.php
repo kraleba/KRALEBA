@@ -63,12 +63,13 @@ class CustomerWares extends Model
 //        dd($data);
             unset($data['_token']);
             unset($data['_method']);
-        DB::table('customer_wares')->update($data);
+        DB::table('customer_wares')->where('id', $id)
+        ->update($data);
 
-
-        DB::select("UPDATE customer_wares
-                SET " . $this->fillable = $data . "
-                WHERE id = {$id}");
+// dd($id);
+        // DB::select("UPDATE customer_wares
+        //         SET " . $this->fillable = $data . "
+        //         WHERE id = ". $id );
     }
 
 }

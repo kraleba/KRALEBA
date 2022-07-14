@@ -12,6 +12,7 @@
             </div>
         </div>
     </div>
+    <br>
 
     <div>
         <form action="{{ route('wares.store', $customer['customer_id']) }}" method="POST">
@@ -23,7 +24,7 @@
                 <input type="hidden" name="customer_id" value="{{$customer['customer_id']}}">
                 <input type="hidden" name="status" value="0">
 
-                <select name="subcategory_id" id="subcategorySelected" onchange="showWareTemplate()">
+                <select name="subcategory_id" id="subcategorySelected" onchange="showWareTemplate()" class="form-control filter-control">
                     <option>Selecteaza o subcategorie</option>
 
                     @foreach($customer['category_id'] as $category)
@@ -55,8 +56,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk"
-                                       style="font-size:7px;color:red; vertical-align: top;"></i>Product
-                                Name:</strong>
+                                       style="font-size:7px;color:red; vertical-align: top;"></i>Product Name:</strong>
                             <input type="text" name="product_name" class="form-control"
                                    placeholder="Product Name">
                             @error('Product name')
@@ -68,12 +68,22 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk"
-                                       style="font-size:7px;color:red; vertical-align: top;"></i>Custom
-                                code
-                                :</strong>
+                                       style="font-size:7px;color:red; vertical-align: top;"></i>Custom code:</strong>
                             <input type="text" name="custom_code" class="form-control"
                                    placeholder="Custom code">
                             @error('Custom code')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong><i class="fa fa-asterisk"
+                                       style="font-size:7px;color:red; vertical-align: top;"></i>Description:</strong>
+                            <input type="text" name="description" class="form-control"
+                                   placeholder="Description">
+                            @error('Description')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>
@@ -97,7 +107,7 @@
                                 <strong><i class="fa fa-asterisk"
                                            style="font-size:7px;color:red; vertical-align: top;"></i>Material
                                     :</strong>
-                                <input type="text" name="material " class="form-control"
+                                <input type="text" name="material" class="form-control"
                                        placeholder="Material ">
                                 @error('Material ')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -132,10 +142,10 @@
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Weawing:</strong>
-                                <input type="text" name="weawing" class="form-control"
-                                       placeholder="Weawing">
-                                @error('Weawing')
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Weaving:</strong>
+                                <input type="text" name="weaving" class="form-control"
+                                       placeholder="Weaving">
+                                @error('Weaving')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -167,11 +177,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Perceived
-                                    weight:</strong>
-                                <input type="text" name="perceived_weight" class="form-control"
-                                       placeholder="Perceived weight">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Perceived weight:</strong>
+                                <input type="text" name="perceived_weight" class="form-control" placeholder="Perceived weight">
                                 @error('Perceived weight')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -180,10 +187,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Softness:</strong>
-                                <input type="text" name="softness" class="form-control"
-                                       placeholder="Softness">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Softness:</strong>
+                                <input type="text" name="softness" class="form-control" placeholder="Softness">
                                 @error('Softness')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -192,8 +197,7 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Look:</strong>
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Look:</strong>
                                 <input type="text" name="look" class="form-control" placeholder="Look">
                                 @error('Look')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -203,10 +207,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Grounds:</strong>
-                                <input type="text" name="grounds" class="form-control"
-                                       placeholder="Grounds">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Grounds:</strong>
+                                <input type="text" name="grounds" class="form-control" placeholder="Grounds">
                                 @error('Grounds')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -215,12 +217,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Weight
-                                    in
-                                    g/m2:</strong>
-                                <input type="text" name="weight_in_g/m2" class="form-control"
-                                       placeholder="Weight in g/m2">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Weight in g/m2:</strong>
+                                <input type="text" name="weight_in_g/m2" class="form-control" placeholder="Weight in g/m2">
                                 @error('Weight in g/m2')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -229,11 +227,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Width
-                                    (cm):</strong>
-                                <input type="text" name="width" class="form-control"
-                                       placeholder="Width (cm)">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Width (cm):</strong>
+                                <input type="text" name="width" class="form-control" placeholder="Width (cm)">
                                 @error('Width (cm)')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -242,12 +237,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn
-                                    number
-                                    warp:</strong>
-                                <input type="text" name="yarn_number_warp" class="form-control"
-                                       placeholder="Yarn number warp">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Yarn number warp:</strong>
+                                <input type="text" name="warp_th_per_cm" class="form-control" placeholder="Yarn number warp">
                                 @error('Yarn number warp')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -256,26 +247,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn
-                                    number
-                                    weft:</strong>
-                                <input type="text" name="yarn_number_weft" class="form-control"
-                                       placeholder="Yarn number weft">
-                                @error('Yarn number weft')
-                                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn
-                                    count per cm
-                                    warp:</strong>
-                                <input type="text" name="yarn_count_per_cm_warp" class="form-control"
-                                       placeholder="Yarn count per cm warp">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm warp:</strong>
+                                <input type="text" name="warp_th_per_yarn_ne" class="form-control" placeholder="Yarn count per cm warp">
                                 @error('Yarn count per cm warp')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -284,12 +257,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>
-                                    Yarn count per cm weft:
-                                </strong>
-                                <input type="text" name="yarn_count_per_cm_weft" class="form-control"
-                                       placeholder="Yarn count per cm weft">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm weft:</strong>
+                                <input type="text" name="weft_p_per_cm" class="form-control" placeholder="Yarn count per cm weft">
                                 @error('Yarn count per cm weft')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -298,10 +267,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Origin:</strong>
-                                <input type="text" name="origin" class="form-control"
-                                       placeholder="Origin">
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Origin:</strong>
+                                <input type="text" name="origin" class="form-control" placeholder="Origin">
                                 @error('Origin')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -310,8 +277,7 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Date:</strong>
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Date:</strong>
                                 <input type="text" name="date" class="form-control" placeholder="Date">
                                 @error('Date')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -321,24 +287,21 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk"
-                                           style="font-size:7px;color:red; vertical-align: top;"></i>Rating:</strong>
-                                <input type="text" name="description" class="form-control"
-                                       placeholder="Description">
-                                @error('Description')
+                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Rating:</strong>
+                                <input type="text" name="rating" class="form-control" placeholder="Rating:">
+                                @error('Rating:')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
 
+
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong><i class="fa fa-asterisk"
-                                       style="font-size:7px;color:red; vertical-align: top;"></i>Description:</strong>
-                            <input type="text" name="description" class="form-control"
-                                   placeholder="Rating">
-                            @error('Description')
+                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
+                            <input type="text" name="coin" class="form-control" value="{{$coin['label'] ?? ''}}" placeholder="Moneda">
+                            @error('Moneda')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>
@@ -346,23 +309,8 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong><i class="fa fa-asterisk"
-                                       style="font-size:7px;color:red; vertical-align: top;"></i>Mneda:</strong>
-                            <input type="text" name="description" class="form-control"
-                                   value="{{$coin['label'] ?? ''}}"
-                                   placeholder="Moneda">
-                            @error('Description')
-                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong><i class="fa fa-asterisk"
-                                       style="font-size:7px;color:red; vertical-align: top;"></i>UM:</strong>
-                            <select name="UM" class="form-select"
-                                    aria-label="Default select example">
+                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>UM:</strong>
+                            <select name="UM" class="form-select" aria-label="Default select example">
                                 <option selected>Selecteaza UM</option>
                                 <option value="1">ml</option>
                                 <option value="2">gr</option>
@@ -373,11 +321,9 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            <strong><i class="fa fa-asterisk"
-                                       style="font-size:7px;color:red; vertical-align: top;"></i>Cantitatea:</strong>
-                            <input type="text" name="amount" class="form-control"
-                                   placeholder="Cantitatea">
-                            @error('Description')
+                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cantitatea:</strong>
+                            <input type="text" name="amount" class="form-control" placeholder="Cantitatea">
+                            @error('Cantitatea')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
                         </div>
