@@ -217,7 +217,8 @@
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                    <a class="dropdown-item" href="{{ route('customers.edit', $customer->id) }}">Edit</a>
+                                    <a class="dropdown-item"
+                                       href="{{ route('customers.edit', $customer->id) }}">Edit</a>
                                     <a class="dropdown-item" href="{{ route('create_bill', $customer->id) }}">Genereaza
                                         factura</a>
 

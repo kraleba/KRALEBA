@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CustomerHelper;
+use App\Models\Bills;
 use App\Models\Customers;
 use App\Models\Products;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -13,6 +14,7 @@ class CustomersController extends Controller
 
     public Products $product;
     public Customers $customers;
+    public Bills $bills;
     public CustomerHelper $helper;
 
     public function __construct()
@@ -20,6 +22,7 @@ class CustomersController extends Controller
         $this->product = new Products();
         $this->customers = new Customers();
         $this->helper = new CustomerHelper();
+        $this->bills = new Bills();
     }
 
     public function index(Request $request)
@@ -130,7 +133,10 @@ class CustomersController extends Controller
     public function show(Customers $customer)
     {
         //  dd($data["customer"]);
-        $data["customer"]=$this->customers->get_customer_and_categoryes_by_id($customer->id);
+//        $data["customer"]=$this->customers->get_customer_and_categoryes_by_id($customer->id);
+        $data["generated_bills"]=$this->bills->get_bills_by_customer_id($customer->id);
+//        dd($data);
+
         return view('customers.show', $data);
     }
 

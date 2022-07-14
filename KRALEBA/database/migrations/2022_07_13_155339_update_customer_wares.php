@@ -14,11 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::table('customer_wares', function (Blueprint $table) {
-            $table->string('bill_id')->nullable();
-            $table->string('status')->default(0);
+            $table->string('category_id')->nullable();
+            $table->string('subcategory_id');
+            $table->string('perceived_weight')->nullable();
+
+
         });
     }
 
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     /**
      * Reverse the migrations.
      *

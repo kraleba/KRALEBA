@@ -14,91 +14,22 @@
         </div>
     </div>
     <div class="container ">
-        <div class="row searchFilter card round3">
+        <div class="row  card round3">
 
-            <div class="col-lg-12 box-filter">
-                <form action="{{ route('customers.index') }}" method="get">
+            <div class="col-lg-12 ">
+                <form action="{{ route('create_bill', $customer_id) }}">
                     <div>
-                        <h4>SELECTEAZA:</h4>
-                    </div>
+                        <h3>Articole ne facturate {{$wares_count}}</h3>
+                        <button class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
+                                data-toggle="tooltip" style="float: right">Genereaza factura
+                        </button>
 
-
-                    <br>
-
-                    <div class="input-group item-left">
-{{--                        <div class="filter-item1 ">--}}
-{{--                            <select name="customer_type" id="department"--}}
-{{--                                    class="form-control rounded-pill filter-control">--}}
-{{--                                --}}{{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
-{{--                                <option value="customer"> Beneficiar</option>--}}
-{{--                                <option value="provider">Furnizor</option>--}}
-{{--                            </select>--}}
-{{--                        </div>--}}
-
-
-                        <div class="filter-item1">
-                            <select name="category" id="department" class="form-control rounded-pill filter-control">
-
-                                <option
-                                    value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
-
-                                @foreach ($furnace_categories as $furnace_category)
-
-                                    <option
-                                        value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
-
-                                @endforeach
-                            </select>
-
-                        </div>
-                        <div class="filter-item1">
-                            <input type='text'
-                                   name="subcategory"
-                                   list="browsers"
-                                   placeholder="--Selecteaza o subcategorie--"
-                                   class="form-control filter-control rounded-pill"
-                                   value="{{$filtering_criteria['subcategory'] ?? ''}}"
-                            >
-
-                            <datalist id="browsers" class="dropdown">
-
-                                @foreach ($subcategories as $subcategory)
-                                    <option>{{ $subcategory->name }}</option>
-                                @endforeach
-                            </datalist>
-
-                        </div>
-
-                    </div>
-
-                    <div class="filter-item_OK ">
-                        <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
-                    </div>
-
-                    <div class="pdf-style">
-
-                        {{--                        @if($wares)--}}
-                        {{--                            <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf--}}
-                        {{--                            </button>--}}
-                        {{--                        @endif--}}
-                    </div>
-                </form>
-
-                <form>
-                    <div class="revert-b">
-                        <button type="submit" class="btn btn-secondary">REVERT</button>
                     </div>
                 </form>
             </div>
 
         </div>
     </div>
-
-<form action="{{ route('create_bill', $customer_id) }}">
-{{--    <form action="{{ route('wares.destroy', ['customer_id'=>$customer_id,'ware'=>$ware->id]) }}"--}}
-
-    <button >Genereaza factura</button>
-</form>
 
 
     <!--end filter-->
@@ -226,7 +157,8 @@
 
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                    <a class="dropdown-item" href="{{ route('customers.edit', $ware->id) }}">
+                                    <a class="dropdown-item"
+                                       href="{{ route('wares.edit', ['customer_id'=>$customer_id, 'ware'=>$ware->id])}}">
                                         Edit
                                     </a>
                                     <a class="dropdown-item" href="{{ route('create_bill', $ware->id) }}">
@@ -262,5 +194,3 @@
     @endif
 
 @endsection
-
-

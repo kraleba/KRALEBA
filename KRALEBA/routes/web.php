@@ -54,7 +54,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 
     //ware
-    Route::resource('admin/{customer_id}/wares', CustomerWaresControler::class);
+    Route::resource('admin/customers/{customer_id}/wares', CustomerWaresControler::class);
 
 
 

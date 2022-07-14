@@ -41,7 +41,9 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
-                        <input type="text" name="custumer_id" value="{{$customer['name'] ?? ''}}" class="form-control"
+
+                        <input type="hidden" name="customer_id" value="{{$customer['customer_id'] ?? ''}}">
+                        <input type="text" value="{{$customer['name'] ?? ''}}" class="form-control"
                                placeholder="Client Name">
                         @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -70,7 +72,7 @@
                     </div>
                     <div class="form-row">
                         <strong>Start Date</strong>
-                        <input id="startdate" value="{{date('d/m/Y')}}" class="form-control col-md-2">
+                        <input id="startdate" name="bill_date" value="{{date('d/m/Y')}}" class="form-control col-md-2">
 
                     </div>
 
@@ -91,7 +93,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
-                        <input class="form-control" value="{{$coin['label'] ?? ''}}">
+                        <input class="form-control" name="currency" value="{{$coin['label'] ?? ''}}">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -139,22 +141,21 @@
                 </div>
                 <br>
                 <br>
-                @include('bills.ware_modal.ware')
-
-                <div>
-                    <button type="button"
-                            id="generateNumberOfArticle"
-                            class="btn btn-primary"
-                            data-toggle="modal"
-                            data-target=".ware-modal">
-                        Adauga articol nou
-                    </button>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <ul >
+                        @foreach($wares as $ware)
+                            <li value="{{$ware->id}}">{{$ware->product_name}}</li>
+                            <input name="wares_id[]" type="hidden" value="{{$ware->id}}">
+                        @endforeach
+                        </ul>
+                    </div>
                 </div>
+
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Creeaza</button>
                 </div>
             </div>
-
 
         </form>
 

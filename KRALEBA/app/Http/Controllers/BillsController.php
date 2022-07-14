@@ -6,9 +6,11 @@ namespace App\Http\Controllers;
 use App\Helpers\CustomerHelper;
 use App\Models\Bills;
 use App\Models\Customers;
+use App\Models\CustomerWares;
 use App\Models\Products;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class BillsController extends Controller
@@ -16,12 +18,16 @@ class BillsController extends Controller
     public Products $product;
     public Customers $customers;
     public CustomerHelper $helper;
+    public Bills $bills;
+    public CustomerWares $wares;
 
     public function __construct()
     {
         $this->product = new Products();
         $this->customers = new Customers();
         $this->helper = new CustomerHelper();
+        $this->bills = new Bills();
+        $this->wares = new CustomerWares();
     }
 
     public function index()
@@ -41,22 +47,24 @@ class BillsController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->input());
-        // dd($request->input());
+//        dd($request->input());
+
         $request->validate([
-            'custumer_id' => 'required',
+//            'custumer_id' => 'required',
             'bill_date' => 'required',
             'bill_number' => 'required',
-            'currency' => 'required',
+//            'currency' => 'required',
             'exchange' => 'required',
             'TVA' => 'required',
-            'item' => 'required',
-            'type' => 'required',
-            // 'category_id' => 'required',
-            // 'specify_id' => 'required',
+//            'item' => 'required',
+//            'type' => 'required',
+//            // 'category_id' => 'required',
+//            // 'specify_id' => 'required',
         ]);
 
-        Bills::create($request->input());
+        $this->bills->create_bill_and_update_ware($request->input());
+//        Bills::create($request->input());
+
 
         return redirect()->route('bills.index')
             ->with('success', 'Bills has been created successfully.');
@@ -95,17 +103,19 @@ class BillsController extends Controller
     public function generate_bill(Request $request)
     {
         $customer = $this->customers->get_customer_and_categoryes_by_id($request->id);
-//dd($request->id);
+
         $data = array(
             'customer' => $customer,
+            'wares' => $this->wares->get_wares_id_from_customer_id($request->id),
             'coin' => $this->helper->show_coin_by_country($customer['country']),
             'furnace_categories' => $this->product->get_furnace_categories(),
             'subcategories' => $this->product->get_subcategory_for_customer_category(),
         );
-//        dd($customer);
+//        dd($data['customer']['customer_id']);
         return view('bills.bills_create', $data);
 
     }
+
 
 
 }
