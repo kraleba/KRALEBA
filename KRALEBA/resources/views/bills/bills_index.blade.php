@@ -229,9 +229,9 @@
 
 
 
-
-    <div>
-        <table >
+    <div class="row searchFilter card round3b">
+    <div class="col-sm-12 box-filter-b">
+        <table class="form-control filter-control  rounded-pill">
             
             <tr > 
                 <th rowspan="2"> </th>
@@ -286,6 +286,7 @@
                 <td> </td>
                 <td> </td>
                 <td> </td>
+                <td> </td>
             </tr>
             <tr>
                 <td>3</td>
@@ -316,6 +317,10 @@
         </table>
 
     </div>
+    </div>
+    </div> 
+    <br>
+    
     <br>
 
 
