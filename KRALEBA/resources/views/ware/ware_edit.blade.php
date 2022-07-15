@@ -36,7 +36,7 @@
                                 @foreach($customer['subcategory_id'] as $subcategory)
                                     @if($category['category_id'] == $subcategory['category_id'])
                                         <option
-
+                                            value="{{$subcategory['id']}}"
                                             @if($ware['subcategory_id'] == $subcategory['id'])
                                                 selected
                                             @endif
@@ -87,14 +87,14 @@
                             @enderror
                         </div>
                     </div>
-                    
+
 
                     <div id="textileInputs"
                          @if($ware['subcategory_id'] != 'Textile')
                              style="display: none"
                         @endif
                     >
-                        
+
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk"

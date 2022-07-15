@@ -39,8 +39,12 @@ class Customers extends Model
         return false;
     }
 
-    public function get_customer_and_categoryes_by_id($id)
+    public function get_customer_and_categories_by_id($id)
     {
+
+        if(!$id) {
+            return false;
+        }
 
         $query = "SELECT category_id FROM customers_categories_subcategories WHERE customer_id = {$id}";
         $categories_obj = DB::select($query);

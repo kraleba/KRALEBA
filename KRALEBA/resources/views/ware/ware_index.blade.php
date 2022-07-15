@@ -10,14 +10,13 @@
                     <a class="btn btn-secondary" href="{{ route('wares.create', $customer_id) }}"> ADAUGA ARTICOl</a>
                 </div>
             </div>
-
         </div>
     </div>
     <div class="container ">
         <div class="row  card round3">
 
             <div class="col-lg-12 ">
-                <form action="{{ route('create_bill', $customer_id) }}">
+                <form action="{{ route('bills.create', $customer_id) }}">
                     <div>
                         <h3>Articole ne facturate {{$wares_count}}</h3>
                         <button class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
@@ -153,16 +152,13 @@
                                 </svg>
                             </div>
                             <form action="{{ route('wares.destroy', ['customer_id'=>$customer_id,'ware'=>$ware->id]) }}"
-                                  method="POST">
-
+                                  method="POST"
+                            >
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                     <a class="dropdown-item"
                                        href="{{ route('wares.edit', ['customer_id'=>$customer_id, 'ware'=>$ware->id])}}">
                                         Edit
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('create_bill', $ware->id) }}">
-                                        Genereaza factura
                                     </a>
 
                                     <a class="dropdown-item"
@@ -172,7 +168,6 @@
                                     <a class="dropdown-item" href="{{ route('wares.index', $ware->id) }}">
                                         Articole
                                     </a>
-
 
                                     @csrf
                                     @method('DELETE')

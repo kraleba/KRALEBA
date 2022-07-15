@@ -45,11 +45,4 @@ function articleValidation(item) {
 }
 
 
-/*Datae time modal*/
-$(document).ready(function () {
-    $("#startdate").datepicker();
-    $("#enddate").datepicker();
-});
-/*Datae time modal end*/
-
 

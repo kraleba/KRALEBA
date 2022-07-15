@@ -219,10 +219,8 @@
 
                                     <a class="dropdown-item"
                                        href="{{ route('customers.edit', $customer->id) }}">Edit</a>
-                                    <a class="dropdown-item" href="{{ route('create_bill', $customer->id) }}">Genereaza
-                                        factura</a>
 
-                                    <a class="dropdown-item" href="{{ route('customers.show', $customer->id) }}">Facturiile </a>
+                                    <a class="dropdown-item" href="{{ route('bills.index', $customer->id) }}">Facturiile </a>
 
                                     <a class="dropdown-item" href="{{ route('wares.index', $customer->id) }}">
                                         Articole </a>

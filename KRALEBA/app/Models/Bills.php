@@ -33,6 +33,7 @@ class Bills extends Model
 
         $bills = DB::table('bills')->where('customer_id', $customer_id)->get();
         $i = 0;
+        $generatedBills = array();
         foreach ($bills as $bill) {
             $generatedBills[$i] = DB::select("SELECT *
             FROM customer_wares
@@ -42,8 +43,24 @@ class Bills extends Model
             AND customer_wares.bill_id = {$bill->id}");
             $i++;
         }
-//        dd($generatedBills);
+        if ($generatedBills) {
+            return $generatedBills;
+        } else {
+            return false;
+        }
+    }
 
-        return $generatedBills;
+    public function get_bill_by_id($bill_id) {
+        if (is_numeric($bill_id)) {
+            return DB::table('bills')->where('id', $bill_id)->first();
+        }
+        return false;
+    }
+
+    public function delete_bill_and_wares($bill_id) {
+
+        DB::table('bills')->where('id', $bill_id)->delete();
+        DB::table('customer_wares')->where('bill_id', $bill_id)->delete();
+
     }
 }

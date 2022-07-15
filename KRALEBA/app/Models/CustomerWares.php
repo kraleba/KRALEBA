@@ -17,20 +17,31 @@ class CustomerWares extends Model
         'rating', 'description', 'um', 'amount', 'coin', 'customer_id', 'bill_id', 'category_id', 'subcategory_id', 'status'
     ];
 
-    public function get_wares_to_customer($customer_id)
+    public function get_wares_to_customer($customer_id, $status = null)
     {
+        if (!$customer_id && !is_numeric($customer_id)) {
+            return false;
+        }
+        if (!$status) {
+            $status = 0;
+        }
+
         $query = "SELECT *
             FROM customers
             LEFT JOIN customer_wares
             ON customers.id = customer_wares.customer_id
             WHERE customer_wares.customer_id = {$customer_id}
-            AND customer_wares.status = 0";
+            AND customer_wares.status = {$status}";
 
         return DB::select($query);
     }
 
     public function get_wares_id_from_customer_id($customer_id)
     {
+        if (!$customer_id) {
+            return false;
+        }
+
         $query = "SELECT customer_wares.id, customer_wares.product_name
             FROM customer_wares
             LEFT JOIN customers
@@ -59,12 +70,13 @@ class CustomerWares extends Model
 
     }
 
-    public function ware_update($data, $id) {
+    public function ware_update($data, $id)
+    {
 //        dd($data);
-            unset($data['_token']);
-            unset($data['_method']);
+        unset($data['_token']);
+        unset($data['_method']);
         DB::table('customer_wares')->where('id', $id)
-        ->update($data);
+            ->update($data);
 
 // dd($id);
         // DB::select("UPDATE customer_wares

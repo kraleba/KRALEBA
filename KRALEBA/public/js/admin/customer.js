@@ -93,7 +93,7 @@ function dropDownValue(id) {
 
 //delete subcategory
 function deleteSubcategory(id) {
-    console.log(id);
+    // console.log(id);
 
     $.ajax(
         {
@@ -129,7 +129,7 @@ function addSubcategoryForCustomersId(category_id) {
             },
             success: function (res) {
 
-                console.log(res);
+                // console.log(res);
                 if (res.subcategory_id) {
                     $("#subcategory_list" + category_id)
                         .append($("<input name='subcategories_id[]' id='subcategory_id_input" + res.subcategory_id + "' type='checkbox' value='" + res.subcategory_id + "'>" +
@@ -147,10 +147,10 @@ function addSubcategoryForCustomersId(category_id) {
 //show existences subcategories
 window.onload = (event) => {
 
-    var categories =$('#category').attr("categories");
+    var categories = $('#category').attr("categories");
     var subcategories = $('#category').attr("subcategories");
 
-    if(categories || subcategories) {
+    if (categories || subcategories) {
         showSubcategoryWhenIsEdited(JSON.parse(categories), JSON.parse(subcategories));
     }
 }
@@ -159,15 +159,12 @@ function showSubcategoryWhenIsEdited(categories, subcategories) {
 
     $.each(categories, function (data, value) {
 
-        showSubcategoryByCategoryId(value, subcategories)
+        // showSubcategoryByCategoryId(value, subcategories)
         // console.log(value);
     });
 }
 
-function showSubcategoryByCategoryId(category_id, existing_subcatelgory = null) {
-
-    console.log(category_id);
-
+function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
     let category = document.getElementById('category_id ' + category_id);
     if (category.checked) {
         document.getElementById('category_id' + category_id).style.display = 'block';
@@ -189,8 +186,11 @@ function showSubcategoryByCategoryId(category_id, existing_subcatelgory = null) 
 
                     let subcategory = document.getElementById('subcategory_id_input' + value.subcategory_id).value;
 
-                    if (existing_subcatelgory && subcategory.toString() == existing_subcatelgory[subcategory.toString()]) {
-                        document.getElementById('subcategory_id_input' + value.subcategory_id).checked = true;
+                    try {
+                        if (existing_subcategory && subcategory.toString() == existing_subcategory[subcategory.toString()]['id']) {
+                            document.getElementById('subcategory_id_input' + value.subcategory_id).checked = true;
+                        }
+                    } catch (e) {
                     }
                 })
             }
@@ -210,7 +210,7 @@ function showSubcategoryByCategoryId(category_id, existing_subcatelgory = null) 
 //download pdf Jquery
 
 $(".download-pdf").click(function () {
-    console.log('sssssss')
+    // console.log('sssssss')
     var data = '';
     $.ajax({
         type: 'GET',

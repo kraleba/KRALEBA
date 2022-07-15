@@ -54,7 +54,7 @@ class CustomerWaresControler extends Controller
     public function create(Request $request)
     {
 
-        $data['customer'] = $this->customers->get_customer_and_categoryes_by_id($request->customer_id);
+        $data['customer'] = $this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 //dd($data['customer']);
         return view('ware.ware_create', $data);
@@ -100,7 +100,7 @@ class CustomerWaresControler extends Controller
     {
 //        dd($request->ware);
         $data['ware'] = (array)$this->wares->get_ware_by_id($request->ware);
-        $data['customer'] = $this->customers->get_customer_and_categoryes_by_id($request->customer_id);
+        $data['customer'] = $this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 //dd($data['ware']);
         return view('ware.ware_edit', $data);

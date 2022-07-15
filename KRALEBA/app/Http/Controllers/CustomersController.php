@@ -133,11 +133,11 @@ class CustomersController extends Controller
     public function show(Customers $customer)
     {
         //  dd($data["customer"]);
-//        $data["customer"]=$this->customers->get_customer_and_categoryes_by_id($customer->id);
-        $data["generated_bills"]=$this->bills->get_bills_by_customer_id($customer->id);
+//        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
+//        $data["generated_bills"]=$this->bills->get_bills_by_customer_id($customer->id);
 //        dd($data);
-
-        return view('customers.show', $data);
+dd('nu aicccciicc');
+//        return view('customers.show', $data);
     }
 
     public function edit(Customers $customer)
@@ -154,7 +154,7 @@ class CustomersController extends Controller
 
 
         if ($customer->attributesToArray()['type'] == 'provider') {
-            $data['customers'] = $this->customers->get_customer_and_categoryes_by_id($customer->attributesToArray()['id']);
+            $data['customers'] = $this->customers->get_customer_and_categories_by_id($customer->attributesToArray()['id']);
         } else {
             $data['customers'] = $customer;
         }

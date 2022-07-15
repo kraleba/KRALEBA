@@ -3,54 +3,57 @@
 @section('content')
 
     <head>
-        <meta charset="UTF-8">
-        <title>Facturii</title>
+        <title>Creeaza Factura</title>
     </head>
 
     <body>
+    @if ($errors->any())
+
+        <div class="alert alert-danger">
+            @foreach ($errors->all() as $error)
+                <p>{{ $error }}</p>
+            @endforeach
+        </div>
+
+    @endif
+
     <div class="container mt-2">
         <div class="row">
             <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h3>Edit</h3>
+                <div class="pull-left mb-2">
+                    <h3>Adauga Factura</h3>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('bills.index') }}" enctype="multipart/form-data">Renunta</a>
+                    <a class="btn btn-primary" href="{{ route('bills.index', $customer['id']) }}"> Inapoi</a>
                 </div>
             </div>
         </div>
-        <br>
-
         @if(session('status'))
-
             <div class="alert alert-success mb-1 mt-1">
                 {{ session('status') }}
             </div>
-
         @endif
-
-        <form action="{{ route('bills.update',$bill->id) }}" method="POST" enctype="multipart/form-data">
-
+        <form action="{{ route('bills.store', $customer['id']) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client
-                            Name:</strong>
-                        <input type="text" name="name" value="{{ $bill->name }}" class="form-control"
-                               placeholder="Client">
-                        @error('Name Client')
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
+
+                        <input type="hidden" name="customer_id" value="{{$customer['id'] ?? ''}}">
+                        <input type="text" value="{{$customer['name'] ?? ''}}" class="form-control"
+                               placeholder="Client Name">
+                        @error('name')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                        <input type="email" name="number" class="form-control" placeholder="Cod"
-                               value="{{ $bill->cod }}">
+                        <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
+                        <input type="number" name="unique_code" value="{{$customer['uniqueCode'] ?? ''}}"
+                               class="form-control"
+                               placeholder="Cod">
                         @error('Cod')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -61,18 +64,23 @@
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Data
                             Facturarii:</strong>
-                        <input type="text" name="data facturarii" value="{{ $bill->address }}" class="form-control"
-                               placeholder="Data Facturarii:">
-                        @error('Data Facturarii')
+                        @error('data facturarii')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
+                    <div class="form-row">
+                        <strong>Start Date</strong>
+                        <input id="startdate" name="bill_date" value="{{date('d/m/Y')}}" class="form-control col-md-2">
+
+                    </div>
                 </div>
+
+                <br>
+                <br>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk"
-                                   style="font-size:7px;color:red; vertical-align: top;"></i>Numar:</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Numar:</strong>
                         <input type="number" name="bill_number" class="form-control" placeholder="Numar">
                         @error('number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -82,13 +90,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
-                        <select name="currency" class="form-select" aria-label="Default select example">
-                            <option selected>Selecteaza Moneda</option>
-                            <br>
-                            <option value="1">Lei</option>
-                            <option value="2">Euro</option>
-                            <option value="3">Dolari</option>
-                        </select>
+                        <input class="form-control" name="currency" value="{{$coin['label'] ?? ''}}">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -103,8 +105,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk"
-                                   style="font-size:7px;color:red; vertical-align: top;"></i>TVA:</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>TVA:</strong>
                         <input type="text" name="TVA" class="form-control" placeholder="TVA">
                         @error('tva')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -114,7 +115,12 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
-                        <input type="number" name="item" class="form-control" placeholder="#Articole">
+                        <input type="number"
+                               name="item"
+                               id="indexNumberOfArticle"
+                               class="form-control"
+                               placeholder="#Articole"
+                        >
                         @error('articole')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -122,8 +128,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong><i class="fa fa-asterisk"
-                                   style="font-size:7px;color:red; vertical-align: top;"></i>Tipul:</strong>
+                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Tipul:</strong>
                         <select name="type" class="form-select" aria-label="Default select example">
                             <br>
                             <option value="1">Proforma</option>
@@ -131,13 +136,66 @@
                         </select>
                     </div>
                 </div>
+                <br>
+                <br>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <ul>
+                            @foreach($wares as $ware)
+                                <li value="{{$ware->id}}">{{$ware->product_name}}</li>
+                                <input name="wares_id[]" type="hidden" value="{{$ware->id}}">
 
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Editeaza</button>
+                                <div class="dropdown option-button">
+                                    <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                         aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                            <path
+                                                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                        </svg>
+                                    </div>
+
+                                    <form
+                                        action="{{ route('wares.destroy', ['customer_id'=>$customer['id'],'ware'=>$ware->id]) }}"
+                                        method="POST"
+                                    >
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                            <a class="dropdown-item"
+                                               href="{{ route('wares.edit', ['customer_id'=>$customer['id'], 'ware'=>$ware->id])}}">
+                                                Edit
+                                            </a>
+
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="dropdown-item">Delete</button>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                            @endforeach
+                        </ul>
+                    </div>
                 </div>
 
+                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                    <button type="submit" class="btn btn-primary">Creeaza</button>
+                </div>
             </div>
+
         </form>
     </div>
     </body>
+
 @endsection
+
+<script>
+    /*Datae time modal*/
+    $(document).ready(function () {
+        $("#startdate").datepicker();
+        $("#enddate").datepicker();
+    });
+    /*Datae time modal end*/
+</script>

@@ -26,7 +26,7 @@
                     <h3>Adauga Factura</h3>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('bills.index') }}"> Inapoi</a>
+                    <a class="btn btn-primary" href="{{ route('bills.index', $customer['customer_id']) }}"> Inapoi</a>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 {{ session('status') }}
             </div>
         @endif
-        <form action="{{ route('bills.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('bills.store', $customer['customer_id']) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -165,3 +165,11 @@
     </body>
 @endsection
 
+<script>
+    /*Datae time modal*/
+    $(document).ready(function () {
+        $("#startdate").datepicker();
+        $("#enddate").datepicker();
+    });
+    /*Datae time modal end*/
+</script>

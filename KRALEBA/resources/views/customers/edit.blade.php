@@ -34,13 +34,20 @@
             <div class="col-xs-1 col-sm-12 col-md-5 show-subcategory">
 
                 <strong id="category"
-                        categories="{{ json_encode($customers['category_id'])}}"
+                        @php
+                        $categories = array();
+                        $i = 0;
+                            foreach($customers['category_id'] as $category) {
+                                $categories[$i] = $category['category_id'];
+                                $i++;
+                            }
+                        @endphp
+                        categories="{{ json_encode($categories)}}"
                         subcategories="{{ json_encode($customers['subcategory_id']) }}"
                 >Categorii:</strong>
                 <br>
 
                 @foreach ($furnace_categories as $furnace_category)
-
                     <input type="checkbox"
                            id="category_id {{$furnace_category->category_id}}"
                            onclick="showSubcategoryByCategoryId({{$furnace_category->category_id}}, {{ json_encode($customers['subcategory_id']) }})"

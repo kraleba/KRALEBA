@@ -30,19 +30,32 @@ class BillsController extends Controller
         $this->wares = new CustomerWares();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $data['furnace_categories'] = $this->product->get_furnace_categories();
-
-        $data['bills'] = Bills::orderBy('id', 'desc')->paginate(5);
+        $data['customer_id'] = $request->customer_id;
+//        dd($data['customer_id']);
+        $data['bills'] = $this->bills->get_bills_by_customer_id($request->customer_id);
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
 
         return view('bills.bills_index', $data);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('bills.bills_create');
+//        dd($request->customer_id);
+        $customer = $this->customers->get_customer_and_categories_by_id($request->customer_id);
+
+        $data = array(
+            'customer' => $customer,
+            'wares' => $this->wares->get_wares_id_from_customer_id($request->customer_id),
+            'coin' => $this->helper->show_coin_by_country($customer['country']),
+            'furnace_categories' => $this->product->get_furnace_categories(),
+            'subcategories' => $this->product->get_subcategory_for_customer_category(),
+        );
+//        dd($data['customer']['customer_id']);
+        return view('bills.bills_create', $data);
+
     }
 
     public function store(Request $request)
@@ -66,7 +79,7 @@ class BillsController extends Controller
 //        Bills::create($request->input());
 
 
-        return redirect()->route('bills.index')
+        return redirect()->route('bills.index', $request->customer_id)
             ->with('success', 'Bills has been created successfully.');
     }
 
@@ -77,10 +90,14 @@ class BillsController extends Controller
     }
 
 
-    public function edit(Bills $bill)
+    public function edit(Request $request)
     {
-        // dd($bill->attributesToArray());
-        return view('bills.bills_edit', compact('bill'));
+        $data['bill'] = $this->bills->get_bill_by_id($request->bill);
+        $data['customer'] = (array)$this->customers->get_customer_by_id($request->customer_id);
+        $data['wares'] =$this->wares->get_wares_to_customer($request->customer_id, 1);
+//        dd($data['wares']);
+
+        return view('bills.bills_edit', $data);
     }
 
 
@@ -100,9 +117,21 @@ class BillsController extends Controller
             ->with('success', 'Bills Has Been updated successfully');
     }
 
+    public function destroy(Request $request)
+    {
+//        dd($request->customer_id);
+        $result = $this->bills->delete_bill_and_wares($request->bill);
+        $message = 'Factura stearsa cu succes';
+        if (!$result) {
+            $message = 'Clientul nu a fost sters, a aparut o eroare';
+        }
+        return redirect()->route('bills.index', $request->customer_id)
+            ->with('success', $message);
+    }
+
     public function generate_bill(Request $request)
     {
-        $customer = $this->customers->get_customer_and_categoryes_by_id($request->id);
+        $customer = $this->customers->get_customer_and_categories_by_id($request->id);
 
         $data = array(
             'customer' => $customer,
@@ -116,6 +145,15 @@ class BillsController extends Controller
 
     }
 
+    public function customer_bills() {
+        //  dd($data["customer"]);
+        dd('asssiiccc');
+//        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
+//        $data["generated_bills"]=$this->bills->get_bills_by_customer_id($customer->id);
+//        dd($data);
+
+        return view('customers.show', $data);
+    }
 
 
 }
