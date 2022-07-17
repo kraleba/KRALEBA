@@ -16,9 +16,13 @@
 .align-b {
     padding-left: 20px;
 }
+
+/*table bills*/
 table {
-    border: 1px solid black;
+    border: 2px solid black;
     border-radius: 50px;
+    width: 100%;
+
 }
 th {
     border: 1px solid black;
@@ -29,6 +33,6 @@ th {
 td {
     padding-top: 30px;
     border: 1px solid black;
-    
+
 }
 

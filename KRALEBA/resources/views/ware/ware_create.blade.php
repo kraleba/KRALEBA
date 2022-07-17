@@ -47,7 +47,7 @@
                 </select>
             </div>
             <br>
-            
+
             <div id="templateWare" style="display: none">
                 <div class="col-xs-1 col-sm-12 col-md-5 show-subcategory">
 
@@ -301,7 +301,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
-                            <input type="text" name="coin" class="form-control" value="{{$coin['label'] ?? ''}}" placeholder="Moneda">
+                            <input type="hidden" name="coin" class="form-control" value="{{$coin['id'] ?? ''}}">
+                            <input type="text" readonly='readonly' class="form-control" value="{{$coin['label'] ?? ''}}" placeholder="Moneda">
                             @error('Moneda')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
@@ -324,6 +325,16 @@
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cantitatea:</strong>
                             <input type="text" name="amount" class="form-control" placeholder="Cantitatea">
+                            @error('Cantitatea')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Pret:</strong>
+                            <input type="text" name="price" class="form-control" placeholder="Pret">
                             @error('Cantitatea')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror

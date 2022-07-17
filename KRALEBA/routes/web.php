@@ -55,11 +55,13 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     //ware
     Route::resource('admin/customers/{customer_id}/wares', CustomerWaresControler::class);
+    Route::get('admin/wares', [CustomerWaresControler::class, 'index']);
 
 
 
     //bils
     Route::resource('admin/customers/{customer_id}/bills', BillsController::class);
+    Route::get('admin/bills', [BillsController::class, 'index']);
 //    Route::get('admin/customers/{id}/create_bill', [BillsController::class, 'generate_bill'])->name('create_bill');
 
 

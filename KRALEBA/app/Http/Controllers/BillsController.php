@@ -33,9 +33,19 @@ class BillsController extends Controller
     public function index(Request $request)
     {
         $data['furnace_categories'] = $this->product->get_furnace_categories();
-        $data['customer_id'] = $request->customer_id;
-//        dd($data['customer_id']);
-        $data['bills'] = $this->bills->get_bills_by_customer_id($request->customer_id);
+        if ($request->customer_id) {
+            $data['customer_id'] = $request->customer_id;
+            $bills = $this->bills->get_bills_by_customer_id($request->customer_id);
+            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
+
+        } else {
+            $bills = $this->bills->get_bills_by_filter();
+            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
+        }
+//        dd( $data['bills']);
+//get_bills_by_filter
+//        dd($data['bills']);
+
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
 
         return view('bills.bills_index', $data);
@@ -94,7 +104,7 @@ class BillsController extends Controller
     {
         $data['bill'] = $this->bills->get_bill_by_id($request->bill);
         $data['customer'] = (array)$this->customers->get_customer_by_id($request->customer_id);
-        $data['wares'] =$this->wares->get_wares_to_customer($request->customer_id, 1);
+        $data['wares'] = $this->wares->get_wares_by_filter($request->customer_id, 1);
 //        dd($data['wares']);
 
         return view('bills.bills_edit', $data);
@@ -145,7 +155,8 @@ class BillsController extends Controller
 
     }
 
-    public function customer_bills() {
+    public function customer_bills()
+    {
         //  dd($data["customer"]);
         dd('asssiiccc');
 //        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
