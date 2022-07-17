@@ -15,7 +15,7 @@
                     <h3>Facturii</h3>
                 </div>
                 <div class="pull-right mb-2">
-{{--                    <a class="btn btn-secondary" href="{{ route('bills.create', $customer_id) }}"> Creaza o Factura</a>--}}
+                    {{--                    <a class="btn btn-secondary" href="{{ route('bills.create', $customer_id) }}"> Creaza o Factura</a>--}}
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="row searchFilter card round3b">
 
                 <div class="col-sm-12 box-filter-b">
-                    <form action="{{ route('bills.index', $customer_id ) }}" method="get">
+                    <form action="{{ route('bills.index', $customer_id ?? '' ) }}" method="get">
                         <div>
                             <h4>SELECTEAZA:</h4>
                         </div>
@@ -89,7 +89,7 @@
                     </form>
 
 
-                    <form action="{{ route('bills.index', $customer_id) }}" method="get">
+                    <form action="{{ route('bills.index', $customer_id ?? '') }}" method="get">
                         {{-- <div>
                             <h4>SELECTEAZA:</h4>
                         </div> --}}
@@ -214,205 +214,107 @@
             </div>
 
         </div>
-    <br>
-
-
-
-
-    <div class="row searchFilter card round3b">
-    <div class="col-sm-12 box-filter-b">
-        <table class="form-control filter-control  rounded-pill">
-
-            <tr >
-                <th rowspan="2"> </th>
-                <th rowspan="2">Product</th>
-                <th rowspan="2">Code</th>
-                <th rowspan="2">Description</th>
-                <th colspan="4"> buc./UM</th>
-                <th colspan="2">Total fara TVA</th>
-                <th colspan="2">TVA</th>
-                <th colspan="2">Total incl. TVA</th>
-            </tr>
-
-            <tr>
-                <th>UM</th>
-                <th>Cantit.</th>
-                <th>Euro</th>
-                <th>Lei</th>
-                <th>Euro</th>
-                <th>Lei</th>
-                <th>Euro</th>
-                <th>Lei</th>
-                <th>Euro</th>
-                <th>Lei</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="8"></td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td> </td>
-                <td ></td>
-            </tr>
-
-        </table>
-
     </div>
-    </div>
-    </div>
-    <br>
-
-    <br>
-
-
-
 
     <div>
-        <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
+        <h3> {{$filter_title ?? 'Toate facturile clientului X'}}</h3>
     </div>
 
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                <p>{{ $message }}</p>
-            </div>
-        @endif
-        <div>
-            <ul class="list-body">
-                @if($bills)
-
-                    @foreach ($bills as $bills)
-
-                        <div class="list-group-item rounded-pill" style=" border-radius: 0; height: 80px; ">
-                            <div class="align-b">
-                                <div>
-                                    {{ $bills['custumer_id'] }} </b>
-                                    @if($bills->custumer_id)
-                                        /
-                                    @endif
-                                    {{ $bills->custumer_id }}
-
-                                    @if($bills->uniqueCode)
-                                        /
-                                    @endif
-                                    {{ $bills->uniqueCode }}
-                                    <!-- {{ $bills->uniqueCode }} -->
-
-                                    @if($bills->bill_date)
-                                        /
-                                    @endif
-                                    {{ $bills->bill_date }}
-
-                                    @if($bills->bill_number)
-                                        /
-                                    @endif
-                                    {{ $bills->bill_number }}
-
-                                    @if($bills->type)
-                                        /
-                                    @endif
-                                    {{ $bills->type }}
-                                </div>
-                                <div>
-                                    @if($bills->currency)
-                                        /
-                                    @endif
-                                    {{ $bills->currency }}
-
-                                    @if($bills->exchange)
-                                        /
-                                    @endif
-                                    {{ $bills->exchange }}
-
-                                    @if($bills->TVA)
-                                        /
-                                    @endif
-                                    {{ $bills->TVA }}
-
-                                    @if($bills->item)
-                                        /
-                                    @endif
-                                    {{ $bills->item }}
-
-                                </div>
-                            </div>
-
-                            <div class="dropdown option-button">
-                                <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                     aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                         class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-                                        <path
-                                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-                                    </svg>
-                                </div>
-                                <form
-                                    action="{{ route('bills.destroy',['customer_id' => $customer_id, 'bill' => $bills->id]) }}"
-                                    method="POST">
-
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{ route('bills.edit',['customer_id' => $customer_id, 'bill' => $bills->id]) }}">Edit</a>
-
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="dropdown-item">Delete</button>
-
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <br>
-                    @endforeach
-            </ul>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
         </div>
+    @endif
+    <div>
+
+        @if($bills)
+            @foreach($bills as $bill)
+
+                <table>
+
+                    <tr>
+                        <th rowspan="2"></th>
+                        <th rowspan="2">Product</th>
+                        <th rowspan="2">Code</th>
+                        <th rowspan="2">Description</th>
+                        <th colspan="4"> buc./UM</th>
+                        <th colspan="2">Total fara TVA</th>
+                        <th colspan="2">TVA</th>
+                        <th colspan="2">Total incl. TVA</th>
+                    </tr>
+                    <tr>
+                        <th>UM</th>
+                        <th>Cantit.</th>
+                        <th>Euro</th>
+                        <th>Lei</th>
+                        <th>Euro</th>
+                        <th>Lei</th>
+                        <th>Euro</th>
+                        <th>Lei</th>
+                        <th>Euro</th>
+                        <th>Lei</th>
+                    </tr>
+                    @php $i = 1;
+                     $eu_wit_out_tva = 0;
+                     $lei_wit_out_tva = 0;
+                     $eu_tva = 0;
+                     $lei_tva = 0;
+                     $eu_with_tva = 0;
+                     $lei_with_tva = 0;
+
+                    @endphp
+                    @foreach($bill as $ware)
+
+                        <tr>
+                            <td>{{$i}}</td>
+                            <td>{{$ware['product_name']}}</td>
+                            <td>{{$ware['custom_code']}}</td>
+                            <td>{{$ware['description']}}</td>
+                            <td>{{$ware['um']}}</td>
+                            <td>{{$ware['amount']}}</td>
+                            {{--pret pe bucata--}}
+                            <td>{{$ware['price_euro']}}</td>
+                            <td>{{$ware['price_lei']}}</td>
+                            {{--total pret fara tva--}}
+                            <td>{{round($ware['amount'] * $ware['price_euro'] - $ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
+                            <td>{{round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
+
+                            <td>{{round($ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
+                            <td>{{round($ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
+                            {{--total pret tva--}}
+                            <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
+                            <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
+
+                            @php
+                                $eu_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_euro_buc'] * $ware['amount'], 2);
+                                $lei_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2);
+
+                                $eu_tva += round($ware['tva_euro_buc'] * $ware['amount'], 2);
+                                $lei_tva += round($ware['tva_lei_buc'] * $ware['amount'], 2);
+
+                                $eu_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
+                                $lei_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
+
+
+                            @endphp
+
+                        </tr>
+                        @php($i++)
+                    @endforeach
+                    <tr>
+                        <td colspan="8"></td>
+                        <td>{{$eu_wit_out_tva}}</td>
+                        <td>{{$lei_wit_out_tva}}</td>
+                        <td>{{$eu_tva}}</td>
+                        <td>{{$lei_tva}}</td>
+                        <td>{{$eu_with_tva}}</td>
+                        <td>{{$lei_with_tva}}</td>
+
+                    </tr>
+
+                </table>
+                <br>
+            @endforeach
     </div>
 
     @else

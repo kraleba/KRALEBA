@@ -100,7 +100,7 @@
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Curs
                             Valutar:</strong>
-                        <input type="number" name="exchange" class="form-control" placeholder="Curs Valutar">
+                        <input type="text" name="exchange" class="form-control" placeholder="Curs Valutar">
                         @error('number')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror

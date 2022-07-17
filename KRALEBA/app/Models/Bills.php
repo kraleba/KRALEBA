@@ -30,7 +30,9 @@ class Bills extends Model
 
     public function get_bills_by_customer_id($customer_id)
     {
-
+        if (!$customer_id || !is_numeric($customer_id)) {
+            return false;
+        }
         $bills = DB::table('bills')->where('customer_id', $customer_id)->get();
         $i = 0;
         $generatedBills = array();
@@ -50,17 +52,45 @@ class Bills extends Model
         }
     }
 
-    public function get_bill_by_id($bill_id) {
+
+    public function get_bill_by_id($bill_id)
+    {
         if (is_numeric($bill_id)) {
             return DB::table('bills')->where('id', $bill_id)->first();
         }
         return false;
     }
 
-    public function delete_bill_and_wares($bill_id) {
+    public function delete_bill_and_wares($bill_id)
+    {
 
         DB::table('bills')->where('id', $bill_id)->delete();
         DB::table('customer_wares')->where('bill_id', $bill_id)->delete();
+
+    }
+
+    public function get_bills_by_filter() {
+
+
+        $bills = DB::table('bills')->get();
+
+        $i = 0;
+
+        $generatedBills = array();
+
+        foreach ($bills as $bill) {
+            $generatedBills[$i] = DB::select("SELECT *
+            FROM customer_wares
+            LEFT JOIN bills
+            ON bills.id = customer_wares.bill_id
+            WHERE customer_wares.bill_id = {$bill->id}");
+            $i++;
+        }
+        if ($generatedBills) {
+            return $generatedBills;
+        } else {
+            return false;
+        }
 
     }
 }

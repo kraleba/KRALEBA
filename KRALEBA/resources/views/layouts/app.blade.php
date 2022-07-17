@@ -73,7 +73,7 @@
                         <a class="nav-link" href="{{ url('admin/bills') }}">Facturi</a>
                     </div>
                     <div class="nav-item">
-                        <a class="nav-link " href="{{ url('admin/customers') }}">Link</a>
+                        <a class="nav-link " href="{{ url('admin/wares') }}">Articole</a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="#">Disabled</a>

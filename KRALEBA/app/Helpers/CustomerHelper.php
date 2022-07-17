@@ -150,5 +150,57 @@ class CustomerHelper extends Controller
         return $coin;
     }
 
+    public function bills_value_calculated_ware($bills)
+    {
+        if(!$bills) {
+            return  false;
+        }
+        $j = 0;
+        $bills_array = array();
+        foreach ($bills as $bill) {
+            $i = 0;
+            foreach ($bill as $ware) {
+                $ware = (array)$ware;
+
+
+                if ($ware['coin'] == 1) {
+                    $exchange = round($ware['price'] / $ware['exchange'], 3);
+                    $ware['price_euro'] = $exchange;
+                    $ware['price_lei'] = $ware['price'];
+
+
+                    $ware['tva_lei_buc'] = round(($ware['price'] / 100) * $ware['TVA'], 3);
+                    $ware['tva_euro_buc'] = round(($exchange / 100) * $ware['TVA'], 3);
+                } else {
+//                    dd($ware['price']);
+
+                    $ware['tva_euro_buc'] = round(($ware['price'] / 100) * $ware['TVA'], 3);
+                    $exchange = round($ware['price'] * $ware['exchange'], 3);
+                    $ware['price_euro'] = $ware['price'];
+                    $ware['price_lei'] = $exchange;
+                    $ware['tva_lei_buc'] = round(($exchange / 100) * $ware['TVA'], 3);
+
+                }
+
+                $bills_array[$j][$i] = $ware;
+                $i++;
+
+            }
+            $j++;
+        }
+//        dd($bills_array);
+
+        return $bills_array;
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
