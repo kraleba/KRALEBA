@@ -17,7 +17,7 @@ class CustomerWares extends Model
         'rating', 'description', 'um', 'amount', 'coin', 'customer_id', 'bill_id', 'category_id', 'subcategory_id', 'status', 'price'
     ];
 
-    public function get_wares_by_filter($customer_id, $status = null)
+    public function get_wares_by_customer_id($customer_id, $status = null)
     {
         if (!$status) {
             $status = 0;
@@ -84,9 +84,61 @@ class CustomerWares extends Model
             ->update($data);
     }
 
-//    public function get_wares_by_filters()
+//    public function get_wares_by_filter($type, $category, $subcategory)
 //    {
-//        return DB::table('customer_wares')->get();
+//        if ($type && !$category && !$subcategory) {
+//            return DB::table('customers')->where('type', $subcategory)->get();
+//        }
+//
+//        $query = " SELECT * " .
+//            " FROM customers_categories_subcategories " .
+//            " WHERE ";
+//        $i = 0;
+//
+//        if ($customer_type) {
+//            $query .= 'customer_type = ' . "'$customer_type'";
+//            $i++;
+//        }
+//
+//        if ($category_id) {
+//            if ($i == 0) {
+//                $query .= 'category_id = ' . "'$category_id'";
+//                $i++;
+//            } else {
+//                $query .= "AND " . 'category_id = ' . "'$category_id'";
+//                $i++;
+//            }
+//        }
+//
+//        if ($subcategory) {
+//            if ($i == 0) {
+//                $query .= 'subcategory_id = ' . "'$subcategory'";
+//                $i++;
+//            } else {
+//                $query .= "AND " . 'subcategory_id = ' . "'$subcategory'";
+//                $i++;
+//            }
+//        }
+//
+//        if ($i == 0) {
+//            return false;
+//        }
+//
+//        $results = DB::select($query);
+//        $customers = array();
+//        $i = 0;
+//
+//        foreach ($results as $result) {
+//            $customers[$i] = $this->get_customer_by_id($result->customer_id);
+//            $i++;
+//        }
+//        return $customers;
+//
+//
+//
+//
+//
+//
 //
 //    }
 }

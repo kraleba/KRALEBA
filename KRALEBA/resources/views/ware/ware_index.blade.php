@@ -4,43 +4,50 @@
 
     <h3>Articole</h3>
     <div>
-        <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-right">
-                    <a class="btn btn-secondary" href="{{ route('wares.create', $customer_id ?? '') }}"> ADAUGA ARTICOl</a>
+        @if($customer_id)
+
+            <div class="row">
+                <div class="col-lg-12 margin-tb">
+                    <div class="pull-right">
+                        <a class="btn btn-secondary" href="{{ route('wares.create', $customer_id ?? '') }}">
+                            ADAUGA ARTICOl
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        @endif
     </div>
+
     <div class="container ">
         <div class="row  card round3">
-
             <div class="col-lg-12 ">
                 @if($customer_id && $wares)
-                <form action="{{ route('bills.create', $customer_id ?? '') }}">
-                    <div>
-                        <h3>Articole ne facturate {{$wares_count ?? ''}}</h3>
-                        <button class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
-                                data-toggle="tooltip" style="float: right">Genereaza factura
-                        </button>
+                    <form action="{{ route('bills.create', $customer_id ?? '') }}">
+                        <div>
+                            <h3>Articole ne facturate {{$wares_count ?? ''}}</h3>
+                            <button class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
+                                    data-toggle="tooltip" style="float: right">Genereaza factura
+                            </button>
 
-                    </div>
-                </form>
-                    @endif
+                        </div>
+                    </form>
+                @endif
             </div>
 
         </div>
     </div>
+    @include('ware.ware_filters')
 
 
     <!--end filter-->
     <br>
 
-{{--    @if($wares)--}}
-{{--        <div>--}}
-{{--            <h3> {{$filter_title ?? 'Toti clientii'}}</h3>--}}
-{{--        </div>--}}
-{{--    @endif--}}
+    {{--    @if($wares)--}}
+    {{--        <div>--}}
+    {{--            <h3> {{$filter_title ?? 'Toti clientii'}}</h3>--}}
+    {{--        </div>--}}
+    {{--    @endif--}}
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -153,8 +160,9 @@
                                         d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                                 </svg>
                             </div>
-                            <form action="{{ route('wares.destroy', ['customer_id'=>$ware->customer_id,'ware'=>$ware->id]) }}"
-                                  method="POST"
+                            <form
+                                action="{{ route('wares.destroy', ['customer_id'=>$ware->customer_id,'ware'=>$ware->id]) }}"
+                                method="POST"
                             >
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 

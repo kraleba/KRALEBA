@@ -18,13 +18,11 @@
         <form action="{{ route('wares.store', $customer['customer_id']) }}" method="POST">
             @csrf
             <div>
-
-                {{--                <label for="cars">Categorie</label>--}}
-
                 <input type="hidden" name="customer_id" value="{{$customer['customer_id']}}">
                 <input type="hidden" name="status" value="0">
 
-                <select name="subcategory_id" id="subcategorySelected" onchange="showWareTemplate()" class="form-control filter-control">
+                <select name="subcategory_id" id="subcategorySelected" onchange="showWareTemplate()"
+                        class="form-control filter-control">
                     <option>Selecteaza o subcategorie</option>
 
                     @foreach($customer['category_id'] as $category)
@@ -178,8 +176,11 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Perceived weight:</strong>
-                                <input type="text" name="perceived_weight" class="form-control" placeholder="Perceived weight">
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Perceived
+                                    weight:</strong>
+                                <input type="text" name="perceived_weight" class="form-control"
+                                       placeholder="Perceived weight">
                                 @error('Perceived weight')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -188,7 +189,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Softness:</strong>
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Softness:</strong>
                                 <input type="text" name="softness" class="form-control" placeholder="Softness">
                                 @error('Softness')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -198,7 +200,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Look:</strong>
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Look:</strong>
                                 <input type="text" name="look" class="form-control" placeholder="Look">
                                 @error('Look')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -208,7 +211,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Grounds:</strong>
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Grounds:</strong>
                                 <input type="text" name="grounds" class="form-control" placeholder="Grounds">
                                 @error('Grounds')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -218,8 +222,11 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Weight in g/m2:</strong>
-                                <input type="text" name="weight_in_g/m2" class="form-control" placeholder="Weight in g/m2">
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Weight in
+                                    g/m2:</strong>
+                                <input type="text" name="weight_in_g/m2" class="form-control"
+                                       placeholder="Weight in g/m2">
                                 @error('Weight in g/m2')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -228,7 +235,9 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Width (cm):</strong>
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Width
+                                    (cm):</strong>
                                 <input type="text" name="width" class="form-control" placeholder="Width (cm)">
                                 @error('Width (cm)')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -238,8 +247,11 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Yarn number warp:</strong>
-                                <input type="text" name="warp_th_per_cm" class="form-control" placeholder="Yarn number warp">
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn number
+                                    warp:</strong>
+                                <input type="text" name="warp_th_per_cm" class="form-control"
+                                       placeholder="Yarn number warp">
                                 @error('Yarn number warp')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -248,8 +260,11 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm warp:</strong>
-                                <input type="text" name="warp_th_per_yarn_ne" class="form-control" placeholder="Yarn count per cm warp">
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm
+                                    warp:</strong>
+                                <input type="text" name="warp_th_per_yarn_ne" class="form-control"
+                                       placeholder="Yarn count per cm warp">
                                 @error('Yarn count per cm warp')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -258,8 +273,11 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm weft:</strong>
-                                <input type="text" name="weft_p_per_cm" class="form-control" placeholder="Yarn count per cm weft">
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm
+                                    weft:</strong>
+                                <input type="text" name="weft_p_per_cm" class="form-control"
+                                       placeholder="Yarn count per cm weft">
                                 @error('Yarn count per cm weft')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -268,7 +286,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Origin:</strong>
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Origin:</strong>
                                 <input type="text" name="origin" class="form-control" placeholder="Origin">
                                 @error('Origin')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -278,7 +297,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Date:</strong>
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Date:</strong>
                                 <input type="text" name="date" class="form-control" placeholder="Date">
                                 @error('Date')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -288,7 +308,8 @@
 
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Rating:</strong>
+                                <strong><i class="fa fa-asterisk"
+                                           style="font-size:7px;color:red; vertical-align: top;"></i>Rating:</strong>
                                 <input type="text" name="rating" class="form-control" placeholder="Rating:">
                                 @error('Rating:')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -302,7 +323,8 @@
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
                             <input type="hidden" name="coin" class="form-control" value="{{$coin['id'] ?? ''}}">
-                            <input type="text" readonly='readonly' class="form-control" value="{{$coin['label'] ?? ''}}" placeholder="Moneda">
+                            <input type="text" readonly='readonly' class="form-control" value="{{$coin['label'] ?? ''}}"
+                                   placeholder="Moneda">
                             @error('Moneda')
                             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                             @enderror
@@ -313,10 +335,11 @@
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>UM:</strong>
                             <select name="UM" class="form-select" aria-label="Default select example">
-                                <option selected>Selecteaza UM</option>
-                                <option value="1">ml</option>
-                                <option value="2">gr</option>
-                                <option value="3">kg</option>
+                                <option value="" selected> Selecteaza UM</option>
+                                <option>bucati</option>
+                                <option>ml</option>
+                                <option>gr</option>
+                                <option>kg</option>
                             </select>
                         </div>
                     </div>

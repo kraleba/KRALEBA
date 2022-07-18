@@ -104,7 +104,7 @@ class BillsController extends Controller
     {
         $data['bill'] = $this->bills->get_bill_by_id($request->bill);
         $data['customer'] = (array)$this->customers->get_customer_by_id($request->customer_id);
-        $data['wares'] = $this->wares->get_wares_by_filter($request->customer_id, 1);
+        $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id, 1);
 //        dd($data['wares']);
 
         return view('bills.bills_edit', $data);

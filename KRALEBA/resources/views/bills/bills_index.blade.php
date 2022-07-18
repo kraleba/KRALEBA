@@ -215,6 +215,7 @@
 
         </div>
     </div>
+    <br>
 
     <div>
         <h3> {{$filter_title ?? 'Toate facturile clientului X'}}</h3>

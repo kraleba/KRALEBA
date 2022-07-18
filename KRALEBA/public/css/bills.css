@@ -20,8 +20,9 @@
 /*table bills*/
 table {
     border: 2px solid black;
-    border-radius: 50px;
-    width: 100%;
+    border-collapse:separate;
+    border-radius:6px;
+
 
 }
 th {
@@ -33,6 +34,5 @@ th {
 td {
     padding-top: 30px;
     border: 1px solid black;
-
 }
 
