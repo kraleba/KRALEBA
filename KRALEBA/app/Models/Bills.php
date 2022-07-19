@@ -69,28 +69,29 @@ class Bills extends Model
 
     }
 
-    public function get_bills_by_filter() {
+    public function get_bills_by_filter()
+    {
+       return DB::table('bills')->get()->toArray();
 
+//        $bills = DB::table('bills')->get();
+//
+//        $i = 0;
+//
+//        $generatedBills = array();
 
-        $bills = DB::table('bills')->get();
-
-        $i = 0;
-
-        $generatedBills = array();
-
-        foreach ($bills as $bill) {
-            $generatedBills[$i] = DB::select("SELECT *
-            FROM customer_wares
-            LEFT JOIN bills
-            ON bills.id = customer_wares.bill_id
-            WHERE customer_wares.bill_id = {$bill->id}");
-            $i++;
-        }
-        if ($generatedBills) {
-            return $generatedBills;
-        } else {
-            return false;
-        }
+//        foreach ($bills as $bill) {
+//            $generatedBills[$i] = DB::select("SELECT *
+//            FROM customer_wares
+//            LEFT JOIN bills
+//            ON bills.id = customer_wares.bill_id
+//            WHERE customer_wares.bill_id = {$bill->id}");
+//            $i++;
+//        }
+//        if ($generatedBills) {
+//            return $generatedBills;
+//        } else {
+//            return false;
+//        }
 
     }
 }

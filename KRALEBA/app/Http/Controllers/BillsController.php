@@ -33,16 +33,18 @@ class BillsController extends Controller
     public function index(Request $request)
     {
         $data['furnace_categories'] = $this->product->get_furnace_categories();
-        if ($request->customer_id) {
-            $data['customer_id'] = $request->customer_id;
-            $bills = $this->bills->get_bills_by_customer_id($request->customer_id);
-            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
+//        if ($request->customer_id) {
+//            $data['customer_id'] = $request->customer_id;
+//            $bills = $this->bills->get_bills_by_customer_id($request->customer_id);
+//            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
+//
+//        } else {
+//            $bills = $this->bills->get_bills_by_filter();
+//            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
+//        }
+        $data['bills'] = $this->bills->get_bills_by_filter();
 
-        } else {
-            $bills = $this->bills->get_bills_by_filter();
-            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
-        }
-//        dd( $data['bills']);
+        dd($data['bills']);
 //get_bills_by_filter
 //        dd($data['bills']);
 
