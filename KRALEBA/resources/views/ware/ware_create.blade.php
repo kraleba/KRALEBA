@@ -31,9 +31,11 @@
                             <optgroup label="{{$category['name']}}">
                                 @endif
                                 @foreach($customer['subcategory_id'] as $subcategory)
+
                                     @if($category['category_id'] == $subcategory['category_id'])
                                         <option value="{{$subcategory['id']}}">{{$subcategory['name']}}</option>
                                     @endif
+
                                 @endforeach
                             </optgroup>
                             @if($category['name'] == "Textile")

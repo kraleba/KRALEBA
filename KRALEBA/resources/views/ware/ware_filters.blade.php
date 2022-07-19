@@ -7,16 +7,17 @@
                     <h4>SELECTEAZA:</h4>
                 </div>
 
-
                 <br>
 
                 <div class="input-group item-left">
+                    {{--          type               --}}
                     <div class="filter-item1 ">
-                        <select name="bills_type" id="department"
+                        <select name="customer_type" id="department"
                                 class="form-control rounded-pill filter-control">
                             {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
-                            <option>Proforma</option>
-{{--                            <option value="provider">Furnizor</option>--}}
+                            <option value=""> Selecteaza tipul </option>
+                            <option value="customer"> Beneficiar</option>
+                            <option value="provider">Furnizor</option>
                         </select>
                     </div>
 
@@ -63,10 +64,10 @@
 
                 <div class="pdf-style">
 
-{{--                    @if($customers)--}}
-{{--                        <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf--}}
-{{--                        </button>--}}
-{{--                    @endif--}}
+                    {{--                    @if($customers)--}}
+                    {{--                        <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf--}}
+                    {{--                        </button>--}}
+                    {{--                    @endif--}}
                 </div>
             </form>
 

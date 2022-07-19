@@ -33,15 +33,17 @@ class CustomerWaresControler extends Controller
      */
     public function index(Request $request)
     {
+//        dd($request->customer_type);
         $data['furnace_categories'] = $this->product->get_furnace_categories();
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
 
-        if($request->customer_id) {
-            $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
-            $data['customer_id'] = $request->customer_id;
-        }
-
+//        if($request->customer_id) {
+        $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
+        $data['customer_id'] = $request->customer_id;
         $data['wares_count'] = count($data['wares']);
+//        }
+        $data['wares'] = $this->wares->get_wares_by_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+
 
         return view('ware.ware_index', $data);
 
