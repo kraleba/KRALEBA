@@ -42,7 +42,7 @@ class CustomerWaresControler extends Controller
         $data['customer_id'] = $request->customer_id;
         $data['wares_count'] = count($data['wares']);
 //        }
-        $data['wares'] = $this->wares->get_wares_by_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+//        $data['wares'] = $this->wares->get_wares_by_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
 
 
         return view('ware.ware_index', $data);
