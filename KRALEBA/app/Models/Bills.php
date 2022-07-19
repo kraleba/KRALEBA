@@ -28,12 +28,12 @@ class Bills extends Model
 
     }
 
-    public function get_bills_by_customer_id($customer_id)
+    public function get_customer_bill_by_id($customer_id, $bill_id = false)
     {
         if (!$customer_id || !is_numeric($customer_id)) {
             return false;
         }
-        $bills = DB::table('bills')->where('customer_id', $customer_id)->get();
+        $bills = DB::table('bills')->where('id', $bill_id)->get();
         $i = 0;
         $generatedBills = array();
         foreach ($bills as $bill) {

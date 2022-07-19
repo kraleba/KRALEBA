@@ -34,17 +34,17 @@ class BillsController extends Controller
     {
         $data['furnace_categories'] = $this->product->get_furnace_categories();
 //        if ($request->customer_id) {
-//            $data['customer_id'] = $request->customer_id;
-//            $bills = $this->bills->get_bills_by_customer_id($request->customer_id);
+//            $bills = $this->bills->get_customer_bill_by_id($request->customer_id);
 //            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
 //
 //        } else {
 //            $bills = $this->bills->get_bills_by_filter();
 //            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
 //        }
+        $data['customer_id'] = $request->customer_id;
         $data['bills'] = $this->bills->get_bills_by_filter();
 
-        dd($data['bills']);
+//        dd($data['bills']);
 //get_bills_by_filter
 //        dd($data['bills']);
 
@@ -96,9 +96,13 @@ class BillsController extends Controller
     }
 
 
-    public function show(Bills $bills)
+    public function show(Request $request)
     {
-        // return view('bills.show', compact('bills'));
+        $data['customer_id'] = $request->customer_id;
+        $bills = $this->bills->get_customer_bill_by_id($request->customer_id, $request->bill);
+        $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
+
+        return view('bills.bills_show', $data);
     }
 
 
@@ -162,7 +166,7 @@ class BillsController extends Controller
         //  dd($data["customer"]);
         dd('asssiiccc');
 //        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
-//        $data["generated_bills"]=$this->bills->get_bills_by_customer_id($customer->id);
+//        $data["generated_bills"]=$this->bills->get_customer_bill_by_id($customer->id);
 //        dd($data);
 
         return view('customers.show', $data);

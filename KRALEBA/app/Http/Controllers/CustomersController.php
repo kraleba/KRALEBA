@@ -134,7 +134,7 @@ class CustomersController extends Controller
     {
         //  dd($data["customer"]);
 //        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
-//        $data["generated_bills"]=$this->bills->get_bills_by_customer_id($customer->id);
+//        $data["generated_bills"]=$this->bills->get_customer_bill_by_id($customer->id);
 //        dd($data);
 dd('nu aicccciicc');
 //        return view('customers.show', $data);
