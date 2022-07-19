@@ -228,7 +228,6 @@
     @endif
 
 
-
     <div>
 
         @if($bills)
@@ -239,24 +238,24 @@
                     <div class="align">
                         {{-- <a href="{{ route('bills.show',$bills->id) }}"> --}}
 
-                            {{-- <b>{{ $bill->name }} </b> / --}}
+                        {{--                             <b>{{ $bill->name }} </b> /--}}
 
-                            {{-- {{ $bills->bill_date}} --}}
+                        {{ $bill->bill_date}}
 
-                            @if($bills->bill_number)
-                                /
-                            @endif
-                            {{ $bills->bill_number}}
+                        @if($bill->bill_number)
+                            /
+                        @endif
+                        {{ $bill->bill_number}}
 
-                            @if($bills->exchange)
-                                /
-                            @endif
-                            {{ $bills->exchange}}
+                        @if($bill->exchange)
+                            /
+                        @endif
+                        {{ $bill->exchange}}
 
-                            @if($bills->TVA)
-                                /
-                            @endif
-                            {{ $bills->TVA}}
+                        @if($bill->TVA)
+                            /
+                        @endif
+                        {{ $bill->TVA}}
 
                     </div>
 
@@ -271,12 +270,15 @@
                                 d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
                         </svg>
                     </div>
-                    <form action="{{ route('bills.destroy',['customer_id' => $bill->customer_id, 'bill' => $bill->id]) }}"
-                          method="POST">
+                    <form
+                        action="{{ route('bills.destroy',['customer_id' => $bill->customer_id, 'bill' => $bill->id]) }}"
+                        method="POST">
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                            <a class="dropdown-item" href="{{ route('bills.show', ['customer_id' => $bill->customer_id, 'bill' => $bill->id]) }}">Vezi Fctura </a>
+                            <a class="dropdown-item"
+                               href="{{ route('bills.show', ['customer_id' => $bill->customer_id, 'bill' => $bill->id]) }}">Vezi
+                                Fctura </a>
 
                             @csrf
                             @method('DELETE')
@@ -286,10 +288,7 @@
                     </form>
                 </div>
 
-
-{{--aici  se termina tabelul --}}
-
-
+                <br>
             @endforeach
     </div>
 
