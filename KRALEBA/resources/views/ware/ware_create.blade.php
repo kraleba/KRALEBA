@@ -336,7 +336,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>UM:</strong>
-                            <select name="UM" class="form-select" aria-label="Default select example">
+                            <select name="um" class="form-select" aria-label="Default select example">
                                 <option value="" selected> Selecteaza UM</option>
                                 <option>bucati</option>
                                 <option>ml</option>

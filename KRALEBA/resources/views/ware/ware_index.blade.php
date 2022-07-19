@@ -62,94 +62,34 @@
                     <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
 
                         <div class="align">
-                            {{--                            <a href="{{ route('customers.show',$ware->id) }}">--}}
 
                             <b>{{ $ware->product_name }} </b> /
 
                             {{ $ware->custom_code }}
 
-                            @if($ware->composition)
+                            @if($ware->description)
                                 /
                             @endif
-                            {{ $ware->material }}
+                            {{ $ware->description }}
 
-                            @if($ware->design)
+                            @if($ware->date) 
                                 /
                             @endif
-                            {{ $ware->weaving }}
+                            {{ $ware->date }} / 
 
-                            @if($ware->color)
+                            {{-- @if($ware->color)
                                 /
-                            @endif
-                            {{ $ware->finishing }}
+                            {{-- @endif                                  nu stiu --}}
+                            Curs Valutar: {{ $ware->coin }} /      {{-- ???????????? --}}
 
-                            @if($ware->softness)
-                                /
+                            UM: @if($ware->um)
+                                
                             @endif
-                            {{ $ware->country }}
-                            {{--                            </a>--}}
+                            / Cantitate: {{ $ware->amount }}
                         </div>
-                        <div class="align">
+                       
 
-                            {{ $ware->cif }}
-
-                            @if($ware->ocr)
-                                /
-                            @endif
-                            {{ $ware->ocr }}
-
-                            @if($ware->iban)
-                                /
-                            @endif
-                            {{ $ware->iban }}
-
-                            @if($ware->swift)
-                                /
-                            @endif
-                            {{ $ware->swift }}
-
-                            @if($ware->bank)
-                                /
-                            @endif
-                            {{ $ware->bank }}
-
-                        </div>
-
-                        <div class="align">
-                            {{$ware->contact}}
-
-                            @if($ware->phone)
-                                /
-                            @endif
-
-                            {{ $ware->phone }}
-
-                            @if($ware->phone2)
-                                /
-                            @endif
-                            {{ $ware->phone2 }}
-
-                            @if($ware->type)
-                                /
-                            @endif
-                            {{ $ware->type }}
-
-                            @if($ware->email)
-                                /
-                            @endif
-                            {{ $ware->email }}
-
-                            @if($ware->www)
-                                /
-                            @endif
-                            {{ $ware->www }}
-
-                            @if($ware->note)
-                                /
-                            @endif
-                            {{ $ware->note }}
-
-                        </div>
+                        
 
                         <div class="dropdown option-button">
                             <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
