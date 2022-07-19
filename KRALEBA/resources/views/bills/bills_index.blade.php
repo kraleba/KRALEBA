@@ -1,4 +1,4 @@
-{{--@extends('layouts.app')--}}
+@extends('layouts.app')
 
 @section('content')
 
@@ -226,17 +226,41 @@
             <p>{{ $message }}</p>
         </div>
     @endif
+
+
+
     <div>
 
         @if($bills)
             @foreach($bills as $bill)
 
+                <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
 
+                    <div class="align">
+                        {{-- <a href="{{ route('bills.show',$bills->id) }}"> --}}
 
+                            {{-- <b>{{ $bill->name }} </b> / --}}
 
-                {{--aici faci tabelul--}}
+                            {{-- {{ $bills->bill_date}} --}}
 
+                            @if($bills->bill_number)
+                                /
+                            @endif
+                            {{ $bills->bill_number}}
 
+                            @if($bills->exchange)
+                                /
+                            @endif
+                            {{ $bills->exchange}}
+
+                            @if($bills->TVA)
+                                /
+                            @endif
+                            {{ $bills->TVA}}
+
+                    </div>
+
+                </div>
 
                 <div class="dropdown option-button">
                     <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"

@@ -44,7 +44,7 @@ class BillsController extends Controller
         $data['customer_id'] = $request->customer_id;
         $data['bills'] = $this->bills->get_bills_by_filter();
 
-//        dd($data['bills']);
+    //    dd($data['bills']);
 //get_bills_by_filter
 //        dd($data['bills']);
 
