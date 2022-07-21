@@ -43,18 +43,6 @@ class CustomerHelper extends Controller
         return $customers;
     }
 
-//for edit when is a single customer
-    public function helper_get_categories_to_customer($customer)
-    {
-//        $category = (array)$this->product->get_customer_category_by_id($customer['category_id']);
-//        $customer['category_id'] = $category;
-//
-//        $subcategory = (array)$this->product->get_customer_subcategory_by_id($customer['subcategory_id']);
-//        $customer['subcategory_id'] = $subcategory;
-//
-//        return $customer;
-    }
-
     public function helper_add_subcategory(Request $request)
     {
         if (!is_numeric($request->input('category_id'))) {

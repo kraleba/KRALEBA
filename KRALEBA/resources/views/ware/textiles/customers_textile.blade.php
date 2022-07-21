@@ -37,17 +37,17 @@
             </div>
         </div>
     @else
-        @include('ware.ware_filters')
+        @include('ware.textiles.customers_textile_filters')
     @endif
 
     <!--end filter-->
     <br>
 
-        @if($wares)
-            <div>
-                <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
-            </div>
-        @endif
+    @if($wares)
+        <div>
+            <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
+        </div>
+    @endif
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">

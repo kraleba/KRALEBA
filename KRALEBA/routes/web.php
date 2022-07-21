@@ -57,6 +57,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('admin/customers/{customer_id}/wares', CustomerWaresControler::class);
     Route::get('admin/wares', [CustomerWaresControler::class, 'index']);
 
+    //ware-textile
+    Route::get('admin/textile', [CustomerWaresControler::class, 'customers_textile'])->name('textile');
+
 
 
     //bils

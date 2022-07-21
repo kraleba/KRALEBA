@@ -37,12 +37,13 @@ class CustomerWaresControler extends Controller
         $data['furnace_categories'] = $this->product->get_furnace_categories();
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
         $data['customer_id'] = $request->customer_id;
+        $data['filter_title'] = $this->helper->helper_generate_title_after_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
 
         if ($request->customer_id) {
             $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
             $data['wares_count'] = count($data['wares']);
         } else {
-            $data['wares'] = $this->wares->get_wares_by_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+            $data['wares'] = $this->wares->get_wares_by_filter('wares', $request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
         }
 
         return view('ware.ware_index', $data);
@@ -71,16 +72,20 @@ class CustomerWaresControler extends Controller
      */
     public function store(Request $request)
     {
-        $category = json_decode($request->input('categories_json'));
         $data = $request->input();
-        unset($data['categories_json']);
-        $data['category_id'] = $category->category_id;
-        $data['subcategory_id'] = $category->id;
 
-//        dd($data);
+        if ($request->input('categories_json') == 'Textile') {
+            $data['category_id'] = 'Textile';
+        } else {
+            $category = json_decode($request->input('categories_json'));
+            $data['category_id'] = isset($category->category_id);
+            $data['subcategory_id'] = isset($category->id);
+
+        }
+
+        unset($data['categories_json']);
 
         CustomerWares::create($data);
-
 
         return redirect()->route('wares.index', $request->input('customer_id'))
             ->with('success', 'customer created successfully.');
@@ -111,7 +116,7 @@ class CustomerWaresControler extends Controller
         $data['customer'] = $this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 //        dd($data['ware']);
-        
+
         return view('ware.ware_edit', $data);
     }
 
@@ -151,5 +156,25 @@ class CustomerWaresControler extends Controller
         return redirect()->route('wares.index', $request->customer_id)
             ->with('success', $message);
     }
+
+    public function customers_textile(Request $request)
+    {
+//        dd($request);
+        $data['furnace_categories'] = $this->product->get_furnace_categories();
+        $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
+        $data['customer_id'] = $request->customer_id;
+        $data['filter_title'] = $this->helper->helper_generate_title_after_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+
+        if ($request->customer_id) {
+            $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
+            $data['wares_count'] = count($data['wares']);
+        } else {
+            $data['wares'] = $this->wares->get_wares_by_filter('Textile', $request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+        }
+
+        return view('ware.textiles.customers_textile', $data);
+
+    }
+
 
 }

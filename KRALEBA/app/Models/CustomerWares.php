@@ -84,9 +84,20 @@ class CustomerWares extends Model
             ->update($data);
     }
 
-    public function get_wares_by_filter($type, $category, $subcategory)
+    public function get_wares_by_filter($ware_type, $type, $category, $subcategory)
     {
-        $query = 'SELECT
+        if (!$ware_type) {
+            return false;
+        }
+
+        if ($ware_type == 'wares') {
+            $textile = 'Textile';
+            $simbol = '!= ';
+        } elseif ($ware_type == 'Textile') {
+            $simbol = "=";
+            $textile = $ware_type;
+        }
+        $query = "SELECT
                 customer_wares.id,
                 customer_wares.customer_id,
                 customer_wares.product_name,
@@ -98,26 +109,27 @@ class CustomerWares extends Model
                 customer_wares.amount
                 FROM customer_wares
                 JOIN customers
-                ON customer_wares.customer_id = customers.id';
+                ON customer_wares.customer_id = customers.id
+                WHERE customer_wares.category_id {$simbol} '{$textile}'";
 
         if ($type) {
-            $query .= " WHERE customers.type = '{$type}'";
+            $query .= " AND customers.type = '{$type}'";
         }
 
         if ($type && $category) {
             $query .= " AND customer_wares.category_id = {$category}";
-        } else if ($category) {
-            $query .= " WHERE customer_wares.category_id = {$category}";
         }
 
         if ($type && $subcategory) {
             $query .= " AND customer_wares.subcategory_id = {$subcategory}";
-        } else if ($subcategory && !$category) {
-            $query .= " WHERE customer_wares.subcategory_id = {$subcategory}";
+
         } else if ($subcategory) {
             $query .= " AND customer_wares.subcategory_id = {$subcategory}";
         }
 
+//        dd($query);
+
         return DB::select($query);
     }
+
 }
