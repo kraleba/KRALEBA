@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <a href="{{ url()->previous() }}" class="btn btn-default">Back</a>
-
+    <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+    <br>
     <head>
         <meta charset="UTF-8">
         <title>Facturii</title>
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-left">
-                    <h3>Facturii</h3>
+                    {{-- <h3>Facturii</h3> --}}
                 </div>
                 <div class="pull-right mb-2">
                     {{--                    <a class="btn btn-secondary" href="{{ route('bills.create', $customer_id) }}"> Creaza o Factura</a>--}}
@@ -28,7 +28,7 @@
         @endif
 
 
-
+            <br>
         <div>
     <h3> {{$filter_title ?? 'Toate facturile clientului X'}}</h3>
 </div>
@@ -129,7 +129,10 @@
             <br>
         @endforeach
 </div>
-
+<div class="filter-tabel">
+    <button id="searchBtn" type="submit" class="btn btn-secondary"> Generare pdf</button>
+    <button id="searchBtn" type="submit" class="btn btn-secondary btn-danger btn-flat show-alert-delete-box"> Delete</button>
+</div>
 @else
     <div class="alert alert-warning">
         <h5>Nici un client!</h5>

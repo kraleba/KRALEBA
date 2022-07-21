@@ -35,4 +35,9 @@ td {
     padding-top: 30px;
     border: 1px solid black;
 }
-
+.filter-tabel {
+    position: absolute;
+    right: 100px;
+    top: 620px;
+    display:inline-block;
+}

@@ -7,7 +7,7 @@
                 {{--                <h2>{{ $bill['name']}}</h2>--}}
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('customers.index') }}"> Back</a>
+                <a  class="btn btn-primary" href="{{ route('customers.index') }}" > Back</a>
             </div>
         </div>
     </div>

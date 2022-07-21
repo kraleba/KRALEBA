@@ -26,7 +26,7 @@
                     <form action="{{ route('bills.create', $customer_id ?? '') }}">
                         <div>
                             <h3>Articole ne facturate {{$wares_count ?? ''}}</h3>
-                            <button class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
+                            <button class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"class="btn btn-xs btn-danger btn-flat show-alert-delete-box btn-sm"
                                     data-toggle="tooltip" style="float: right">Genereaza factura
                             </button>
 
