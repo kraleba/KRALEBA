@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dflydev\DotAccessData\Data;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -69,29 +70,39 @@ class Bills extends Model
 
     }
 
-    public function get_bills_by_filter()
+    public function get_bills_by_filter($customer_type = false, $type = false, $start_date = false, $end_date = false)
     {
-       return DB::table('bills')->get()->toArray();
+        $query_format = '';
 
-//        $bills = DB::table('bills')->get();
-//
-//        $i = 0;
-//
-//        $generatedBills = array();
+        if (!$end_date) {
+            $end_date = date('Y-m-d');
+        }
 
-//        foreach ($bills as $bill) {
-//            $generatedBills[$i] = DB::select("SELECT *
-//            FROM customer_wares
-//            LEFT JOIN bills
-//            ON bills.id = customer_wares.bill_id
-//            WHERE customer_wares.bill_id = {$bill->id}");
-//            $i++;
-//        }
-//        if ($generatedBills) {
-//            return $generatedBills;
-//        } else {
-//            return false;
-//        }
+        $start_date = date("d/m/Y", strtotime($start_date));
+        $end_date = date("d/m/Y", strtotime($end_date));
 
+        if ($customer_type) {
+            $query_format .= " WHERE customers.type = '{$customer_type}'";
+        }
+
+        if ($type && $query_format) {
+            $query_format .= " AND bills.type = {$type}";
+        } else if ($type) {
+            $query_format .= " WHERE bills.type = {$type}";
+        }
+
+        if ($start_date && $query_format) {
+            $query_format .= " AND bills.bill_date BETWEEN '{$start_date}' AND '{$end_date}'  ORDER BY bills.bill_date ASC ";
+        } else if ($start_date) {
+            $query_format .= " WHERE bills.bill_date BETWEEN '{$start_date}' AND '{$end_date}' ORDER BY bills.bill_date ASC ";
+        }
+
+        $query = "SELECT bills.id, bills.customer_id, customers.name, bills.bill_date, bills.bill_number, bills.exchange, bills.TVA
+                FROM bills
+                JOIN customers
+                ON bills.customer_id = customers.id" . $query_format ?? '';
+
+        return DB::select($query);
     }
+
 }

@@ -33,17 +33,17 @@ class CustomerWaresControler extends Controller
      */
     public function index(Request $request)
     {
-//        dd($request->customer_type);
+//        dd($request);
         $data['furnace_categories'] = $this->product->get_furnace_categories();
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
-
-//        if($request->customer_id) {
-        $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
         $data['customer_id'] = $request->customer_id;
-        $data['wares_count'] = count($data['wares']);
-//        }
-//        $data['wares'] = $this->wares->get_wares_by_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
 
+        if ($request->customer_id) {
+            $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
+            $data['wares_count'] = count($data['wares']);
+        } else {
+            $data['wares'] = $this->wares->get_wares_by_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+        }
 
         return view('ware.ware_index', $data);
 
@@ -56,7 +56,6 @@ class CustomerWaresControler extends Controller
      */
     public function create(Request $request)
     {
-
         $data['customer'] = $this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 //dd($data['customer']);
@@ -72,8 +71,14 @@ class CustomerWaresControler extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->input());
+        $category = json_decode($request->input('categories_json'));
         $data = $request->input();
+        unset($data['categories_json']);
+        $data['category_id'] = $category->category_id;
+        $data['subcategory_id'] = $category->id;
+
+//        dd($data);
+
         CustomerWares::create($data);
 
 
@@ -101,11 +106,12 @@ class CustomerWaresControler extends Controller
      */
     public function edit(Request $request)
     {
-//        dd($request->ware);
+
         $data['ware'] = (array)$this->wares->get_ware_by_id($request->ware);
         $data['customer'] = $this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
-//dd($data['ware']);
+//        dd($data['ware']);
+        
         return view('ware.ware_edit', $data);
     }
 

@@ -17,7 +17,7 @@ class CustomerWares extends Model
         'rating', 'description', 'um', 'amount', 'coin', 'customer_id', 'bill_id', 'category_id', 'subcategory_id', 'status', 'price'
     ];
 
-    public function get_wares_by_customer_id($customer_id, $status = null)
+    public function get_wares_by_customer_id($customer_id = null, $status = null)
     {
         if (!$status) {
             $status = 0;
@@ -86,54 +86,38 @@ class CustomerWares extends Model
 
     public function get_wares_by_filter($type, $category, $subcategory)
     {
-        if ($type && !$category && !$subcategory) {
-            return DB::table('customers')->where('type', $subcategory)->get();
-        }
-
-        $query = " SELECT * " .
-            " FROM customer_wares " .
-            " WHERE ";
-        $i = 0;
+        $query = 'SELECT
+                customer_wares.id,
+                customer_wares.customer_id,
+                customer_wares.product_name,
+                customer_wares.custom_code,
+                customer_wares.description,
+                customer_wares.date,
+                customer_wares.coin,
+                customer_wares.um,
+                customer_wares.amount
+                FROM customer_wares
+                JOIN customers
+                ON customer_wares.customer_id = customers.id';
 
         if ($type) {
-            $query .= 'customer_type = ' . "'$type'";
-            $i++;
+            $query .= " WHERE customers.type = '{$type}'";
         }
 
-        if ($category) {
-            if ($i == 0) {
-                $query .= 'category_id = ' . "'$category'";
-                $i++;
-            } else {
-                $query .= "AND " . 'category_id = ' . "'$category'";
-                $i++;
-            }
+        if ($type && $category) {
+            $query .= " AND customer_wares.category_id = {$category}";
+        } else if ($category) {
+            $query .= " WHERE customer_wares.category_id = {$category}";
         }
 
-        if ($subcategory) {
-            if ($i == 0) {
-                $query .= 'subcategory_id = ' . "'$subcategory'";
-                $i++;
-            } else {
-                $query .= "AND " . 'subcategory_id = ' . "'$subcategory'";
-                $i++;
-            }
+        if ($type && $subcategory) {
+            $query .= " AND customer_wares.subcategory_id = {$subcategory}";
+        } else if ($subcategory && !$category) {
+            $query .= " WHERE customer_wares.subcategory_id = {$subcategory}";
+        } else if ($subcategory) {
+            $query .= " AND customer_wares.subcategory_id = {$subcategory}";
         }
 
-        if ($i == 0) {
-            return false;
-        }
-
-        $results = DB::select($query);
-        $customers = array();
-        $i = 0;
-
-//        foreach ($results as $result) {
-//            $customers[$i] = $this->get_customer_by_id($result->customer_id);
-//            $i++;
-//        }
-        return $results;
-
-
+        return DB::select($query);
     }
 }

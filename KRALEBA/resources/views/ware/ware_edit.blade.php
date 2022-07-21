@@ -394,7 +394,7 @@
                                 <option selected>Selecteaza UM</option>
                                 <option value="ml">ml</option>
                                 <option value="gr">gr</option>
-                                <option value="3">kg</option>
+                                <option value="Kg">kg</option>
                             </select>
                         </div>
                     </div>

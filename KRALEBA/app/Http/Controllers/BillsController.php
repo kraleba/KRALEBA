@@ -32,20 +32,10 @@ class BillsController extends Controller
 
     public function index(Request $request)
     {
-        $data['furnace_categories'] = $this->product->get_furnace_categories();
-//        if ($request->customer_id) {
-//            $bills = $this->bills->get_customer_bill_by_id($request->customer_id);
-//            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
-//
-//        } else {
-//            $bills = $this->bills->get_bills_by_filter();
-//            $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
-//        }
-        $data['customer_id'] = $request->customer_id;
-        $data['bills'] = $this->bills->get_bills_by_filter();
 
-//        dd($data['bills']);
-//get_bills_by_filter
+        $data['customer_id'] = $request->customer_id;
+        $data['bills'] = $this->bills->get_bills_by_filter($request->customer_type, $request->type, $request->start_date, $request->end_date);
+
 //        dd($data['bills']);
 
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
@@ -102,9 +92,10 @@ class BillsController extends Controller
         $bills = $this->bills->get_customer_bill_by_id($request->customer_id, $request->bill);
         $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
 
+//        dd($request->bill);
         return view('bills.bills_show', $data);
-    }
 
+    }
 
     public function edit(Request $request)
     {

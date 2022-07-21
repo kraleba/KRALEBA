@@ -15,7 +15,7 @@
                         <select name="customer_type" id="department"
                                 class="form-control rounded-pill filter-control">
                             {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
-                            <option value=""> Selecteaza tipul </option>
+                            <option value=" "> Selecteaza tipul </option>
                             <option value="customer"> Beneficiar</option>
                             <option value="provider">Furnizor</option>
                         </select>
@@ -50,7 +50,7 @@
                         <datalist id="browsers" class="dropdown">
 
                             @foreach ($subcategories as $subcategory)
-                                <option>{{ $subcategory->name }}</option>
+                                <option value="{{ $subcategory->subcategory_id }}">{{ $subcategory->name }}</option>
                             @endforeach
                         </datalist>
 

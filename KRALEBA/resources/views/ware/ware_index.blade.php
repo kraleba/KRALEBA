@@ -19,10 +19,10 @@
         @endif
     </div>
 
-    <div class="container ">
-        <div class="row  card round3">
-            <div class="col-lg-12 ">
-                @if($customer_id && $wares)
+    @if($customer_id && $wares)
+        <div class="container ">
+            <div class="row  card round3">
+                <div class="col-lg-12 ">
                     <form action="{{ route('bills.create', $customer_id ?? '') }}">
                         <div>
                             <h3>Articole ne facturate {{$wares_count ?? ''}}</h3>
@@ -32,13 +32,13 @@
 
                         </div>
                     </form>
-                @endif
+                </div>
+
             </div>
-
         </div>
-    </div>
-    @include('ware.ware_filters')
-
+    @else
+        @include('ware.ware_filters')
+    @endif
 
     <!--end filter-->
     <br>
@@ -72,24 +72,21 @@
                             @endif
                             {{ $ware->description }}
 
-                            @if($ware->date) 
+                            @if($ware->date)
                                 /
                             @endif
-                            {{ $ware->date }} / 
+                            {{ $ware->date }} /
 
                             {{-- @if($ware->color)
                                 /
                             {{-- @endif                                  nu stiu --}}
-                            Curs Valutar: {{ $ware->coin }} /      {{-- ???????????? --}}
+                            Curs Valutar: {{ $ware->coin }} / {{-- ???????????? --}}
 
                             UM: @if($ware->um)
-                                
+
                             @endif
                             / Cantitate: {{ $ware->amount }}
                         </div>
-                       
-
-                        
 
                         <div class="dropdown option-button">
                             <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"

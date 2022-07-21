@@ -21,7 +21,7 @@
                 <input type="hidden" name="customer_id" value="{{$customer['customer_id']}}">
                 <input type="hidden" name="status" value="0">
 
-                <select name="subcategory_id" id="subcategorySelected" onchange="showWareTemplate()"
+                <select name="categories_json" id="subcategorySelected" onchange="showWareTemplate()"
                         class="form-control filter-control">
                     <option>Selecteaza o subcategorie</option>
 
@@ -33,7 +33,7 @@
                                 @foreach($customer['subcategory_id'] as $subcategory)
 
                                     @if($category['category_id'] == $subcategory['category_id'])
-                                        <option value="{{$subcategory['id']}}">{{$subcategory['name']}}</option>
+                                        <option value="{{json_encode($subcategory)}}">{{$subcategory['name']}}</option>
                                     @endif
 
                                 @endforeach
