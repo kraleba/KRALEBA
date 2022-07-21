@@ -310,5 +310,27 @@ $(".searchable ul li").hover(function () {
 });
 
 
+/* ------- Bills alert delete --------*/
+$('.bills-alert-delete').click(function (event) {
+    var form = $(this).closest("form");
+    var name = $(this).data("name");
+    event.preventDefault();
+    swal({
+        title: "Esti sigur ca vrei sa stergi factura?",
+        text: "Daca stergi factura se vor sterge si articolele din aceasta!",
+
+        icon: "warning",
+        type: "warning",
+        buttons: ["Cancel", "Yes!"],
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((willDelete) => {
+        if (willDelete) {
+            form.submit();
+        }
+    });
+});
+/* ------- END Bills alert delete --------*/
 
 

@@ -132,4 +132,11 @@ class CustomerWares extends Model
         return DB::select($query);
     }
 
+    public function get_customer_name_by_search($data)
+    {
+        return User::select("customers")
+            ->where('name', 'LIKE', '%' . $data . '%')
+            ->get();
+    }
+
 }

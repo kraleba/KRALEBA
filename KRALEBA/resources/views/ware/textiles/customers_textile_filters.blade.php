@@ -9,6 +9,32 @@
 
                 <br>
 
+
+                <div class="ui-widget">
+                    <label for="tags">Tags: </label>
+                    <input id="tags">
+                </div>
+
+                <div class="ui-widget">
+                    <label for="tags">Tags: </label>
+                    <input id="tags">
+                </div>
+
+                <div class="ui-widget">
+                    <label for="tags">Tags: </label>
+                    <input id="tags">
+                </div>
+
+                <div class="ui-widget">
+                    <label for="tags">Tags: </label>
+                    <input id="tags">
+                </div>
+
+                <div class="ui-widget">
+                    <label for="tags">Tags: </label>
+                    <input id="tags">
+                </div>
+
                 <div class="input-group item-left">
                     {{--          type               --}}
                     <div class="filter-item1 ">
@@ -80,3 +106,29 @@
 
     </div>
 </div>
+
+<script>
+    $(function () {
+        var availableTags = [];
+
+        $.ajax({
+            type: 'GET',
+            url: '/downloadPDF',
+            data: data,
+            xhrFields: {
+                responseType: 'blob'
+            },
+            success: function (response) {
+                $("#tags").autocomplete({
+                    source: availableTags
+                });
+            },
+            error: function (blob) {
+                console.log(blob);
+            }
+        });
+
+    });
+</script>
+
+

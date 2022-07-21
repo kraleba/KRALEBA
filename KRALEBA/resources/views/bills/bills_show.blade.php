@@ -28,46 +28,46 @@
         @endif
 
 
-            <br>
+        <br>
         <div>
-    <h3> {{$filter_title ?? 'Toate facturile clientului X'}}</h3>
-</div>
+            <h3> {{$filter_title ?? 'Toate facturile clientului X'}}</h3>
+        </div>
 
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
-<div>
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
+        <div>
 
-    @if($bills)
-        @foreach($bills as $bill)
+            @if($bills)
+                @foreach($bills as $bill)
 
-            <table>
+                    <table>
 
-                <tr>
-                    <th rowspan="2"></th>
-                    <th rowspan="2">Product</th>
-                    <th rowspan="2">Code</th>
-                    <th rowspan="2">Description</th>
-                    <th colspan="4"> buc./UM</th>
-                    <th colspan="2">Total fara TVA</th>
-                    <th colspan="2">TVA</th>
-                    <th colspan="2">Total incl. TVA</th>
-                </tr>
-                <tr>
-                    <th>UM</th>
-                    <th>Cantit.</th>
-                    <th>Euro</th>
-                    <th>Lei</th>
-                    <th>Euro</th>
-                    <th>Lei</th>
-                    <th>Euro</th>
-                    <th>Lei</th>
-                    <th>Euro</th>
-                    <th>Lei</th>
-                </tr>
-                @php $i = 1;
+                        <tr>
+                            <th rowspan="2"></th>
+                            <th rowspan="2">Product</th>
+                            <th rowspan="2">Code</th>
+                            <th rowspan="2">Description</th>
+                            <th colspan="4"> buc./UM</th>
+                            <th colspan="2">Total fara TVA</th>
+                            <th colspan="2">TVA</th>
+                            <th colspan="2">Total incl. TVA</th>
+                        </tr>
+                        <tr>
+                            <th>UM</th>
+                            <th>Cantit.</th>
+                            <th>Euro</th>
+                            <th>Lei</th>
+                            <th>Euro</th>
+                            <th>Lei</th>
+                            <th>Euro</th>
+                            <th>Lei</th>
+                            <th>Euro</th>
+                            <th>Lei</th>
+                        </tr>
+                        @php $i = 1;
                      $eu_wit_out_tva = 0;
                      $lei_wit_out_tva = 0;
                      $eu_tva = 0;
@@ -75,68 +75,73 @@
                      $eu_with_tva = 0;
                      $lei_with_tva = 0;
 
-                @endphp
-                @foreach($bill as $ware)
-
-                    <tr>
-                        <td>{{$i}}</td>
-                        <td>{{$ware['product_name']}}</td>
-                        <td>{{$ware['custom_code']}}</td>
-                        <td>{{$ware['description']}}</td>
-                        <td>{{$ware['um']}}</td>
-                        <td>{{$ware['amount']}}</td>
-                        {{--pret pe bucata--}}
-                        <td>{{$ware['price_euro']}}</td>
-                        <td>{{$ware['price_lei']}}</td>
-                        {{--total pret fara tva--}}
-                        <td>{{round($ware['amount'] * $ware['price_euro'] - $ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
-                        <td>{{round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
-
-                        <td>{{round($ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
-                        <td>{{round($ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
-                        {{--total pret tva--}}
-                        <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
-                        <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
-
-                        @php
-                            $eu_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_euro_buc'] * $ware['amount'], 2);
-                            $lei_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2);
-
-                            $eu_tva += round($ware['tva_euro_buc'] * $ware['amount'], 2);
-                            $lei_tva += round($ware['tva_lei_buc'] * $ware['amount'], 2);
-
-                            $eu_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
-                            $lei_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
-
-
                         @endphp
+                        @foreach($bill as $ware)
 
-                    </tr>
-                    @php($i++)
+                            <tr>
+                                <td>{{$i}}</td>
+                                <td>{{$ware['product_name']}}</td>
+                                <td>{{$ware['custom_code']}}</td>
+                                <td>{{$ware['description']}}</td>
+                                <td>{{$ware['um']}}</td>
+                                <td>{{$ware['amount']}}</td>
+                                {{--pret pe bucata--}}
+                                <td>{{$ware['price_euro']}}</td>
+                                <td>{{$ware['price_lei']}}</td>
+                                {{--total pret fara tva--}}
+                                <td>{{round($ware['amount'] * $ware['price_euro'] - $ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
+                                <td>{{round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
+
+                                <td>{{round($ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
+                                <td>{{round($ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
+                                {{--total pret tva--}}
+                                <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
+                                <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
+
+                                @php
+                                    $eu_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_euro_buc'] * $ware['amount'], 2);
+                                    $lei_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2);
+
+                                    $eu_tva += round($ware['tva_euro_buc'] * $ware['amount'], 2);
+                                    $lei_tva += round($ware['tva_lei_buc'] * $ware['amount'], 2);
+
+                                    $eu_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
+                                    $lei_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
+
+
+                                @endphp
+
+                            </tr>
+                            @php($i++)
+                        @endforeach
+                        <tr>
+                            <td colspan="8"></td>
+                            <td>{{$eu_wit_out_tva}}</td>
+                            <td>{{$lei_wit_out_tva}}</td>
+                            <td>{{$eu_tva}}</td>
+                            <td>{{$lei_tva}}</td>
+                            <td>{{$eu_with_tva}}</td>
+                            <td>{{$lei_with_tva}}</td>
+
+                        </tr>
+
+                    </table>
+                    <br>
                 @endforeach
-                <tr>
-                    <td colspan="8"></td>
-                    <td>{{$eu_wit_out_tva}}</td>
-                    <td>{{$lei_wit_out_tva}}</td>
-                    <td>{{$eu_tva}}</td>
-                    <td>{{$lei_tva}}</td>
-                    <td>{{$eu_with_tva}}</td>
-                    <td>{{$lei_with_tva}}</td>
+                    <div class="filter-table">
+                        <button id="searchBtn" type="submit" class="btn btn-secondary"> Generare pdf</button>
+                        <button id="searchBtn" type="submit"
+                                class="btn btn-secondary btn-danger btn-flat bills-alert-delete">
+                            Delete
+                        </button>
+                    </div>
+        </div>
 
-                </tr>
 
-            </table>
-            <br>
-        @endforeach
-</div>
-<div class="filter-tabel">
-    <button id="searchBtn" type="submit" class="btn btn-secondary"> Generare pdf</button>
-    <button id="searchBtn" type="submit" class="btn btn-secondary btn-danger btn-flat show-alert-delete-box"> Delete</button>
-</div>
-@else
-    <div class="alert alert-warning">
-        <h5>Nici un client!</h5>
-    </div>
-@endif
+        @else
+            <div class="alert alert-warning">
+                <h5>Nici un client!</h5>
+            </div>
+    @endif
 
 @endsection
