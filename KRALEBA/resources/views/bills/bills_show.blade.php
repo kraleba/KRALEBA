@@ -128,7 +128,7 @@
                     </table>
                     <br>
                 @endforeach
-                    <div class="filter-table">
+                    <div >
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> Generare pdf</button>
                         <button id="searchBtn" type="submit"
                                 class="btn btn-secondary btn-danger btn-flat bills-alert-delete">

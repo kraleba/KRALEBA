@@ -76,7 +76,13 @@
                     <button type="submit" class="btn btn-secondary">REVERT</button>
                 </div>
             </form>
-        </div>
 
+        </div>
+        <form>
+            <div class="generare">
+                <button type="submit" class="btn btn-secondary">Generare pdf</button>
+            </div>
+        </form>
     </div>
+    
 </div>

@@ -1,7 +1,7 @@
 <div class="container">
-    <div class="row searchFilter card round3b">
+    <div class="row box-filter-b card round3b">
 
-        <div class="col-sm-12 box-filter-b">
+        <div class="col-sm-12">
             <form method="get">
                 <div>
                     <h4>SELECTEAZA:</h4>

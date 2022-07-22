@@ -40,3 +40,9 @@ td {
     margin: 0;
     display:inline-block;
 }
+.generare {
+    width: 8%;
+    position: absolute;
+    top: 230px;
+    right: 32px;
+}
