@@ -6,8 +6,16 @@
                 <div>
                     <h4>SELECTEAZA:</h4>
                 </div>
-
                 <br>
+
+                <div class="filter-item1">
+                    <input type='text'
+                           id="find_customer"
+                           name="customer_name"
+                           placeholder="--Selecteaza un Client--"
+                           class="form-control filter-control rounded-pill"
+                    >
+                </div>
 
                 <div class="input-group">
                     <div class="filter-item1 item-left">
@@ -31,7 +39,8 @@
                 <div class="input-group">
                     <div class="filter-item1 item-left">
                         <div class="form-row">
-                            <input type="date" class="form-control filter-control  rounded-pill" value="" name="start_date">
+                            <input type="date" class="form-control filter-control  rounded-pill" value=""
+                                   name="start_date">
                         </div>
                         </select>
                     </div>
@@ -39,7 +48,8 @@
                     <div class="filter-item1">
                         <div class="form-row">
                             <strong>End Date </strong>
-                            <input type="date" class="form-control filter-control  rounded-pill" value="{{date('Y-m-d')}}" name="end_date">
+                            <input type="date" class="form-control filter-control  rounded-pill"
+                                   value="{{date('Y-m-d')}}" name="end_date">
                         </div>
                         </select>
                     </div>

@@ -16,6 +16,7 @@
     <script src="{{ asset('js/admin/customer.js') }}" defer></script>
     <script src="{{ asset('js/admin/bills.js') }}" defer></script>
     <script src="{{ asset('js/admin/ware.js') }}" defer></script>
+    <script src="{{ asset('js/admin/ware_textile.js') }}" defer></script>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -32,9 +33,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    {{--    generaza eorori--}}
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    {{--    end genereaza eroroi--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 
 
@@ -51,9 +51,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet"
           type="text/css"/>
-    {{--    genereaza erori--}}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    {{--    end generaza erori--}}
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 
 
     <!-- Styles -->

@@ -4,19 +4,22 @@ namespace App\Helpers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customers;
+use App\Models\CustomerWares;
 use App\Models\Products;
 use Illuminate\Http\Request;
 
 
 class CustomerHelper extends Controller
 {
-    public $product;
-    public $customers;
+    public Products $product;
+    public Customers $customers;
+    public CustomerWares $wares;
 
     public function __construct()
     {
         $this->product = new Products();
         $this->customers = new Customers();
+        $this->wares = new CustomerWares();
     }
 
     public function helper_get_categories_to_customers($customers)
@@ -98,6 +101,7 @@ class CustomerHelper extends Controller
     public function helper_show_filter($data)
     {
 
+        $customer_name = $data['customer_name'] ?? '';
         $customer_type = $data['customer_type'] ?? '';
         $category = $data['category'] ?? '';
         $subcategory = $data['subcategory'] ?? '';
@@ -108,7 +112,7 @@ class CustomerHelper extends Controller
         // dump($subcategory_id);
 
         return array(
-            'customers' => $this->customers->get_customers_after_filter($customer_type, $category, $subcategory_id),
+            'customers' => $this->customers->get_customers_after_filter($customer_name, $customer_type, $category, $subcategory_id),
             'filter_title' => $this->helper_generate_title_after_filter($customer_type, $category, $subcategory_id),
             'type' => $customer_type,
             'category' => $category,
@@ -140,8 +144,8 @@ class CustomerHelper extends Controller
 
     public function bills_value_calculated_ware($bills)
     {
-        if(!$bills) {
-            return  false;
+        if (!$bills) {
+            return false;
         }
         $j = 0;
         $bills_array = array();
@@ -180,6 +184,24 @@ class CustomerHelper extends Controller
 
         return $bills_array;
     }
+
+    public function customers_autocomplete(Request $request)
+    {
+
+        $res = $this->customers->get_customer_name_by_search($request->term);
+
+        return response()->json($res);
+    }
+
+    public function find_textiles_filters(Request $request)
+    {
+        $res = $this->wares->get_textiles_filters_suggestions($request->input('term'), $request->input('row_name'));
+//        dd($request->input('row_name'));
+
+        return response()->json($res);
+    }
+
+
 
 }
 

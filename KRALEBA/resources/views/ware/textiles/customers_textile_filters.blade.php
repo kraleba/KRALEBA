@@ -9,79 +9,107 @@
 
                 <br>
 
-
-                <div class="ui-widget">
-                    <label for="tags">Tags: </label>
-                    <input id="tags">
-                </div>
-
-                <div class="ui-widget">
-                    <label for="tags">Tags: </label>
-                    <input id="tags">
-                </div>
-
-                <div class="ui-widget">
-                    <label for="tags">Tags: </label>
-                    <input id="tags">
-                </div>
-
-                <div class="ui-widget">
-                    <label for="tags">Tags: </label>
-                    <input id="tags">
-                </div>
-
-                <div class="ui-widget">
-                    <label for="tags">Tags: </label>
-                    <input id="tags">
-                </div>
-
                 <div class="input-group item-left">
                     {{--          type               --}}
-                    <div class="filter-item1 ">
-                        <select name="customer_type" id="department"
-                                class="form-control rounded-pill filter-control">
-                            {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
-                            <option value=" "> Selecteaza tipul</option>
-                            <option value="customer"> Beneficiar</option>
-                            <option value="provider">Furnizor</option>
-                        </select>
-                    </div>
-
+{{--                    <div class="filter-item1 ">--}}
+{{--                        <select name="customer_type" id="department"--}}
+{{--                                class="form-control rounded-pill filter-control">--}}
+{{--                            --}}{{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
+{{--                            <option value=" "> Selecteaza tipul</option>--}}
+{{--                            <option value="customer"> Beneficiar</option>--}}
+{{--                            <option value="provider">Furnizor</option>--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
 
                     <div class="filter-item1">
-                        <select name="category" id="department" class="form-control rounded-pill filter-control">
-
-                            <option
-                                value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
-
-                            @foreach ($furnace_categories as $furnace_category)
-
-                                <option
-                                    value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
-
-                            @endforeach
-                        </select>
-
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Selecteaza un Client--"
+                               class="form-control filter-control rounded-pill"
+                        >
                     </div>
 
                     <div class="filter-item1">
                         <input type='text'
-                               name="subcategory"
-                               list="browsers"
-                               placeholder="--Selecteaza o subcategorie--"
-                               class="form-control filter-control rounded-pill"
-                               value="{{$filtering_criteria['subcategory'] ?? ''}}"
+                               id="find_textiles_composition"
+                               row_name="composition"
+                               name="textiles_composition"
+                               placeholder="--Selecteaza Compozitia--"
+                               class="form-control filter-control rounded-pill find_textiles_composition"
                         >
-
-                        <datalist id="browsers" class="dropdown">
-
-                            @foreach ($subcategories as $subcategory)
-                                <option value="{{ $subcategory->subcategory_id }}">{{ $subcategory->name }}</option>
-                            @endforeach
-                        </datalist>
-
                     </div>
 
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_material"
+                               row_name="material"
+                               name="textiles_material"
+                               placeholder="--Selecteaza Material--"
+                               class="form-control filter-control rounded-pill find_material"
+                        >
+                    </div>
+
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_textiles_design"
+                               row_name="design"
+                               name="textiles_design"
+                               placeholder="--Selecteaza Design--"
+                               class="form-control filter-control rounded-pill find_textiles_design"
+                        >
+                    </div>
+
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_textiles_color"
+                               row_name="color"
+
+                               name="textiles_color"
+                               placeholder="--Select Color--"
+                               class="form-control filter-control rounded-pill find_textiles_color"
+                        >
+                    </div>
+
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_textiles_structure"
+                               row_name="structure"
+                               name="textiles_structure"
+                               placeholder="--Selecteaza Structure--"
+                               class="form-control filter-control rounded-pill find_textiles_structure"
+                        >
+                    </div>
+
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_textiles_weaving"
+                               row_name="weaving"
+                               name="textiles_weaving"
+                               placeholder="--Selecteaza Weaving--"
+                               class="form-control filter-control rounded-pill find_textiles_weaving"
+                        >
+                    </div>
+
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_textiles_finishing"
+                               row_name="finishing"
+                               name="textiles_finishing"
+                               placeholder="--Selecteaza Finishing--"
+                               class="form-control filter-control rounded-pill find_textiles_finishing"
+                        >
+                    </div>
+
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_textiles_rating"
+                               row_name="rating"
+                               name="textiles_rating"
+                               placeholder="--Selecteaza Rating--"
+                               class="form-control filter-control rounded-pill find_textiles_rating"
+                        >
+                    </div>
                 </div>
 
                 <div class="filter-item_OK ">
@@ -107,28 +135,11 @@
     </div>
 </div>
 
-<script>
-    $(function () {
-        var availableTags = [];
 
-        $.ajax({
-            type: 'GET',
-            url: '/downloadPDF',
-            data: data,
-            xhrFields: {
-                responseType: 'blob'
-            },
-            success: function (response) {
-                $("#tags").autocomplete({
-                    source: availableTags
-                });
-            },
-            error: function (blob) {
-                console.log(blob);
-            }
-        });
+{{--    <div class="form-group">--}}
+{{--        <label for="exampleInputEmail1">Search Name:</label>--}}
+{{--        <input type="text" id="name" name="name" class="form-control">--}}
+{{--    </div>--}}
 
-    });
-</script>
 
 

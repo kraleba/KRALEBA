@@ -70,7 +70,7 @@ class Bills extends Model
 
     }
 
-    public function get_bills_by_filter($customer_type = false, $type = false, $start_date = false, $end_date = false)
+    public function get_bills_by_filter($customer_name = false, $customer_type = false, $type = false, $start_date = false, $end_date = false)
     {
         $query_format = '';
 
@@ -81,7 +81,13 @@ class Bills extends Model
         $start_date = date("d/m/Y", strtotime($start_date));
         $end_date = date("d/m/Y", strtotime($end_date));
 
-        if ($customer_type) {
+        if ($customer_name) {
+            $query_format .= " WHERE customers.name = '{$customer_type}'";
+        }
+
+        if ($customer_type && $query_format) {
+            $query_format .= " AND customers.type = '{$customer_type}'";
+        } else if ($customer_type && $query_format) {
             $query_format .= " WHERE customers.type = '{$customer_type}'";
         }
 

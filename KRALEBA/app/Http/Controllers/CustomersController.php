@@ -29,7 +29,7 @@ class CustomersController extends Controller
     {
         $product = new Products();
 
-        if ($request->input('customer_type') || $request->input('category') || $request->input('subcategory')) {
+        if ($request->input()) {
             $data = $this->helper->helper_show_filter($request->input());
             $type = '';
             if ($request->input('customer_type') == 'Provider') {
@@ -38,6 +38,7 @@ class CustomersController extends Controller
             if ($request->input('customer_type') == 'Customer') {
                 $type = 'Beneficiar';
             }
+
             $data['filtering_criteria'] = array(
                 'type' => array(
                     'nume' => $type,
@@ -50,6 +51,12 @@ class CustomersController extends Controller
             $data['customers'] = Customers::get_customers();
 
         }
+        $data['customers'] = $this->customers->get_customers_after_filter(
+            $request->input('customer_name'),
+            $request->input('type'),
+            $request->input('category_id'),
+            $request->input('subcategory_id')
+        );
 
         if ($request->input('downloadPDF') == 'PDF') {
 
@@ -136,7 +143,7 @@ class CustomersController extends Controller
 //        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
 //        $data["generated_bills"]=$this->bills->get_customer_bill_by_id($customer->id);
 //        dd($data);
-dd('nu aicccciicc');
+        dd('nu aicccciicc');
 //        return view('customers.show', $data);
     }
 

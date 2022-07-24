@@ -47,10 +47,14 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/customers/{id}/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/customers/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/downloadPDF', [CustomersController::class, 'downloadPDF']);
-    Route::get('admin/show_subcategory_by_category_id', [CustomerHelper::class, 'show_subcategory_by_category_id']);
 
+    //helpers
+    Route::get('admin/show_subcategory_by_category_id', [CustomerHelper::class, 'show_subcategory_by_category_id']);
     Route::get('admin/customers/create_edit/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
     Route::get('admin/customers/{id}/create_edit/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
+    Route::get('admin/customers_autocomplete', [CustomerHelper::class, 'customers_autocomplete']);
+    Route::get('admin/find_textiles_filters', [CustomerHelper::class, 'find_textiles_filters']);
+
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 
     //ware

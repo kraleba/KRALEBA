@@ -20,9 +20,15 @@
                     <div>
                         <h4>SELECTEAZA:</h4>
                     </div>
-
-
                     <br>
+                    <div class="filter-item1">
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Selecteaza un Client--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
 
                     <div class="input-group item-left">
                         <div class="filter-item1 ">
@@ -220,7 +226,8 @@
                                     <a class="dropdown-item"
                                        href="{{ route('customers.edit', $customer->id) }}">Edit</a>
 
-                                    <a class="dropdown-item" href="{{ route('bills.index', $customer->id) }}">Facturiile </a>
+                                    <a class="dropdown-item"
+                                       href="{{ route('bills.index', $customer->id) }}">Facturiile </a>
 
                                     <a class="dropdown-item" href="{{ route('wares.index', $customer->id) }}">
                                         Articole </a>

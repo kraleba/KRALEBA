@@ -132,11 +132,93 @@ class CustomerWares extends Model
         return DB::select($query);
     }
 
-    public function get_customer_name_by_search($data)
+    public function get_textiles_filters_suggestions($term, $row_name)
     {
-        return User::select("customers")
-            ->where('name', 'LIKE', '%' . $data . '%')
-            ->get();
+        if (!$row_name || !$term) {
+            return false;
+        }
+
+        $query = "SELECT {$row_name} FROM customer_wares WHERE {$row_name} LIKE '%{$term}%' GROUP BY {$row_name}";
+
+//        dd(DB::select($query));
+        return DB::select($query);
+
+    }
+
+    public function get_suggestions_for_textiles_filters($customer_name, $textiles_composition, $textiles_material, $textiles_design, $textiles_color, $textiles_structure, $textiles_weaving, $textiles_finishing, $textiles_rating)
+    {
+        $query_options = '';
+
+        /* customer name */
+        if ($customer_name) {
+            $query_options = " WHERE c.name = '{$customer_name}'";
+        }
+
+        /* composition */
+        if ($textiles_composition && $query_options) {
+            $query_options = " AND w.composition = '{$textiles_composition}'";
+        } else if ($textiles_composition) {
+            $query_options = " WHERE w.composition = '{$textiles_composition}'";
+        }
+
+        //material
+        if ($textiles_material && $query_options) {
+            $query_options = " AND w.material = '{$textiles_material}'";
+        } else if ($textiles_material) {
+            $query_options = " WHERE w.material = '{$textiles_material}'";
+        }
+
+        //design
+        if ($textiles_design && $query_options) {
+            $query_options = " AND w.design = '{$textiles_design}'";
+        } else if ($textiles_design) {
+            $query_options = " WHERE w.design = '{$textiles_design}'";
+        }
+
+        //color
+        if ($textiles_color && $query_options) {
+            $query_options = " AND w.color = '{$textiles_color}'";
+        } else if ($textiles_color) {
+            $query_options = " WHERE w.color = '{$textiles_color}'";
+        }
+
+        //textiles_structure
+        if ($textiles_structure && $query_options) {
+            $query_options = " AND w.structure = '{$textiles_structure}'";
+        } else if ($textiles_structure) {
+            $query_options = " WHERE w.structure = '{$textiles_structure}'";
+        }
+
+        //textiles_weaving
+        if ($textiles_weaving && $query_options) {
+            $query_options = " AND w.weaving = '{$textiles_weaving}'";
+        } else if ($textiles_weaving) {
+            $query_options = " WHERE w.weaving = '{$textiles_weaving}'";
+        }
+
+        //textiles_finishing
+        if ($textiles_finishing && $query_options) {
+            $query_options = " AND w.finishing = '{$textiles_finishing}'";
+        } else if ($textiles_finishing) {
+            $query_options = " WHERE w.finishing = '{$textiles_finishing}'";
+        }
+
+        //textiles_rating
+        if ($textiles_rating && $query_options) {
+            $query_options = " AND w.rating = '{$textiles_rating}'";
+        } else if ($textiles_rating) {
+            $query_options = " WHERE w.rating = '{$textiles_rating}'";
+        }
+
+        $query = "SELECT *
+                FROM customer_wares AS w
+                JOIN customers AS c
+                ON w.customer_id = c.id
+                {$query_options}";
+
+        $result = DB::select($query);
+
+        return $result;
     }
 
 }

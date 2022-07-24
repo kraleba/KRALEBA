@@ -160,17 +160,40 @@ class CustomerWaresControler extends Controller
 
     public function customers_textile(Request $request)
     {
-//        dd($request);
+
         $data['furnace_categories'] = $this->product->get_furnace_categories();
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
         $data['customer_id'] = $request->customer_id;
-        $data['filter_title'] = $this->helper->helper_generate_title_after_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+        $data['filter_title'] = $this->helper->helper_generate_title_after_filter(
+            $request->customer_type ?? '',
+            $request->category ?? '',
+            $request->subcategory ?? ''
+        );
 
         if ($request->customer_id) {
             $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
             $data['wares_count'] = count($data['wares']);
         } else {
-            $data['wares'] = $this->wares->get_wares_by_filter('Textile', $request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
+            $data['wares'] = $this->wares->get_wares_by_filter(
+                'Textile',
+                $request->customer_type ?? '',
+                $request->category ?? '',
+                $request->subcategory ?? ''
+            );
+        }
+
+        /*if filter exist*/
+        if ($request->input()) {
+            $data['wares'] = $this->wares->get_suggestions_for_textiles_filters(
+                $request->input('customer_name'),
+                $request->input('textiles_composition'),
+                $request->input('textiles_material'),
+                $request->input('textiles_design'),
+                $request->input('textiles_color'),
+                $request->input('textiles_structure'),
+                $request->input('textiles_weaving'),
+                $request->input('textiles_finishing'),
+                $request->input('textiles_rating'));
         }
 
         return view('ware.textiles.customers_textile', $data);

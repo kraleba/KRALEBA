@@ -42,7 +42,7 @@ class Customers extends Model
     public function get_customer_and_categories_by_id($id)
     {
 
-        if(!$id) {
+        if (!$id) {
             return false;
         }
 
@@ -112,7 +112,7 @@ class Customers extends Model
     }
 
 
-    public function get_customers_after_filter($customer_type, $category_id, $subcategory)
+    public function get_customers_after_filterOLD($customer_type, $category_id, $subcategory)
     {
 
         if ($customer_type && !$category_id && !$subcategory) {
@@ -165,6 +165,49 @@ class Customers extends Model
 
     }
 
+    public function get_customers_after_filter($customer_name, $customer_type, $category_id, $subcategory_id)
+    {
+        $query_format = '';
+        if ($customer_name) {
+            $query_format = " WHERE c.name = '{$customer_name}'";
+        }
+
+        if ($query_format && $customer_type) {
+            $query_format = " AND c.type = '{$customer_type}'";
+        } else if ($customer_type) {
+            $query_format = " WHERE c.type = '{$customer_type}'";
+        }
+
+        if ($query_format && $category_id) {
+            $query_format = " AND cs.customer_id = '{$category_id}'";
+        } else if ($category_id) {
+            $query_format = " WHERE cs.customer_id = '{$category_id}'";
+        }
+
+        if ($query_format && $subcategory_id) {
+            $query_format = " AND cs.subcategory_id = '{$subcategory_id}'";
+        } else if ($subcategory_id) {
+            $query_format = " WHERE cs.subcategory_id = '{$subcategory_id}'";
+        }
+
+        $query = "SELECT * FROM customers_categories_subcategories AS cs
+            JOIN  customers AS c
+            ON c.id = cs.customer_id {$query_format}";
+
+        $result = DB::select($query);
+//        dd(DB::select($query));
+        return $result;
+    }
+
+    public function get_customer_name_by_search($data)
+    {
+        $query = "SELECT name, id FROM customers WHERE name LIKE '%{$data}%' OR uniqueCode LIKE '%{$data}%' ";
+        $results = DB::select($query);
+
+//        dd($results);
+        return $results;
+
+    }
 
 }
 
