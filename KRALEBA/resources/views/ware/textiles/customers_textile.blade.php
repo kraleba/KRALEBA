@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h3>Articole</h3>
+    <h3>Articole</h3> 
     <div>
         @if($customer_id)
 

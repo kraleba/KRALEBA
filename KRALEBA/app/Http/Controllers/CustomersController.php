@@ -30,7 +30,7 @@ class CustomersController extends Controller
         $product = new Products();
 
         if ($request->input()) {
-            $data = $this->helper->helper_show_filter($request->input());
+//            $data = $this->helper->helper_show_filter($request->input());
             $type = '';
             if ($request->input('customer_type') == 'Provider') {
                 $type = 'Furnizor';
@@ -51,11 +51,12 @@ class CustomersController extends Controller
             $data['customers'] = Customers::get_customers();
 
         }
+//        dump($request->input());
         $data['customers'] = $this->customers->get_customers_after_filter(
             $request->input('customer_name'),
-            $request->input('type'),
-            $request->input('category_id'),
-            $request->input('subcategory_id')
+            $request->input('customer_type'),
+            $request->input('category'),
+            $request->input('subcategory')
         );
 
         if ($request->input('downloadPDF') == 'PDF') {
@@ -118,7 +119,7 @@ class CustomersController extends Controller
         if ($request->input('type') == 'provider') {
 
             $categories_id = (array)$request->input('categories_id');
-            if (!in_array(2, $categories_id)) {
+            if (!in_array(8, $categories_id)) {
                 $request->validate([
                     'subcategories_id' => 'required',
                 ]);
@@ -159,12 +160,12 @@ class CustomersController extends Controller
         $data['furnace_categories'] = $product->get_furnace_categories();
         $data['subcategories'] = $product->get_subcategory_for_customer_category();
 
-
         if ($customer->attributesToArray()['type'] == 'provider') {
             $data['customers'] = $this->customers->get_customer_and_categories_by_id($customer->attributesToArray()['id']);
         } else {
             $data['customers'] = $customer;
         }
+//        dd($data['customers']);
 
         return view('customers.edit', $data);
     }

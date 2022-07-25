@@ -21,27 +21,34 @@
                         <h4>SELECTEAZA:</h4>
                     </div>
                     <br>
-                    <div class="filter-item1">
-                        <input type='text'
-                               id="find_customer"
-                               name="customer_name"
-                               placeholder="--Selecteaza un Client--"
-                               class="form-control filter-control rounded-pill"
-                        >
-                    </div>
 
-                    <div class="input-group item-left">
-                        <div class="filter-item1 ">
-                            <select name="customer_type" id="department"
-                                    class="form-control rounded-pill filter-control">
-                                {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
-                                <option value="customer"> Beneficiar</option>
-                                <option value="provider">Furnizor</option>
-                            </select>
+                    <br>
+                    <div class="input-group item-left filter-item1">
+                        <div >
+                            <div>                                
+                                <input type='text'
+                                id="find_customer"
+                                name="customer_name"
+                                placeholder="--Selecteaza un Client--"
+                                class="form-control filter-control rounded-pill"
+                                >
+                            </div>
                         </div>
 
+                        <div>
+                            <div>
+                                <select name="customer_type" id="department"
+                                        class="form-control rounded-pill filter-control">
+                                    {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
+                                    <option value="customer"> Beneficiar</option>
+                                    <option value="provider">Furnizor</option>
+                                </select>
+                            </div>
+                        </div>
+                    
 
-                        <div class="filter-item1">
+
+                        <div>
                             <select name="category" id="department" class="form-control rounded-pill filter-control">
 
                                 <option
@@ -57,7 +64,7 @@
 
                         </div>
 
-                        <div class="filter-item1">
+                        <div>
                             <input type='text'
                                    name="subcategory"
                                    list="browsers"
@@ -74,8 +81,8 @@
                             </datalist>
 
                         </div>
-
                     </div>
+                    
 
                     <div class="filter-item_OK ">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>

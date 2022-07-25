@@ -145,27 +145,43 @@ function addSubcategoryForCustomersId(category_id) {
 }
 
 //show existences subcategories
+let customer_id;
 window.onload = (event) => {
 
     var categories = $('#category').attr("categories");
-    var subcategories = $('#category').attr("subcategories");
+    customer_id = $('#category').attr("customer_id");
 
-    if (categories || subcategories) {
-        showSubcategoryWhenIsEdited(JSON.parse(categories), JSON.parse(subcategories));
+    if (categories || customer_id) {
+        showSubcategoryWhenIsEdited(JSON.parse(categories));
     }
 }
 
-function showSubcategoryWhenIsEdited(categories, subcategories) {
-
+function showSubcategoryWhenIsEdited(categories) {
+    let index = [];
+    let subcategories = [];
     $.each(categories, function (data, value) {
+        index[value.category_id] = value.category_id;
+        subcategories[value.subcategory_id] = value.subcategory_id;
+    });
 
-        // showSubcategoryByCategoryId(value, subcategories)
+    const category_id = index.filter(function (el) {
+        return el != null;
+    });
+    // const subcategories_filtrated = subcategories.filter(function (el) {
+    //     return el != null;
+    // });
+
+    // console.log(category_id);
+
+    $.each(category_id, function (data, value) {
+        showSubcategoryByCategoryId(value, subcategories)
         // console.log(value);
     });
 }
 
 function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
     let category = document.getElementById('category_id ' + category_id);
+
     if (category.checked) {
         document.getElementById('category_id' + category_id).style.display = 'block';
         $.ajax({
@@ -177,6 +193,7 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
             },
             contentType: "application/json",
             success: function (res) {
+                // console.log(res);
                 $.each(res, function (data, value) {
                     $("#subcategory_list" + category_id)
                         .append($("<input name='subcategories_id[]' id='subcategory_id_input" + value.subcategory_id + "' type='checkbox' value='" + value.subcategory_id + "'>" +
@@ -187,7 +204,7 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
                     let subcategory = document.getElementById('subcategory_id_input' + value.subcategory_id).value;
 
                     try {
-                        if (existing_subcategory && subcategory.toString() == existing_subcategory[subcategory.toString()]['id']) {
+                        if (existing_subcategory && subcategory.toString() == existing_subcategory[subcategory.toString()]) {
                             document.getElementById('subcategory_id_input' + value.subcategory_id).checked = true;
                         }
                     } catch (e) {

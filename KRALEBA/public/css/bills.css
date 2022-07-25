@@ -1,6 +1,6 @@
 .revert-bills {
     position: absolute;
-    top: 250px;
+    top: 210px;
     left: 30px;
 }
 .box-filter-b {
@@ -11,7 +11,7 @@
 .round3b {
     border-radius: 35px;
     padding: 20px;
-    height: 300px;
+    height: 260px;
 }
 .align-b {
     padding-left: 20px;
