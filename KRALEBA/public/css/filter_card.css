@@ -3,7 +3,11 @@
 .searchFilter {
     margin-top: 20px;
     margin-bottom: 60px;
-    height: 220px;
+    height: 320px;
+}
+.center {
+    margin: auto;
+    width: 80%;
 }
 
 .round3 {
@@ -52,4 +56,8 @@
 .align {
     padding-left: 20px;
 }
-
+.revert-textil {
+    position: absolute;
+    top: 250px;
+    left: 10px;
+}

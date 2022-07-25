@@ -9,7 +9,7 @@
 
                 <br>
 
-                <div class="input-group item-left">
+                
                     {{--          type               --}}
 {{--                    <div class="filter-item1 ">--}}
 {{--                        <select name="customer_type" id="department"--}}
@@ -20,7 +20,8 @@
 {{--                            <option value="provider">Furnizor</option>--}}
 {{--                        </select>--}}
 {{--                    </div>--}}
-
+                <div class="center">
+                <div class="input-group item-left">
                     <div class="filter-item1">
                         <input type='text'
                                id="find_customer"
@@ -49,7 +50,10 @@
                                class="form-control filter-control rounded-pill find_material"
                         >
                     </div>
+                </div>
+                <br>
 
+                <div class="input-group item-left">
                     <div class="filter-item1">
                         <input type='text'
                                id="find_textiles_design"
@@ -80,6 +84,10 @@
                                class="form-control filter-control rounded-pill find_textiles_structure"
                         >
                     </div>
+                </div>
+                <br>
+                
+                <div class="input-group item-left">
 
                     <div class="filter-item1">
                         <input type='text'
@@ -111,6 +119,7 @@
                         >
                     </div>
                 </div>
+                </div>
 
                 <div class="filter-item_OK ">
                     <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
@@ -126,7 +135,7 @@
             </form>
 
             <form>
-                <div class="revert-b">
+                <div class="revert-textil">
                     <button type="submit" class="btn btn-secondary">REVERT</button>
                 </div>
             </form>
