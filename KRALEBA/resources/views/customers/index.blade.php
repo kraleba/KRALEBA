@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="container ">
-        <div class="row searchFilter card round3">
+        <div class="row searchFilter-custom card round3">
 
             <div class="col-lg-12 box-filter">
                 <form action="{{ route('customers.index') }}" method="get">
@@ -105,6 +105,7 @@
             </div>
 
         </div>
+        
     </div>
     <!--end filter-->
     <br>
@@ -114,12 +115,15 @@
             <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
         </div>
     @endif
+    
+    <br>
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
         </div>
     @endif
+    
     @if($customers)
         <div>
             <ul class="list-body">

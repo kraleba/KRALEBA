@@ -39,15 +39,22 @@
                 <div class="input-group item-left center">
                     <div class="filter-item1">
                         <div class="form-row">
-                            <input type="date" class="form-control filter-control  rounded-pill" value=""
+                            
+                            <input type="date" class="form-control filter-control rounded-pill" value=""
                                 name="start_date"
                             >
+                            <option> </option>
                         </div>
  
                     </div>
 
+                    <option> </option>
+                    <option> </option>
+                    <option> </option>
+                    
                     <div class="filter-item1">
                         <div class="form-row">
+                            <option> </option>
                             <input type="date" class="form-control filter-control  rounded-pill"
                                value="{{date('Y-m-d')}}" name="end_date"
                             >
