@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Editeazal pe {{$customers['name']}}</h2>
+                <h2>Editeazal pe {{$customers->name}}</h2>
             </div>
             <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('customers.index') }}"> Renunta</a>
@@ -22,38 +22,38 @@
 
     @endif
 
-    <form action="{{ route('customers.update',$customers['customer_id'] ?? $customers['id']) }}" method="POST">
+    <form action="{{ route('customers.update',$customers->id) }}" method="POST">
 
         @csrf
         @method('PUT')
 
-        @if($customers['type'] == 'provider')
+        @if($customers->type == 'provider')
 
-            <input type="hidden" name="customer_id" value="{{ $customers['id'] }}">
+            <input type="hidden" name="customer_id" value="{{ $customers->id }}">
 
             <div class="col-xs-1 col-sm-12 col-md-5 show-subcategory">
 
                 <strong id="category"
                         @php
-                        $categories = array();
-                        $i = 0;
-                            foreach($customers['category_id'] as $category) {
-                                $categories[$i] = $category['category_id'];
-                                $i++;
-                            }
+                            $categories = array();
+                            $i = 0;
+                                foreach($customers->categories as $category) {
+                                    $categories[$category->category_id] =(array)$category->category_id;
+                                    $i++;
+                                }
                         @endphp
-                        categories="{{ json_encode($categories)}}"
-                        subcategories="{{ json_encode($customers['subcategory_id']) }}"
+                        customer_id="{{$customers->id}}"
+                        categories="{{ json_encode($customers->categories) }}"
                 >Categorii:</strong>
                 <br>
 
                 @foreach ($furnace_categories as $furnace_category)
                     <input type="checkbox"
                            id="category_id {{$furnace_category->category_id}}"
-                           onclick="showSubcategoryByCategoryId({{$furnace_category->category_id}}, {{ json_encode($customers['subcategory_id']) }})"
+                           onclick="showSubcategoryByCategoryId({{$furnace_category->category_id}}, {{ json_encode($customers->categories) }})"
                            name="categories_id[]"
                            value="{{ $furnace_category->category_id }}"
-                           @if($customers['category_id'][$furnace_category->category_id] ?? '' == $furnace_category->category_id)
+                           @if($categories[$furnace_category->category_id] ?? ''== $furnace_category->category_id)
                                checked
                         @endif
                     >
@@ -64,16 +64,16 @@
                     <div class="card subcategory-card" id="subcategory{{$furnace_category->category_id}}">
                         <div id="subcategory_list{{$furnace_category->category_id}}"></div>
 
-                            <div id="category_id{{$furnace_category->category_id}}" style="display: none">
-                                @if($furnace_category->category_id != 8)
+                        <div id="category_id{{$furnace_category->category_id}}" style="display: none">
+                            @if($furnace_category->category_id != 8)
 
                                 <input placeholder="add subcategory" type="text"
                                        id="subcategoryLabel {{$furnace_category->category_id}}">
                                 <input onclick="addSubcategoryForCustomersId({{$furnace_category->category_id}})"
                                        type="button" value="Add">
 
-                                @endif
-                            </div>
+                            @endif
+                        </div>
                     </div>
 
                 @endforeach
@@ -103,7 +103,7 @@
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Name:</strong>
                         <input type="text" name="name" class="form-control" placeholder="Name"
-                               value="{{$customers['name']}}">
+                               value="{{$customers->name}}">
                     </div>
                 </div>
 
@@ -111,7 +111,7 @@
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
                         <input type="number" name="uniqueCode" class="form-control" placeholder="Cod"
-                               value="{{$customers['uniqueCode']}}">
+                               value="{{$customers->uniqueCode}}">
                     </div>
                 </div>
 
@@ -119,7 +119,7 @@
                     <div class="form-group">
                         <strong>Adresa:</strong>
                         <input type="text" name="address" class="form-control" placeholder="Adresa"
-                               value="{{$customers['address']}}">
+                               value="{{$customers->address}}">
                     </div>
                 </div>
 
@@ -127,7 +127,7 @@
                     <div class="form-group">
                         <strong>Cod Postal:</strong>
                         <input type="number" name="zipCode" class="form-control" placeholder="Cod Postal"
-                               value="{{$customers['zipCode']}}">
+                               value="{{$customers->zipCode}}">
                     </div>
                 </div>
 
@@ -136,7 +136,7 @@
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Oras
                             :</strong>
                         <input type="text" name="city" class="form-control" placeholder="Oras"
-                               value="{{$customers['city']}}">
+                               value="{{$customers->city}}">
                     </div>
                 </div>
 
@@ -144,10 +144,10 @@
                     <strong><i class="fa fa-asterisk"
                                style="font-size:7px;color:red; vertical-align: top;"></i>Tara:</strong>
                     <select name="country" id="department" class="form-control">
-                        <option value="{{$customers['country']}}"> {{$countries[$customers['country']]}} </option>
+                        <option value="{{$customers->country}}"> {{$countries[$customers->country]}} </option>
                         @php($i = 1)
                         @foreach ($countries as $country)
-                            @if($i != $customers['country'])
+                            @if($i != $customers->country)
                                 <option value="{{$i}}">{{ $country }}</option>
                             @endif
                             @php($i++)
@@ -159,7 +159,7 @@
                     <div class="form-group">
                         <strong>CIF :</strong>
                         <input type="text" name="cif" class="form-control" placeholder="CIF"
-                               value="{{$customers['cif']}}">
+                               value="{{$customers->cif}}">
                     </div>
                 </div>
 
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <strong>OCR :</strong>
                         <input type="text" name="ocr" class="form-control" placeholder="OCR"
-                               value="{{$customers['ocr']}}">
+                               value="{{$customers->ocr}}">
                     </div>
                 </div>
 
@@ -175,7 +175,7 @@
                     <div class="form-group">
                         <strong>IBAN :</strong>
                         <input type="text" name="iban" class="form-control" placeholder="IBAN"
-                               value="{{$customers['iban']}}">
+                               value="{{$customers->iban}}">
                     </div>
                 </div>
 
@@ -183,7 +183,7 @@
                     <div class="form-group">
                         <strong>SWIFT :</strong>
                         <input type="text" name="swift" class="form-control" placeholder="SWIFT"
-                               value="{{$customers['swift']}}">
+                               value="{{$customers->swift}}">
                     </div>
                 </div>
 
@@ -191,7 +191,7 @@
                     <div class="form-group">
                         <strong>BANCA :</strong>
                         <input type="text" name="bank" class="form-control" placeholder="BANCA"
-                               value="{{$customers['bank']}}">
+                               value="{{$customers->bank}}">
                     </div>
                 </div>
 
@@ -199,7 +199,7 @@
                     <div class="form-group">
                         <strong>CONTACT :</strong>
                         <input type="text" name="contact" class="form-control" placeholder="CONTACT"
-                               value="{{$customers['contact']}}">
+                               value="{{$customers->contact}}">
                     </div>
                 </div>
 
@@ -207,7 +207,7 @@
                     <div class="form-group">
                         <strong>Telefon 1:</strong>
                         <input type="number" name="phone" class="form-control" placeholder="Telefon 1"
-                               value="{{$customers['phone']}}">
+                               value="{{$customers->phone}}">
                     </div>
                 </div>
 
@@ -215,7 +215,7 @@
                     <div class="form-group">
                         <strong>Telefon 2:</strong>
                         <input type="number" name="phone2" class="form-control" placeholder="Telefon 2"
-                               value="{{$customers['phone2']}}">
+                               value="{{$customers->phone2}}">
                     </div>
                 </div>
 
@@ -223,7 +223,7 @@
                     <div class="form-group">
                         <strong>e-mail:</strong>
                         <input type="text" name="email" class="form-control" placeholder="e-mail"
-                               value="{{$customers['email']}}">
+                               value="{{$customers->email}}">
                     </div>
                 </div>
 
@@ -231,7 +231,7 @@
                     <div class="form-group">
                         <strong>www:</strong>
                         <input type="text" name="www" class="form-control" placeholder="www"
-                               value="{{$customers['www']}}">
+                               value="{{$customers->www}}">
                     </div>
                 </div>
 
@@ -239,7 +239,7 @@
                     <div class="form-group">
                         <strong>Note:</strong>
                         <input class="form-control" style="height:70px" name="note" placeholder="Note"
-                               value="{{$customers['note']}}">
+                               value="{{$customers->note}}">
                     </div>
                 </div>
 

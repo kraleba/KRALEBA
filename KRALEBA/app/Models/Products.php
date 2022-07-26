@@ -71,10 +71,11 @@ class Products extends Model
     // customer_category_sbcategory ->money to money
     public function set_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id)
     {
+
         if ($categories_id) {
             if (in_array(8, $categories_id)) {
-                DB::insert('insert into customers_categories_subcategories (customer_id, category_id, customer_type) values (?, ?, ?)',
-                    [$customer_id, 8, 'provider']);
+                DB::insert("INSERT INTO customers_id_categories (customer_id, category_id) VALUES ($customer_id, 8)");
+
                 if (count($categories_id) <= 1) {
                     return true;
                 }
@@ -82,36 +83,45 @@ class Products extends Model
         }
 
         foreach ($categories_id as $category_id) {
+
+            DB::insert("INSERT INTO customers_id_categories (customer_id, category_id) VALUES ($customer_id, $category_id)");
+
             foreach ($subcategories_id as $subcategory_id) {
                 $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
                 if ($subcategory->category_id == $category_id) {
-                    DB::insert('insert into customers_categories_subcategories (customer_id, category_id, subcategory_id, customer_type) values (?, ?, ?, ?)',
-                        [$customer_id, $category_id, $subcategory_id, 'provider']);
+                    DB::insert("INSERT INTO customer_category_id_subcategories (customer_id, category_id, subcategory_id) VALUES ($customer_id, $category_id, $subcategory_id)");
+
                 }
             }
         }
+        return true;
     }
+
 
     public function update_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id)
     {
-        DB::table('customers_categories_subcategories')->where('customer_id', $customer_id)->delete();
+        DB::table('customers_id_categories')->where('customer_id', $customer_id)->delete();
+        DB::table('customer_category_id_subcategories')->where('customer_id', $customer_id)->delete();
 
         if ($categories_id) {
             if (in_array(8, $categories_id)) {
-                DB::insert('insert into customers_categories_subcategories (customer_id, category_id, customer_type) values (?, ?, ?)',
-                    [$customer_id, 8, 'provider']);
+                DB::insert('insert into customers_id_categories (customer_id, category_id) values (?, ?)',
+                    [$customer_id, 8]);
                 if (count($categories_id) <= 1) {
                     return true;
                 }
             }
         }
-
+//        dd($categories_id);
         foreach ($categories_id as $category_id) {
+            DB::insert('insert into customers_id_categories (customer_id, category_id) values (?, ?)',
+                [$customer_id, $category_id]);
+
             foreach ($subcategories_id as $subcategory_id) {
                 $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
                 if ($subcategory->category_id == $category_id) {
-                    DB::insert('insert into customers_categories_subcategories (customer_id, category_id, subcategory_id, customer_type) values (?, ?, ?, ?)',
-                        [$customer_id, $category_id, $subcategory_id, 'provider']);
+                    DB::insert('insert into customer_category_id_subcategories (customer_id, category_id, subcategory_id) values (?, ?, ?)',
+                        [$customer_id, $category_id, $subcategory_id]);
                 }
             }
         }

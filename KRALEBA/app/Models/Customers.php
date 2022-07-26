@@ -39,7 +39,7 @@ class Customers extends Model
         return false;
     }
 
-    public function get_customer_and_categories_by_id($id)
+    public function get_customer_and_categories_by_id_old($id)
     {
 
         if (!$id) {
@@ -97,6 +97,34 @@ class Customers extends Model
 
     }
 
+    public function get_customer_and_categories_by_id($id)
+    {
+
+        if (!$id) {
+            return false;
+        }
+
+        $query = "SELECT c.customer_id, s.category_id, s.subcategory_id
+            FROM customers_id_categories AS c
+            JOIN customer_category_id_subcategories AS s
+            WHERE c.customer_id = {$id}
+            AND s.category_id = c.category_id
+            AND c.customer_id = {$id}";
+
+        $categories_obj = DB::select($query);
+
+        $textile = DB::select("SELECT category_id FROM customers_id_categories WHERE customer_id = {$id} AND category_id = 8");
+        $customer = $this->get_customer_by_id($id);
+
+        if($textile) {
+            $categories_obj[-1] = $textile[0];
+        }
+        $customer->categories = $categories_obj;
+
+        return $customer;
+    }
+
+
     /** Delete customer by id and clear db.
      * @param $id
      * @return
@@ -105,7 +133,10 @@ class Customers extends Model
     {
         if (is_numeric($id)) {
             DB::table('customers')->where('id', $id)->delete();
-            DB::table('customers_categories_subcategories')->where('customer_id', $id)->delete();
+            DB::table('customers_id_categories')->where('customer_id', $id)->delete();
+            DB::table('customer_category_id_subcategories')->where('customer_id', $id)->delete();
+            DB::table('bills')->where('customer_id', $id)->delete();
+            DB::table('customer_wares')->where('customer_id', $id)->delete();
             return true;
         }
         return false;
@@ -168,35 +199,63 @@ class Customers extends Model
     public function get_customers_after_filter($customer_name, $customer_type, $category_id, $subcategory_id)
     {
         $query_format = '';
-        if ($customer_name) {
-            $query_format = " WHERE c.name = '{$customer_name}'";
+        $query = '';
+//        dd($category_id);
+        if (!$category_id && !$subcategory_id) {
+
+            if ($customer_name) {
+                $query_format = " WHERE name = '{$customer_name}'";
+            }
+
+            if ($query_format && $customer_type) {
+                $query_format .= " AND type = '{$customer_type}'";
+            } else if ($customer_type) {
+                $query_format = " WHERE type = '{$customer_type}'";
+            }
+
+            $query = "SELECT * FROM customers" . $query_format;
+//            dump($customer_type);
         }
 
-        if ($query_format && $customer_type) {
-            $query_format = " AND c.type = '{$customer_type}'";
-        } else if ($customer_type) {
-            $query_format = " WHERE c.type = '{$customer_type}'";
+        if (!$query) {
+            $query_format = '';
+            if ($customer_name) {
+                $query_format = " WHERE c.name = '{$customer_name}'";
+            }
+
+            if ($query_format && $customer_type) {
+                $query_format = " AND c.type = '{$customer_type}'";
+            } else if ($customer_type) {
+                $query_format = " WHERE c.type = '{$customer_type}'";
+            }
+
+            if ($query_format && $category_id) {
+                $query_format = " AND cs.category_id = '{$category_id}'";
+            } else if ($category_id) {
+                $query_format = " WHERE cs.category_id = '{$category_id}'";
+            }
+
+            if ($query_format && $subcategory_id) {
+                $query_format = " AND scs.subcategory_id = '{$subcategory_id}'";
+            } else if ($subcategory_id) {
+                $query_format = " WHERE scs.subcategory_id = '{$subcategory_id}'";
+            }
+            $query = "SELECT c.* FROM customers AS c
+                JOIN customers_id_categories AS cs
+                ON c.id = cs.customer_id
+                JOIN customer_category_id_subcategories AS scs
+                ON c.id = scs.customer_id {$query_format}";
+        }
+//        dd($query);
+        dump($query);
+        $results = DB::select($query);
+
+        $customers = array();
+        foreach ($results as $result) {
+            $customers[$result->id] = $result;
         }
 
-        if ($query_format && $category_id) {
-            $query_format = " AND cs.customer_id = '{$category_id}'";
-        } else if ($category_id) {
-            $query_format = " WHERE cs.customer_id = '{$category_id}'";
-        }
-
-        if ($query_format && $subcategory_id) {
-            $query_format = " AND cs.subcategory_id = '{$subcategory_id}'";
-        } else if ($subcategory_id) {
-            $query_format = " WHERE cs.subcategory_id = '{$subcategory_id}'";
-        }
-
-        $query = "SELECT * FROM customers_categories_subcategories AS cs
-            JOIN  customers AS c
-            ON c.id = cs.customer_id {$query_format}";
-
-        $result = DB::select($query);
-//        dd(DB::select($query));
-        return $result;
+        return $customers;
     }
 
     public function get_customer_name_by_search($data)
