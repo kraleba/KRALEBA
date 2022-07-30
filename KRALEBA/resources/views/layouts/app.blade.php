@@ -37,8 +37,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 
-
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -52,7 +50,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet"
           type="text/css"/>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-
 
 
     <!-- Styles -->
@@ -85,6 +82,10 @@
                     </div>
                     <div class="nav-item">
                         <a class="nav-link" href="{{ url('admin/textile') }}">Textile</a>
+                    </div>
+
+                    <div class="nav-item">
+                        <a class="nav-link" href="{{ url('admin/templates') }}"><b>Templates</b></a>
                     </div>
                 </div>
             @endauth
