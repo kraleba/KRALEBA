@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_template_parent', function (Blueprint $table) {
+        Schema::create('product_template_parents', function (Blueprint $table) {
             $table->id();
             $table->string('type');
             $table->string('category_style_id')->nullable();
@@ -40,6 +40,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_template_parent');
+        Schema::dropIfExists('product_template_parents');
     }
 };

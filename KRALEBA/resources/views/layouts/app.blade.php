@@ -17,6 +17,7 @@
     <script src="{{ asset('js/admin/bills.js') }}" defer></script>
     <script src="{{ asset('js/admin/ware.js') }}" defer></script>
     <script src="{{ asset('js/admin/ware_textile.js') }}" defer></script>
+    <script src="{{ asset('js/admin/template_product.js') }}" defer></script>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -85,7 +86,7 @@
                     </div>
 
                     <div class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/templates') }}"><b>Templates</b></a>
+                        <a class="nav-link" href="{{ url('admin/templates') }}"><b>Prototipuri</b></a>
                     </div>
                 </div>
             @endauth

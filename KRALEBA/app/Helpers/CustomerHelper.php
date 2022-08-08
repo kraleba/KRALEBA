@@ -201,7 +201,10 @@ class CustomerHelper extends Controller
         return response()->json($res);
     }
 
+    public function create_child_templates(Request $request) {
+        dd($request->input());
 
+    }
 
 }
 

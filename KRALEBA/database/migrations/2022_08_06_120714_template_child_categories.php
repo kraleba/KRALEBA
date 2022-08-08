@@ -21,6 +21,8 @@ return new class extends Migration {
             $table->string('bill_date')->nullable();
             $table->string('bill_number')->nullable();
             $table->string('amount')->nullable();
+            $table->timestamps();
+
         });
     }
 

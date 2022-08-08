@@ -74,6 +74,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     /*product template*/
     Route::resource('admin/templates', ProductTemplateController::class);
+    Route::post('admin/templates/create_child_templates', [CustomerHelper::class, 'create_child_templates']);
+
+
 
 
 });

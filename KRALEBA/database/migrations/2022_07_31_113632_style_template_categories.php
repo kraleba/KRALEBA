@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_template_child', function (Blueprint $table) {
+        Schema::create('style_template_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('parent_id')->nullable();
-            $table->string('suffix')->nullable();
-//            $table->string('template_photo')->nullable();
-
-
+            $table->string('name')->nullable();
+            $table->string('status')->nullable();
         });
     }
 
@@ -28,13 +25,9 @@ return new class extends Migration
      *
      * @return void
      */
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('product_template_child');
+        Schema::dropIfExists('style_template_categories');
+
     }
 };

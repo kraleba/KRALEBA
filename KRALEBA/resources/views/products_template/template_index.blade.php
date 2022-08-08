@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <div class="pull-right">
-                    <a class="btn btn-secondary" href="{{ route('customers.create') }}"> ADAUGA CLIENT</a>
+                    <a class="btn btn-secondary" href="{{ route('templates.create') }}"> ADAUGA CLIENT</a>
                 </div>
             </div>
 
@@ -125,19 +125,19 @@
     @endif
 
 {{--    @if($customers)--}}
-{{--        <div>--}}
-{{--            <ul class="list-body">--}}
+        <div>
+            <ul class="list-body">
 {{--                @foreach ($customers as $customer)--}}
 
-{{--                    <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">--}}
+                    <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
 
-{{--                        <div class="align">--}}
+                        <div class="align">
 {{--                            <a href="{{ route('customers.show',$customer->id) }}">--}}
 
-{{--                                <b>{{ $customer->name }} </b> /--}}
+                                <b>pirus </b> /
 
 {{--                                {{ $customer->uniqueCode }}--}}
-
+                            <a> 001-1/5 </a>
 {{--                                @if($customer->address)--}}
 {{--                                    /--}}
 {{--                                @endif--}}
@@ -221,41 +221,41 @@
 
 {{--                        </div>--}}
 
-{{--                        <div class="dropdown option-button">--}}
-{{--                            <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"--}}
-{{--                                 aria-haspopup="true" aria-expanded="false">--}}
-{{--                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"--}}
-{{--                                     class="bi bi-three-dots-vertical" viewBox="0 0 16 16">--}}
-{{--                                    <path--}}
-{{--                                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>--}}
-{{--                                </svg>--}}
-{{--                            </div>--}}
-{{--                            <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">--}}
+                            <div class="dropdown option-button">
+                                <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                     aria-haspopup="true" aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                                        <path
+                                            d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                                    </svg>
+                                </div>
+{{--                                <form action="{{ route('customers.destroy',$customer->id) }}" method="POST">--}}
 
-{{--                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-{{--                                    <a class="dropdown-item"--}}
-{{--                                       href="{{ route('customers.edit', $customer->id) }}">Edit</a>--}}
+                                        <a class="dropdown-item"
+                                           href="{{--{{ route('bills.index', $customer->id) }}--}}">Creaza Productie </a>
 
-{{--                                    <a class="dropdown-item"--}}
-{{--                                       href="{{ route('bills.index', $customer->id) }}">Facturiile </a>--}}
+                                        <a class="dropdown-item"
+                                           href="{{--{{ route('customers.edit', $customer->id) }}--}}">Edit</a>
 
-{{--                                    <a class="dropdown-item" href="{{ route('wares.index', $customer->id) }}">--}}
-{{--                                        Articole </a>--}}
+                                        <a class="dropdown-item" href="{{--{{ route('wares.index', $customer->id) }}--}}">
+                                            Articole </a>
 
 
-{{--                                    @csrf--}}
-{{--                                    @method('DELETE')--}}
-{{--                                    <button class="dropdown-item">Delete</button>--}}
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="dropdown-item">Delete</button>
 
-{{--                                </div>--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                                    </div>
+{{--                                </form>--}}
+                            </div>
+                    </div>
 {{--                    <br>--}}
 {{--                @endforeach--}}
-{{--            </ul>--}}
-{{--        </div>--}}
+            </ul>
+        </div>
 
 {{--    @else--}}
         <div class="alert alert-warning">
