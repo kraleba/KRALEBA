@@ -1,0 +1,48 @@
+.revert-bills {
+    position: absolute;
+    top: 210px;
+    left: 30px;
+}
+.box-filter-b {
+    border-radius: 35px;
+    padding: 20px;
+    height: 300px;
+}
+.round3b {
+    border-radius: 35px;
+    padding: 20px;
+    height: 260px;
+}
+.align-b {
+    padding-left: 20px;
+}
+
+/*table bills*/
+table {
+    border: 2px solid black;
+    border-collapse:separate;
+    border-radius:6px;
+
+
+}
+th {
+    border: 1px solid black;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+td {
+    padding-top: 30px;
+    border: 1px solid black;
+}
+.filter-table {
+    width: 50%;
+    margin: 0;
+    display:inline-block;
+}
+.generare {
+    width: 8%;
+    position: absolute;
+    top: 230px;
+    right: 32px;
+}
