@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Customers;
 use App\Models\CustomerWares;
 use App\Models\Products;
+use App\Models\ProductTemplateParent;
 use Illuminate\Http\Request;
 
 
@@ -14,12 +15,14 @@ class CustomerHelper extends Controller
     public Products $product;
     public Customers $customers;
     public CustomerWares $wares;
+    public ProductTemplateParent $templateParent;
 
     public function __construct()
     {
         $this->product = new Products();
         $this->customers = new Customers();
         $this->wares = new CustomerWares();
+        $this->templateParent = new ProductTemplateParent();
     }
 
     public function helper_get_categories_to_customers($customers)
@@ -201,10 +204,14 @@ class CustomerHelper extends Controller
         return response()->json($res);
     }
 
-    public function create_child_templates(Request $request) {
-        dd($request->input());
+    public function find_market_product(Request $request) {
+
+        $res = $this->templateParent->get_parent_template_product_by_suggestions($request->term);
+//        dd($request->input());
+        return response()->json($res);
 
     }
+
 
 }
 

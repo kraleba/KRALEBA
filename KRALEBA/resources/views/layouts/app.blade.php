@@ -18,6 +18,7 @@
     <script src="{{ asset('js/admin/ware.js') }}" defer></script>
     <script src="{{ asset('js/admin/ware_textile.js') }}" defer></script>
     <script src="{{ asset('js/admin/template_product.js') }}" defer></script>
+    <script src="{{ asset('js/admin/product_marketing.js') }}" defer></script>
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -87,6 +88,10 @@
 
                     <div class="nav-item">
                         <a class="nav-link" href="{{ url('admin/templates') }}"><b>Prototipuri</b></a>
+                    </div>
+
+                    <div class="nav-item" >
+                        <a style="color: red" class="nav-link" href="{{ url('admin/market') }}"><b>Productie</b></a>
                     </div>
                 </div>
             @endauth

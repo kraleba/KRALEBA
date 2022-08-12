@@ -5,6 +5,7 @@ use App\Http\Controllers\BillsController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\CustomerWaresControler;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductMarketController;
 use App\Http\Controllers\ProductTemplateController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/customers/{id}/create_edit/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
     Route::get('admin/customers_autocomplete', [CustomerHelper::class, 'customers_autocomplete']);
     Route::get('admin/find_textiles_filters', [CustomerHelper::class, 'find_textiles_filters']);
+    Route::get('admin/find_market_product', [CustomerHelper::class, 'find_market_product']);
 
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 
@@ -66,7 +68,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/textile', [CustomerWaresControler::class, 'customers_textile'])->name('textile');
 
 
-
     //bils
     Route::resource('admin/customers/{customer_id}/bills', BillsController::class);
     Route::get('admin/bills', [BillsController::class, 'index']);
@@ -76,7 +77,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('admin/templates', ProductTemplateController::class);
     Route::post('admin/templates/create_child_templates', [CustomerHelper::class, 'create_child_templates']);
 
-
+    /*product market route*/
+    Route::resource('admin/market', ProductMarketController::class);
 
 
 });

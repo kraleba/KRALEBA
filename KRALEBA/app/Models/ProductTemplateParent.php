@@ -26,7 +26,8 @@ class ProductTemplateParent extends Model
         'number_of_child'
     ];
 
-    public function get_product_templates_after_filter() {
+    public function get_product_templates_after_filter()
+    {
 
         $query = "
             SELECT
@@ -44,5 +45,16 @@ class ProductTemplateParent extends Model
             ";
 //dump($query);
         $result = DB::select($query);
+    }
+
+    public function get_parent_template_product_by_suggestions($term)
+    {
+        if (!$term) {
+            return false;
+        }
+
+        $query = "SELECT id, product_name FROM product_template_parents WHERE product_name LIKE '%{$term}%'";
+
+        return DB::select($query);
     }
 }
