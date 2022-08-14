@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -18,16 +17,14 @@ return new class extends Migration
             $table->string('customer_id');
             $table->string('category_id')->nullable();
             $table->string('subcategory_id');
+            $table->timestamps();
+
 
 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     /**
      * Reverse the migrations.
      *
