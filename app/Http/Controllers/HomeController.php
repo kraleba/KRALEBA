@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        DB::table('users')->where('id', 1)->update(['type' => 1]);
+//        DB::table('users')->where('id', 2)->update(['type' => 1]);
 
         return view('home');
     }
