@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('customer_category_id_subcategories', function (Blueprint $table) {
+        Schema::create('furnace_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->tinyInteger('status')->default('0');
 
+            $table->timestamps();
         });
     }
 
@@ -24,13 +27,8 @@ return new class extends Migration
      *
      * @return void
      */
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('customer_category_id_subcategories');
+        Schema::dropIfExists('furnace_categories');
     }
 };
