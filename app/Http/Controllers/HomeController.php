@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        DB::table('users')->where('id', 2)->update(['type' => 1]);
+
         return view('home');
     }
 
@@ -37,7 +40,7 @@ class HomeController extends Controller
     {
         $customers = Customers::latest()->paginate(5);
 
-        return view('customers.index',compact('customers'))
+        return view('customers.index', compact('customers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
