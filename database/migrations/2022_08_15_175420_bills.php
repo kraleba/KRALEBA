@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists(('bills'));
+
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->string('customer_id');
-            $table->string('category_id');
-            $table->string('specify_id');
+            $table->integer('customer_id');
+            $table->integer('category_id');
+            $table->integer('specify_id');
             $table->string('unique_code');
             $table->string('type');
             $table->string('bill_date');
