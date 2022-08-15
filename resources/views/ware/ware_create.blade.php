@@ -8,41 +8,51 @@
                 <h2>Add New Product</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('wares.index', $customer['customer_id']) }}"> Renunta</a>
+                <a class="btn btn-primary" href="{{ route('wares.index', $customer['id']) }}"> Renunta</a>
             </div>
         </div>
     </div>
     <br>
 
     <div>
-        <form action="{{ route('wares.store', $customer['customer_id']) }}" method="POST">
+        <form action="{{ route('wares.store', $customer['id']) }}" method="POST">
             @csrf
             <div>
-                <input type="hidden" name="customer_id" value="{{$customer['customer_id']}}">
+                <input type="hidden" name="customer_id" value="{{$customer['id']}}">
                 <input type="hidden" name="status" value="0">
 
                 <select name="categories_json" id="subcategorySelected" onchange="showWareTemplate()"
                         class="form-control filter-control">
                     <option>Selecteaza o subcategorie</option>
 
-                    @foreach($customer['category_id'] as $category)
+                    @foreach($customer_categories as $category)
 
-                        @if($category['name'] != 'Textile')
-                            <optgroup label="{{$category['name']}}">
+                        @if($category['id'] != 8)
+                            <optgroup label="{{$category['name'] ?? ''}}">
                                 @endif
-                                @foreach($customer['subcategory_id'] as $subcategory)
+                                @foreach($customer['categories'] as $subcategory)
 
-                                    @if($category['category_id'] == $subcategory['category_id'])
-                                        <option value="{{json_encode($subcategory)}}">{{$subcategory['name']}}</option>
+                                    @if($category['id'] == $subcategory->category_id)
+                                        <option
+                                            @if($subcategory->name == "Textile")
+                                                style="color: red"
+                                            @endif
+                                        >
+                                            {{$subcategory->name}}
+                                        </option>
                                     @endif
 
                                 @endforeach
+
+                                @if($category['id'] != 8)
                             </optgroup>
-                            @if($category['name'] == "Textile")
-                                <option value="Textile"
-                                        style="color: red">{{$category['name']}}</option>
-                            @endif
-                            @endforeach
+                        @endif
+
+                        {{--                            @if($category['name'] == "Textile")--}}
+                        {{--                                <option value="Textile"--}}
+                        {{--                                        style="color: red">{{$category['name']}}</option>--}}
+                        {{--                            @endif--}}
+                    @endforeach
 
                 </select>
             </div>

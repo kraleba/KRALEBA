@@ -104,22 +104,41 @@ class Customers extends Model
             return false;
         }
 
-        $query = "SELECT c.customer_id, s.category_id, s.subcategory_id
+        $query = "SELECT
+                c.customer_id,
+                s.category_id,
+                cc.name as category_name,
+                s.subcategory_id,
+                cs.name
             FROM customers_id_categories AS c
             JOIN customer_category_id_subcategories AS s
-            ON c.category_id = s.category_id
+                ON c.category_id = s.category_id
+            JOIN customer_subcategory AS cs
+                ON s.subcategory_id = cs.id
+            JOIN furnace_categories AS cc
+                ON cc.id = c.category_id
             WHERE c.customer_id = {$id}
-            AND s.category_id = c.category_id
-            AND s.customer_id = {$id}";
+                AND s.category_id = c.category_id
+                AND s.customer_id = {$id}";
 
         $categories_obj = DB::select($query);
 
-        $textile = DB::select("SELECT category_id FROM customers_id_categories WHERE customer_id = {$id} AND category_id = 8");
+        $textile = DB::select("
+                        SELECT
+                            c.category_id,
+                            c.customer_id,
+                            f.name
+                        FROM customers_id_categories AS c
+                        JOIN furnace_categories AS f
+                            ON f.id = c.category_id
+                        WHERE c.customer_id = {$id}
+                            AND c.category_id = 8");
         $customer = $this->get_customer_by_id($id);
 
         if ($textile) {
             $categories_obj[-1] = $textile[0];
         }
+
         $customer->categories = $categories_obj;
 
         return $customer;

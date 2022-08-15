@@ -57,8 +57,18 @@ class CustomerWaresControler extends Controller
      */
     public function create(Request $request)
     {
-        $data['customer'] = $this->customers->get_customer_and_categories_by_id($request->customer_id);
-        // dd($request->customer_id);
+        $data['customer'] = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
+        $data['furnace_categories'] = '';
+        $categories = [];
+
+        foreach ($data['customer']['categories'] as $category) {
+            $categories[$category->category_id] = [
+                'id' =>$category->category_id,
+                'name' =>$category->category_name ?? '',
+            ];
+        }
+
+        $data['customer_categories'] = $categories;
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 
         return view('ware.ware_create', $data);

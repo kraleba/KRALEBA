@@ -31,7 +31,7 @@
                             @foreach ($furnace_categories as $furnace_category)
 
                                 <option
-                                    value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
+                                    value="{{$furnace_category->id}}">{{ $furnace_category->name }}</option>
 
                             @endforeach
                         </select>
@@ -50,7 +50,7 @@
                         <datalist id="browsers" class="dropdown">
 
                             @foreach ($subcategories as $subcategory)
-                                <option value="{{ $subcategory->subcategory_id }}">{{ $subcategory->name }}</option>
+                                <option value="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                             @endforeach
                         </datalist>
 
@@ -84,5 +84,5 @@
             </div>
         </form>
     </div>
-    
+
 </div>
