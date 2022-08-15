@@ -12,12 +12,12 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('customer_category_id_subcategories', function (Blueprint $table) {
-            $table->id();
-            $table->string('customer_id');
-            $table->string('category_id')->nullable();
+        Schema::table('customer_category_id_subcategories', function (Blueprint $table) {
+//            $table->id();
+//            $table->string('customer_id');
+//            $table->string('category_id')->nullable();
             $table->string('subcategory_id');
-            $table->timestamps();
+//            $table->timestamps();
 
 
 
