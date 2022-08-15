@@ -8,6 +8,7 @@ use App\Models\Customers;
 use App\Models\Products;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CustomersController extends Controller
 {
@@ -28,6 +29,16 @@ class CustomersController extends Controller
     public function index(Request $request)
     {
         $product = new Products();
+
+        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materii prime')");
+        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materiale')");
+        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Auxiliare')");
+        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Servicii')");
+        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Curierat')");
+        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Banci')");
+        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Taxe')");
+        DB::insert("INSERT INTO furnace_categories (name, status) VALUES ('Textile', 1)");
+
 
         if ($request->input()) {
 //            $data = $this->helper->helper_show_filter($request->input());
