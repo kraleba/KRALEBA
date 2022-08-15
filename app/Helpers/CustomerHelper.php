@@ -97,7 +97,7 @@ class CustomerHelper extends Controller
         if ($subcategory_id && is_numeric($subcategory_id)) {
             $title_text .= ' / ' . $this->product->get_customer_subcategory_by_id($subcategory_id)->name;
         }
-
+//        dd($title_text);
         return $title_text;
     }
 

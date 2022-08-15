@@ -39,7 +39,6 @@ class CustomersController extends Controller
 //        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Taxe')");
 //        DB::insert("INSERT INTO furnace_categories (name, status) VALUES ('Textile', 1)");
 
-
         if ($request->input()) {
 //            $data = $this->helper->helper_show_filter($request->input());
             $type = '';
@@ -69,12 +68,10 @@ class CustomersController extends Controller
             $request->input('category'),
             $request->input('subcategory')
         );
-
         if ($request->input('downloadPDF') == 'PDF') {
-
-
-            $data['filter_title'] = $this->helper->helper_generate_title_after_filter(
-                $request->input('type'),
+            $data['customers'] = $this->customers->get_customers_after_filter(
+                $request->input('customer_name'),
+                $request->input('customer_type'),
                 $request->input('category'),
                 $request->input('subcategory')
             );

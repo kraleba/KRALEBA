@@ -199,9 +199,10 @@ class Customers extends Model
 
     public function get_customers_after_filter($customer_name, $customer_type, $category_id, $subcategory_id)
     {
+//        dd('sss');
         $query_format = '';
         $query = '';
-//        dd($category_id);
+
         if (!$category_id && !$subcategory_id) {
 
             if ($customer_name) {
@@ -215,7 +216,7 @@ class Customers extends Model
             }
 
             $query = "SELECT * FROM customers" . $query_format;
-//            dump($customer_type);
+
         }
 
         if (!$query) {
@@ -247,8 +248,7 @@ class Customers extends Model
                 JOIN customer_category_id_subcategories AS scs
                 ON c.id = scs.customer_id {$query_format}";
         }
-//        dd($query);
-        dump($query);
+
         $results = DB::select($query);
 
         $customers = array();
