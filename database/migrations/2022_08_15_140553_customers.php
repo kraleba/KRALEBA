@@ -13,14 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists(('customers'));
+
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('note')->nullable();
-            $table->string('uniqueCode');
+            $table->string('unique_code');
             $table->string('type');
             $table->string('address')->nullable();
-            $table->string('zipCode')->nullable();
+            $table->string('zip_code')->nullable();
             $table->string('city')->nullable();
             $table->string('country');
             $table->string('cif')->nullable();

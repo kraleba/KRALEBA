@@ -136,7 +136,7 @@
 
                                 <b>pirus </b> /
 
-{{--                                {{ $customer->uniqueCode }}--}}
+{{--                                {{ $customer->unique_code }}--}}
                             <a> 001-1/5 </a>
 {{--                                @if($customer->address)--}}
 {{--                                    /--}}
@@ -148,10 +148,10 @@
 {{--                                @endif--}}
 {{--                                {{ $customer->city }}--}}
 
-{{--                                @if($customer->zipCode)--}}
+{{--                                @if($customer->zip_code)--}}
 {{--                                    /--}}
 {{--                                @endif--}}
-{{--                                {{ $customer->zipCode }}--}}
+{{--                                {{ $customer->zip_code }}--}}
 
 {{--                                @if($customer->country)--}}
 {{--                                    /--}}

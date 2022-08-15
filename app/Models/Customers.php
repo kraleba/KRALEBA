@@ -12,7 +12,7 @@ class Customers extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'note', 'uniqueCode', 'type', 'address', 'zipCode', 'city', 'category_id', 'subcategory_id', 'country',
+        'name', 'note', 'unique_code', 'type', 'address', 'zip_code', 'city', 'category_id', 'subcategory_id', 'country',
         'cif', 'ocr', 'iban', 'swift', 'bank', 'contact', 'phone', 'phone2', 'email', 'www'
     ];
 
@@ -261,7 +261,7 @@ class Customers extends Model
 
     public function get_customer_name_by_search($data)
     {
-        $query = "SELECT name, id FROM customers WHERE name LIKE '%{$data}%' OR uniqueCode LIKE '%{$data}%' ";
+        $query = "SELECT name, id FROM customers WHERE name LIKE '%{$data}%' OR unique_code LIKE '%{$data}%' ";
         $results = DB::select($query);
 
 //        dd($results);

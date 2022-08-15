@@ -113,7 +113,7 @@ class CustomersController extends Controller
             $request->validate([
                 'name' => 'required',
                 'type' => 'required',
-                'uniqueCode' => 'required',
+                'unique_code' => 'required',
                 'country' => 'required',
                 'categories_id' => 'required'
             ]);
@@ -121,7 +121,7 @@ class CustomersController extends Controller
             $request->validate([
                 'name' => 'required',
                 'type' => 'required',
-                'uniqueCode' => 'required',
+                'unique_code' => 'required',
                 'country' => 'required',
             ]);
         }
@@ -187,7 +187,7 @@ class CustomersController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'uniqueCode' => 'required',
+            'unique_code' => 'required',
             'country' => 'required',
         ]);
 

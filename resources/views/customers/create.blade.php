@@ -84,7 +84,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                        <input type="number" name="uniqueCode" class="form-control" placeholder="Cod ">
+                        <input type="number" name="unique_code" class="form-control" placeholder="Cod ">
                     </div>
                 </div>
 
@@ -98,7 +98,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Cod Postal:</strong>
-                        <input type="number" name="zipCode" class="form-control" placeholder="Cod Postal">
+                        <input type="number" name="zip_code" class="form-control" placeholder="Cod Postal">
                     </div>
                 </div>
 

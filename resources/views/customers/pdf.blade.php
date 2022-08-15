@@ -8,7 +8,7 @@
             <div>
                 <b>{{ $customer->name }} </b> /
 
-                {{ $customer->uniqueCode }}
+                {{ $customer->unique_code }}
 
                 @if($customer->address)
                     /
@@ -20,10 +20,10 @@
                 @endif
                 {{ $customer->city }}
 
-                @if($customer->zipCode)
+                @if($customer->zip_code)
                     /
                 @endif
-                {{ $customer->zipCode }}
+                {{ $customer->zip_code }}
 
                 @if($customer->country)
                     /

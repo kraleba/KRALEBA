@@ -51,7 +51,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                        <input type="number" name="unique_code" value="{{$customer['uniqueCode'] ?? ''}}"
+                        <input type="number" name="unique_code" value="{{$customer['unique_code'] ?? ''}}"
                                class="form-control"
                                placeholder="Cod">
                         @error('Cod')
