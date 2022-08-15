@@ -107,6 +107,7 @@ class Customers extends Model
         $query = "SELECT c.customer_id, s.category_id, s.subcategory_id
             FROM customers_id_categories AS c
             JOIN customer_category_id_subcategories AS s
+            ON c.category_id = s.category_id
             WHERE c.customer_id = {$id}
             AND s.category_id = c.category_id
             AND s.customer_id = {$id}";
