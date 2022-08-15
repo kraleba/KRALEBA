@@ -109,14 +109,14 @@ class Customers extends Model
             JOIN customer_category_id_subcategories AS s
             WHERE c.customer_id = {$id}
             AND s.category_id = c.category_id
-            AND c.customer_id = {$id}";
+            AND s.customer_id = {$id}";
 
         $categories_obj = DB::select($query);
 
         $textile = DB::select("SELECT category_id FROM customers_id_categories WHERE customer_id = {$id} AND category_id = 8");
         $customer = $this->get_customer_by_id($id);
 
-        if($textile) {
+        if ($textile) {
             $categories_obj[-1] = $textile[0];
         }
         $customer->categories = $categories_obj;
