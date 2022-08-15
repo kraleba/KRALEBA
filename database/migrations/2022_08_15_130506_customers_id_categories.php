@@ -13,6 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists(('customers_id_categories'));
+
         Schema::create('customers_id_categories', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');

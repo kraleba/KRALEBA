@@ -12,6 +12,8 @@ return new class extends Migration {
      */
     public function up()
     {
+        Schema::dropIfExists(('customer_category_id_subcategories'));
+
         Schema::create('customer_category_id_subcategories', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
