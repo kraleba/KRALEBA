@@ -45,23 +45,23 @@
             @foreach ($furnace_categories as $furnace_category)
 
                 <input type="checkbox"
-                       id="category_id {{$furnace_category->category_id}}"
-                       onclick="showSubcategoryByCategoryId({{$furnace_category->category_id}})"
+                       id="category_id {{$furnace_category->id}}"
+                       onclick="showSubcategoryByCategoryId({{$furnace_category->id}})"
                        class=""
                        name="categories_id[]"
-                       value="{{ $furnace_category->category_id }}"
+                       value="{{ $furnace_category->id }}"
                 >
                 <label>{{ $furnace_category->name }}</label>
                 <br>
 
-                <div class="card subcategory-card" id="subcategory{{$furnace_category->category_id}}">
-                    <div id="subcategory_list{{$furnace_category->category_id}}"></div>
+                <div class="card subcategory-card" id="subcategory{{$furnace_category->id}}">
+                    <div id="subcategory_list{{$furnace_category->id}}"></div>
 
-                    @if($furnace_category->category_id != 8)
-                        <div id="category_id{{$furnace_category->category_id}}" style="display: none">
+                    @if($furnace_category->id != 8)
+                        <div id="category_id{{$furnace_category->id}}" style="display: none">
                             <input placeholder="add subcategory" type="text"
-                                   id="subcategoryLabel {{$furnace_category->category_id}}">
-                            <input onclick="addSubcategoryForCustomersId({{$furnace_category->category_id}})"
+                                   id="subcategoryLabel {{$furnace_category->id}}">
+                            <input onclick="addSubcategoryForCustomersId({{$furnace_category->id}})"
                                    type="button" value="Add">
                         </div>
                     @endif

@@ -55,7 +55,7 @@ $(".show-subcategory").click(function () {
                 $('#ddlNationality li').remove();
                 $('#ddlNationality span').remove();
                 $.each(res, function (data, value) {
-                    $("#ddlNationality").append($('<span onclick="deleteSubcategory(' + value.subcategory_id + ')" class="fa fa-close" style="float:right; padding-top: 10px; padding-right: 10px"></span>')).append($('<li value=' + value.subcategory_id + '>' + value.name + '</li>'));
+                    $("#ddlNationality").append($('<span onclick="deleteSubcategory(' + value.id + ')" class="fa fa-close" style="float:right; padding-top: 10px; padding-right: 10px"></span>')).append($('<li value=' + value.id + '>' + value.name + '</li>'));
 
                 })
                 // $("#ddlNationality").append(subcategories);
@@ -130,12 +130,13 @@ function addSubcategoryForCustomersId(category_id) {
             success: function (res) {
 
                 // console.log(res);
-                if (res.subcategory_id) {
+                console.log(res);
+                if (res.id) {
                     $("#subcategory_list" + category_id)
-                        .append($("<input name='subcategories_id[]' id='subcategory_id_input" + res.subcategory_id + "' type='checkbox' value='" + res.subcategory_id + "'>" +
-                            " <label id='subcategory_id_label" + res.subcategory_id + "'>" + res.name + " </label>" +
-                            "<span style='color: red; cursor: pointer' id='subcategory_id_delete" + res.subcategory_id + "' onclick='deleteSubcategory(" + res.subcategory_id + ")'> X </span>" +
-                            "<br id='subcategory_id_br" + res.subcategory_id + "'>"))
+                        .append($("<input name='subcategories_id[]' id='subcategory_id_input" + res.id + "' type='checkbox' value='" + res.id + "'>" +
+                            " <label id='subcategory_id_label" + res.id + "'>" + res.name + " </label>" +
+                            "<span style='color: red; cursor: pointer' id='subcategory_id_delete" + res.id + "' onclick='deleteSubcategory(" + res.id + ")'> X </span>" +
+                            "<br id='subcategory_id_br" + res.id + "'>"))
 
                     document.getElementById('subcategoryLabel ' + category_id).value = '';
                 }
@@ -147,7 +148,7 @@ function addSubcategoryForCustomersId(category_id) {
 //show existences subcategories
 let customer_id;
 window.onload = (event) => {
-
+//from edit customer
     var categories = $('#category').attr("categories");
     customer_id = $('#category').attr("customer_id");
 
@@ -183,7 +184,11 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
     let category = document.getElementById('category_id ' + category_id);
 
     if (category.checked) {
-        document.getElementById('category_id' + category_id).style.display = 'block';
+
+        if (category_id !== 8) {
+            document.getElementById('category_id' + category_id).style.display = 'block';
+        }
+
         $.ajax({
             type: "GET",
             url: "/admin/show_subcategory_by_category_id",
@@ -196,16 +201,16 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
                 // console.log(res);
                 $.each(res, function (data, value) {
                     $("#subcategory_list" + category_id)
-                        .append($("<input name='subcategories_id[]' id='subcategory_id_input" + value.subcategory_id + "' type='checkbox' value='" + value.subcategory_id + "'>" +
-                            " <label id='subcategory_id_label" + value.subcategory_id + "'> " + value.name + " </label>" +
-                            "<span style='color: red; cursor: pointer' id='subcategory_id_delete" + value.subcategory_id + "' onclick='deleteSubcategory(" + value.subcategory_id + ")'> X </span>" +
-                            "<br id='subcategory_id_br" + value.subcategory_id + "'>"))
+                        .append($("<input name='subcategories_id[]' id='subcategory_id_input" + value.id + "' type='checkbox' value='" + value.id + "'>" +
+                            " <label id='subcategory_id_label" + value.id + "'> " + value.name + " </label>" +
+                            "<span style='color: red; cursor: pointer' id='subcategory_id_delete" + value.id + "' onclick='deleteSubcategory(" + value.id + ")'> X </span>" +
+                            "<br id='subcategory_id_br" + value.id + "'>"))
 
-                    let subcategory = document.getElementById('subcategory_id_input' + value.subcategory_id).value;
+                    let subcategory = document.getElementById('subcategory_id_input' + value.id).value;
 
                     try {
                         if (existing_subcategory && subcategory.toString() == existing_subcategory[subcategory.toString()]) {
-                            document.getElementById('subcategory_id_input' + value.subcategory_id).checked = true;
+                            document.getElementById('subcategory_id_input' + value.id).checked = true;
                         }
                     } catch (e) {
                     }
@@ -214,7 +219,9 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
 
         });
     } else {
-        document.getElementById('category_id' + category_id).style.display = 'none';
+        if (category_id !== 8) {
+            document.getElementById('category_id' + category_id).style.display = 'none';
+        }
         $("#subcategory_list" + category_id + ' input').remove();
         $("#subcategory_list" + category_id + ' label').remove();
         $("#subcategory_list" + category_id + ' span').remove();

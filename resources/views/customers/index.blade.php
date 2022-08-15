@@ -25,7 +25,7 @@
                     <br>
                     <div class="input-group item-left filter-item1">
                         <div >
-                            <div>                                
+                            <div>
                                 <input type='text'
                                 id="find_customer"
                                 name="customer_name"
@@ -45,7 +45,7 @@
                                 </select>
                             </div>
                         </div>
-                    
+
 
 
                         <div>
@@ -57,7 +57,7 @@
                                 @foreach ($furnace_categories as $furnace_category)
 
                                     <option
-                                        value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>
+                                        value="{{$furnace_category->id}}">{{ $furnace_category->name }}</option>
 
                                 @endforeach
                             </select>
@@ -82,7 +82,7 @@
 
                         </div>
                     </div>
-                    
+
 
                     <div class="filter-item_OK ">
                         <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
@@ -105,7 +105,7 @@
             </div>
 
         </div>
-        
+
     </div>
     <!--end filter-->
     <br>
@@ -115,7 +115,7 @@
             <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
         </div>
     @endif
-    
+
     <br>
 
     @if ($message = Session::get('success'))
@@ -123,7 +123,7 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-    
+
     @if($customers)
         <div>
             <ul class="list-body">

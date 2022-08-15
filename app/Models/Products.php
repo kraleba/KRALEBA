@@ -26,7 +26,7 @@ class Products extends Model
 
     public function get_customer_category_by_id($id)
     {
-        return DB::table('furnace_categories')->where('category_id', $id)->first();
+        return DB::table('furnace_categories')->where('id', $id)->first();
 
     }
 
@@ -35,7 +35,7 @@ class Products extends Model
     public function get_customer_subcategory_by_id($id)
     {
         if (is_numeric($id))
-            return DB::table('customer_subcategory')->where('subcategory_id', $id)->first();
+            return DB::table('customer_subcategory')->where('id', $id)->first();
 
         return false;
 
@@ -64,7 +64,7 @@ class Products extends Model
 
     public function delete_subcategory_by($id)
     {
-        DB::table('customer_subcategory')->where('subcategory_id', $id)->delete();
+        DB::table('customer_subcategory')->where('id', $id)->delete();
 
     }
 
@@ -94,6 +94,7 @@ class Products extends Model
                 }
             }
         }
+
         return true;
     }
 
