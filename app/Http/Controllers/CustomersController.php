@@ -30,14 +30,14 @@ class CustomersController extends Controller
     {
         $product = new Products();
 
-        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materii prime')");
-        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materiale')");
-        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Auxiliare')");
-        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Servicii')");
-        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Curierat')");
-        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Banci')");
-        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Taxe')");
-        DB::insert("INSERT INTO furnace_categories (name, status) VALUES ('Textile', 1)");
+//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materii prime')");
+//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materiale')");
+//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Auxiliare')");
+//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Servicii')");
+//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Curierat')");
+//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Banci')");
+//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Taxe')");
+//        DB::insert("INSERT INTO furnace_categories (name, status) VALUES ('Textile', 1)");
 
 
         if ($request->input()) {
