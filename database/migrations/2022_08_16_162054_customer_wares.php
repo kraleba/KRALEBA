@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,8 +12,14 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists(('customer_wares'));
+
         Schema::create('customer_wares', function (Blueprint $table) {
             $table->id();
+            $table->integer('customer_id');
+            $table->integer('category_id')->nullable();
+            $table->integer('subcategory_id');
+            $table->integer('bill_id')->nullable();;
             $table->string('product_name')->nullable();
             $table->string('custom_code')->nullable();
             $table->string('composition')->nullable();
@@ -24,7 +29,7 @@ return new class extends Migration
             $table->string('weaving')->nullable();
             $table->string('color')->nullable();
             $table->string('finishing')->nullable();
-            $table->string('perceived weight')->nullable();
+            $table->string('perceived_weight')->nullable();
             $table->string('softness')->nullable();
             $table->string('look')->nullable();
             $table->string('grounds')->nullable();
@@ -40,6 +45,8 @@ return new class extends Migration
             $table->string('um')->nullable();
             $table->string('amount')->nullable();
             $table->string('coin')->nullable();
+            $table->string('price');
+            $table->tinyInteger('status')->default('0');
 
             $table->timestamps();
         });
