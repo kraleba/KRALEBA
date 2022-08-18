@@ -26,7 +26,7 @@
                     <h3>Adauga Factura</h3>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('bills.index', $customer['customer_id']) }}"> Inapoi</a>
+                    <a class="btn btn-primary" href="{{ route('bills.index', $customer['id']) }}"> Inapoi</a>
                 </div>
             </div>
         </div>
@@ -35,14 +35,14 @@
                 {{ session('status') }}
             </div>
         @endif
-        <form action="{{ route('bills.store', $customer['customer_id']) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('bills.store', $customer['id']) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
 
-                        <input type="hidden" name="customer_id" value="{{$customer['customer_id'] ?? ''}}">
+                        <input type="hidden" name="customer_id" value="{{$customer['id'] ?? ''}}">
                         <input type="text" value="{{$customer['name'] ?? ''}}" class="form-control"
                                placeholder="Client Name">
                         @error('name')

@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->id();
             $table->integer('customer_id');
             $table->integer('category_id')->nullable();
-            $table->integer('subcategory_id');
-            $table->integer('bill_id')->nullable();;
+            $table->integer('subcategory_id')->nullable();;
+            $table->integer('bill_id')->nullable();
             $table->string('product_name')->nullable();
             $table->string('custom_code')->nullable();
             $table->string('composition')->nullable();
@@ -45,7 +45,7 @@ return new class extends Migration {
             $table->string('um')->nullable();
             $table->string('amount')->nullable();
             $table->string('coin')->nullable();
-            $table->string('price');
+            $table->string('price')->nullable();;
             $table->tinyInteger('status')->default('0');
 
             $table->timestamps();

@@ -46,7 +46,8 @@ class BillsController extends Controller
     public function create(Request $request)
     {
 //        dd($request->customer_id);
-        $customer = $this->customers->get_customer_and_categories_by_id($request->customer_id);
+        $customer = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
+//        dd($customer['country']);
 
         $data = array(
             'customer' => $customer,

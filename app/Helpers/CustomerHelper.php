@@ -204,7 +204,8 @@ class CustomerHelper extends Controller
         return response()->json($res);
     }
 
-    public function find_market_product(Request $request) {
+    public function find_market_product(Request $request)
+    {
 
         $res = $this->templateParent->get_parent_template_product_by_suggestions($request->term);
 //        dd($request->input());
@@ -212,6 +213,23 @@ class CustomerHelper extends Controller
 
     }
 
+    public function customer_separe_categories_from_subcategories($customer)
+    {
+        if(!$customer['categories']) {
+            return false;
+        }
+
+        $categories = [];
+
+        foreach ($customer['categories'] as $category) {
+            $categories[$category->category_id] = [
+                'id' => $category->category_id,
+                'name' => $category->category_name ?? '',
+            ];
+        }
+
+        return $categories;
+    }
 
 }
 

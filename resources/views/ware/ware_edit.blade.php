@@ -8,57 +8,53 @@
                 <h2>Editeaza Articolul <b> {{$ware['product_name']}}</b></h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('wares.index', $customer['customer_id']) }}"> Renunta</a>
+                <a class="btn btn-primary" href="{{ route('wares.index', $customer['id']) }}"> Renunta</a>
             </div>
         </div>
     </div>
     <br>
 
     <div>
-        <form action="{{ route('wares.update', ['customer_id'=>$customer['customer_id'], 'ware'=>$ware['id']]) }}"
+        <form action="{{ route('wares.update', ['customer_id'=>$customer['id'], 'ware'=>$ware['id']]) }}"
               method="POST">
             @csrf
             @method('PUT')
             <div>
+                <input type="hidden" name="customer_id" value="{{$customer['id']}}">
+                <input type="hidden" name="status" value="0">
 
-                {{--                <label for="cars">Categorie</label>--}}
-
-                <input type="hidden" name="customer_id" value="{{$customer['customer_id'] ?? ''}}">
-{{--                <input type="hidden" name="status" value="0">--}}
-
-                <select id="subcategorySelected" name="subcategory_id" onchange="showWareTemplate()"
+                <select name="categories_json" id="subcategorySelected" onchange="showWareTemplate()"
                         class="form-control filter-control">
                     <option>Selecteaza o subcategorie</option>
 
-                    @foreach($customer['category_id'] as $category)
+                    @foreach($customer_categories as $category)
 
-                        @if($category['name'] != 'Textile')
-                            <optgroup label="{{$category['name']}}">
+                        @if($category['id'] != 8)
+                            <optgroup label="{{$category['name'] ?? ''}}">
                                 @endif
-                                @foreach($customer['subcategory_id'] as $subcategory)
-                                    @if($category['category_id'] == $subcategory['category_id'])
+                                @foreach($customer['categories'] as $subcategory)
+
+                                    @if($category['id'] == $subcategory->category_id)
                                         <option
-                                            value="{{$subcategory['id']}}"
-                                            @if($ware['subcategory_id'] == $subcategory['id'])
-                                                selected
+                                            @if($subcategory->name == "Textile")
+                                                style="color: red"
                                             @endif
                                         >
-                                            {{$subcategory['name']}}
+                                            {{$subcategory->name}}
                                         </option>
                                     @endif
+
                                 @endforeach
+
+                                @if($category['id'] != 8)
                             </optgroup>
-                            @if($category['name'] == "Textile")
-                                <option value="{{$category['category_id']}}"
-                                        style="color: red"
-                                        @if($ware['subcategory_id'] == 'Textile')
-                                            selected
-                                    @endif
-                                >
-                                    {{$category['name']}}
-                                </option>
-                            @endif
-                            @endforeach
+                        @endif
+
+                        {{--                            @if($category['name'] == "Textile")--}}
+                        {{--                                <option value="Textile"--}}
+                        {{--                                        style="color: red">{{$category['name']}}</option>--}}
+                        {{--                            @endif--}}
+                    @endforeach
 
                 </select>
             </div>

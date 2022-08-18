@@ -58,17 +58,7 @@ class CustomerWaresControler extends Controller
     public function create(Request $request)
     {
         $data['customer'] = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
-        $data['furnace_categories'] = '';
-        $categories = [];
-
-        foreach ($data['customer']['categories'] as $category) {
-            $categories[$category->category_id] = [
-                'id' =>$category->category_id,
-                'name' =>$category->category_name ?? '',
-            ];
-        }
-
-        $data['customer_categories'] = $categories;
+        $data['customer_categories'] = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 
         return view('ware.ware_create', $data);
@@ -86,15 +76,16 @@ class CustomerWaresControler extends Controller
         $data = $request->input();
 
         if ($request->input('categories_json') == 'Textile') {
-            $data['category_id'] = 'Textile';
+            $data['category_id'] = 8;
+            $data['status'] = 2;
         } else {
             $category = json_decode($request->input('categories_json'));
             $data['category_id'] = isset($category->category_id);
             $data['subcategory_id'] = isset($category->id);
 
         }
-
         unset($data['categories_json']);
+//        dd($data);
 
         CustomerWares::create($data);
 
@@ -123,8 +114,10 @@ class CustomerWaresControler extends Controller
     public function edit(Request $request)
     {
 
+
         $data['ware'] = (array)$this->wares->get_ware_by_id($request->ware);
-        $data['customer'] = $this->customers->get_customer_and_categories_by_id($request->customer_id);
+        $data['customer'] = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
+        $data['customer_categories']  = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 //        dd($data['ware']);
 

@@ -25,19 +25,19 @@ class CustomerWares extends Model
 //dd($customer_id);
         if ($customer_id) {
             $query = "SELECT *
-            FROM customers
-            LEFT JOIN customer_wares
-            ON customers.id = customer_wares.customer_id
-            WHERE customer_wares.customer_id = {$customer_id}
-            AND customer_wares.status = {$status}";
+            FROM customers AS c
+            LEFT JOIN customer_wares AS w
+            ON c.id = w.customer_id
+            WHERE w.customer_id = {$customer_id}
+            AND w.status = {$status}";
 
         } else {
             $status = 1;
             $query = "SELECT *
-            FROM customers
-            LEFT JOIN customer_wares
-            ON customers.id = customer_wares.customer_id
-            WHERE customer_wares.status = {$status}";
+            FROM customers AS c
+            LEFT JOIN customer_wares AS w
+            ON c.id = w.customer_id
+            WHERE w.status = {$status}";
 
         }
 
@@ -90,41 +90,44 @@ class CustomerWares extends Model
             return false;
         }
 
+        $operator = '';
+        /*if category id is 8 */
         if ($ware_type == 'wares') {
-            $textile = 'Textile';
-            $simbol = '!= ';
-        } elseif ($ware_type == 'Textile') {
-            $simbol = "=";
-            $textile = $ware_type;
+            $textile = 8;
+            $operator = '!= ';
+        } else {
+            $operator = "=";
+            $textile = 8;
         }
+//dump($operator);
         $query = "SELECT
-                customer_wares.id,
-                customer_wares.customer_id,
-                customer_wares.product_name,
-                customer_wares.custom_code,
-                customer_wares.description,
-                customer_wares.date,
-                customer_wares.coin,
-                customer_wares.um,
-                customer_wares.amount
-                FROM customer_wares
-                JOIN customers
-                ON customer_wares.customer_id = customers.id
-                WHERE customer_wares.category_id {$simbol} '{$textile}'";
+                w.id,
+                w.customer_id,
+                w.product_name,
+                w.custom_code,
+                w.description,
+                w.date,
+                w.coin,
+                w.um,
+                w.amount
+                FROM customer_wares AS w
+                JOIN customers AS c
+                ON w.customer_id = c.id
+                WHERE w.category_id {$operator} '{$textile}'";
 
         if ($type) {
-            $query .= " AND customers.type = '{$type}'";
+            $query .= " AND c.type = '{$type}'";
         }
 
         if ($type && $category) {
-            $query .= " AND customer_wares.category_id = {$category}";
+            $query .= " AND w.category_id = {$category}";
         }
 
         if ($type && $subcategory) {
-            $query .= " AND customer_wares.subcategory_id = {$subcategory}";
+            $query .= " AND w.subcategory_id = {$subcategory}";
 
         } else if ($subcategory) {
-            $query .= " AND customer_wares.subcategory_id = {$subcategory}";
+            $query .= " AND w.subcategory_id = {$subcategory}";
         }
 
 //        dd($query);
