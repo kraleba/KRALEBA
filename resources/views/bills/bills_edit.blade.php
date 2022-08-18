@@ -106,7 +106,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>TVA:</strong>
-                        <input type="text" name="TVA" class="form-control" placeholder="TVA">
+                        <input type="text" name="tva" class="form-control" placeholder="TVA">
                         @error('tva')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror

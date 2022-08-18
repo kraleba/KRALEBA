@@ -64,10 +64,10 @@
                         @endif
                         Curs Valutar: {{ $bill->exchange}}
 
-                        @if($bill->TVA)
+                        @if($bill->tva)
                             /
                         @endif
-                        Total incl. TVA: {{ $bill->TVA}}
+                        Total incl. TVA: {{ $bill->tva}}
 
                     </div>
                     <div class="dropdown option-button">

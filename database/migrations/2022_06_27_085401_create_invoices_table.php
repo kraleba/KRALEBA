@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('bill_number');
             $table->string('currency');
             $table->string('exchange');
-            $table->string('TVA');
+            $table->string('tva');
             $table->string('item');
             $table->string('type');
             $table->string('categiry_id');

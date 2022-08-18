@@ -164,16 +164,16 @@ class CustomerHelper extends Controller
                     $ware['price_lei'] = $ware['price'];
 
 
-                    $ware['tva_lei_buc'] = round(($ware['price'] / 100) * $ware['TVA'], 3);
-                    $ware['tva_euro_buc'] = round(($exchange / 100) * $ware['TVA'], 3);
+                    $ware['tva_lei_buc'] = round(($ware['price'] / 100) * $ware['tva'], 3);
+                    $ware['tva_euro_buc'] = round(($exchange / 100) * $ware['tva'], 3);
                 } else {
 //                    dd($ware['price']);
 
-                    $ware['tva_euro_buc'] = round(($ware['price'] / 100) * $ware['TVA'], 3);
+                    $ware['tva_euro_buc'] = round(($ware['price'] / 100) * $ware['tva'], 3);
                     $exchange = round($ware['price'] * $ware['exchange'], 3);
                     $ware['price_euro'] = $ware['price'];
                     $ware['price_lei'] = $exchange;
-                    $ware['tva_lei_buc'] = round(($exchange / 100) * $ware['TVA'], 3);
+                    $ware['tva_lei_buc'] = round(($exchange / 100) * $ware['tva'], 3);
 
                 }
 

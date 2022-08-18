@@ -71,7 +71,7 @@ class BillsController extends Controller
             'bill_number' => 'required',
 //            'currency' => 'required',
             'exchange' => 'required',
-            'TVA' => 'required',
+            'tva' => 'required',
 //            'item' => 'required',
 //            'type' => 'required',
 //            // 'category_id' => 'required',

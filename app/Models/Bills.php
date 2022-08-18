@@ -12,7 +12,7 @@ class Bills extends Model
     use HasFactory;
 
     protected $fillable = [
-        'customer_id', 'unique_code', 'type', 'bill_date', 'bill_number', 'currency', 'exchange', 'TVA', 'item',
+        'customer_id', 'unique_code', 'type', 'bill_date', 'bill_number', 'currency', 'exchange', 'tva', 'item',
         'specify_id',
     ];
 
@@ -103,7 +103,7 @@ class Bills extends Model
             $query_format .= " WHERE bills.bill_date BETWEEN '{$start_date}' AND '{$end_date}' ORDER BY bills.bill_date ASC ";
         }
 
-        $query = "SELECT bills.id, bills.customer_id, customers.name, bills.bill_date, bills.bill_number, bills.exchange, bills.TVA
+        $query = "SELECT bills.id, bills.customer_id, customers.name, bills.bill_date, bills.bill_number, bills.exchange, bills.tva
                 FROM bills
                 JOIN customers
                 ON bills.customer_id = customers.id" . $query_format ?? '';
