@@ -13,7 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::dropIfExists(('product_template_children'));
+
+        Schema::create('product_template_children', function (Blueprint $table) {
+            $table->id();
+            $table->integer('parent_id')->nullable();
+            $table->string('suffix')->nullable();
+            $table->string('template_child_photo')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('product_template_children');
     }
 };
