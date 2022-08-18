@@ -70,6 +70,6 @@ class ProductTemplate extends Model
                         {$parent['number_of_child']}
                     )";
 //        $parent_id = DB::insert($query_insert);
-        dd($parent_id);
+//        dd($parent_id);
     }
 }

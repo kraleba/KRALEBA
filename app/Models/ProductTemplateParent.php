@@ -29,13 +29,16 @@ class ProductTemplateParent extends Model
     public function get_product_templates_after_filter()
     {
 
-        $query = "SELECT ptp.product_name, ptp.id, ptc.suffix
-            FROM product_template_parents AS ptp
-            JOIN product_template_children AS ptc
-                ON ptp.id = ptc.parent_id
-            JOIN template_child_categories AS tcc
-                ON tcc.template_child_id = ptc.id
-            ";
+        $query = "SELECT
+                    ptp.product_name,
+                    ptp.id,
+                    ptc.suffix
+                FROM product_template_parents AS ptp
+                JOIN product_template_children AS ptc
+                    ON ptp.id = ptc.parent_id
+                JOIN template_child_categories AS tcc
+                    ON tcc.template_child_id = ptc.id
+                ";
 //dump($query);
         $result = DB::select($query);
     }
