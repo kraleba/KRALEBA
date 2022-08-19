@@ -1,5 +1,5 @@
 <div class="container ">
-    <div class="row searchFilter card round3">
+    <div class="row searchFilter-bills card round3">
 
         <div class="col-lg-12 box-filter">
             <form method="get">
