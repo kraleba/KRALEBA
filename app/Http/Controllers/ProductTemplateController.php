@@ -36,11 +36,10 @@ class ProductTemplateController extends Controller
 
     public function index(Request $request)
     {
-//dd('test');
-        $templates = $this->template_parent->get_product_templates_after_filter();
-//        dd($templates);
-        return view('products_template.template_index',)
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+
+        $data['templates'] = $this->template_parent->get_product_templates_after_filter();
+
+        return view('products_template.template_index', $data);
     }
 
     public function create()
