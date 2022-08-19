@@ -9,7 +9,7 @@
 
             <br>
             <div class="input-group item-left filter-item1">
-                <div >
+                <div>
                     <div>
                         <input type='text'
                                id="find_customer"
@@ -24,29 +24,220 @@
                     <div>
                         <select name="customer_type" id="department"
                                 class="form-control rounded-pill filter-control">
-                            {{-- <option value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option> --}}
-                            <option value="customer"> Beneficiar</option>
-                            <option value="provider">Furnizor</option>
+                            <option value="customer">--Selecteaza tipul--</option>
+                            <option value="customer">Abelard</option>
+                            <option value="provider">Heloise</option>
                         </select>
                     </div>
                 </div>
 
 
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Product Name--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
 
                 <div>
-                    <select name="category" id="department" class="form-control rounded-pill filter-control">
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Collection--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
 
-                        <option
-                            value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Code--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
 
-                        {{--                                @foreach ($furnace_categories as $furnace_category)--}}
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Author--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Category--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Theme--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
 
-                        {{--                                    <option--}}
-                        {{--                                        value="{{$furnace_category->category_id}}">{{ $furnace_category->name }}</option>--}}
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Tayloring--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
 
-                        {{--                                @endforeach--}}
-                    </select>
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Occasion --"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
 
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Sesonality --"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Syles --"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Supplier--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Composition--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Material--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Design--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Color--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Structure--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Weawing--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Finishing--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <input type='text'
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Rating--"
+                               class="form-control filter-control rounded-pill"
+                        >
+                    </div>
                 </div>
 
                 <div>
