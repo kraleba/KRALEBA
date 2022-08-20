@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,13 +59,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/customers.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bills.css') }}" rel="stylesheet">
-<<<<<<< HEAD
     <link href="{{ asset('css/textil.css') }}" rel="stylesheet">
     <link href="{{ asset('css/template.css') }}" rel="stylesheet">
-=======
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
-
->>>>>>> ae05808d6cfb562fa04c57c276cf0189aba69f8a
     {{--  style filter card  --}}
     <link href="{{ asset('css/filter_card.css') }}" rel="stylesheet">
 
