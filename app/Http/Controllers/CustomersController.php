@@ -8,6 +8,7 @@ use App\Models\Customers;
 use App\Models\Products;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CustomersController extends Controller

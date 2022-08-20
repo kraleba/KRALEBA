@@ -1,6 +1,6 @@
-{{--@extends('layouts.app')--}}
+@extends('layouts.app')
 
-{{--@section('content')--}}
+@section('content')
 
     <div id="">
         <div class="" id="templateWareModal">
@@ -328,4 +328,4 @@
 
 
 
-{{--@endsection--}}
+@endsection

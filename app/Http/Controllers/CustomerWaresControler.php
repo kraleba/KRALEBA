@@ -61,6 +61,10 @@ class CustomerWaresControler extends Controller
         $data['customer_categories'] = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 
+        if(!$data['customer_categories']) {
+            return '<h1>Acest client nu are categorii</h1>';
+        }
+
         return view('ware.ware_create', $data);
 
     }
@@ -77,7 +81,7 @@ class CustomerWaresControler extends Controller
 
         if ($request->input('categories_json') == 'Textile') {
             $data['category_id'] = 8;
-            $data['status'] = 2;
+
         } else {
             $category = json_decode($request->input('categories_json'));
             $data['category_id'] = isset($category->category_id);
@@ -117,7 +121,7 @@ class CustomerWaresControler extends Controller
 
         $data['ware'] = (array)$this->wares->get_ware_by_id($request->ware);
         $data['customer'] = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
-        $data['customer_categories']  = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
+        $data['customer_categories'] = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
 //        dd($data['ware']);
 

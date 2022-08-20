@@ -58,8 +58,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/customers.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bills.css') }}" rel="stylesheet">
+<<<<<<< HEAD
     <link href="{{ asset('css/textil.css') }}" rel="stylesheet">
     <link href="{{ asset('css/template.css') }}" rel="stylesheet">
+=======
+    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+
+>>>>>>> ae05808d6cfb562fa04c57c276cf0189aba69f8a
     {{--  style filter card  --}}
     <link href="{{ asset('css/filter_card.css') }}" rel="stylesheet">
 
@@ -69,34 +74,40 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('admin/customers') }}">
+            <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', '') }}
             </a>
+            {{--@dump(Auth::guard()->user()->type)--}}
 
-            @auth
+            @if(isset(Auth::guard()->user()->type) && Auth::guard()->user()->type == 'admin')
                 <div class="navbar-nav ">
                     <div class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/customers') }}">Clienti</a>
+                        <a class="nav-link" href="{{ url('admin/customers') }}"><b>Clienti</b></a>
                     </div>
-                    <div class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/bills') }}">Facturi</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link " href="{{ url('admin/wares') }}">Articole</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/textile') }}">Textile</a>
+
+                    <div class="nav-item dropdown navbar-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <b>Cheltueli de productie </b>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                            <a class="dropdown-item" href="{{ url('admin/bills') }}">Facturi</a>
+                            <a class="dropdown-item " href="{{ url('admin/wares') }}">Articole</a>
+                            <a class="dropdown-item" href="{{ url('admin/textile') }}">Textile</a>
+
+                        </div>
                     </div>
 
                     <div class="nav-item">
                         <a class="nav-link" href="{{ url('admin/templates') }}"><b>Prototipuri</b></a>
                     </div>
 
-                    <div class="nav-item" >
+                    <div class="nav-item">
                         <a style="color: red" class="nav-link" href="{{ url('admin/market') }}"><b>Productie</b></a>
                     </div>
                 </div>
-            @endauth
+            @endif
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -120,11 +131,11 @@
                             </li>
                         @endif
 
-                        @if (Route::has('register'))
+                        {{--@if (Route::has('register'))
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
-                        @endif
+                        @endif--}}
                     @else
 
                         <li class="nav-item dropdown">
