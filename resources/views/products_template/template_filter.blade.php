@@ -1,4 +1,4 @@
-<div class="row searchFilter-custom card round3">
+<div class="row searchFilter-custom-template card round3">
 
     <div class="col-lg-12 box-filter">
         <form action="{{ route('customers.index') }}" method="get">
