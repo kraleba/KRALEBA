@@ -22,7 +22,7 @@ class CustomerWares extends Model
         if (!$status) {
             $status = 0;
         }
-//dd($customer_id);
+
         if ($customer_id) {
             $query = "SELECT *
             FROM customers AS c
@@ -77,7 +77,6 @@ class CustomerWares extends Model
 
     public function ware_update($data, $id)
     {
-//        dd($data);
         unset($data['_token']);
         unset($data['_method']);
         DB::table('customer_wares')->where('id', $id)
@@ -90,7 +89,6 @@ class CustomerWares extends Model
             return false;
         }
 
-        $operator = '';
         /*if category id is 8 */
         if ($ware_type == 'wares') {
             $textile = 8;
@@ -99,7 +97,7 @@ class CustomerWares extends Model
             $operator = "=";
             $textile = 8;
         }
-//dump($operator);
+
         $query = "SELECT
                 w.id,
                 w.customer_id,
@@ -130,8 +128,6 @@ class CustomerWares extends Model
             $query .= " AND w.subcategory_id = {$subcategory}";
         }
 
-//        dd($query);
-
         return DB::select($query);
     }
 
@@ -143,7 +139,6 @@ class CustomerWares extends Model
 
         $query = "SELECT {$row_name} FROM customer_wares WHERE {$row_name} LIKE '%{$term}%' GROUP BY {$row_name}";
 
-//        dd(DB::select($query));
         return DB::select($query);
 
     }
