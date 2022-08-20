@@ -8,9 +8,9 @@
             <br>
 
             <br>
-            <div class="input-group item-left filter-item1">
+            <div class="form-row">
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -21,7 +21,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <select name="customer_type" id="department"
                                 class="form-control rounded-pill filter-control">
                             <option value="customer">--Selecteaza tipul--</option>
@@ -33,7 +33,7 @@
 
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -44,7 +44,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -55,7 +55,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -66,7 +66,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -76,7 +76,7 @@
                     </div>
                 </div>
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -97,7 +97,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -108,7 +108,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -120,7 +120,7 @@
 
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -131,7 +131,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -142,7 +142,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -153,7 +153,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -164,7 +164,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -175,7 +175,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -186,7 +186,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -197,7 +197,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -208,7 +208,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -219,7 +219,7 @@
                 </div>
 
                 <div>
-                    <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -229,7 +229,7 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="mx-auto warning" style="width:20%">
                     <div>
                         <input type='text'
                                id="find_customer"
@@ -240,7 +240,8 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="mx-auto warning" style="width:31%">
+                    <div>
                     <input type='text'
                            name="subcategory"
                            list="browsers"
@@ -255,9 +256,10 @@
                         {{--                                    <option>{{ $subcategory->name }}</option>--}}
                         {{--                                @endforeach--}}
                     </datalist>
-
+                    </div>
                 </div>
             </div>
+
 
 
             <div class="filter-item_OK ">
@@ -274,7 +276,7 @@
         </form>
 
         <form>
-            <div class="revert-b">
+            <div class="revert-b-template">
                 <button type="submit" class="btn btn-secondary">REVERT</button>
             </div>
         </form>

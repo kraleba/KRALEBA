@@ -64,10 +64,15 @@
 .searchFilter-custom {
     margin-top: 20px;
     margin-bottom: 60px;
-    height: 240px;
+    height: 490px;
 }
 .searchFilter-bills {
     margin-top: 20px;
     margin-bottom: 60px;
     height: 223px;
+}
+.revert-b-template {
+    position: absolute;
+    top: 420px;
+    left: 10px;
 }
