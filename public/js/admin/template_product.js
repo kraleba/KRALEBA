@@ -13,7 +13,7 @@ $(document).ready(function () {
     });
 
     const template_values = [];
-    let index = 0;
+    let index = 1;
 
     $(".child-validate").click(function () {
 
@@ -21,22 +21,38 @@ $(document).ready(function () {
         categories = JSON.parse(categories);
 
         let form_customer = [];
-
         for (let i = 0, j = 0; i < categories.length; ++i) {
 
-            if ($('#check_if_is_checked' + categories[i]['category_id']).is(":checked")) {
+            if ($('#check_if_is_checked' + categories[i]['id']).is(":checked")) {
                 form_customer[j] = {
-                    'customer_id': $('#customer' + categories[i]['category_id']).val(),
-                    'product_name': $('#product_name' + categories[i]['category_id']).val(),
-                    'custom_code': $('#custom_code' + categories[i]['category_id']).val(),
-                    'bill_date': $('#bil_date' + categories[i]['category_id']).val(),
-                    'bill_number': $('#bill_number' + categories[i]['category_id']).val(),
-                    'amount': $('#amount' + categories[i]['category_id']).val(),
-                    'category_id': categories[i]['category_id']
+                    'customer_id': $('#customer' + categories[i]['id']).val(),
+                    'custom_code': $('#custom_code' + categories[i]['id']).val(),
+                    'bill_date': $('#bil_date' + categories[i]['id']).val(),
+                    'bill_number': $('#bill_number' + categories[i]['id']).val(),
+                    'amount': $('#amount' + categories[i]['id']).val(),
+                    'category_id': categories[i]['id']
                 }
+
+                $('#check_if_is_checked' + categories[i]['id']).prop("checked", false);
+                $("#show_category_by_id" + categories[i]['id']).hide();
+
                 ++j
             }
 
+            $('#customer' + categories[i]['id']).val('');
+            $('#custom_code' + categories[i]['id']).val('');
+            $('#bil_date' + categories[i]['id']).val('');
+            $('#bill_number' + categories[i]['id']).val('');
+            $('#amount' + categories[i]['id']).val('');
+
+        }
+
+        console.log($('.number_of_child').val());
+        console.log(index);
+        if (index === parseInt($('.number_of_child').val())) {
+            console.log('asdfasdfasdfasdfasdfasd');
+            $('#salve_parent_product').show();
+            $('.child-validate').hide();
         }
 
         if (form_customer.length > 0) {

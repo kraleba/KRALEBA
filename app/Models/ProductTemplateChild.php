@@ -20,9 +20,10 @@ class ProductTemplateChild extends Model
 
     public function create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template)
     {
-
+//dd($child_categories_template);
         $parent = ProductTemplateParent::create($parent_template);
         if ($parent->id && is_numeric($parent->id)) {
+
             for ($i = 0; $i < $parent_template['number_of_child']; $i++) {
 
                 $child_template['parent_id'] = $parent->id;

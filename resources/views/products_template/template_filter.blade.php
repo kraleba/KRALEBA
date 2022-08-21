@@ -1,7 +1,7 @@
 <div class="row searchFilter-custom-template card round3">
 
     <div class="col-lg-12 box-filter">
-        <form action="{{ route('customers.index') }}" method="get">
+        <form action="{{ route('templates.index') }}" method="get">
             <div>
                 <h4>SELECTEAZA:</h4>
             </div>
@@ -9,16 +9,6 @@
 
             <br>
             <div class="form-row">
-                <div>
-                    <div class="form-group col-md-6">
-                        <input type='text'
-                               id="find_customer"
-                               name="customer_name"
-                               placeholder="--Selecteaza un Client--"
-                               class="form-control filter-control rounded-pill"
-                        >
-                    </div>
-                </div>
 
                 <div>
                     <div class="form-group col-md-6">
@@ -36,7 +26,7 @@
                     <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
-                               name="customer_name"
+                               name="product_name"
                                placeholder="--Product Name--"
                                class="form-control filter-control rounded-pill"
                         >
@@ -117,7 +107,6 @@
                         >
                     </div>
                 </div>
-
 
                 <div>
                     <div class="form-group col-md-6">
@@ -212,7 +201,7 @@
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
-                               placeholder="--Weawing--"
+                               placeholder="--Weaving--"
                                class="form-control filter-control rounded-pill"
                         >
                     </div>
@@ -229,8 +218,8 @@
                     </div>
                 </div>
 
-                <div class="mx-auto warning" style="width:20%">
-                    <div>
+                <div>
+                    <div class="form-group col-md-6">
                         <input type='text'
                                id="find_customer"
                                name="customer_name"
@@ -239,27 +228,7 @@
                         >
                     </div>
                 </div>
-
-                <div class="mx-auto warning" style="width:31%">
-                    <div>
-                    <input type='text'
-                           name="subcategory"
-                           list="browsers"
-                           placeholder="--Selecteaza o subcategorie--"
-                           class="form-control filter-control rounded-pill"
-                           value="{{$filtering_criteria['subcategory'] ?? ''}}"
-                    >
-
-                    <datalist id="browsers" class="dropdown">
-
-                        {{--                                @foreach ($subcategories as $subcategory)--}}
-                        {{--                                    <option>{{ $subcategory->name }}</option>--}}
-                        {{--                                @endforeach--}}
-                    </datalist>
-                    </div>
-                </div>
             </div>
-
 
 
             <div class="filter-item_OK ">

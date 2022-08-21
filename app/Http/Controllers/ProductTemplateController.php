@@ -36,7 +36,6 @@ class ProductTemplateController extends Controller
 
     public function index(Request $request)
     {
-
         $data['templates'] = $this->template_parent->get_product_templates_after_filter();
 
         return view('products_template.template_index', $data);
@@ -80,8 +79,7 @@ class ProductTemplateController extends Controller
     public function edit(Customers $customer)
     {
 
-
-        return view('customers.edit', $data);
+        return view('customers.edit', '$data');
     }
 
     public function update(Request $request, Customers $customer)

@@ -18,6 +18,7 @@ return new class extends Migration
         Schema::create('product_template_children', function (Blueprint $table) {
             $table->id();
             $table->integer('parent_id')->nullable();
+            $table->string('product_name')->nullable();
             $table->string('suffix')->nullable();
             $table->string('template_child_photo')->nullable();
             $table->timestamps();

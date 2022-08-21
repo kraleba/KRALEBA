@@ -31,16 +31,19 @@ class ProductTemplateParent extends Model
 
         $query = "SELECT
                     ptp.product_name,
+                    ptp.number_of_child,
                     ptp.id,
                     ptc.suffix
                 FROM product_template_parents AS ptp
                 JOIN product_template_children AS ptc
                     ON ptp.id = ptc.parent_id
-                JOIN template_child_categories AS tcc
-                    ON tcc.template_child_id = ptc.id
+                /*JOIN template_child_categories AS tcc
+                    ON tcc.template_child_id = ptc.id*/
+              /*  GROUP BY ptp.id*/
                 ";
-//dump($query);
         $result = DB::select($query);
+//dd($result);
+        return $result;
     }
 
     public function get_parent_template_product_by_suggestions($term)

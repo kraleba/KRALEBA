@@ -6,9 +6,7 @@
             <div class="pull-left">
                 <h2>Add New Product</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('templates.index') }}"> Renunta</a>
-            </div>
+
         </div>
     </div>
 
@@ -41,6 +39,7 @@
                             @foreach($marketing_categories as $marketing_category)
                                 <option value="{{$marketing_category->id}}">{{$marketing_category->name}}</option>
                             @endforeach
+                            <option>No category</option>
 
                         </select>
                     </div>
@@ -68,7 +67,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Slits:</strong>
-                        <input type="number" name="slits" class="form-control" placeholder="Slits">
+                        <input type="text" name="slits" class="form-control" placeholder="Slits">
                     </div>
                 </div>
 
@@ -117,6 +116,12 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <strong>Product Name</strong>
+                    <input type="text" name="product_name" id="template_name" class="form-control"
+                           placeholder="Product Name">
+                </div>
+
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Number of Products</strong>
@@ -132,8 +137,9 @@
             {{--create child END --}}
 
 
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary child-salve">Salveaza</button>
+            <div class="col text-center">
+                <button type="submit" style="display: none" id="salve_parent_product" class="btn btn-primary child-salve" >Salveaza</button>
+                <a class="btn btn-danger" href="{{ route('templates.index') }}"> Renunta</a>
             </div>
         </div>
     </form>
