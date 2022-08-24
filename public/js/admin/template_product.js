@@ -1,14 +1,7 @@
 $(document).ready(function () {
-    $('.categories-box').click(function () {
-        let category_id = $(this).attr('category_id');
-
+    $('#template_gender_type, #template_gender_type1').click(function () {
         if ($(this).is(':checked')) {
-            $("#show_category_by_id" + category_id).show();
-
-        } else {
-            $("#show_category_by_id" + category_id).hide();
-
-
+            $("#template_parent_box").show();
         }
     });
 
@@ -82,17 +75,130 @@ $(document).ready(function () {
         $('#categories_template_child').val(JSON.stringify(template_values));
         $('#product_template_child').val(JSON.stringify(template_child));
 
-        // console.log(index);
-        // if (parseInt(number_of_child) === index) {
-        //     $.ajax({
-        //         url: 'create_child_templates',
-        //         method: "post",
-        //         data: {
-        //             template_values: template_values,
-        //         },
-        //     });
-        // }
+
     });
+
+
+
+
+    $('.generate-template-children-form').click(function () {
+
+        //validate if required fields is implemented.
+        let validator = validateTemplateFields();
+        if (!validator) {
+            return false;
+        }
+
+        $('.generate-template-children-form').hide();
+        $('.categories_area').show();
+        $('#number_of_child').attr('readonly', true);
+        $('#template_name').attr('readonly', true);
+
+
+        let categories = $('.categories_area').attr('categories');
+
+        if (categories) {
+            categories = JSON.parse(categories);
+        } else {
+            return;
+        }
+
+        for (let i = 0; i < categories.length; ++i) {
+            categoriesFormGenerated(categories[i]);
+        }
+
+    });
+
+    let numberOfTextile = 2;
+
+    // add new form for textile
+    $('#add_more_textile_btn').on('click', '.add-more-textile', function () {
+        let category = {
+            id: 8 + numberOfTextile,
+            name: 'Textile' + numberOfTextile
+        };
+
+        ++numberOfTextile;
+        categoriesFormGenerated(category);
+    });
+
+
+    $('#template_child_form').on('click', '.checkbox_customer_category', function () {
+
+        let category_id = $(this).attr('category_id');
+        if ($(this).is(':checked')) {
+            $('#template_child_form').children('.show_form_if_is_checked_' + category_id).show();
+        } else {
+            $('#template_child_form').children('.show_form_if_is_checked_' + category_id).hide();
+
+        }
+    });
+
+    function categoriesFormGenerated(category) {
+
+        if (!category) {
+            return;
+        }
+
+        $("#template_child_form").append('<div class="appm"></div>');
+        $("#template_child_form").append('<input type="checkbox" category_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category['name']);
+
+        $("#template_child_form").append('<div class="form-control show_form_if_is_checked_' + category['id'] + '" style="display: none">' +
+            '<div class="">' +
+            '<label class="agile-label" for="customer">Furnizor</label>' +
+            '<br>' +
+            '<input name="customer" class="" id="customer{{$category->id}}"/>' +
+            '</div>' +
+
+            '<div class="">' +
+            '<label>Custom Code</label>' +
+            '<br>' +
+            '<input name="bill_number" class="" id="custom_code{{$category->id}}"/>' +
+            '</div>' +
+
+            '<div class="">' +
+            '<label>Data Facturarii</label>' +
+            '<br>' +
+            '<input name="bill_date" class="" id="bil_date{{$category->id}}"/>' +
+            '</div>' +
+
+            '<div class="">' +
+            '<label>Numarul Facturii</label>' +
+            '<br>' +
+            '<input name="bill_number" class="" id="bill_number{{$category->id}}"/>' +
+            '</div>' +
+
+            '<div class="">' +
+            '<label>Cantitatea</label>' +
+            '<br>' +
+            '<input type="number" class="" name="amount" id="amount{{$category->id}}"/>' +
+            '</div>'
+        );
+    }
+
+
+    function validateTemplateFields() {
+        let validator = [];
+        validator[0] = $('#parent_template').validate().element("#marketing_category_id");
+        validator[1] = $('#parent_template').validate().element("#style_category_id");
+        validator[2] = $('#parent_template').validate().element("#cuffs");
+        validator[3] = $('#parent_template').validate().element("#slits");
+        validator[4] = $('#parent_template').validate().element("#sleeves");
+        validator[5] = $('#parent_template').validate().element("#pockets");
+        validator[6] = $('#parent_template').validate().element("#stitching");
+        validator[7] = $('#parent_template').validate().element("#seams_colour");
+        validator[8] = $('#parent_template').validate().element("#template_buttons");
+        validator[9] = $('#parent_template').validate().element("#interlining");
+        validator[10] = $('#parent_template').validate().element("#number_of_child");
+        validator[11] = $('#parent_template').validate().element("#template_name");
+
+        for (let i = 0; i < validator.length; ++i) {
+            if (!validator[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 });
 
