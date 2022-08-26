@@ -48,16 +48,66 @@
                     </select>
                 </div>
 
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="style_category_id">Specificatia:</label>
-                    <select class="form-control required" name="style_category_id" id="style_category_id" required>
-                        @foreach($style_categories as $style_category)
-                            <option value="{{$style_category->id}}">{{$style_category->name}}</option>
-                        @endforeach
+{{--                <div class="form-group col-xs-12 col-sm-12 col-md-12">--}}
+{{--                    <label for="style_category_id">Specificatia:</label>--}}
+{{--                    <select class="form-control required" name="style_category_id" id="style_category_id" required>--}}
+{{--                        @foreach($style_categories as $style_category)--}}
+{{--                            <option value="{{$style_category->id}}">{{$style_category->name}}</option>--}}
+{{--                        @endforeach--}}
 
-                        <option selected="selected" value="">No category</option>
-                    </select>
+{{--                        <option selected="selected" value="">No category</option>--}}
+{{--                    </select>--}}
 
+{{--                </div>--}}
+
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group required">
+                        <strong>Category:</strong>
+                        <input type="text" name="category" class="form-control required" placeholder="Category" id="category">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group required">
+                        <strong>Theme:</strong>
+                        <input type="text" name="theme" class="form-control required" placeholder="Theme" id="theme">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group required">
+                        <strong>Styles:</strong>
+                        <input type="text" name="styles" class="form-control required" placeholder="Styles" id="styles">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group required">
+                        <strong>Occasion :</strong>
+                        <input type="text" name="occasion" class="form-control required" placeholder="Occasion " id="occasion ">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group required">
+                        <strong>Seasonality:</strong>
+                        <input type="text" name="seasonality" class="form-control required" placeholder="Seasonality" id="seasonality">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group required">
+                        <strong>Author:</strong>
+                        <input type="text" name="author" class="form-control required" placeholder="Author" id="author">
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group required">
+                        <strong>Collection:</strong>
+                        <input type="text" name="collection" class="form-control required" placeholder="Collection" id="collection">
+                    </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
