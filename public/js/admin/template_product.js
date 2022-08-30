@@ -296,6 +296,7 @@ $(document).ready(function () {
     });
 
     function validateTemplateFields() {
+
         let validator = [];
         validator[0] = $('#parent_template').validate().element("#marketing_category_id");
         validator[1] = $('#parent_template').validate().element("#category");
@@ -327,7 +328,6 @@ $(document).ready(function () {
     function getCustomer_category_id_by_child_id(input_id) {
         return $('#' + input_id).parent().parent().attr("category_id");
     }
-
 
 });
 
