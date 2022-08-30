@@ -328,6 +328,7 @@ $(document).ready(function () {
         return $('#' + input_id).parent().parent().attr("category_id");
     }
 
+
 });
 
 
