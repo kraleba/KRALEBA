@@ -143,7 +143,33 @@ class CustomerWares extends Model
 
     }
 
-    public function get_suggestions_for_textiles_filters($customer_name, $textiles_composition, $textiles_material, $textiles_design, $textiles_color, $textiles_structure, $textiles_weaving, $textiles_finishing, $textiles_rating)
+    public function get_wares_suggestions_for_customer($term, $row_name, $customer_id = null, $product_name_selected = null)
+    {
+        if (!$row_name) {
+            return false;
+        }
+
+        $dynamic_query = '';
+        if ($customer_id) {
+            $dynamic_query .= "AND customer_id = {$customer_id}";
+        }
+
+        if ($product_name_selected) {
+            $dynamic_query .= " AND product_name = '{$product_name_selected}'";
+        }
+
+        $query = "SELECT {$row_name}
+                FROM customer_wares
+                WHERE {$row_name} LIKE '%{$term}%'
+                {$dynamic_query}
+                ORDER BY {$row_name}";
+//dd($product_name_selected);
+        return DB::select($query);
+
+    }
+
+    public
+    function get_suggestions_for_textiles_filters($customer_name, $textiles_composition, $textiles_material, $textiles_design, $textiles_color, $textiles_structure, $textiles_weaving, $textiles_finishing, $textiles_rating)
     {
         $query_options = '';
 

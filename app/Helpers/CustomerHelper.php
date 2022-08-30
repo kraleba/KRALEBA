@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bills;
 use App\Models\Customers;
 use App\Models\CustomerWares;
 use App\Models\Products;
@@ -16,6 +17,7 @@ class CustomerHelper extends Controller
     public Customers $customers;
     public CustomerWares $wares;
     public ProductTemplateParent $templateParent;
+    public Bills $bills;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class CustomerHelper extends Controller
         $this->customers = new Customers();
         $this->wares = new CustomerWares();
         $this->templateParent = new ProductTemplateParent();
+        $this->bills = new Bills();
     }
 
     public function helper_get_categories_to_customers($customers)
@@ -191,14 +194,37 @@ class CustomerHelper extends Controller
     public function customers_autocomplete(Request $request)
     {
 
-        $res = $this->customers->get_customer_name_by_search($request->term);
+        $res = $this->customers->get_customer_name_by_search($request->term, $request->category_id ?? '');
 
         return response()->json($res);
     }
 
+    public function search_ware_name(Request $request)
+    {
+
+        $res = $this->wares->get_wares_suggestions_for_customer($request->term, $request->row_name, $request->customer_id, $request->product_name_selected);
+
+        return response()->json($res);
+    }
+
+    public function bills_autocomplete(Request $request)
+    {
+        $res = $this->bills->get_bills_to_autocomplete_suggestions(
+            $request->term,
+            $request->customer_id,
+            $request->row_name,
+            $request->ware_custom_code,
+            $request->ware_product_name_selected,
+            $request->bill_date
+        );
+
+        return response()->json($res);
+
+    }
+
     public function find_textiles_filters(Request $request)
     {
-        $res = $this->wares->get_textiles_filters_suggestions($request->input('term'), $request->input('row_name'));
+        $res = $this->wares->get_wares_suggestions_for_customer($request->input('term'), $request->input('row_name'));
 //        dd($request->input('row_name'));
 
         return response()->json($res);
@@ -215,7 +241,7 @@ class CustomerHelper extends Controller
 
     public function customer_separe_categories_from_subcategories($customer)
     {
-        if(!$customer['categories']) {
+        if (!$customer['categories']) {
             return false;
         }
 

@@ -7,41 +7,56 @@ $(document).ready(function () {
 
     const template_values = [];
     let index = 1;
+    let numberOfTextile = 1;
 
     $(".child-validate").click(function () {
 
         let categories = $('.categories_area').attr('categories');
         categories = JSON.parse(categories);
+        let categories_id = [];
+
+        for (let i = 0; i < categories.length; ++i) {
+            categories_id[i] = categories[i]['id'];
+        }
+
+        let categoryLength = categories_id.length + numberOfTextile;
+        for (let i = categories_id.length; i < categoryLength; ++i) {
+            categories_id[i] = i;
+        }
 
         let form_customer = [];
-        for (let i = 0, j = 0; i < categories.length; ++i) {
+        for (let i = 0, j = 0; i < categories_id.length + numberOfTextile; ++i) {
 
-            if ($('#check_if_is_checked' + categories[i]['id']).is(":checked")) {
+
+            if ($('#check_if_is_checked' + categories_id[i]).is(":checked") !== false) {
+
                 form_customer[j] = {
-                    'customer_id': $('#customer' + categories[i]['id']).val(),
-                    'custom_code': $('#custom_code' + categories[i]['id']).val(),
-                    'bill_date': $('#bil_date' + categories[i]['id']).val(),
-                    'bill_number': $('#bill_number' + categories[i]['id']).val(),
-                    'amount': $('#amount' + categories[i]['id']).val(),
-                    'category_id': categories[i]['id']
+                    'customer_id': $('#customer' + categories_id[i]).val(),
+                    'product_name': $('#product_name' + categories_id[i]).val(),
+                    'custom_code': $('#custom_code' + categories_id[i]).val(),
+                    'bill_date': $('#bil_date' + categories_id[i]).val(),
+                    'bill_number': $('#bill_number' + categories_id[i]).val(),
+                    'amount': $('#amount' + categories_id[i]).val(),
+                    'category_id': categories_id[i]
                 }
 
-                $('#check_if_is_checked' + categories[i]['id']).prop("checked", false);
-                $("#show_category_by_id" + categories[i]['id']).hide();
+                $('#check_if_is_checked' + categories_id[i]).prop("checked", false);
+                $(".show_form_if_is_checked_" + categories_id[i]).hide();
 
                 ++j
             }
 
-            $('#customer' + categories[i]['id']).val('');
-            $('#custom_code' + categories[i]['id']).val('');
-            $('#bil_date' + categories[i]['id']).val('');
-            $('#bill_number' + categories[i]['id']).val('');
-            $('#amount' + categories[i]['id']).val('');
+            $('#customer' + categories_id[i]).val('');
+            $('#product_name' + categories_id[i]).val('');
+            $('#custom_code' + categories_id[i]).val('');
+            $('#bil_date' + categories_id[i]).val('');
+            $('#bill_number' + categories_id[i]).val('');
+            $('#amount' + categories_id[i]).val('');
 
         }
+        // console.log(form_customer);
+        // $(".show_form_if_is_checked_").hide();
 
-        console.log($('.number_of_child').val());
-        console.log(index);
         if (index === parseInt($('.number_of_child').val())) {
             console.log('asdfasdfasdfasdfasdfasd');
             $('#salve_parent_product').show();
@@ -79,8 +94,6 @@ $(document).ready(function () {
     });
 
 
-
-
     $('.generate-template-children-form').click(function () {
 
         //validate if required fields is implemented.
@@ -88,6 +101,8 @@ $(document).ready(function () {
         if (!validator) {
             return false;
         }
+        console.log('testdd');
+
 
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
@@ -109,19 +124,165 @@ $(document).ready(function () {
 
     });
 
-    let numberOfTextile = 2;
-
     // add new form for textile
     $('#add_more_textile_btn').on('click', '.add-more-textile', function () {
+
         let category = {
             id: 8 + numberOfTextile,
-            name: 'Textile' + numberOfTextile
+            name: 'Textile' + (numberOfTextile + 1)
         };
 
         ++numberOfTextile;
         categoriesFormGenerated(category);
+
     });
 
+
+    function categoriesFormGenerated(category) {
+
+        if (!category) {
+            return;
+        }
+
+        // $("#template_child_form").append();
+
+        $("#template_child_form").append(
+            '<div class="">' +
+            '<input type="checkbox" id="check_if_is_checked' + category['id'] + '" ' +
+            'category_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category["name"] +
+            '</div>' +
+
+            '<div class="form-control show_form_if_is_checked_' + category['id'] + '" category_id="' + category["id"] + '" id="child-form-box" ' + 'style="display: none">' +
+            '<div class="form-group">' +
+            '<label class="agile-label" for="customer">Furnizor</label>' +
+            '<input name="customer" class="form-control autocomplete_customer" id="customer' + category['id'] + '"/>' +
+            '</div>' +
+
+            '<div class="form-group">' +
+            '<label>Articol Name</label>' +
+            '<input name="product_name" class="form-control autocomplete_article_name" id="product_name' + category['id'] + '"/>' +
+            '</div>' +
+
+            '<div class="form-group">' +
+            '<label>Custom Code</label>' +
+            '<input name="custom_code" class="form-control autocomplete_custom_code" id="custom_code' + category['id'] + '"/>' +
+            '</div>' +
+
+            '<div class="form-group">' +
+            '<label>Data Facturarii</label>' +
+            '<input name="bill_date" class="form-control bill_date" id="bill_date' + category['id'] + '"/>' +
+            '</div>' +
+
+            '<div class="form-group">' +
+            '<label>Numarul Facturii</label>' +
+            '<input name="bill_number" class="form-control bill_number" id="bill_number' + category['id'] + '"/>' +
+            '</div>' +
+
+            '<div class="form-group">' +
+            '<label>Cantitatea</label>' +
+            '<input type="number" class="form-control" name="amount" id="amount' + category['id'] + '"/>' +
+            '</div>'
+        );
+
+        let customer_id_selected = [];
+        /*search customers*/
+        $(".autocomplete_customer").autocomplete({
+            source: function (request, response) {
+                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
+                if (!category_id) {
+                    return false;
+                }
+                searchCustomersSuggestions(request, response, category_id);
+            },
+            select: function (event, ui) {
+                customer_id_selected['category_id' + ui.item.category_id] = ui.item.id;
+            },
+            minLength: 0
+        });
+
+        /*search ware name*/
+        $(".autocomplete_article_name").autocomplete({
+            source: function (request, response) {
+                let row_name = $(this.element).prop("name");
+                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
+
+                if (!row_name || !category_id) {
+                    return false;
+                }
+
+                searchWareByCustomerId(request, response, row_name, customer_id_selected ['category_id' + category_id]);
+            },
+            minLength: 0
+        });
+
+        /*search custom code from ware*/
+        $(".autocomplete_custom_code").autocomplete({
+            source: function (request, response) {
+
+                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
+                let product_name_selected = $('#product_name' + category_id).val();
+                let row_name = $(this.element).prop("name");
+                if (!product_name_selected || !row_name) {
+                    return false;
+                }
+
+                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id], product_name_selected);
+            },
+            minLength: 0
+        });
+
+        /* search bill date by customer_id, ware name, custom code*/
+        $(".bill_date").autocomplete({
+            source: function (request, response) {
+
+                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
+                let row_name = $(this.element).prop("name");
+                let product_name_selected = $('#product_name' + category_id).val();
+                let ware_custom_code = $('#custom_code' + category_id).val();
+
+                if (!category_id || !row_name || !customer_id_selected['category_id' + category_id] || !product_name_selected || !ware_custom_code) {
+                    return false;
+                }
+
+                let suggestions_criteria = {
+                    row_name: row_name,
+                    customer_id: customer_id_selected['category_id' + category_id],
+                    ware_product_name_selected: product_name_selected,
+                    ware_custom_code: ware_custom_code
+                }
+
+                searchBillsDataByCustomerId(request, response, suggestions_criteria);
+            },
+            minLength: 0
+        });
+
+        /*bill number*/
+        $(".bill_number").autocomplete({
+            source: function (request, response) {
+
+                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
+                let row_name = $(this.element).prop("name");
+                let product_name_selected = $('#product_name' + category_id).val();
+                let ware_custom_code = $('#custom_code' + category_id).val();
+                let bill_data = $('#bill_date' + category_id).val();
+
+                if (!category_id || !row_name || !customer_id_selected['category_id' + category_id] || !product_name_selected || !ware_custom_code || !bill_data) {
+                    return false;
+                }
+
+                let suggestions_criteria = {
+                    row_name: row_name,
+                    customer_id: customer_id_selected['category_id' + category_id],
+                    ware_product_name_selected: product_name_selected,
+                    ware_custom_code: ware_custom_code,
+                    bill_data: bill_data
+                }
+
+                searchBillsDataByCustomerId(request, response, suggestions_criteria);
+            },
+            minLength: 0
+        });
+    }
 
     $('#template_child_form').on('click', '.checkbox_customer_category', function () {
 
@@ -134,63 +295,26 @@ $(document).ready(function () {
         }
     });
 
-    function categoriesFormGenerated(category) {
-
-        if (!category) {
-            return;
-        }
-
-        $("#template_child_form").append('<div class="appm"></div>');
-        $("#template_child_form").append('<input type="checkbox" category_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category['name']);
-
-        $("#template_child_form").append('<div class="form-control show_form_if_is_checked_' + category['id'] + '" style="display: none">' +
-            '<div class="">' +
-            '<label class="agile-label" for="customer">Furnizor</label>' +
-            '<br>' +
-            '<input name="customer" class="" id="customer{{$category->id}}"/>' +
-            '</div>' +
-
-            '<div class="">' +
-            '<label>Custom Code</label>' +
-            '<br>' +
-            '<input name="bill_number" class="" id="custom_code{{$category->id}}"/>' +
-            '</div>' +
-
-            '<div class="">' +
-            '<label>Data Facturarii</label>' +
-            '<br>' +
-            '<input name="bill_date" class="" id="bil_date{{$category->id}}"/>' +
-            '</div>' +
-
-            '<div class="">' +
-            '<label>Numarul Facturii</label>' +
-            '<br>' +
-            '<input name="bill_number" class="" id="bill_number{{$category->id}}"/>' +
-            '</div>' +
-
-            '<div class="">' +
-            '<label>Cantitatea</label>' +
-            '<br>' +
-            '<input type="number" class="" name="amount" id="amount{{$category->id}}"/>' +
-            '</div>'
-        );
-    }
-
-
     function validateTemplateFields() {
         let validator = [];
         validator[0] = $('#parent_template').validate().element("#marketing_category_id");
-        validator[1] = $('#parent_template').validate().element("#style_category_id");
-        validator[2] = $('#parent_template').validate().element("#cuffs");
-        validator[3] = $('#parent_template').validate().element("#slits");
-        validator[4] = $('#parent_template').validate().element("#sleeves");
-        validator[5] = $('#parent_template').validate().element("#pockets");
-        validator[6] = $('#parent_template').validate().element("#stitching");
-        validator[7] = $('#parent_template').validate().element("#seams_colour");
-        validator[8] = $('#parent_template').validate().element("#template_buttons");
-        validator[9] = $('#parent_template').validate().element("#interlining");
-        validator[10] = $('#parent_template').validate().element("#number_of_child");
-        validator[11] = $('#parent_template').validate().element("#template_name");
+        validator[1] = $('#parent_template').validate().element("#category");
+        validator[2] = $('#parent_template').validate().element("#theme");
+        validator[3] = $('#parent_template').validate().element("#styles");
+        validator[4] = $('#parent_template').validate().element("#occasion");
+        validator[5] = $('#parent_template').validate().element("#seasonality");
+        validator[6] = $('#parent_template').validate().element("#author");
+        validator[7] = $('#parent_template').validate().element("#collection");
+        validator[8] = $('#parent_template').validate().element("#cuffs");
+        validator[9] = $('#parent_template').validate().element("#slits");
+        validator[10] = $('#parent_template').validate().element("#sleeves");
+        validator[11] = $('#parent_template').validate().element("#pockets");
+        validator[12] = $('#parent_template').validate().element("#stitching");
+        validator[13] = $('#parent_template').validate().element("#seams_colour");
+        validator[14] = $('#parent_template').validate().element("#template_buttons");
+        validator[15] = $('#parent_template').validate().element("#interlining");
+        validator[16] = $('#parent_template').validate().element("#number_of_child");
+        validator[17] = $('#parent_template').validate().element("#template_name");
 
         for (let i = 0; i < validator.length; ++i) {
             if (!validator[i]) {
@@ -198,6 +322,10 @@ $(document).ready(function () {
             }
         }
         return true;
+    }
+
+    function getCustomer_category_id_by_child_id(input_id) {
+        return $('#' + input_id).parent().parent().attr("category_id");
     }
 
 });

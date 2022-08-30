@@ -20,6 +20,8 @@
     <script src="{{ asset('js/admin/ware_textile.js') }}" defer></script>
     <script src="{{ asset('js/admin/template_product.js') }}" defer></script>
     <script src="{{ asset('js/admin/product_marketing.js') }}" defer></script>
+    <script src="{{ asset('js/admin/admin_helper.js') }}" defer></script>
+
 
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -40,9 +42,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <script src="http://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
-
-
-    {{----}}
+    {{--end scripts--}}
 
 
 

@@ -278,13 +278,27 @@ class Customers extends Model
         return $customers;
     }
 
-    public function get_customer_name_by_search($data)
+    public function get_customer_name_by_search($data, $category_id)
     {
-        $query = "SELECT name, id FROM customers WHERE name LIKE '%{$data}%' OR unique_code LIKE '%{$data}%' ";
-        $results = DB::select($query);
+        $and = '';
+        if ($category_id) {
+            $and_or = "AND cc.category_id = {$category_id}";
+        } else {
 
-//        dd($results);
-        return $results;
+            $and_or = "OR c.unique_code LIKE '%{$data}%'";
+        }
+
+        $query = "SELECT c.name, c.id
+                FROM customers AS c
+                LEFT JOIN customers_id_categories AS cc
+                ON c.id = cc.customer_id
+                WHERE c.name LIKE '%{$data}%'
+                 {$and_or}
+                GROUP BY c.name, c.id
+                ORDER BY c.name";
+//        dump($query);
+
+        return DB::select($query);
 
     }
 

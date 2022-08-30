@@ -48,19 +48,6 @@
                     </select>
                 </div>
 
-{{--                <div class="form-group col-xs-12 col-sm-12 col-md-12">--}}
-{{--                    <label for="style_category_id">Specificatia:</label>--}}
-{{--                    <select class="form-control required" name="style_category_id" id="style_category_id" required>--}}
-{{--                        @foreach($style_categories as $style_category)--}}
-{{--                            <option value="{{$style_category->id}}">{{$style_category->name}}</option>--}}
-{{--                        @endforeach--}}
-
-{{--                        <option selected="selected" value="">No category</option>--}}
-{{--                    </select>--}}
-
-{{--                </div>--}}
-
-
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group required">
                         <strong>Category:</strong>
@@ -85,7 +72,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group required">
                         <strong>Occasion :</strong>
-                        <input type="text" name="occasion" class="form-control required" placeholder="Occasion " id="occasion ">
+                        <input type="text" name="occasion" class="form-control required" placeholder="Occasion " id="occasion">
                     </div>
                 </div>
 
