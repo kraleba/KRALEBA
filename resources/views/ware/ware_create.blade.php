@@ -26,32 +26,24 @@
                     <option>Selecteaza o subcategorie</option>
 
                     @foreach($customer_categories as $category)
-
                         @if($category['id'] != 8)
                             <optgroup label="{{$category['name'] ?? ''}}">
                                 @endif
                                 @foreach($customer['categories'] as $subcategory)
-
                                     @if($category['id'] == $subcategory->category_id)
                                         <option
                                             @if($subcategory->name == "Textile")
                                                 style="color: red"
                                             @endif
+                                            value="{{json_encode($subcategory)}}"
                                         >
                                             {{$subcategory->name}}
                                         </option>
                                     @endif
-
                                 @endforeach
-
                                 @if($category['id'] != 8)
                             </optgroup>
                         @endif
-
-                        {{--                            @if($category['name'] == "Textile")--}}
-                        {{--                                <option value="Textile"--}}
-                        {{--                                        style="color: red">{{$category['name']}}</option>--}}
-                        {{--                            @endif--}}
                     @endforeach
 
                 </select>

@@ -50,18 +50,13 @@ class CustomerWaresControler extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
     public function create(Request $request)
     {
         $data['customer'] = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['customer_categories'] = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
-
-        if(!$data['customer_categories']) {
+//dd($data['customer']);
+        if (!$data['customer_categories']) {
             return '<h1>Acest client nu are categorii</h1>';
         }
 
@@ -69,52 +64,28 @@ class CustomerWaresControler extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(Request $request)
     {
         $data = $request->input();
+        $customer_categories_subcategories = json_decode($data['categories_json']);
 
-        if ($request->input('categories_json') == 'Textile') {
-            $data['category_id'] = 8;
+        $data['category_id'] = $customer_categories_subcategories->category_id;
+        $data['subcategory_id'] = $customer_categories_subcategories->subcategory_id;
 
-        } else {
-            $category = json_decode($request->input('categories_json'));
-            $data['category_id'] = isset($category->category_id);
-            $data['subcategory_id'] = isset($category->id);
-
-        }
         unset($data['categories_json']);
-//        dd($data);
-
+//dd($data);
         CustomerWares::create($data);
 
         return redirect()->route('wares.index', $request->input('customer_id'))
             ->with('success', 'customer created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\CustomerWares $custmerWares
-     * @return Response
-     */
     public function show(CustomerWares $custmerWares)
     {
         dd('testeee343');
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\CustomerWares $custmerWares
-     * @return Response
-     */
     public function edit(Request $request)
     {
 
@@ -128,13 +99,6 @@ class CustomerWaresControler extends Controller
         return view('ware.ware_edit', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\CustomerWares $custmerWares
-     * @return Response
-     */
     public function update(Request $request)
     {
 //        dd($request->ware);
@@ -145,12 +109,6 @@ class CustomerWaresControler extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param CustomerWares $customerWares
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(Request $request)
     {
 //        dd($request->ware);

@@ -205,7 +205,13 @@ class CustomerHelper extends Controller
     public function search_ware_name(Request $request)
     {
 
-        $res = $this->wares->get_wares_suggestions_for_customer($request->term, $request->row_name, $request->customer_id, $request->product_name_selected);
+        $res = $this->wares->get_wares_suggestions_for_customer(
+            $request->term,
+            $request->row_name,
+            $request->customer_id,
+            $request->product_name_selected,
+            $request->category_id,
+        );
 
         return response()->json($res);
     }

@@ -66,7 +66,7 @@ function searchBillsDataByCustomerId(request, response, suggestions_criteria) {
 /*---- Search Bill data after Customer ID END ----*/
 
 /*---- Ware name autocomplete ----*/
-function searchWareByCustomerId(request, response, row_name, customer_id, product_name_selected) {
+function searchWareByCustomerId(request, response, row_name, customer_id, category_id, product_name_selected) {
     $.ajax({
         url: "/admin/search_ware_name",
         type: 'GET',
@@ -74,7 +74,8 @@ function searchWareByCustomerId(request, response, row_name, customer_id, produc
             term: request.term,
             customer_id: customer_id,
             row_name: row_name,
-            product_name_selected: product_name_selected
+            category_id: category_id,
+            product_name_selected: product_name_selected,
         },
         dataType: "json",
         success: function (data) {

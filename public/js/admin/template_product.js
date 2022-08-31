@@ -48,7 +48,7 @@ $(document).ready(function () {
                     },
                     dataType: "json",
                     success: function (data) {
-                        if(data) {
+                        if (data) {
                             $('#check_if_is_checked' + categories_id[i]).prop("checked", false);
                             $(".show_form_if_is_checked_" + categories_id[i]).hide();
                             $('#customer' + categories_id[i]).val('');
@@ -67,7 +67,7 @@ $(document).ready(function () {
 
         }
 
-        if (index === parseInt($('.number_of_child').val()) - 1 ) {
+        if (index === parseInt($('.number_of_child').val()) - 1) {
             $('#salve_parent_product').show();
             $('.child-validate').hide();
         }
@@ -100,7 +100,7 @@ $(document).ready(function () {
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
         if (!validator) {
-            return false;
+            // return false;
         }
 
 
@@ -202,11 +202,10 @@ $(document).ready(function () {
                 let row_name = $(this.element).prop("name");
                 let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
 
-                if (!row_name || !category_id) {
+                if (!row_name || !category_id || !customer_id_selected['category_id' + category_id]) {
                     return false;
                 }
-
-                searchWareByCustomerId(request, response, row_name, customer_id_selected ['category_id' + category_id]);
+                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id], category_id);
             },
             minLength: 0
         });
@@ -218,11 +217,11 @@ $(document).ready(function () {
                 let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
                 let product_name_selected = $('#product_name' + category_id).val();
                 let row_name = $(this.element).prop("name");
-                if (!product_name_selected || !row_name) {
+                if (!product_name_selected || !row_name || !customer_id_selected['category_id' + category_id]) {
                     return false;
                 }
 
-                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id], product_name_selected);
+                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id],category_id, product_name_selected);
             },
             minLength: 0
         });
