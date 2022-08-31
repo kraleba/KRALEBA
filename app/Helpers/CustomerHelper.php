@@ -7,6 +7,7 @@ use App\Models\Bills;
 use App\Models\Customers;
 use App\Models\CustomerWares;
 use App\Models\Products;
+use App\Models\ProductTemplateChild;
 use App\Models\ProductTemplateParent;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,7 @@ class CustomerHelper extends Controller
     public Customers $customers;
     public CustomerWares $wares;
     public ProductTemplateParent $templateParent;
+    public ProductTemplateChild $templateChild;
     public Bills $bills;
 
     public function __construct()
@@ -25,6 +27,7 @@ class CustomerHelper extends Controller
         $this->customers = new Customers();
         $this->wares = new CustomerWares();
         $this->templateParent = new ProductTemplateParent();
+        $this->templateChild = new ProductTemplateChild();
         $this->bills = new Bills();
     }
 
@@ -236,6 +239,20 @@ class CustomerHelper extends Controller
         $res = $this->templateParent->get_parent_template_product_by_suggestions($request->term);
 //        dd($request->input());
         return response()->json($res);
+
+    }
+
+    public function template_child_validator(Request $request)
+    {
+
+        $res = $this->templateChild->validate_child_template_if_data_exists($request->form_customer);
+
+        if ($res) {
+            $message = true;
+        } else {
+            $message = false;
+        }
+        return response()->json($message);
 
     }
 

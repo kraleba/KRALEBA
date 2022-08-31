@@ -123,7 +123,7 @@ class Bills extends Model
                 ON w.bill_id = b.id
                 WHERE b.customer_id = {$customer_id}
                 AND b.{$row_name} LIKE '%{$term}%'
-                AND w.custom_code = {$ware_custom_code}
+                AND w.custom_code = '{$ware_custom_code}'
                 AND w.product_name = '{$ware_product_name_selected}'
 
         ";

@@ -18,8 +18,14 @@ return new class extends Migration
         Schema::create('product_template_parents', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->integer('category_style_id')->nullable();
             $table->integer('marketing_category_id')->nullable();
+            $table->string('category')->nullable();
+            $table->string('theme')->nullable();
+            $table->string('styles')->nullable();
+            $table->string('occasion')->nullable();
+            $table->string('seasonality')->nullable();
+            $table->string('author')->nullable();
+            $table->string('collection')->nullable();
             $table->string('cuffs')->nullable();
             $table->string('slits')->nullable();
             $table->string('sleeves')->nullable();

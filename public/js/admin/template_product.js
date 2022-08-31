@@ -6,13 +6,13 @@ $(document).ready(function () {
     });
 
     const template_values = [];
-    let index = 1;
+    let index = 0;
     let numberOfTextile = 1;
+    let customer_id_selected = [];
 
     $(".child-validate").click(function () {
 
-        let categories = $('.categories_area').attr('categories');
-        categories = JSON.parse(categories);
+        let categories = JSON.parse($('.categories_area').attr('categories'));
         let categories_id = [];
 
         for (let i = 0; i < categories.length; ++i) {
@@ -29,36 +29,45 @@ $(document).ready(function () {
 
 
             if ($('#check_if_is_checked' + categories_id[i]).is(":checked") !== false) {
-
                 form_customer[j] = {
-                    'customer_id': $('#customer' + categories_id[i]).val(),
+                    'customer_name': $('#customer' + categories_id[i]).val(),
+                    'customer_id': customer_id_selected['category_id' + categories_id[i]],
                     'product_name': $('#product_name' + categories_id[i]).val(),
                     'custom_code': $('#custom_code' + categories_id[i]).val(),
-                    'bill_date': $('#bil_date' + categories_id[i]).val(),
                     'bill_number': $('#bill_number' + categories_id[i]).val(),
+                    'bill_date': $('#bill_date' + categories_id[i]).val(),
                     'amount': $('#amount' + categories_id[i]).val(),
                     'category_id': categories_id[i]
                 }
 
-                $('#check_if_is_checked' + categories_id[i]).prop("checked", false);
-                $(".show_form_if_is_checked_" + categories_id[i]).hide();
+                $.ajax({
+                    url: "/admin/template_child_validator",
+                    type: 'GET',
+                    data: {
+                        form_customer: form_customer[j],
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if(data) {
+                            $('#check_if_is_checked' + categories_id[i]).prop("checked", false);
+                            $(".show_form_if_is_checked_" + categories_id[i]).hide();
+                            $('#customer' + categories_id[i]).val('');
+                            $('#product_name' + categories_id[i]).val('');
+                            $('#custom_code' + categories_id[i]).val('');
+                            $('#bill_date' + categories_id[i]).val('');
+                            $('#bill_number' + categories_id[i]).val('');
+                            $('#amount' + categories_id[i]).val('');
+                        }
+                    },
+
+                });
 
                 ++j
             }
 
-            $('#customer' + categories_id[i]).val('');
-            $('#product_name' + categories_id[i]).val('');
-            $('#custom_code' + categories_id[i]).val('');
-            $('#bil_date' + categories_id[i]).val('');
-            $('#bill_number' + categories_id[i]).val('');
-            $('#amount' + categories_id[i]).val('');
-
         }
-        // console.log(form_customer);
-        // $(".show_form_if_is_checked_").hide();
 
         if (index === parseInt($('.number_of_child').val())) {
-            console.log('asdfasdfasdfasdfasdfasd');
             $('#salve_parent_product').show();
             $('.child-validate').hide();
         }
@@ -70,11 +79,6 @@ $(document).ready(function () {
 
     });
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
 
     $(".child-salve").click(function () {
         let number_of_child = $('.number_of_child').val();
@@ -90,18 +94,15 @@ $(document).ready(function () {
         $('#categories_template_child').val(JSON.stringify(template_values));
         $('#product_template_child').val(JSON.stringify(template_child));
 
-
     });
-
 
     $('.generate-template-children-form').click(function () {
 
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
         if (!validator) {
-            return false;
+            // return false;
         }
-        console.log('testdd');
 
 
         $('.generate-template-children-form').hide();
@@ -137,14 +138,11 @@ $(document).ready(function () {
 
     });
 
-
     function categoriesFormGenerated(category) {
 
         if (!category) {
             return;
         }
-
-        // $("#template_child_form").append();
 
         $("#template_child_form").append(
             '<div class="">' +
@@ -184,7 +182,6 @@ $(document).ready(function () {
             '</div>'
         );
 
-        let customer_id_selected = [];
         /*search customers*/
         $(".autocomplete_customer").autocomplete({
             source: function (request, response) {
@@ -296,7 +293,6 @@ $(document).ready(function () {
     });
 
     function validateTemplateFields() {
-
         let validator = [];
         validator[0] = $('#parent_template').validate().element("#marketing_category_id");
         validator[1] = $('#parent_template').validate().element("#category");

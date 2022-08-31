@@ -12,7 +12,13 @@ class ProductTemplateParent extends Model
 
     protected $fillable = [
         'type',
-        'category_style_id',
+        'category',
+        'theme',
+        'styles',
+        'occasion',
+        'seasonality',
+        'author',
+        'collection',
         'marketing_category_id',
         'cuffs',
         'slits',
