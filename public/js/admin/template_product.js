@@ -100,7 +100,7 @@ $(document).ready(function () {
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
         if (!validator) {
-            // return false;
+            return false;
         }
 
 
