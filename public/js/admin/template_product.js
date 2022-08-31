@@ -79,7 +79,6 @@ $(document).ready(function () {
 
     });
 
-
     $(".child-salve").click(function () {
         let number_of_child = $('.number_of_child').val();
 
@@ -101,7 +100,7 @@ $(document).ready(function () {
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
         if (!validator) {
-            // return false;
+            return false;
         }
 
 
