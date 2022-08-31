@@ -46,7 +46,6 @@ class ProductTemplateController extends Controller
 
         $data['customer_categories'] = $this->product->get_furnace_categories();
         $data['marketing_categories'] = $this->template->get_marketing_template_categories();
-        $data['style_categories'] = $this->template->get_style_template_categories();
 
         return view('products_template.template_create', $data);
     }

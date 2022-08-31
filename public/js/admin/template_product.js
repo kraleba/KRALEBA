@@ -67,7 +67,7 @@ $(document).ready(function () {
 
         }
 
-        if (index === parseInt($('.number_of_child').val())) {
+        if (index === parseInt($('.number_of_child').val()) - 1 ) {
             $('#salve_parent_product').show();
             $('.child-validate').hide();
         }
