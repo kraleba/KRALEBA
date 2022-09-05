@@ -20,7 +20,7 @@
 
     @endif
 
-    <form action="{{ route('templates.store') }}" method="POST" id="parent_template">
+    <form action="{{ route('templates.store') }}" method="POST" id="parent_template" enctype="multipart/form-data">
         @csrf
         <div id="customerOrProviderForm">
 
@@ -177,7 +177,6 @@
                     <input type="text" name="product_name" id="template_name" class="form-control required"
                            placeholder="Product Name">
                 </div>
-
 
                 <input type="hidden" name="categories_template_child" id="categories_template_child">
                 <input type="hidden" name="product_template_child" id="product_template_child">

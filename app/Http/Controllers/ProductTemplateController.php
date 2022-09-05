@@ -12,6 +12,7 @@ use App\Models\ProductTemplateParent;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
+
 class ProductTemplateController extends Controller
 {
 
@@ -55,11 +56,10 @@ class ProductTemplateController extends Controller
         $parent_template = $request->input();
         unset($parent_template['categories_template_child']);
         unset($parent_template['product_template_child']);
-//        unset($parent_template['_token']);
+
         $child_categories_template = (array)json_decode($request->input('categories_template_child'));
         $child_template = (array)json_decode($request->input('product_template_child'));
 //        dd($child_categories_template);
-//        dd($request->input());
 
         $this->template_child->create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template);
 

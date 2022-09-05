@@ -250,15 +250,7 @@ class CustomerHelper extends Controller
 
     public function template_child_validator(Request $request)
     {
-
-        $res = $this->templateChild->validate_child_template_if_data_exists($request->form_customer);
-
-        if ($res) {
-            $message = true;
-        } else {
-            $message = false;
-        }
-        return response()->json($message);
+        return response()->json($this->templateChild->validate_child_template_if_data_exists($request->form_customer));
 
     }
 

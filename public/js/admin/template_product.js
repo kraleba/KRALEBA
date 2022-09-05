@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('#template_gender_type, #template_gender_type1').click(function () {
         if ($(this).is(':checked')) {
             $("#template_parent_box").show();
@@ -9,6 +10,7 @@ $(document).ready(function () {
     let index = 0;
     let numberOfTextile = 1;
     let customer_id_selected = [];
+    let child_photos = null;
 
     $(".child-validate").click(function () {
 
@@ -19,19 +21,56 @@ $(document).ready(function () {
             categories_id[i] = categories[i]['id'];
         }
 
-        let categoryLength = categories_id.length + numberOfTextile;
+        let categoryLength = categories_id.length + numberOfTextile - 1;
         for (let i = categories_id.length; i < categoryLength; ++i) {
             categories_id[i] = i;
         }
 
-        let form_customer = [];
-        for (let i = 0, j = 0; i < categories_id.length + numberOfTextile; ++i) {
+        /*verify if form is valid and return data*/
+        let form_customer = verifyIfChildFormIsCompletedCorrect(categories_id);
 
+        if (form_customer) {
+            emptyTheChildrenFilledFields(categories_id);
+
+            if (index === parseInt($('.number_of_child').val()) - 1) {
+                $('#salve_parent_product').show();
+                $('.child-validate').hide();
+            }
+
+            if (form_customer.length > 0) {
+
+                child_photos = {
+                    'photo1': $('#template_photo1').val(),
+                    'photo2': $('#template_photo2').val(),
+                    'photo3': $('#template_photo3').val(),
+                }
+
+                template_values[index] = {
+                    'form_customer': form_customer,
+
+                };
+
+                numberOfChildrenGenerated();
+
+                ++index;
+
+                $('#template_photo1').val('')
+                $('#template_photo2').val('')
+                $('#template_photo3').val('')
+            }
+        }
+    });
+
+    function verifyIfChildFormIsCompletedCorrect(categories_id) {
+
+        let form_customer = [];
+        let index = true;
+        for (let i = 0, j = 0; i < categories_id.length + numberOfTextile - 1; ++i) {
 
             if ($('#check_if_is_checked' + categories_id[i]).is(":checked") !== false) {
                 form_customer[j] = {
                     'customer_name': $('#customer' + categories_id[i]).val(),
-                    'customer_id': customer_id_selected['category_id' + categories_id[i]],
+                    'customer_id': customer_id_selected['category_id' + categories_id[i]] ? 0 : ' ',
                     'product_name': $('#product_name' + categories_id[i]).val(),
                     'custom_code': $('#custom_code' + categories_id[i]).val(),
                     'bill_number': $('#bill_number' + categories_id[i]).val(),
@@ -47,48 +86,33 @@ $(document).ready(function () {
                         form_customer: form_customer[j],
                     },
                     dataType: "json",
+                    async: false,
+
                     success: function (data) {
-                        if (data) {
-                            $('#check_if_is_checked' + categories_id[i]).prop("checked", false);
-                            $(".show_form_if_is_checked_" + categories_id[i]).hide();
-                            $('#customer' + categories_id[i]).val('');
-                            $('#product_name' + categories_id[i]).val('');
-                            $('#custom_code' + categories_id[i]).val('');
-                            $('#bill_date' + categories_id[i]).val('');
-                            $('#bill_number' + categories_id[i]).val('');
-                            $('#amount' + categories_id[i]).val('');
+                        if (!data) {
+                            index = false;
                         }
+
                     },
 
                 });
 
+                if (!index) {
+                    return false;
+                }
+
                 ++j
             }
-
         }
-
-        if (index === parseInt($('.number_of_child').val()) - 1) {
-            $('#salve_parent_product').show();
-            $('.child-validate').hide();
-        }
-
-        if (form_customer.length > 0) {
-            template_values[index] = form_customer;
-            ++index;
-        }
-
-    });
+        return form_customer;
+    }
 
     $(".child-salve").click(function () {
-        let number_of_child = $('.number_of_child').val();
 
         let template_child = {
-            'template_child_photo': '22',
-            // 'number_of_child': $('.number_of_child').val(),
             'product_name': $('#template_name').val(),
+            'photos': child_photos,
         }
-
-        // console.log(template_values);
 
         $('#categories_template_child').val(JSON.stringify(template_values));
         $('#product_template_child').val(JSON.stringify(template_child));
@@ -103,14 +127,13 @@ $(document).ready(function () {
             return false;
         }
 
-
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
         $('#number_of_child').attr('readonly', true);
         $('#template_name').attr('readonly', true);
 
-
         let categories = $('.categories_area').attr('categories');
+        numberOfChildrenGenerated();
 
         if (categories) {
             categories = JSON.parse(categories);
@@ -137,6 +160,7 @@ $(document).ready(function () {
 
     });
 
+    //children form
     function categoriesFormGenerated(category) {
 
         if (!category) {
@@ -152,32 +176,32 @@ $(document).ready(function () {
             '<div class="form-control show_form_if_is_checked_' + category['id'] + '" category_id="' + category["id"] + '" id="child-form-box" ' + 'style="display: none">' +
             '<div class="form-group">' +
             '<label class="agile-label" for="customer">Furnizor</label>' +
-            '<input name="customer" class="form-control autocomplete_customer" id="customer' + category['id'] + '"/>' +
+            '<input class="form-control autocomplete_customer" id="customer' + category['id'] + '"/>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Articol Name</label>' +
-            '<input name="product_name" class="form-control autocomplete_article_name" id="product_name' + category['id'] + '"/>' +
+            '<input class="form-control autocomplete_article_name" id="product_name' + category['id'] + '"/>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Custom Code</label>' +
-            '<input name="custom_code" class="form-control autocomplete_custom_code" id="custom_code' + category['id'] + '"/>' +
+            '<input class="form-control autocomplete_custom_code" id="custom_code' + category['id'] + '"/>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Data Facturarii</label>' +
-            '<input name="bill_date" class="form-control bill_date" id="bill_date' + category['id'] + '"/>' +
+            '<input class="form-control bill_date" id="bill_date' + category['id'] + '"/>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Numarul Facturii</label>' +
-            '<input name="bill_number" class="form-control bill_number" id="bill_number' + category['id'] + '"/>' +
+            '<input class="form-control bill_number" id="bill_number' + category['id'] + '"/>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Cantitatea</label>' +
-            '<input type="number" class="form-control" name="amount" id="amount' + category['id'] + '"/>' +
+            '<input type="number" class="form-control" id="amount' + category['id'] + '"/>' +
             '</div>'
         );
 
@@ -199,9 +223,8 @@ $(document).ready(function () {
         /*search ware name*/
         $(".autocomplete_article_name").autocomplete({
             source: function (request, response) {
-                let row_name = $(this.element).prop("name");
+                let row_name = 'product_name';
                 let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-
                 if (!row_name || !category_id || !customer_id_selected['category_id' + category_id]) {
                     return false;
                 }
@@ -216,12 +239,12 @@ $(document).ready(function () {
 
                 let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
                 let product_name_selected = $('#product_name' + category_id).val();
-                let row_name = $(this.element).prop("name");
+                let row_name = 'custom_code';
                 if (!product_name_selected || !row_name || !customer_id_selected['category_id' + category_id]) {
                     return false;
                 }
 
-                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id],category_id, product_name_selected);
+                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id], category_id, product_name_selected);
             },
             minLength: 0
         });
@@ -231,7 +254,7 @@ $(document).ready(function () {
             source: function (request, response) {
 
                 let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-                let row_name = $(this.element).prop("name");
+                let row_name = 'bill_date';
                 let product_name_selected = $('#product_name' + category_id).val();
                 let ware_custom_code = $('#custom_code' + category_id).val();
 
@@ -256,7 +279,7 @@ $(document).ready(function () {
             source: function (request, response) {
 
                 let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-                let row_name = $(this.element).prop("name");
+                let row_name = 'bill_number';
                 let product_name_selected = $('#product_name' + category_id).val();
                 let ware_custom_code = $('#custom_code' + category_id).val();
                 let bill_data = $('#bill_date' + category_id).val();
@@ -321,6 +344,27 @@ $(document).ready(function () {
 
     function getCustomer_category_id_by_child_id(input_id) {
         return $('#' + input_id).parent().parent().attr("category_id");
+    }
+
+    /*generates the number of children created and the maximum number of children*/
+    function numberOfChildrenGenerated() {
+        let number_of_child = template_values.length + ' / ' + $('.number_of_child').val();
+
+        $('.number-of-children-area').html(number_of_child);
+
+    }
+
+    function emptyTheChildrenFilledFields(categories_id) {
+        for (let i = 0; i < categories_id.length; ++i) {
+            $('#check_if_is_checked' + categories_id[i]).prop("checked", false);
+            $(".show_form_if_is_checked_" + categories_id[i]).hide();
+            $('#customer' + categories_id[i]).val('');
+            $('#product_name' + categories_id[i]).val('');
+            $('#custom_code' + categories_id[i]).val('');
+            $('#bill_date' + categories_id[i]).val('');
+            $('#bill_number' + categories_id[i]).val('');
+            $('#amount' + categories_id[i]).val('');
+        }
     }
 
 });
