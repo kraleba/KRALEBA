@@ -164,5 +164,4 @@ class BillsController extends Controller
         return view('customers.show', $data);
     }
 
-
 }
