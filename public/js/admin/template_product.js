@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
     $('#template_gender_type, #template_gender_type1').click(function () {
         if ($(this).is(':checked')) {
@@ -9,7 +10,6 @@ $(document).ready(function () {
     const template_values = [];
     let index = 0;
     let numberOfTextile = 1;
-    let customer_id_selected = [];
     let child_photos = null;
 
     $(".child-validate").click(function () {
@@ -21,7 +21,7 @@ $(document).ready(function () {
             categories_id[i] = categories[i]['id'];
         }
 
-        let categoryLength = categories_id.length + numberOfTextile - 1;
+        let categoryLength = categories_id.length + numberOfTextile;
         for (let i = categories_id.length; i < categoryLength; ++i) {
             categories_id[i] = i;
         }
@@ -62,21 +62,20 @@ $(document).ready(function () {
     });
 
     function verifyIfChildFormIsCompletedCorrect(categories_id) {
-
         let form_customer = [];
         let index = true;
-        for (let i = 0, j = 0; i < categories_id.length + numberOfTextile - 1; ++i) {
+        for (let i = 0, j = 0; i < categories_id.length + numberOfTextile; ++i) {
 
-            if ($('#check_if_is_checked' + categories_id[i]).is(":checked") !== false) {
+            if ($('#check_if_is_checked' + i).is(":checked") !== false) {
+
                 form_customer[j] = {
-                    'customer_name': $('#customer' + categories_id[i]).val(),
-                    'customer_id': customer_id_selected['category_id' + categories_id[i]] ? 0 : ' ',
-                    'product_name': $('#product_name' + categories_id[i]).val(),
-                    'custom_code': $('#custom_code' + categories_id[i]).val(),
-                    'bill_number': $('#bill_number' + categories_id[i]).val(),
-                    'bill_date': $('#bill_date' + categories_id[i]).val(),
-                    'amount': $('#amount' + categories_id[i]).val(),
-                    'category_id': categories_id[i]
+                    'customer_id': getFieldValueByFieldClassSelect2(i, 'customer', 'id'),
+                    'category_id': getFieldValueByFieldClassSelect2(i, 'customer', 'category_id'),
+                    'product_name': getFieldValueByFieldClassSelect2(i, 'product_name', 'text'),
+                    'custom_code': getFieldValueByFieldClassSelect2(i, 'custom_code', 'text'),
+                    'bill_date': getFieldValueByFieldClassSelect2(i, 'bill_date', 'text'),
+                    'bill_number': getFieldValueByFieldClassSelect2(i, 'bill_number', 'text'),
+                    'amount': $('#amount' + i).val(),
                 }
 
                 $.ajax({
@@ -97,7 +96,7 @@ $(document).ready(function () {
 
                 });
 
-                if (!index) {
+                if (!index || !form_customer[j]['amount']) {
                     return false;
                 }
 
@@ -141,179 +140,231 @@ $(document).ready(function () {
             return;
         }
 
-        for (let i = 0; i < categories.length; ++i) {
-            categoriesFormGenerated(categories[i]);
-        }
+        $.each(categories, function (key, value) {
+            categoriesFormGenerated(value);
+        });
 
     });
 
     // add new form for textile
-    $('#add_more_textile_btn').on('click', '.add-more-textile', function () {
+    $('#add_mote_items').click(function () {
 
-        let category = {
-            id: 8 + numberOfTextile,
-            name: 'Textile' + (numberOfTextile + 1)
-        };
+        let number_of_extra_items = $('#child_number_of_extra_items').val();
+        let category = [];
 
-        ++numberOfTextile;
-        categoriesFormGenerated(category);
+        if (number_of_extra_items > 0) {
+            $('#add_more_items_box').hide();
+        }
+
+        for (let i = 2; i < parseInt(number_of_extra_items) + 2; ++i) {
+
+            category = {
+                id: 8 + i,
+                name: 'Materii prime' + (i)
+            };
+            ++numberOfTextile;
+            categoriesFormGenerated(category, 8);
+        }
 
     });
 
     //children form
-    function categoriesFormGenerated(category) {
+    function categoriesFormGenerated(category, custom_category_id) {
 
         if (!category) {
             return;
         }
 
+        if (!custom_category_id) {
+            custom_category_id = category['id'];
+        }
+
         $("#template_child_form").append(
             '<div class="">' +
             '<input type="checkbox" id="check_if_is_checked' + category['id'] + '" ' +
-            'category_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category["name"] +
+            'category_id="' + custom_category_id + '" position_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category["name"] +
             '</div>' +
 
-            '<div class="form-control show_form_if_is_checked_' + category['id'] + '" category_id="' + category["id"] + '" id="child-form-box" ' + 'style="display: none">' +
+            '<div class="form-control show_form_if_is_checked_' + category['id'] + '"  id="child-form-box" ' +
+            'category_id="' + custom_category_id + '" ' +
+            'position_id="' + category['id'] + '" ' + 'style="display: none">' +
+
             '<div class="form-group">' +
             '<label class="agile-label" for="customer">Furnizor</label>' +
-            '<input class="form-control autocomplete_customer" id="customer' + category['id'] + '"/>' +
+            '<select class="form-control customer' + category['id'] + '" style="width: 200px;"> </select>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Articol Name</label>' +
-            '<input class="form-control autocomplete_article_name" id="product_name' + category['id'] + '"/>' +
+            '<select class="form-control product_name' + category['id'] + '" style="width: 200px;"> </select>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Custom Code</label>' +
-            '<input class="form-control autocomplete_custom_code" id="custom_code' + category['id'] + '"/>' +
+            '<select class="form-control custom_code' + category['id'] + '" style="width: 200px;"> </select>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Data Facturarii</label>' +
-            '<input class="form-control bill_date" id="bill_date' + category['id'] + '"/>' +
+            '<select class="form-control bill_date' + category['id'] + '" style="width: 200px;"> </select>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Numarul Facturii</label>' +
-            '<input class="form-control bill_number" id="bill_number' + category['id'] + '"/>' +
+            '<select class="form-control bill_number' + category['id'] + '" style="width: 200px;"> </select>' +
             '</div>' +
 
             '<div class="form-group">' +
             '<label>Cantitatea</label>' +
             '<input type="number" class="form-control" id="amount' + category['id'] + '"/>' +
+            '</div>' +
             '</div>'
         );
 
-        /*search customers*/
-        $(".autocomplete_customer").autocomplete({
-            source: function (request, response) {
-                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-                if (!category_id) {
-                    return false;
-                }
-                searchCustomersSuggestions(request, response, category_id);
-            },
-            select: function (event, ui) {
-                customer_id_selected['category_id' + ui.item.category_id] = ui.item.id;
-            },
-            minLength: 0
-        });
+        searchCustomers(category['id'], custom_category_id);
+        searchWareNameOrCustomCode('product_name', category['id'], custom_category_id, 'product_name');
+        searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
+        searchBillDateOrBillNumber('bill_date', category['id'], custom_category_id, 'bill_date');
+        searchBillDateOrBillNumber('bill_number', category['id'], custom_category_id, 'bill_number');
 
-        /*search ware name*/
-        $(".autocomplete_article_name").autocomplete({
-            source: function (request, response) {
-                let row_name = 'product_name';
-                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-                if (!row_name || !category_id || !customer_id_selected['category_id' + category_id]) {
-                    return false;
-                }
-                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id], category_id);
-            },
-            minLength: 0
-        });
-
-        /*search custom code from ware*/
-        $(".autocomplete_custom_code").autocomplete({
-            source: function (request, response) {
-
-                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-                let product_name_selected = $('#product_name' + category_id).val();
-                let row_name = 'custom_code';
-                if (!product_name_selected || !row_name || !customer_id_selected['category_id' + category_id]) {
-                    return false;
-                }
-
-                searchWareByCustomerId(request, response, row_name, customer_id_selected['category_id' + category_id], category_id, product_name_selected);
-            },
-            minLength: 0
-        });
-
-        /* search bill date by customer_id, ware name, custom code*/
-        $(".bill_date").autocomplete({
-            source: function (request, response) {
-
-                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-                let row_name = 'bill_date';
-                let product_name_selected = $('#product_name' + category_id).val();
-                let ware_custom_code = $('#custom_code' + category_id).val();
-
-                if (!category_id || !row_name || !customer_id_selected['category_id' + category_id] || !product_name_selected || !ware_custom_code) {
-                    return false;
-                }
-
-                let suggestions_criteria = {
-                    row_name: row_name,
-                    customer_id: customer_id_selected['category_id' + category_id],
-                    ware_product_name_selected: product_name_selected,
-                    ware_custom_code: ware_custom_code
-                }
-
-                searchBillsDataByCustomerId(request, response, suggestions_criteria);
-            },
-            minLength: 0
-        });
-
-        /*bill number*/
-        $(".bill_number").autocomplete({
-            source: function (request, response) {
-
-                let category_id = getCustomer_category_id_by_child_id($(this.element).prop("id"));
-                let row_name = 'bill_number';
-                let product_name_selected = $('#product_name' + category_id).val();
-                let ware_custom_code = $('#custom_code' + category_id).val();
-                let bill_data = $('#bill_date' + category_id).val();
-
-                if (!category_id || !row_name || !customer_id_selected['category_id' + category_id] || !product_name_selected || !ware_custom_code || !bill_data) {
-                    return false;
-                }
-
-                let suggestions_criteria = {
-                    row_name: row_name,
-                    customer_id: customer_id_selected['category_id' + category_id],
-                    ware_product_name_selected: product_name_selected,
-                    ware_custom_code: ware_custom_code,
-                    bill_data: bill_data
-                }
-
-                searchBillsDataByCustomerId(request, response, suggestions_criteria);
-            },
-            minLength: 0
-        });
     }
+
+    /*search customers*/
+    function searchCustomers(items_index, category_id) {
+        // Initialize select2
+        $(".customer" + items_index).select2({
+            rules: {
+                systemtype: {
+                    required: true
+                }
+            },
+            messages: {
+                systemtype: {
+                    required: "Please choose the system type",
+                }
+            },
+            ajax: {
+                url: "/admin/customers_autocomplete",
+                type: "get",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term,
+                        category_id: category_id
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+
+            },
+
+        });
+
+    }
+
+    /*search WARE PRODUCT NAME or CUSTOM CODE*/
+    function searchWareNameOrCustomCode(item_class, items_index, category_id, row_name) {
+
+        $("." + item_class + items_index).select2({
+            ajax: {
+                url: "/admin/search_ware_name",
+                type: "get",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+
+                    let product_name_selected = null;
+                    if (row_name !== 'product_name') {
+                        product_name_selected = getFieldValueByFieldClassSelect2(items_index, 'product_name', 'text')
+                    }
+
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term,
+                        customer_id: getFieldValueByFieldClassSelect2(items_index, 'customer', 'id'),
+                        category_id: category_id,
+                        product_name_selected: product_name_selected,
+                        row_name: row_name,
+
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+
+            },
+
+        });
+
+    }
+
+    /*search ware BILL DATE or BILL NUMBER*/
+    function searchBillDateOrBillNumber(item_class, items_index, category_id, row_name) {
+
+        $("." + item_class + items_index).select2({
+            ajax: {
+                url: "/admin/bills_autocomplete",
+                type: "get",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        _token: CSRF_TOKEN,
+                        search: params.term,
+                        customer_id: getFieldValueByFieldClassSelect2(items_index, 'customer', 'id'),
+                        category_id: category_id,
+                        product_name_selected: getFieldValueByFieldClassSelect2(items_index, 'product_name', 'text'),
+                        ware_custom_code: getFieldValueByFieldClassSelect2(items_index, 'custom_code', 'text'),
+                        bill_date: getFieldValueByFieldClassSelect2(items_index, 'bill_date', 'text'),
+                        row_name: row_name,
+
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+
+            },
+
+        });
+
+    }
+
+    function getFieldValueByFieldClassSelect2(position_index, field_class_name, field_item) {
+
+        try {
+            return $("." + field_class_name + position_index).select2('data')[0][field_item]
+        } catch (e) {
+            return '';
+        }
+    }
+
 
     $('#template_child_form').on('click', '.checkbox_customer_category', function () {
 
-        let category_id = $(this).attr('category_id');
+        let position_id = $(this).attr('position_id');
         if ($(this).is(':checked')) {
-            $('#template_child_form').children('.show_form_if_is_checked_' + category_id).show();
+            $('#template_child_form').children('.show_form_if_is_checked_' + position_id).show();
         } else {
-            $('#template_child_form').children('.show_form_if_is_checked_' + category_id).hide();
+            $('#template_child_form').children('.show_form_if_is_checked_' + position_id).hide();
 
         }
     });
 
     function validateTemplateFields() {
+
         let validator = [];
         validator[0] = $('#parent_template').validate().element("#marketing_category_id");
         validator[1] = $('#parent_template').validate().element("#category");
@@ -342,8 +393,8 @@ $(document).ready(function () {
         return true;
     }
 
-    function getCustomer_category_id_by_child_id(input_id) {
-        return $('#' + input_id).parent().parent().attr("category_id");
+    function getCustomerCategoryIdByChildId(input_id, attr_name) {
+        return $('#' + input_id).parent().parent().attr(attr_name);
     }
 
     /*generates the number of children created and the maximum number of children*/
@@ -355,15 +406,16 @@ $(document).ready(function () {
     }
 
     function emptyTheChildrenFilledFields(categories_id) {
-        for (let i = 0; i < categories_id.length; ++i) {
-            $('#check_if_is_checked' + categories_id[i]).prop("checked", false);
-            $(".show_form_if_is_checked_" + categories_id[i]).hide();
-            $('#customer' + categories_id[i]).val('');
-            $('#product_name' + categories_id[i]).val('');
-            $('#custom_code' + categories_id[i]).val('');
-            $('#bill_date' + categories_id[i]).val('');
-            $('#bill_number' + categories_id[i]).val('');
-            $('#amount' + categories_id[i]).val('');
+
+        for (let i = 0; i < categories_id.length + numberOfTextile; ++i) {
+            $('#check_if_is_checked' + i).prop("checked", false);
+            $(".show_form_if_is_checked_" + i).hide();
+            $(".customer" + i).select2('val', 'All');
+            $(".product_name" + i).select2('val', 'All');
+            $(".custom_code" + i).select2('val', 'All');
+            $(".bill_date" + i).select2('val', 'All');
+            $(".bill_number" + i).select2('val', 'All');
+            $('#amount' + i).val('');
         }
     }
 

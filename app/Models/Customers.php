@@ -280,7 +280,7 @@ class Customers extends Model
 
     public function get_customer_name_by_search($data, $category_id)
     {
-        $and = '';
+//        dd($category_id);
         if ($category_id) {
             $and_or = "AND cc.category_id = {$category_id}";
         } else {
@@ -296,9 +296,18 @@ class Customers extends Model
                  {$and_or}
                 GROUP BY c.name, c.id
                 ORDER BY c.name";
-//        dump($query);
 
-        return DB::select($query);
+        $employees = DB::select($query);
+        $response = array();
+        foreach ($employees as $employee) {
+            $response[] = array(
+                "id" => $employee->id,
+                "text" => $employee->name,
+                "category_id" => $category_id,
+            );
+        }
+
+        return $response;
 
     }
 

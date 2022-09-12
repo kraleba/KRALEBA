@@ -111,28 +111,39 @@ class Bills extends Model
         return DB::select($query);
     }
 
-    public function get_bills_to_autocomplete_suggestions($term, $customer_id, $row_name, $ware_custom_code, $ware_product_name_selected, $bill_date)
+    public function get_bills_to_autocomplete_suggestions($search, $customer_id, $row_name, $ware_custom_code, $ware_product_name_selected, $bill_date)
     {
+
         if (!$customer_id || !$row_name || !$ware_custom_code || !$ware_product_name_selected) {
             return false;
         }
 
-        $query = "SELECT b.{$row_name}
+        $query = "SELECT b.{$row_name}, b.id
                 FROM bills AS b
                 LEFT JOIN customer_wares AS w
                 ON w.bill_id = b.id
                 WHERE b.customer_id = {$customer_id}
-                AND b.{$row_name} LIKE '%{$term}%'
+                AND b.{$row_name} LIKE '%{$search}%'
                 AND w.custom_code = '{$ware_custom_code}'
                 AND w.product_name = '{$ware_product_name_selected}'
 
         ";
 
-        if($bill_date) {
-            $query .= "AND b.bill_date = {$bill_date}";
+        if ($bill_date) {
+            $query .= "AND b.bill_date = '{$bill_date}'";
+        }
+        $employees = DB::select($query);
+        $response = array();
+
+        foreach ($employees as $employee) {
+            $response[] = array(
+                "id" => $employee->id,
+                "text" => $employee->$row_name
+            );
         }
 
-        return DB::select($query);
+        return $response;
+
     }
 
 }

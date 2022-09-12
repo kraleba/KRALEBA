@@ -197,16 +197,31 @@ class CustomerHelper extends Controller
     public function customers_autocomplete(Request $request)
     {
 
-        $res = $this->customers->get_customer_name_by_search($request->term, $request->category_id ?? '');
+        $res = null;
+
+        if ($request->term) {
+            $res = $this->customers->get_customer_name_by_search($request->term, $request->category_id ?? '');
+        }
+        if ($request->search) {
+            $res = $this->customers->get_customer_name_by_search($request->search, $request->category_id ?? '');
+        }
 
         return response()->json($res);
     }
 
     public function search_ware_name(Request $request)
     {
+//        dump($request->row_name);
+
+        if (!$request->customer_id) {
+            return response()->json(false);
+        }
+        if ($request->row_name == 'custom_code' && !$request->product_name_selected) {
+            return response()->json(false);
+        }
 
         $res = $this->wares->get_wares_suggestions_for_customer(
-            $request->term,
+            $request->search,
             $request->row_name,
             $request->customer_id,
             $request->product_name_selected,
@@ -219,11 +234,11 @@ class CustomerHelper extends Controller
     public function bills_autocomplete(Request $request)
     {
         $res = $this->bills->get_bills_to_autocomplete_suggestions(
-            $request->term,
+            $request->search,
             $request->customer_id,
             $request->row_name,
             $request->ware_custom_code,
-            $request->ware_product_name_selected,
+            $request->product_name_selected,
             $request->bill_date
         );
 

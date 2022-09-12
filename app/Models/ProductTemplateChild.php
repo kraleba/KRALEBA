@@ -30,26 +30,22 @@ class ProductTemplateChild extends Model
                 $child_template['parent_id'] = $parent->id;
                 $child_template['suffix'] = $i;
                 $child = ProductTemplateChild::create($child_template);
-
                 foreach ($child_categories_template[$i] as $child_categories) {
-                    $child_categories[$j]->template_child_id = $child->id;
-                    TemplateChildCategories::create((array)$child_categories[$j]);
+                    foreach ($child_categories as $child_category) {
+                        $child_category->template_child_id = $child->id;
+                        TemplateChildCategories::create((array)$child_category);
+                    }
                 }
             }
         }
-
+        dd($child_categories_template);
     }
 
     public function validate_child_template_if_data_exists($child_fields)
     {
-        if ((
-            !$child_fields['customer_name'] || !$child_fields['customer_id'] || !$child_fields['product_name'] ||
-                !$child_fields['custom_code'] || !$child_fields['bill_number'] || !$child_fields['bill_date'] ||
-                !$child_fields['amount']) && !is_numeric($child_fields['customer_id']
-            )) {
-
+//        dump($child_fields['customer_id']);
+        if ((!$child_fields['customer_id'] || !$child_fields['product_name'] || !$child_fields['custom_code'] || !$child_fields['bill_number'] || !$child_fields['bill_date'])) {
             return false;
-
         }
 
         $query = "
@@ -65,7 +61,6 @@ class ProductTemplateChild extends Model
             AND b.bill_number = '{$child_fields['bill_number']}'
             AND b.bill_date = '{$child_fields['bill_date']}'
         ";
-
         if (DB::select($query)) {
             return true;
         }

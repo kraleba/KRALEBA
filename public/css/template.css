@@ -3,6 +3,7 @@
     top: 420px;
     left: 10px;
 }
+
 .searchFilter-custom-template {
     margin-top: 20px;
     margin-bottom: 60px;
@@ -17,4 +18,9 @@
 
 .child-box-create-edit {
     border: solid 2px green;
+}
+
+/*dropdown with search*/
+#search_customers {
+    width: 200px;
 }

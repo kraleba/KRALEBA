@@ -143,12 +143,12 @@ class CustomerWares extends Model
 
     }
 
-    public function get_wares_suggestions_for_customer($term, $row_name, $customer_id = null, $product_name_selected = null, $category_id = null)
+    public function get_wares_suggestions_for_customer($search, $row_name, $customer_id = null, $product_name_selected = null, $category_id = null)
     {
         if (!$row_name) {
             return false;
         }
-
+//dump($row_name);
         $dynamic_query = '';
         if ($customer_id) {
             $dynamic_query .= "AND customer_id = {$customer_id}";
@@ -162,14 +162,22 @@ class CustomerWares extends Model
             $dynamic_query .= " AND category_id = '{$category_id}'";
         }
 
-        $query = "SELECT {$row_name}
+        $query = "SELECT {$row_name}, id
                 FROM customer_wares
-                WHERE {$row_name} LIKE '%{$term}%'
+                WHERE {$row_name} LIKE '%{$search}%'
                 {$dynamic_query}
                 ORDER BY {$row_name}";
 
-        return DB::select($query);
+        $employees = DB::select($query);
+        $response = array();
 
+        foreach ($employees as $employee) {
+            $response[] = array(
+                "id" => $employee->id,
+                "text" => $employee->$row_name
+            );
+        }
+        return $response;
     }
 
     public

@@ -1,6 +1,6 @@
 /*---- Customers search ----*/
 
-function searchCustomersSuggestions(request, response, category_id = null) {
+function searchCustomersSuggestions(request, response, category_id = null, position_id = null) {
     $.ajax({
         url: "/admin/customers_autocomplete",
         type: 'GET',
@@ -14,7 +14,8 @@ function searchCustomersSuggestions(request, response, category_id = null) {
                 return {
                     label: obj.name,
                     id: obj.id,
-                    category_id: category_id
+                    category_id: category_id,
+                    position_id: position_id
                 };
             });
             response(resp);
