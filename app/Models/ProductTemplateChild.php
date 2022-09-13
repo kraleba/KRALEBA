@@ -38,7 +38,6 @@ class ProductTemplateChild extends Model
                 }
             }
         }
-        dd($child_categories_template);
     }
 
     public function validate_child_template_if_data_exists($child_fields)

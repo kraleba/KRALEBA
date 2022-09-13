@@ -58,8 +58,7 @@ class ProductTemplateController extends Controller
 
         $child_categories_template = (array)json_decode($request->input('categories_template_child'));
         $child_template = (array)json_decode($request->input('product_template_child'));
-//        dump($child_categories_template);
-//        dd($child_template);
+
 
         $this->template_child->create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template);
 
