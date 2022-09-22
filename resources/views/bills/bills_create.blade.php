@@ -7,7 +7,6 @@
         <title>Creeaza Factura</title>
     </head>
 
-    <body>
 
     @if ($errors->any())
 
@@ -26,7 +25,7 @@
                     <h3>Adauga Factura</h3>
                 </div>
                 <div class="pull-right">
-                    <a class="btn btn-primary" href="{{ route('bills.index', $customer['id']) }}"> Inapoi</a>
+                    <a class="btn btn-primary" href="{{ route('bills.index') }}"> Inapoi</a>
                 </div>
             </div>
         </div>
@@ -35,140 +34,127 @@
                 {{ session('status') }}
             </div>
         @endif
-        <form action="{{ route('bills.store', $customer['id']) }}" method="POST" enctype="multipart/form-data">
+
+        <form action="{{ route('bills.store') }}" method="POST" id="regForm" enctype="multipart/form-data">
             @csrf
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
+            <h1>Genereaza Factura:</h1>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">
+                <div class="parent_items0">
 
-                        <input type="hidden" name="customer_id" value="{{$customer['id'] ?? ''}}">
-                        <input type="text" value="{{$customer['name'] ?? ''}}" class="form-control"
-                               placeholder="Client Name">
-                        @error('name')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong> <i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                        <input type="number" name="unique_code" value="{{$customer['unique_code'] ?? ''}}"
-                               class="form-control"
-                               placeholder="Cod">
-                        @error('Cod')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        <strong><i class="fa fa-asterisk"
+                                   style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
 
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Data Facturarii :</strong>
-                        @error('data facturarii')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-row">
-                        <strong>Start Date</strong>
-                        <input id="startdate" name="bill_date" value="{{date('d/m/Y')}}" class="form-control col-md-2">
-
+                        <select type="text" name="customer_id" class="form-control select2 customer-search"
+                                oninput="this.className = 'form-control select2 customer-search'"> </select>
                     </div>
 
-                </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong> <i class="fa fa-asterisk"
+                                        style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
+                            <input type="number" name="unique_code"
+                                   class="form-control"
+                                   placeholder="Cod"
+                                   oninput="this.className = 'form-control' "
+                            >
+                        </div>
+                    </div>
 
-                <br>
-                <br>
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Data
+                                Facturarii:
+                            </strong>
+                            <input type="date" name="bill_date" class="form-control col-md-6"
+                                   oninput="this.className = 'form-control col-md-6'"
+                            >
+                        </div>
+                    </div>
 
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Numar:</strong>
-                        <input type="number" name="bill_number" class="form-control" placeholder="Numar">
-                        @error('number')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong><i class="fa fa-asterisk"
+                                       style="font-size:7px;color:red; vertical-align: top;"></i>Numar:</strong>
+                            <input type="number" name="bill_number" class="form-control" placeholder="Numar"
+                                   oninput="this.className = 'form-control' "
+                            >
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
-                        <input class="form-control" name="currency" value="{{$coin['label'] ?? ''}}">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
+                            <input class="form-control customer-coin" name="currency"
+                                   oninput="this.className = 'form-control'"
+                                   readonly
+                            >
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Curs
-                            Valutar:</strong>
-                        <input type="text" name="exchange" class="form-control" placeholder="Curs Valutar">
-                        @error('number')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Curs
+                                Valutar:</strong>
+                            <input type="text" name="exchange" class="form-control" placeholder="Curs Valutar"
+                                   oninput="this.className = 'form-control' ">
+
+                        </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>TVA:</strong>
-                        <input type="text" name="tva" class="form-control" placeholder="TVA">
-                        @error('tva')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
+
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        <strong><i class="fa fa-asterisk"
+                                   style="font-size:7px;color:red; vertical-align: top;"></i>TVA:</strong>
+                        <input type="text" name="tva" class="form-control" placeholder="TVA"
+                               oninput="this.className = 'form-control'">
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
+
+
+                    <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                        <strong><i class="fa fa-asterisk"
+                                   style="font-size:7px;color:red; vertical-align: top;"></i>#Articole:</strong>
                         <input type="number"
                                name="item"
-                               id="indexNumberOfArticle"
                                class="form-control"
-                               placeholder="#Articole"
-                        >
-                        @error('articole')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Tipul:</strong>
-                        <select name="type" class="form-select" aria-label="Default select example">
-                            <br>
-                            <option value="1">Proforma</option>
-                            <option value="2">Definitiva</option>
-                        </select>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <ul >
-                        @foreach($wares as $ware)
-                            <li value="{{$ware->id}}">{{$ware->product_name}}</li>
-                            <input name="wares_id[]" type="hidden" value="{{$ware->id}}">
-                        @endforeach
-                        </ul>
-                    </div>
-                </div>
+                               placeholder="#Articole:"
+                               id="indexNumberOfArticle"
+                               oninput="this.className = 'form-control'"
 
-                <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                    <button type="submit" class="btn btn-primary">Creeaza</button>
+                        >
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <strong><i class="fa fa-asterisk"
+                                       style="font-size:7px;color:red; vertical-align: top;"></i>Tipul:</strong>
+                            <select name="type" class="form-select" aria-label="Default select example"
+                                    onchange="this.className = 'form-control'">
+                                <br>
+                                <option value="1">Proforma</option>
+                                <option value="2">Definitiva</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
+                <div class="parent_items1"></div>
+
             </div>
 
+
+            <div id="article_form"></div>
+
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;" id="steps-area">
+                <span class="step"></span>
+
+
+            </div>
         </form>
-
     </div>
-
-
-    </body>
 @endsection
 
-<script>
-    /*Datae time modal*/
-    $(document).ready(function () {
-        $("#startdate").datepicker();
-        $("#enddate").datepicker();
-    });
-    /*Datae time modal end*/
-</script>

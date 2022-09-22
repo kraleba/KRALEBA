@@ -15,7 +15,7 @@
                     <h3>Facturii</h3>
                 </div>
                 <div class="pull-right mb-2">
-                    {{--                    <a class="btn btn-secondary" href="{{ route('bills.create', $customer_id) }}"> Creaza o Factura</a>--}}
+                    <a class="btn btn-secondary" href="{{ route('bills.create', $customer_id) }}"> Creaza o Factura</a>
                 </div>
             </div>
         </div>

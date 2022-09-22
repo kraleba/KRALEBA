@@ -60,6 +60,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/bills_autocomplete', [CustomerHelper::class, 'bills_autocomplete']);
     Route::get('admin/search_ware_name', [CustomerHelper::class, 'search_ware_name']);
     Route::get('admin/template_child_validator', [CustomerHelper::class, 'template_child_validator']);
+    Route::get('admin/take_customer_categories_by_customer_id', [CustomerHelper::class, 'take_customer_categories_by_customer_id']);
 
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 
@@ -72,9 +73,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
 
     //bils
-    Route::resource('admin/customers/{customer_id}/bills', BillsController::class);
-    Route::get('admin/bills', [BillsController::class, 'index']);
+    Route::resource('admin/bills', BillsController::class);
+//    Route::get('admin/bills', [BillsController::class, 'index']);
 //    Route::get('admin/customers/{id}/create_bill', [BillsController::class, 'generate_bill'])->name('create_bill');
+    Route::get("/admin/get_customer_coin", [CustomerHelper::class, 'get_customer_coin']);
 
     /*product template*/
     Route::resource('admin/templates', ProductTemplateController::class);

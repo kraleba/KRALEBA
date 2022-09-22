@@ -229,45 +229,6 @@ $(document).ready(function () {
 
     }
 
-    /*search customers*/
-    function searchCustomers(items_index, category_id) {
-        // Initialize select2
-        $(".customer" + items_index).select2({
-            rules: {
-                systemtype: {
-                    required: true
-                }
-            },
-            messages: {
-                systemtype: {
-                    required: "Please choose the system type",
-                }
-            },
-            ajax: {
-                url: "/admin/customers_autocomplete",
-                type: "get",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        _token: CSRF_TOKEN,
-                        search: params.term,
-                        category_id: category_id
-                    };
-                },
-                processResults: function (response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-
-            },
-
-        });
-
-    }
-
     /*search WARE PRODUCT NAME or CUSTOM CODE*/
     function searchWareNameOrCustomCode(item_class, items_index, category_id, row_name) {
 
@@ -342,16 +303,6 @@ $(document).ready(function () {
 
     }
 
-    function getFieldValueByFieldClassSelect2(position_index, field_class_name, field_item) {
-
-        try {
-            return $("." + field_class_name + position_index).select2('data')[0][field_item]
-        } catch (e) {
-            return '';
-        }
-    }
-
-
     $('#template_child_form').on('click', '.checkbox_customer_category', function () {
 
         let position_id = $(this).attr('position_id');
@@ -391,10 +342,6 @@ $(document).ready(function () {
             }
         }
         return true;
-    }
-
-    function getCustomerCategoryIdByChildId(input_id, attr_name) {
-        return $('#' + input_id).parent().parent().attr(attr_name);
     }
 
     /*generates the number of children created and the maximum number of children*/

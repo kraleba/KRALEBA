@@ -1,5 +1,72 @@
 /*---- Customers search ----*/
 
+/*search customers*/
+let CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+function searchCustomers(items_index, category_id) {
+    // Initialize select2
+
+    $(".customer" + items_index).select2({
+
+        ajax: {
+            url: "/admin/customers_autocomplete",
+            type: "get",
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    _token: CSRF_TOKEN,
+                    search: params.term,
+                    category_id: category_id
+                };
+            },
+            processResults: function (response) {
+                return {
+                    results: response
+                };
+            },
+            cache: true
+
+        },
+
+    });
+
+}
+
+/*return data selected from select2 if exists*/
+function getFieldValueByFieldClassSelect2(position_index, field_class_name, field_item) {
+
+    try {
+        return $("." + field_class_name + position_index).select2('data')[0][field_item]
+    } catch (e) {
+        return '';
+    }
+
+}
+
+function take_customer_categories_by_customer_id(customer_id) {
+
+    let categories = '';
+
+    $.ajax({
+        url: "/admin/take_customer_categories_by_customer_id",
+        type: 'GET',
+        data: {
+            customer_id: customer_id
+        },
+        dataType: "json",
+        async: false,
+
+        success: function (data) {
+            categories = data;
+        },
+
+    });
+    return categories;
+}
+
+
+/*--------------*/
 function searchCustomersSuggestions(request, response, category_id = null, position_id = null) {
     $.ajax({
         url: "/admin/customers_autocomplete",

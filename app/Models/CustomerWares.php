@@ -17,6 +17,43 @@ class CustomerWares extends Model
         'rating', 'description', 'um', 'amount', 'coin', 'customer_id', 'bill_id', 'category_id', 'subcategory_id', 'status', 'price'
     ];
 
+
+    public function create_wares_from_bill($bill_id, $form_data)
+    {
+
+        if(!$bill_id || !$form_data) {
+            return false;
+        }
+
+        $index = 0;
+        /*count number of parent fields*/
+        foreach ($form_data as $form_values) {
+            if (!is_array($form_values)) {
+                $index++;
+            }
+        }
+
+        $wares = [];
+        $rows = array_keys($form_data);
+        foreach ($form_data as $form_values) {
+            if (is_array($form_values)) {
+                $i = 0;
+                foreach ($form_values as $value) {
+                    $wares[$i][$rows[$index]] = $value;
+                    $i++;
+                }
+                ++$index;
+            }
+        }
+
+        foreach ($wares as $ware) {
+            $ware['customer_id'] = $form_data['customer_id'];
+            $ware['bill_id'] = $bill_id;
+             CustomerWares::create($ware);
+        }
+
+    }
+
     public function get_wares_by_customer_id($customer_id = null, $status = null)
     {
         if (!$status) {

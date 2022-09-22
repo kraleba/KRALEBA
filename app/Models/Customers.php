@@ -127,15 +127,17 @@ class Customers extends Model
                         SELECT
                             c.category_id,
                             c.customer_id,
-                            f.name
+                            f.name as category_name
                         FROM customers_id_categories AS c
                         JOIN furnace_categories AS f
                             ON f.id = c.category_id
                         WHERE c.customer_id = {$id}
                             AND c.category_id = 8");
+
         $customer = $this->get_customer_by_id($id);
 
         if ($textile) {
+            $textile[0]->name = 'Materii Prime';
             $categories_obj[-1] = $textile[0];
         }
 

@@ -36,8 +36,6 @@ class BillsController extends Controller
         $data['customer_id'] = $request->customer_id;
         $data['bills'] = $this->bills->get_bills_by_filter($request->customer_type, $request->type, $request->start_date, $request->end_date);
 
-//        dd($data['bills']);
-
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
 
         return view('bills.bills_index', $data);
@@ -45,14 +43,9 @@ class BillsController extends Controller
 
     public function create(Request $request)
     {
-//        dd($request->customer_id);
-        $customer = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
-//        dd($customer['country']);
+//        $customer = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
 
         $data = array(
-            'customer' => $customer,
-            'wares' => $this->wares->get_wares_id_from_customer_id($request->customer_id),
-            'coin' => $this->helper->show_coin_by_country($customer['country']),
             'furnace_categories' => $this->product->get_furnace_categories(),
             'subcategories' => $this->product->get_subcategory_for_customer_category(),
         );
@@ -64,22 +57,12 @@ class BillsController extends Controller
     public function store(Request $request)
     {
 //        dd($request->input());
+        $bill = Bills::create($request->input());
 
-        $request->validate([
-//            'custumer_id' => 'required',
-            'bill_date' => 'required',
-            'bill_number' => 'required',
-//            'currency' => 'required',
-            'exchange' => 'required',
-            'tva' => 'required',
-//            'item' => 'required',
-//            'type' => 'required',
-//            // 'category_id' => 'required',
-//            // 'specify_id' => 'required',
-        ]);
+        $this->wares->create_wares_from_bill($bill->id, $request->input());
+
 
         $this->bills->create_bill_and_update_ware($request->input());
-//        Bills::create($request->input());
 
 
         return redirect()->route('bills.index', $request->customer_id)

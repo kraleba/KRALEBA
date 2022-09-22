@@ -287,6 +287,34 @@ class CustomerHelper extends Controller
         return $categories;
     }
 
+    public function get_customer_coin(Request $request): bool|\Illuminate\Http\JsonResponse
+    {
+        $customer_id = $request->customer_id;
+
+        if (!$customer_id) {
+            return false;
+        }
+        $customer = $this->customers->get_customer_by_id($customer_id);
+        $coin_name = $this->show_coin_by_country($customer->country);
+
+        if ($coin_name) {
+            return response()->json($coin_name);
+        }
+        return response()->json(false);
+    }
+
+    public function take_customer_categories_by_customer_id(Request $request)
+    {
+        if (!$request->customer_id) {
+            return false;
+        }
+
+        $customer_id = $request->customer_id;
+        $customer = $this->customers->get_customer_and_categories_by_id($customer_id);
+
+        return response()->json($customer->categories);
+    }
+
 }
 
 
