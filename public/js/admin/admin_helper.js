@@ -7,7 +7,6 @@ function searchCustomers(items_index, category_id) {
     // Initialize select2
 
     $(".customer" + items_index).select2({
-
         ajax: {
             url: "/admin/customers_autocomplete",
             type: "get",

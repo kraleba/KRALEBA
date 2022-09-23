@@ -46,8 +46,11 @@
                         <strong><i class="fa fa-asterisk"
                                    style="font-size:7px;color:red; vertical-align: top;"></i>Client:</strong>
 
-                        <select type="text" name="customer_id" class="form-control select2 customer-search"
-                                oninput="this.className = 'form-control select2 customer-search'"> </select>
+                        <select type="text" name="customer_id"
+                                class="form-select customer-search"
+                                id="customer_select"
+                        >
+                        </select>
                     </div>
 
                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -126,9 +129,9 @@
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk"
                                        style="font-size:7px;color:red; vertical-align: top;"></i>Tipul:</strong>
-                            <select name="type" class="form-select" aria-label="Default select example"
+                            <select name="type" class="form-select"
                                     onchange="this.className = 'form-control'">
-                                <br>
+                                <option disabled selected value> -- select an option -- </option>
                                 <option value="1">Proforma</option>
                                 <option value="2">Definitiva</option>
                             </select>
@@ -156,5 +159,6 @@
             </div>
         </form>
     </div>
+
 @endsection
 

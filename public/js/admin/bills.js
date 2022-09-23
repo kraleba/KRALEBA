@@ -65,9 +65,8 @@ function addStepsOfArticle() {
 
 function nextPrev(n) {
 
-    // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
+
     if (n === 1 && !validateForm())
         return false;
 
@@ -111,10 +110,14 @@ function validateForm() {
                 ++index;
             }
 
+            y = x[currentTab].getElementsByTagName("select")
+            if (!validatorFormHelper(y)) {
+                ++index;
+            }
+
         }
 
     }
-
 
     if (index === 0) {
         document.getElementsByClassName("step")[currentTab].className += ' finish';
@@ -164,9 +167,14 @@ function articleFormGenerate(n, x) {
                 '</optgroup>'
         });
 
-        select_category = '<div class="form-group">' +
-            '       <select name="subcategory_id[]" class="form-control customer-categories-select" id="index_of_selects' + x + '" onchange="showHideExtraFields(' + x + ')">' +
-            '            <option>Selecteaza o subcategorie</option>' +
+        select_category = '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+            '       <select name="subcategory_id[]"' +
+            '           class="form-select" ' +
+            '           id="index_of_selects' + x + '" ' +
+            '           onchange="showHideExtraFields(' + x + ')"' +
+            '           oninput="this.className = \'form-control\'"' +
+            '       >' +
+            '        <option disabled selected value> -- select an option -- </option>' +
             '              ' + option_for_select + ' ' +
             '       </select>' +
             '   </div>'
@@ -216,8 +224,8 @@ function articleFormGenerate(n, x) {
         '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
         '                        <div class="form-group">\n' +
         '                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>UM:</strong>\n' +
-        '                            <select name="um[]" class="form-select" aria-label="Default select example">\n' +
-        '                                <option value="" selected> Selecteaza UM</option>\n' +
+        '                            <select name="um[]" class="form-select" oninput="this.className = \'form-control\' ">\n' +
+        '                                <option disabled selected value> Selecteaza UM </option>\n' +
         '                                <option>bucati</option>\n' +
         '                                <option>ml</option>\n' +
         '                                <option>gr</option>\n' +
@@ -249,7 +257,7 @@ function articleFormGenerate(n, x) {
 
 function showHideExtraFields(value) {
     let option_selected = $('option:selected', '#index_of_selects' + value).attr('category_id');
-console.log(option_selected);
+    console.log(option_selected);
     document.getElementById('categories_id' + value).value = option_selected;
 
     if (option_selected === '8') {

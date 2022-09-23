@@ -138,7 +138,7 @@ class Customers extends Model
 
         if ($textile) {
             $textile[0]->name = $textile[0]->category_name;
-            $textile[0]->subcategory_id = '';
+            $textile[0]->subcategory_id = ' ';
             $categories_obj[-1] = $textile[0];
         }
 

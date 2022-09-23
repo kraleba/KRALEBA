@@ -61,48 +61,30 @@ td {
 }
 
 /*STEPS FORM CREATE BILLS START*/
-#regForm {
-    background-color: #ffffff;
-    margin: 100px auto;
-    font-family: Raleway;
-    padding: 40px;
-    width: 70%;
-    min-width: 300px;
-}
+/*#regForm {*/
+/*    background-color: #ffffff;*/
+/*    margin: 100px auto;*/
+/*    font-family: Raleway;*/
+/*    padding: 40px;*/
+/*    width: 70%;*/
+/*    min-width: 300px;*/
+/*}*/
 
-h1 {
-    text-align: center;
-}
 
-/*!* Mark input boxes that gets an error on validation: *!*/
+/*!*!* Mark input boxes that gets an error on validation: *!*!*/
 input.invalid {
     background-color: #ffdddd;
 }
 
-/* Hide all steps by default: */
+select.invalid {
+    background-color: #ffdddd;
+}
+
+
 .tab {
     display: none;
 }
 
-button {
-    background-color: #04AA6D;
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 17px;
-    font-family: Raleway;
-    cursor: pointer;
-}
-
-button:hover {
-    opacity: 0.8;
-}
-
-#prevBtn {
-    background-color: #bbbbbb;
-}
-
-/*!* Make circles that indicate the steps of the form: *!*/
 .step {
     height: 15px;
     width: 15px;
@@ -118,7 +100,6 @@ button:hover {
     opacity: 1;
 }
 
-/*!* Mark the steps that are finished and valid: *!*/
 .step.finish {
     background-color: #04AA6D;
 }
