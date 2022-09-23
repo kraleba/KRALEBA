@@ -25,7 +25,7 @@
     <br>
 
     <div>
-        <h3> {{$filter_title ?? 'Toate facturile clientului X'}}</h3>
+        <h3> {{$filter_title ?? 'Toate facturile!'}}</h3>
     </div>
 
     @if ($message = Session::get('success'))
