@@ -56,13 +56,12 @@ class BillsController extends Controller
 
     public function store(Request $request)
     {
-//        dd($request->input());
         $bill = Bills::create($request->input());
 
         $this->wares->create_wares_from_bill($bill->id, $request->input());
 
 
-        $this->bills->create_bill_and_update_ware($request->input());
+//        $this->bills->create_bill_and_update_ware($request->input());
 
 
         return redirect()->route('bills.index', $request->customer_id)

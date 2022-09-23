@@ -95,7 +95,7 @@
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Curs
                                 Valutar:</strong>
-                            <input type="text" name="exchange" class="form-control" placeholder="Curs Valutar"
+                            <input type="number" name="exchange" class="form-control" placeholder="Curs Valutar"
                                    oninput="this.className = 'form-control' ">
 
                         </div>
@@ -104,7 +104,7 @@
                     <div class="form-group col-xs-12 col-sm-12 col-md-12">
                         <strong><i class="fa fa-asterisk"
                                    style="font-size:7px;color:red; vertical-align: top;"></i>TVA:</strong>
-                        <input type="text" name="tva" class="form-control" placeholder="TVA"
+                        <input type="number" name="tva" class="form-control" placeholder="TVA"
                                oninput="this.className = 'form-control'">
                     </div>
 

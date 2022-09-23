@@ -238,13 +238,6 @@
                                     <a class="dropdown-item"
                                        href="{{ route('customers.edit', $customer->id) }}">Edit</a>
 
-                                    <a class="dropdown-item"
-                                       href="{{ route('bills.index', $customer->id) }}">Facturiile </a>
-
-                                    <a class="dropdown-item" href="{{ route('wares.index', $customer->id) }}">
-                                        Articole </a>
-
-
                                     @csrf
                                     @method('DELETE')
                                     <button class="dropdown-item">Delete</button>

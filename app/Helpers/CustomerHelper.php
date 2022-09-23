@@ -303,7 +303,7 @@ class CustomerHelper extends Controller
         return response()->json(false);
     }
 
-    public function take_customer_categories_by_customer_id(Request $request)
+    public function take_customer_categories_by_customer_id(Request $request): bool|\Illuminate\Http\JsonResponse
     {
         if (!$request->customer_id) {
             return false;

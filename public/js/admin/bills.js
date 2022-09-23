@@ -165,7 +165,7 @@ function articleFormGenerate(n, x) {
         });
 
         select_category = '<div class="form-group">' +
-            '       <select name="subcategory_id" class="form-control customer-categories-select" id="index_of_selects' + x + '" onchange="showHideExtraFields(' + x + ')">' +
+            '       <select name="subcategory_id[]" class="form-control customer-categories-select" id="index_of_selects' + x + '" onchange="showHideExtraFields(' + x + ')">' +
             '            <option>Selecteaza o subcategorie</option>' +
             '              ' + option_for_select + ' ' +
             '       </select>' +
@@ -174,6 +174,8 @@ function articleFormGenerate(n, x) {
 
     $("#article_form").append(
         '<div class="tab">' +
+        '        <input type="hidden" name="category_id[]" id="categories_id' + x + '"> ' +
+
         '       <div class="parent_items0">\n' +
         '        ' + select_category + '' +
         '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
@@ -246,8 +248,9 @@ function articleFormGenerate(n, x) {
 }
 
 function showHideExtraFields(value) {
-
     let option_selected = $('option:selected', '#index_of_selects' + value).attr('category_id');
+console.log(option_selected);
+    document.getElementById('categories_id' + value).value = option_selected;
 
     if (option_selected === '8') {
         document.getElementById('secondary-attr' + value).style.display = "block";

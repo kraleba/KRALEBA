@@ -137,7 +137,8 @@ class Customers extends Model
         $customer = $this->get_customer_by_id($id);
 
         if ($textile) {
-            $textile[0]->name = 'Materii Prime';
+            $textile[0]->name = $textile[0]->category_name;
+            $textile[0]->subcategory_id = '';
             $categories_obj[-1] = $textile[0];
         }
 
