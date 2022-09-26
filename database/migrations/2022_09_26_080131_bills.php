@@ -18,8 +18,6 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->integer('customer_id');
-            $table->integer('category_id');
-            $table->integer('specify_id')->nullable();
             $table->string('type');
             $table->string('bill_date');
             $table->string('bill_number');
