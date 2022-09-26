@@ -65,8 +65,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 
     //ware
-    Route::resource('admin/customers/{customer_id}/wares', CustomerWaresControler::class);
-    Route::get('admin/wares', [CustomerWaresControler::class, 'index']);
+    Route::resource('admin/wares', CustomerWaresControler::class);
+//    Route::get('admin/wares', [CustomerWaresControler::class, 'index']);
 
     //ware-textile
     Route::get('admin/textile', [CustomerWaresControler::class, 'customers_textile'])->name('textile');

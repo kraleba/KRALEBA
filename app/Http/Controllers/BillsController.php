@@ -56,6 +56,17 @@ class BillsController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate([
+            'customer_id' => 'required',
+            'bill_date' => 'required',
+            'bill_number' => 'required',
+            'currency' => 'required',
+            'exchange' => 'required',
+            'tva' => 'required',
+            'item' => 'required',
+            'type' => 'required',
+        ]);
+
         $bill = Bills::create($request->input());
 
         $this->wares->create_wares_from_bill($bill->id, $request->input());

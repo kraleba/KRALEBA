@@ -57,9 +57,11 @@
                         <div class="form-group">
                             <strong> <i class="fa fa-asterisk"
                                         style="font-size:7px;color:red; vertical-align: top;"></i>Cod:</strong>
-                            <input type="number" name="unique_code"
+                            <input type="number"
+                                   readonly
                                    class="form-control"
                                    placeholder="Cod"
+                                   id="show_customer_id_selected"
                                    oninput="this.className = 'form-control' "
                             >
                         </div>
@@ -88,7 +90,8 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>
-                            <input class="form-control customer-coin" name="currency"
+                            <input type="hidden" name="currency" id="customer-coin-id">
+                            <input class="form-control" id="customer-coin-label"
                                    oninput="this.className = 'form-control'"
                                    readonly
                             >

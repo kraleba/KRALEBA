@@ -17,17 +17,16 @@ return new class extends Migration
 
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id')->nullable();
-            $table->integer('category_id')->nullable();
+            $table->integer('customer_id');
+            $table->integer('category_id');
             $table->integer('specify_id')->nullable();
-            $table->string('unique_code')->nullable();
-            $table->string('type')->nullable();
-            $table->string('bill_date')->nullable();
-            $table->string('bill_number')->nullable();
-            $table->string('currency')->nullable();
-            $table->string('exchange')->nullable();
-            $table->string('tva')->nullable();
-            $table->string('item')->nullable();
+            $table->string('type');
+            $table->string('bill_date');
+            $table->string('bill_number');
+            $table->string('currency');
+            $table->string('exchange');
+            $table->string('tva');
+            $table->string('item');
             $table->tinyInteger('status')->default('0');
             $table->timestamps();
         });

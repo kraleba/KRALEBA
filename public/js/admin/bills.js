@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     searchCustomers('-search');
-
+/*get categories from customer selected*/
     $('.customer-search').on("select2:selecting", function (e) {
         $.ajax({
             url: "/admin/get_customer_coin",
@@ -13,21 +13,28 @@ $(document).ready(function () {
             },
             success: function (res) {
                 $(".customer-coin").val(res.label)
-
+                document.getElementById('customer-coin-label').setAttribute('value', res.label)
+                document.getElementById('customer-coin-id').setAttribute('value', res.id)
             }
         });
 
     });
+
+    /*set customer if for */
+    $( "#customer_select" ).change(function() {
+        $("#show_customer_id_selected").val($('.customer-search').val());
+    });
+
 });
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
 function showTab(n) {
-    // This function will display the specified tab of the form...
+
     var x = document.getElementsByClassName("tab");
     x[n].style.display = "block";
-    //... and fix the Previous/Next buttons:
+
     if (n === 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
@@ -40,8 +47,9 @@ function showTab(n) {
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
-    //... and run a function that will display the correct step indicator:
+
     fixStepIndicator(n)
+
 }
 
 function addStepsOfArticle() {
@@ -51,15 +59,16 @@ function addStepsOfArticle() {
     if (!number_of_article || number_of_article < 1) {
         return false;
     }
-    // let steps = document.getElementById('steps-area');
+
     let steps = $('#steps-area').children().length;
+
     if (steps === 1) {
+
         for (let i = 0; i < parseInt(number_of_article); ++i) {
             document.getElementById('steps-area').innerHTML += '<span class="step"></span>'
         }
-    }
 
-    // $('#steps-area').html(number_of_steps)
+    }
 
 }
 
@@ -73,16 +82,14 @@ function nextPrev(n) {
     let number_of_steps = document.getElementById("indexNumberOfArticle").value;
     number_of_steps++;
 
-    // Hide the current tab:
     x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
     currentTab = currentTab + n;
-    // if you have reached the end of the form...
-    if (x.length < number_of_steps) {
 
+    if (x.length < number_of_steps) {
         addStepsOfArticle();
         if (n === 1) {
             articleFormGenerate(n, x.length);
+
         }
     }
 
@@ -215,6 +222,19 @@ function articleFormGenerate(n, x) {
         '                           \n' +
         '                        </div>\n' +
         '                    </div>' +
+
+        '                   <div class="col-xs-12 col-sm-12 col-md-12">\n' +
+        '                        <div class="form-group">\n' +
+        '                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>' +
+        '                            <input type="hidden" id="customer_coin_id' + x + '" name="coin[]">' +
+        '                            <input type="text"' +
+        '                                   readonly="readonly"' +
+        '                                   class="form-control" id="coin_label_by_customer' + x + '"' +
+        '                                   placeholder="Moneda">\n' +
+        '\n' +
+        '                        </div>\n' +
+        '                    </div>' +
+
         '       </div>' +
 
         '  ' + secondaryFields(x) + '' +
@@ -241,7 +261,7 @@ function articleFormGenerate(n, x) {
         '                            \n' +
         '                        </div>\n' +
         '                    </div>\n' +
-        // '\n' +
+
         '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
         '                        <div class="form-group">\n' +
         '                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Pret:</strong>\n' +
@@ -253,6 +273,9 @@ function articleFormGenerate(n, x) {
         '    </div>' +
         '</div>'
     )
+
+    document.getElementById('customer_coin_id' + x).setAttribute("value", $("#customer-coin-id").val())
+    document.getElementById('coin_label_by_customer' + x).setAttribute("value", $("#customer-coin-label").val())
 }
 
 function showHideExtraFields(value) {

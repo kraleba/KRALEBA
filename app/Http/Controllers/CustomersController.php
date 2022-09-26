@@ -31,15 +31,6 @@ class CustomersController extends Controller
     {
         $product = new Products();
 
-//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materii prime')");
-//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Materiale')");
-//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Auxiliare')");
-//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Servicii')");
-//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Curierat')");
-//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Banci')");
-//        DB::insert("INSERT INTO furnace_categories (name) VALUES ('Taxe')");
-//        DB::insert("INSERT INTO furnace_categories (name, status) VALUES ('Textile', 1)");
-
         if ($request->input()) {
 //            $data = $this->helper->helper_show_filter($request->input());
             $type = '';
@@ -147,15 +138,10 @@ class CustomersController extends Controller
     }
 
 
-    public function show(Customers $customer)
-    {
-        //  dd($data["customer"]);
-//        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
-//        $data["generated_bills"]=$this->bills->get_customer_bill_by_id($customer->id);
-//        dd($data);
-        dd('nu aicccciicc');
-//        return view('customers.show', $data);
-    }
+//    public function show(Customers $customer)
+//    {
+//
+//    }
 
     public function edit(Customers $customer)
     {
@@ -174,7 +160,6 @@ class CustomersController extends Controller
         } else {
             $data['customers'] = $customer;
         }
-//        dd($data['customers']);
 
         return view('customers.edit', $data);
     }
@@ -214,12 +199,14 @@ class CustomersController extends Controller
 
     public function destroy(Customers $customer)
     {
-//        $customer->delete();
+
         $result = $this->customers->delete_customer($customer->attributesToArray()['id']);
         $message = 'Client sters cu succes';
+
         if (!$result) {
             $message = 'Clientul nu a fost sters, a aparut o eroare';
         }
+
         return redirect()->route('customers.index')
             ->with('success', $message);
     }

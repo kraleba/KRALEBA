@@ -12,7 +12,7 @@ class Bills extends Model
     use HasFactory;
 
     protected $fillable = [
-        'customer_id', 'unique_code', 'type', 'bill_date', 'bill_number', 'currency', 'exchange', 'tva', 'item',
+        'customer_id', 'type', 'bill_date', 'bill_number', 'currency', 'exchange', 'tva', 'item',
         'specify_id',
     ];
 
@@ -38,7 +38,8 @@ class Bills extends Model
         $i = 0;
         $generatedBills = array();
         foreach ($bills as $bill) {
-            $generatedBills[$i] = DB::select("SELECT *
+            $generatedBills[$i] = DB::select(
+                "SELECT *
             FROM customer_wares
             LEFT JOIN bills
             ON bills.id = customer_wares.bill_id

@@ -221,7 +221,7 @@ $(document).ready(function () {
             '</div>'
         );
 
-        searchCustomers(category['id'], custom_category_id);
+        searchCustomers(category['id'],  custom_category_id);
         searchWareNameOrCustomCode('product_name', category['id'], custom_category_id, 'product_name');
         searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
         searchBillDateOrBillNumber('bill_date', category['id'], custom_category_id, 'bill_date');

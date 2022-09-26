@@ -2,22 +2,7 @@
 
 @section('content')
 
-    <h3>Articole</h3> 
-    <div>
-        @if($customer_id)
-
-            <div class="row">
-                <div class="col-lg-12 margin-tb">
-                    <div class="pull-right">
-                        <a class="btn btn-secondary" href="{{ route('wares.create', $customer_id ?? '') }}">
-                            ADAUGA ARTICOl
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-        @endif
-    </div>
+    <h3>Textile</h3>
 
     @if($customer_id && $wares)
         <div class="container ">
@@ -124,7 +109,7 @@
 
     @else
         <div class="alert alert-warning">
-            <h5>Nici un client!</h5>
+            <h5>Nici un textil!</h5>
         </div>
     @endif
 

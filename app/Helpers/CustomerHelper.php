@@ -203,7 +203,8 @@ class CustomerHelper extends Controller
             $res = $this->customers->get_customer_name_by_search($request->term, $request->category_id ?? '');
         }
         if ($request->search) {
-            $res = $this->customers->get_customer_name_by_search($request->search, $request->category_id ?? '');
+            $custom_search = true;
+            $res = $this->customers->get_customer_name_by_search($request->search, $request->category_id ?? '', $custom_search);
         }
 
         return response()->json($res);
