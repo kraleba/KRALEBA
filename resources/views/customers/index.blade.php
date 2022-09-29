@@ -33,19 +33,25 @@
                                            name="customer_name"
                                            placeholder="--Selecteaza un Client--"
                                            class="form-control filter-control rounded-pill"
+                                           value="{{$filtering_criteria['customer_name'] ?? ''}}"
                                     >
                                 </div>
                             </div>
 
                             <div>
                                 <div>
-                                    <select name="customer_type" id="department"
-                                            class="form-control rounded-pill filter-control">
-                                        <option
-                                            value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}}
+                                    <select name="type" id="department"
+                                            class="form-control rounded-pill filter-control"
+                                    >
+                                        <option selected value> -- Selecteaza tipul --</option>
+                                        <option value="customer"
+                                                @if(isset($filtering_criteria['type']) && $filtering_criteria['type'] == 'customer') selected @endif>
+                                            Beneficiar
                                         </option>
-                                        <option value="customer"> Beneficiar</option>
-                                        <option value="provider">Furnizor</option>
+                                        <option value="provider"
+                                                @if(isset($filtering_criteria['type']) && $filtering_criteria['type'] == 'provider') selected @endif>
+                                            Furnizor
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -55,36 +61,18 @@
                                 <select name="category" id="department"
                                         class="form-control rounded-pill filter-control">
 
-                                    <option
-                                        value="{{$filtering_criteria['category']->category_id ?? ''}}"> {{$filtering_criteria['category']->name ?? '-- Selecteaza o categorie --'}}</option>
-
+                                    <option selected value> -- select an option --</option>
                                     @foreach ($furnace_categories as $furnace_category)
 
                                         <option
-                                            value="{{$furnace_category->id}}">{{ $furnace_category->name }}</option>
+                                            value="{{$furnace_category->id}}"
+                                            @if(isset($filtering_criteria['category']->id) && $furnace_category->id == $filtering_criteria['category']->id) selected @endif>{{ $furnace_category->name }}</option>
 
                                     @endforeach
                                 </select>
 
                             </div>
 
-                            <div>
-                                <input type='text'
-                                       name="subcategory"
-                                       list="browsers"
-                                       placeholder="--Selecteaza o subcategorie--"
-                                       class="form-control filter-control rounded-pill"
-                                       value="{{$filtering_criteria['subcategory'] ?? ''}}"
-                                >
-
-                                <datalist id="browsers" class="dropdown">
-
-                                    @foreach ($subcategories as $subcategory)
-                                        <option>{{ $subcategory->name }}</option>
-                                    @endforeach
-                                </datalist>
-
-                            </div>
                         </div>
 
 

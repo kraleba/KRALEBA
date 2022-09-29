@@ -30,7 +30,7 @@
 
         <br>
         <div>
-            <h3> {{$filter_title ?? 'Toate facturile clientului X'}}</h3>
+            <h3> {{$filter_title ?? 'Factura!'}}</h3>
         </div>
 
         @if ($message = Session::get('success'))
@@ -140,7 +140,7 @@
 
         @else
             <div class="alert alert-warning">
-                <h5>Nici un client!</h5>
+                <h5>Nici o factura!</h5>
             </div>
     @endif
 

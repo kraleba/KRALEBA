@@ -78,32 +78,35 @@ class CustomerHelper extends Controller
     }
 
 //generate title afrer filter
-    public function helper_generate_title_after_filter($customer_type, $category, $subcategory_id)
+    public function helper_generate_title_after_filter($customer_name, $customer_type, $category)
     {
-//        dd($customer_type);
-        if ($customer_type == 'Provider') {
+        if ($customer_type == 'provider') {
             $customer_type = "Furnizor";
         }
-        if ($customer_type == 'Customer') {
+
+        if ($customer_type == 'customer') {
             $customer_type = 'Beneficiar';
         }
 
         $title_text = " ";
 
-        if ($customer_type) {
-            $title_text .= ' ' . $customer_type;
+        if ($customer_name) {
+            $title_text .= $customer_name;
         }
-        if ($category) {
+
+        if ($customer_name && $customer_type) {
+            $title_text .= ' / ' . $customer_type;
+        } elseif ($customer_type) {
+            $title_text .= $customer_type;
+        }
+
+        if (($customer_name || $customer_type) && $category) {
             $title_text .= ' / ' . $this->product->get_customer_category_by_id($category)->name;
+        } elseif($category) {
+            $title_text .= $this->product->get_customer_category_by_id($category)->name;
+
         }
-        if (!is_numeric($subcategory_id) && $subcategory_id) {
-            $subcategory_id = $this->product->find_subcategory_by_label($subcategory_id)->subcategory_id;
-        }
-//
-        if ($subcategory_id && is_numeric($subcategory_id)) {
-            $title_text .= ' / ' . $this->product->get_customer_subcategory_by_id($subcategory_id)->name;
-        }
-//        dd($title_text);
+
         return $title_text;
     }
 
@@ -111,21 +114,13 @@ class CustomerHelper extends Controller
     {
 
         $customer_name = $data['customer_name'] ?? '';
-        $customer_type = $data['customer_type'] ?? '';
+        $customer_type = $data['type'] ?? '';
         $category = $data['category'] ?? '';
-        $subcategory = $data['subcategory'] ?? '';
-
-        $subcategory = $this->product->find_subcategory_by_label($subcategory) ?? '';
-
-        $subcategory_id = $subcategory->subcategory_id ?? '';
-        // dump($subcategory_id);
 
         return array(
-            'customers' => $this->customers->get_customers_after_filter($customer_name, $customer_type, $category, $subcategory_id),
-            'filter_title' => $this->helper_generate_title_after_filter($customer_type, $category, $subcategory_id),
+            'filter_title' => $this->helper_generate_title_after_filter($customer_name, $customer_type, $category),
             'type' => $customer_type,
             'category' => $category,
-            'subcategory' => $subcategory_id
         );
     }
 

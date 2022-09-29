@@ -10,27 +10,27 @@
                 <div class="input-group item-left center">
                     <div class="filter-item1">
                         <input type='text'
-                            id="find_customer"
-                            name="customer_name"
-                            placeholder="--Selecteaza un Client--"
-                            class="form-control filter-control rounded-pill"
+                               id="find_customer"
+                               name="customer_name"
+                               placeholder="--Selecteaza un Client--"
+                               class="form-control filter-control rounded-pill"
                         >
                     </div>
 
                     <div class="filter-item1">
                         <select name="customer_type" id="department" class="form-control rounded-pill filter-control">
-                            <option
-                                value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
-                                <option value="Customer"> Beneficiar</option>
-                                <option value="Provider">Furnizor</option>
+                            <option value="provider">Furnizor</option>
+                            <option value="customer">Beneficiar</option>
                         </select>
                     </div>
 
                     <div class="filter-item1">
                         <select name="type" id="department" class="form-control rounded-pill filter-control">
-                            <option
-                                value="{{$filtering_criteria['type']['name'] ?? ''}}"> {{$filtering_criteria['type']['nume'] ?? '-- Selecteaza tipul --'}} </option>
-                            <option value="1"> Proforma</option>
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="1"
+                                    @php(isset($filtering_criteria['type']['nume'])? $filtering_criteria['type']['nume']  : print 'selected'))>
+                                Proforma
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -39,9 +39,9 @@
                 <div class="input-group item-left center">
                     <div class="filter-item1" style="padding-left: 4px;">
                         <div class="form-row">
-                            
+
                             <input type="date" class="form-control filter-control rounded-pill" value=""
-                                name="start_date"
+                                   name="start_date"
                             >
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                         <div class="form-row">
 
                             <input type="date" class="form-control filter-control  rounded-pill"
-                               value="{{date('Y-m-d')}}" name="end_date"
+                                   value="{{date('Y-m-d')}}" name="end_date"
                             >
                         </div>
                     </div>
