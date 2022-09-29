@@ -246,12 +246,10 @@ class Customers extends Model
         }
 
         $query .= ' ORDER BY c.name';
-//dd($query);
         $results = DB::select($query);
 
         $customers = array();
 
-//
         foreach ($results as $result) {
             if ($result->type == 'provider') {
                 $result->type = 'Furnizor';
