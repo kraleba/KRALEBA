@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     searchCustomers('-search');
-/*get categories from customer selected*/
+    /*get categories from customer selected*/
     $('.customer-search').on("select2:selecting", function (e) {
         $.ajax({
             url: "/admin/get_customer_coin",
@@ -21,7 +21,7 @@ $(document).ready(function () {
     });
 
     /*set customer if for */
-    $( "#customer_select" ).change(function() {
+    $("#customer_select").change(function () {
         $("#show_customer_id_selected").val($('.customer-search').val());
     });
 
@@ -105,20 +105,24 @@ function nextPrev(n) {
 
 function validateForm() {
     // This function deals with validation of the form fields
-    let x, y, valid = true, index = 0;
+    let x, y, valid = true, index = 0, parent = '';
 
-    for (let i = 0; i < 2; ++i) {
+    for (let i = 0; i < 3; ++i) {
 
-        if (document.querySelector('.parent_items' + i)) {
+        if (document.querySelector('.parent_items' + i) && $('.parent_items' + i).is(":visible")) {
             x = document.getElementsByClassName("parent_items" + i);
             y = x[currentTab].getElementsByTagName("input");
+            let parents = x[currentTab].children;
 
-            if (!validatorFormHelper(y)) {
+            if(x[currentTab].className){
+
+            }
+            if (!validatorFormHelper(y, parents)) {
                 ++index;
             }
 
             y = x[currentTab].getElementsByTagName("select")
-            if (!validatorFormHelper(y)) {
+            if (!validatorFormHelper(y, parents)) {
                 ++index;
             }
 
@@ -134,12 +138,13 @@ function validateForm() {
     return valid; // return the valid status
 }
 
-function validatorFormHelper(y) {
+function validatorFormHelper(y, parents) {
 
     let valid = true
 
     for (let i = 0; i < y.length; i++) {
-        if (y[i].value === "") {
+
+        if (y[i].value === "" && parents[i].className.split(" ").includes('required')) {
             y[i].className += " invalid";
             valid = false;
         }
@@ -174,7 +179,8 @@ function articleFormGenerate(n, x) {
                 '</optgroup>'
         });
 
-        select_category = '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+        select_category = '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
+            '       <strong>Categorii:</strong>\n' +
             '       <select name="subcategory_id[]"' +
             '           class="form-select" ' +
             '           id="index_of_selects' + x + '" ' +
@@ -193,57 +199,44 @@ function articleFormGenerate(n, x) {
 
         '       <div class="parent_items0">\n' +
         '        ' + select_category + '' +
-        '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                        <div class="form-group">\n' +
-        '                            <strong><i class="fa fa-asterisk"\n' +
-        '                                       style="font-size:7px;color:red; vertical-align: top;"></i>Product Name:</strong>\n' +
+        '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                            <strong>Product Name:</strong>\n' +
         '                            <input type="text" name="product_name[]" class="form-control"\n' +
         '                                   placeholder="Product Name" oninput="this.className = \'form-control\' ">\n' +
         '                            \n' +
-        '                        </div>\n' +
         '                    </div>\n' +
         '\n' +
-        '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                        <div class="form-group">\n' +
-        '                            <strong><i class="fa fa-asterisk"\n' +
-        '                                       style="font-size:7px;color:red; vertical-align: top;"></i>Custom code:</strong>\n' +
+        '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                            <strong>Custom code:</strong>\n' +
         '                            <input type="text" name="custom_code[]" class="form-control"\n' +
         '                                   placeholder="Custom code" oninput="this.className = \'form-control\' ">\n' +
-        '                           \n' +
-        '                        </div>\n' +
         '                    </div>\n' +
         '\n' +
-        '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                        <div class="form-group">\n' +
-        '                            <strong><i class="fa fa-asterisk"\n' +
-        '                                       style="font-size:7px;color:red; vertical-align: top;"></i>Description:</strong>\n' +
+        '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                            <strong>Description:</strong>\n' +
         '                            <input type="text" name="description[]" class="form-control"\n' +
         '                                   placeholder="Description" oninput="this.className = \'form-control\' ">\n' +
         '                           \n' +
-        '                        </div>\n' +
         '                    </div>' +
 
-        '                   <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                        <div class="form-group">\n' +
-        '                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Moneda:</strong>' +
+        '                   <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                            <strong>Moneda:</strong>' +
         '                            <input type="hidden" id="customer_coin_id' + x + '" name="coin[]">' +
         '                            <input type="text"' +
         '                                   readonly="readonly"' +
         '                                   class="form-control" id="coin_label_by_customer' + x + '"' +
         '                                   placeholder="Moneda">\n' +
         '\n' +
-        '                        </div>\n' +
-        '                    </div>' +
-
+        '                   </div>' +
         '       </div>' +
+
 
         '  ' + secondaryFields(x) + '' +
 
-        '       <div class="parent_items1">\n' +
+        '       <div class="parent_items2">\n' +
 
-        '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                        <div class="form-group">\n' +
-        '                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>UM:</strong>\n' +
+        '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                            <strong>UM:</strong>\n' +
         '                            <select name="um[]" class="form-select" oninput="this.className = \'form-control\' ">\n' +
         '                                <option disabled selected value> Selecteaza UM </option>\n' +
         '                                <option>bucati</option>\n' +
@@ -251,20 +244,16 @@ function articleFormGenerate(n, x) {
         '                                <option>gr</option>\n' +
         '                                <option>kg</option>\n' +
         '                            </select>\n' +
-        '                        </div>\n' +
         '                    </div>\n' +
         '\n' +
-        '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                        <div class="form-group">\n' +
-        '                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Cantitatea:</strong>\n' +
+        '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                            <strong>Cantitatea:</strong>\n' +
         '                            <input type="text" name="amount[]" class="form-control" placeholder="Cantitatea" oninput="this.className = \'form-control\' ">\n' +
         '                            \n' +
-        '                        </div>\n' +
         '                    </div>\n' +
 
-        '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                        <div class="form-group">\n' +
-        '                            <strong><i class="fa fa-asterisk" style="font-size:7px;color:red; vertical-align: top;"></i>Pret:</strong>\n' +
+        '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                            <strong>Pret:</strong>\n' +
         '                            <input type="text" name="price[]" class="form-control" placeholder="Pret" oninput="this.className = \'form-control\' ">\n' +
         '                           \n' +
         '                        </div>\n' +
@@ -292,195 +281,139 @@ function showHideExtraFields(value) {
 }
 
 function secondaryFields(x) {
-    return '<div class="secondary-attr" id="secondary-attr' + x + '" style="display: none">' +
-        '                    <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Composition:</strong>\n' +
+    return '<div class="secondary-attr parent_items1" id="secondary-attr' + x + '" style="display: none">' +
+        '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                                <strong>Composition:</strong>\n' +
         '                                <input type="text" name="composition[]" class="form-control"\n' +
         '                                       placeholder="Composition" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
-        '                        </div>\n' +
+        '                      </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Material\n' +
-        '                                    :</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                                <strong>Material:</strong>\n' +
         '                                <input type="text" name="material[]" class="form-control"\n' +
         '                                       placeholder="Material" oninput="this.className = \'form-control\' ">\n' +
         '                              \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Structure:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                                <strong>Structure:</strong>\n' +
         '                                <input type="text" name="structure[]" class="form-control"\n' +
         '                                       placeholder="Structure" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Design:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                                <strong>Design:</strong>\n' +
         '                                <input type="text" name="design[]" class="form-control"\n' +
         '                                       placeholder="Design" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Weaving:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                                <strong>Weaving:</strong>\n' +
         '                                <input type="text" name="weaving[]" class="form-control"\n' +
         '                                       placeholder="Weaving" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Color:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                                <strong>Color:</strong>\n' +
         '                                <input type="text" name="color[]" class="form-control"\n' +
         '                                       placeholder="Color" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Finishing:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
+        '                                <strong>Finishing:</strong>\n' +
         '                                <input type="text" name="finishing[]" class="form-control"\n' +
         '                                       placeholder="Finishing" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Perceived\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Perceived\n' +
         '                                    weight:</strong>\n' +
         '                                <input type="text" name="perceived_weight[]" class="form-control"\n' +
         '                                       placeholder="Perceived weight" oninput="this.className = \'form-control\' ">\n' +
         '                             \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Softness:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Softness:</strong>\n' +
         '                                <input type="text" name="softness[]" class="form-control" placeholder="Softness" oninput="this.className = \'form-control\' ">\n' +
         '                              \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Look:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Look:</strong>\n' +
         '                                <input type="text" name="look[]" class="form-control" placeholder="Look" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Grounds:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Grounds:</strong>\n' +
         '                                <input type="text" name="grounds[]" class="form-control" placeholder="Grounds" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Weight in\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Weight in\n' +
         '                                    g/m2:</strong>\n' +
         '                                <input type="text" name="weight_in_g/m2[]" class="form-control"\n' +
         '                                       placeholder="Weight in g/m2" oninput="this.className = \'form-control\' ">\n' +
         '                              \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Width\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Width\n' +
         '                                    (cm):</strong>\n' +
         '                                <input type="text" name="width[]" class="form-control" placeholder="Width (cm)" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn number\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Yarn number\n' +
         '                                    warp:</strong>\n' +
         '                                <input type="text" name="warp_th_per_cm[]" class="form-control"\n' +
         '                                       placeholder="Yarn number warp" oninput="this.className = \'form-control\' ">\n' +
         '                                \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Yarn count per cm\n' +
         '                                    warp:</strong>\n' +
         '                                <input type="text" name="warp_th_per_yarn_ne[]" class="form-control"\n' +
         '                                       placeholder="Yarn count per cm warp" oninput="this.className = \'form-control\' ">\n' +
         '                             \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Yarn count per cm\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Yarn count per cm\n' +
         '                                    weft:</strong>\n' +
         '                                <input type="text" name="weft_p_per_cm[]" class="form-control"\n' +
         '                                       placeholder="Yarn count per cm weft" oninput="this.className = \'form-control\' ">\n' +
         '                                \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
-        '                                <strong><i class="fa fa-asterisk"\n' +
-        '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Origin:</strong>\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                                <strong>Origin:</strong>\n' +
         '                                <input type="text" name="origin[]" class="form-control" placeholder="Origin" oninput="this.className = \'form-control\' ">\n' +
         '                                \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
         '                                <strong><i class="fa fa-asterisk"\n' +
         '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Date:</strong>\n' +
         '                                <input type="text" name="date[]" class="form-control" placeholder="Date" oninput="this.className = \'form-control\' ">\n' +
         '                               \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '\n' +
-        '                        <div class="col-xs-12 col-sm-12 col-md-12">\n' +
-        '                            <div class="form-group">\n' +
+        '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
         '                                <strong><i class="fa fa-asterisk"\n' +
         '                                           style="font-size:7px;color:red; vertical-align: top;"></i>Rating:</strong>\n' +
         '                                <input type="text" name="rating[]" class="form-control" placeholder="Rating:" oninput="this.className = \'form-control\' ">\n' +
         '                                \n' +
-        '                            </div>\n' +
         '                        </div>\n' +
         '</div>'
 }

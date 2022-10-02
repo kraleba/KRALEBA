@@ -27,10 +27,10 @@
                     <div class="filter-item1">
                         <select name="type" id="department" class="form-control rounded-pill filter-control">
                             <option disabled selected value> -- select an option -- </option>
-                            <option value="1"
-                                    @php(isset($filtering_criteria['type']['nume'])? $filtering_criteria['type']['nume']  : print 'selected'))>
-                                Proforma
-                            </option>
+{{--                            <option value="1"--}}
+{{--                                    @php(isset($filtering_criteria['type']['nume'])? $filtering_criteria['type']['nume']  : print 'selected'))>--}}
+{{--                                Proforma--}}
+{{--                            </option>--}}
                         </select>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                         <div class="form-row">
 
                             <input type="date" class="form-control filter-control  rounded-pill"
-                                   value="{{date('Y-m-d')}}" name="end_date"
+                                   value="" name="end_date"
                             >
                         </div>
                     </div>

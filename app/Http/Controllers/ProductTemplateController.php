@@ -38,7 +38,7 @@ class ProductTemplateController extends Controller
     public function index(Request $request)
     {
         $data['templates'] = $this->template_parent->get_product_templates_after_filter();
-
+//        dd($data);
         return view('products_template.template_index', $data);
     }
 
@@ -71,7 +71,7 @@ class ProductTemplateController extends Controller
 
     public function show(Customers $customer)
     {
-
+//trebuie sa fac pagina unde se vad prototipurile
     }
 
     public function edit(Customers $customer)

@@ -54,7 +54,6 @@ class Bills extends Model
         }
     }
 
-
     public function get_bill_by_id($bill_id)
     {
         if (is_numeric($bill_id)) {
@@ -75,40 +74,46 @@ class Bills extends Model
     {
         $query_format = '';
 
-        if (!$end_date) {
-            $end_date = date('Y-m-d');
+//        if (!$end_date) {
+//            $end_date = date('Y-m-d');
+//        }
+         // trebuie sa vad cum pot face pentru end date si start date
+        if($start_date) {
+            $start_date = date("d/m/Y", strtotime($start_date));
         }
 
-        $start_date = date("d/m/Y", strtotime($start_date));
-        $end_date = date("d/m/Y", strtotime($end_date));
-
+        if($end_date) {
+            $end_date = date("d/m/Y", strtotime($end_date));
+        }
+        dump($start_date);
+        dump($end_date);
         if ($customer_name) {
-            $query_format .= " WHERE customers.name = '{$customer_type}'";
+            $query_format .= " WHERE c.name = '{$customer_type}'";
         }
 
         if ($customer_type && $query_format) {
-            $query_format .= " AND customers.type = '{$customer_type}'";
+            $query_format .= " AND c.type = '{$customer_type}'";
         } else if ($customer_type && $query_format) {
-            $query_format .= " WHERE customers.type = '{$customer_type}'";
+            $query_format .= " WHERE c.type = '{$customer_type}'";
         }
 
         if ($type && $query_format) {
-            $query_format .= " AND bills.type = {$type}";
+            $query_format .= " AND b.type = {$type}";
         } else if ($type) {
-            $query_format .= " WHERE bills.type = {$type}";
+            $query_format .= " WHERE b.type = {$type}";
         }
 
         if ($start_date && $query_format) {
-            $query_format .= " AND bills.bill_date BETWEEN '{$start_date}' AND '{$end_date}'  ORDER BY bills.bill_date ASC ";
+            $query_format .= " AND b.bill_date BETWEEN '{$start_date}' AND '{$end_date}'  ORDER BY b.bill_date ASC ";
         } else if ($start_date) {
-            $query_format .= " WHERE bills.bill_date BETWEEN '{$start_date}' AND '{$end_date}' ORDER BY bills.bill_date ASC ";
+            $query_format .= " WHERE b.bill_date BETWEEN '{$start_date}' AND '{$end_date}' ORDER BY b.bill_date ASC ";
         }
 
-        $query = "SELECT bills.id, bills.customer_id, customers.name, bills.bill_date, bills.bill_number, bills.exchange, bills.tva
-                FROM bills
-                JOIN customers
-                ON bills.customer_id = customers.id" . $query_format ?? '';
-
+        $query = "SELECT b.id, b.customer_id, c.name, b.bill_date, b.bill_number, b.exchange, b.tva
+                FROM bills AS b
+                JOIN customers AS c
+                ON b.customer_id = c.id" . $query_format ?? '';
+//        dd($query);
         return DB::select($query);
     }
 
@@ -127,12 +132,12 @@ class Bills extends Model
                 AND b.{$row_name} LIKE '%{$search}%'
                 AND w.custom_code = '{$ware_custom_code}'
                 AND w.product_name = '{$ware_product_name_selected}'
-
-        ";
+                ";
 
         if ($bill_date) {
             $query .= "AND b.bill_date = '{$bill_date}'";
         }
+
         $employees = DB::select($query);
         $response = array();
 

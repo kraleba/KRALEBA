@@ -26,10 +26,6 @@ class ProductTemplate extends Model
         'number_of_child'
     ];
 
-    public function get_style_template_categories()
-    {
-        return DB::table('style_template_categories')->get();
-    }
 
     public function get_marketing_template_categories()
     {

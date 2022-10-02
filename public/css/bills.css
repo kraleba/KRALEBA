@@ -105,3 +105,10 @@ select.invalid {
 }
 
 /*STEPS FORM CREATE BILLS END*/
+
+/*add * to required fields*/
+.required:before {
+    content:" *";
+    color: red;
+    vertical-align: top;
+}

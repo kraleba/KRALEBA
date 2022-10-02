@@ -62,15 +62,8 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                             <a class="dropdown-item"
-                                               href="{{--{{ route('bills.index', $customer->id) }}--}}">Creaza
-                                                Productie </a>
-
-                                            <a class="dropdown-item"
-                                               href="{{--{{ route('customers.edit', $customer->id) }}--}}">Edit</a>
-
-                                            <a class="dropdown-item"
-                                               href="{{--{{ route('wares.index', $customer->id) }}--}}">
-                                                Articole </a>
+                                               href="{{ route('templates.show', $template->id) }}">
+                                                Vezi Prototipul </a>
 
 
                                             @csrf
