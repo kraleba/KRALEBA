@@ -267,13 +267,13 @@ function articleFormGenerate(n, x) {
         '\n' +
         '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>Cantitatea:</strong>\n' +
-        '                            <input type="text" name="amount[]" class="form-control" placeholder="Cantitatea" oninput="this.className = \'form-control\' ">\n' +
+        '                            <input type="number" name="amount[]" class="form-control" placeholder="Cantitatea" oninput="this.className = \'form-control\' ">\n' +
         '                            \n' +
         '                    </div>\n' +
 
         '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>Pret:</strong>\n' +
-        '                            <input type="text" name="price[]" class="form-control" placeholder="Pret" oninput="this.className = \'form-control\' ">\n' +
+        '                            <input type="number" name="price[]" class="form-control" placeholder="Pret" oninput="this.className = \'form-control\' ">\n' +
         '                           \n' +
         '                        </div>\n' +
         '                    </div>\n' +

@@ -73,8 +73,8 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-12 col-md-12 form-group required">
-                        <strong>Numar:</strong>
-                        <input type="number" name="bill_number" class="form-control" placeholder="Numar"
+                        <strong>Numarul Facturii:</strong>
+                        <input type="number" name="bill_number" class="form-control" placeholder="Numarul Facturii"
                                oninput="this.className = 'form-control' "
                         >
                     </div>
