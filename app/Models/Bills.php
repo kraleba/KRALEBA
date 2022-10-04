@@ -70,51 +70,39 @@ class Bills extends Model
 
     }
 
-    public function get_bills_by_filter($customer_name = false, $customer_type = false, $type = false, $start_date = false, $end_date = false)
+    public function get_bills_by_filter($customer_name = false, $type = false, $start_date = false, $end_date = false)
     {
-        $query_format = '';
 
-//        if (!$end_date) {
-//            $end_date = date('Y-m-d');
-//        }
-         // trebuie sa vad cum pot face pentru end date si start date
-        if($start_date) {
-            $start_date = date("d/m/Y", strtotime($start_date));
-        }
-
-        if($end_date) {
-            $end_date = date("d/m/Y", strtotime($end_date));
-        }
-        dump($start_date);
-        dump($end_date);
-        if ($customer_name) {
-            $query_format .= " WHERE c.name = '{$customer_type}'";
-        }
-
-        if ($customer_type && $query_format) {
-            $query_format .= " AND c.type = '{$customer_type}'";
-        } else if ($customer_type && $query_format) {
-            $query_format .= " WHERE c.type = '{$customer_type}'";
-        }
-
-        if ($type && $query_format) {
-            $query_format .= " AND b.type = {$type}";
-        } else if ($type) {
-            $query_format .= " WHERE b.type = {$type}";
-        }
-
-        if ($start_date && $query_format) {
-            $query_format .= " AND b.bill_date BETWEEN '{$start_date}' AND '{$end_date}'  ORDER BY b.bill_date ASC ";
-        } else if ($start_date) {
-            $query_format .= " WHERE b.bill_date BETWEEN '{$start_date}' AND '{$end_date}' ORDER BY b.bill_date ASC ";
-        }
-
-        $query = "SELECT b.id, b.customer_id, c.name, b.bill_date, b.bill_number, b.exchange, b.tva
+        $query = "SELECT
+                b.id,
+                b.customer_id,
+                c.name,
+                b.bill_date,
+                b.bill_number,
+                b.exchange,
+                b.tva
                 FROM bills AS b
                 JOIN customers AS c
-                ON b.customer_id = c.id" . $query_format ?? '';
-//        dd($query);
+                ON b.customer_id = c.id";
+
+        if ($customer_name) {
+            $query .= " WHERE c.name LIKE '%{$customer_name}%'";
+        }
+
+        if ($customer_name && $type) {
+            $query .= " AND b.type = {$type}";
+        } else if ($type) {
+            $query .= " WHERE b.type = {$type}";
+        }
+
+        if (($customer_name || $type) && ($start_date && $end_date)) {
+            $query .= " AND b.bill_date BETWEEN '{$start_date}' AND '{$end_date}'  ORDER BY b.bill_date ASC ";
+        } else if ($start_date && $end_date) {
+            $query .= " WHERE b.bill_date BETWEEN '{$start_date}' AND '{$end_date}' ORDER BY b.bill_date ASC ";
+        }
+
         return DB::select($query);
+
     }
 
     public function get_bills_to_autocomplete_suggestions($search, $customer_id, $row_name, $ware_custom_code, $ware_product_name_selected, $bill_date)

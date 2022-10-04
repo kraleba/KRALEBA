@@ -14,23 +14,31 @@
                                name="customer_name"
                                placeholder="--Selecteaza un Client--"
                                class="form-control filter-control rounded-pill"
+                               value="{{$filtering_criteria['customer_name'] ?? ''}}"
+
                         >
                     </div>
 
                     <div class="filter-item1">
-                        <select name="customer_type" id="department" class="form-control rounded-pill filter-control">
-                            <option value="provider">Furnizor</option>
-                            <option value="customer">Beneficiar</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-item1">
                         <select name="type" id="department" class="form-control rounded-pill filter-control">
-                            <option disabled selected value> -- select an option -- </option>
-{{--                            <option value="1"--}}
-{{--                                    @php(isset($filtering_criteria['type']['nume'])? $filtering_criteria['type']['nume']  : print 'selected'))>--}}
-{{--                                Proforma--}}
-{{--                            </option>--}}
+                            <option selected value> -- select an option --</option>
+                            <option
+                                value="1"
+                                @if(isset($filtering_criteria['type']) && $filtering_criteria['type'] == 1)
+                                    selected
+                                @endif
+                            >
+                                Proforma
+                            </option>
+
+                            <option
+                                value="2"
+                                @if(isset($filtering_criteria['type']) && $filtering_criteria['type'] == 2)
+                                    selected
+                                @endif
+                            >
+                                Definitiva
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -40,7 +48,8 @@
                     <div class="filter-item1" style="padding-left: 4px;">
                         <div class="form-row">
 
-                            <input type="date" class="form-control filter-control rounded-pill" value=""
+                            <input type="date" id="bills_start_date" class="form-control filter-control rounded-pill"
+                                   value="{{$filtering_criteria['start_date'] ?? ''}}"
                                    name="start_date"
                             >
                         </div>
@@ -49,8 +58,8 @@
                     <div class="filter-item1" style="padding-left: 12px;">
                         <div class="form-row">
 
-                            <input type="date" class="form-control filter-control  rounded-pill"
-                                   value="" name="end_date"
+                            <input type="date" id="bills_end_date" class="form-control filter-control  rounded-pill"
+                                   value="{{$filtering_criteria['end_date'] ?? ''}}" name="end_date"
                             >
                         </div>
                     </div>

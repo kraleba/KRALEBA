@@ -47,18 +47,12 @@ class CustomersController extends Controller
             $request->input('type'),
             $request->input('category')
         );
-//dump($data['customers']);
 
         if ($request->input('downloadPDF') == 'PDF') {
-
             $pdf = PDF::loadView('customers.pdf', $data);
             return $pdf->download('invoice.pdf');
-
         }
-
         $data['furnace_categories'] = $product->get_furnace_categories();
-//        $data['subcategories'] = $product->get_subcategory_for_customer_category();
-//        dump($data['filtering_criteria']['category']);
 
         return view('customers.index', $data)
             ->with('i', (request()->input('page', 1) - 1) * 5);

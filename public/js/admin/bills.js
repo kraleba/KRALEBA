@@ -25,6 +25,25 @@ $(document).ready(function () {
         $("#show_customer_id_selected").val($('.customer-search').val());
     });
 
+    /*bills start date and end date validator if one is completed and other no*/
+    $("#searchBtn").click(function () {
+
+        let start_date = $('#bills_start_date')
+        let end_date = $('#bills_end_date')
+
+        if (start_date.val()) {
+            end_date.prop('required', true);
+        }
+
+        if (end_date.val()) {
+            start_date.prop('required', true);
+        }
+
+        if (!start_date.val() && !end_date.val()) {
+            start_date.prop('required', false);
+            end_date.prop('required', false);
+        }
+    });
 });
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
@@ -114,7 +133,7 @@ function validateForm() {
             y = x[currentTab].getElementsByTagName("input");
             let parents = x[currentTab].children;
 
-            if(x[currentTab].className){
+            if (x[currentTab].className) {
 
             }
             if (!validatorFormHelper(y, parents)) {
