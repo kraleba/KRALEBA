@@ -271,7 +271,6 @@ class Customers extends Model
         if ($category_id) {
             $and_or = "AND cc.category_id = {$category_id}";
         } else {
-
             $and_or = "OR c.unique_code LIKE '%{$data}%'";
         }
 
@@ -280,7 +279,7 @@ class Customers extends Model
                 FROM customers AS c
                 ";
 
-        if ($category_id) {
+        if ($custom_search) {
             $query .= "
                 LEFT JOIN customers_id_categories AS cc
                 ON c.id = cc.customer_id
@@ -290,13 +289,10 @@ class Customers extends Model
                 GROUP BY c.name, c.id
                 ORDER BY c.name
                 ";
-        } else {
-            $query .= "WHERE c.name LIKE '%{$data}%'";
-        }
 
-        if ($custom_search) {
             $employees = DB::select($query);
             $response = array();
+
             foreach ($employees as $employee) {
                 $response[] = array(
                     "id" => $employee->id,
@@ -306,6 +302,9 @@ class Customers extends Model
             }
 
             return $response;
+
+        } else {
+            $query .= "WHERE c.name LIKE '%{$data}%'";
         }
 
         return DB::select($query);
