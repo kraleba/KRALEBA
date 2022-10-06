@@ -29,6 +29,14 @@ return new class extends Migration {
      */
     public function down()
     {
-        //
+        Schema::table('bills', function (Blueprint $table) {
+            $table->dropColumn('user_id');
+            $table->dropColumn('type');
+            $table->dropColumn('bill_number');
+            $table->dropColumn('currency');
+            $table->dropColumn('exchange');
+            $table->dropColumn('tva');
+            $table->dropColumn('item');
+        });
     }
 };
