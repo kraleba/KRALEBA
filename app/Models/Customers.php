@@ -288,7 +288,8 @@ class Customers extends Model
                 AND c.type = 'provider'
                  {$and_or}
                 GROUP BY c.name, c.id
-                ORDER BY c.name";
+                ORDER BY c.name
+                ";
         } else {
             $query .= "WHERE c.name LIKE '%{$data}%'";
         }
