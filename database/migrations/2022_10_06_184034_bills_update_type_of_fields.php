@@ -13,7 +13,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('bills', function (Blueprint $table) {
-            $table->integer('Type')->change();
+            $table->integer('type')->change();
             $table->integer('bill_number')->change();
             $table->integer('currency')->change();
             $table->integer('exchange')->change();
