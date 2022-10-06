@@ -30,7 +30,7 @@ class CustomersController extends Controller
     public function index(Request $request)
     {
         $product = new Products();
-dump('test ');
+
         if ($request->input()) {
 
             $data = $this->helper->helper_show_filter($request->input());
