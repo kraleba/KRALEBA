@@ -15,7 +15,6 @@
                                placeholder="--Selecteaza un Client--"
                                class="form-control filter-control rounded-pill"
                                value="{{$filtering_criteria['customer_name'] ?? ''}}"
-
                         >
                     </div>
 

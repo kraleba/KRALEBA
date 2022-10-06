@@ -43,8 +43,8 @@ class BillsController extends Controller
         $data['customer_id'] = $request->customer_id;
         $data['bills'] = $this->bills->get_bills_by_filter($request->customer_name, $request->type, $request->start_date, $request->end_date);
 
-
         return view('bills.bills_index', $data);
+
     }
 
     public function create(Request $request)

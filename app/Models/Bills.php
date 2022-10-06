@@ -73,7 +73,8 @@ class Bills extends Model
     public function get_bills_by_filter($customer_name = false, $type = false, $start_date = false, $end_date = false)
     {
 
-        $query = "SELECT
+        $query = "
+            SELECT
                 b.id,
                 b.customer_id,
                 c.name,
@@ -81,9 +82,10 @@ class Bills extends Model
                 b.bill_number,
                 b.exchange,
                 b.tva
-                FROM bills AS b
-                JOIN customers AS c
-                ON b.customer_id = c.id";
+            FROM bills AS b
+            JOIN customers AS c
+            ON b.customer_id = c.id
+            ";
 
         if ($customer_name) {
             $query .= " WHERE c.name LIKE '%{$customer_name}%'";
