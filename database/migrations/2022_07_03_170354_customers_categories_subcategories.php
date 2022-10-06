@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('customer_id');
             $table->string('category_id');
             $table->string('subcategory_id')->nullable();
+            $table->string('customer_type')->nullable();
             $table->timestamps();
 
         });

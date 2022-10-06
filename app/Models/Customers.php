@@ -275,15 +275,24 @@ class Customers extends Model
             $and_or = "OR c.unique_code LIKE '%{$data}%'";
         }
 
-        $query = "SELECT c.name, c.id
+        $query = "
+                SELECT c.name, c.id
                 FROM customers AS c
+                ";
+
+        if ($category_id) {
+            $query .= "
                 LEFT JOIN customers_id_categories AS cc
                 ON c.id = cc.customer_id
                 WHERE c.name LIKE '%{$data}%'
                 AND c.type = 'provider'
                  {$and_or}
                 GROUP BY c.name, c.id
-                ORDER BY c.name";
+                ORDER BY c.name
+                ";
+        } else {
+            $query .= "WHERE c.name LIKE '%{$data}%'";
+        }
 
         if ($custom_search) {
             $employees = DB::select($query);
