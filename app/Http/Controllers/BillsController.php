@@ -42,6 +42,12 @@ class BillsController extends Controller
 
         $data['customer_id'] = $request->customer_id;
         $data['bills'] = $this->bills->get_bills_by_filter($request->customer_name, $request->type, $request->start_date, $request->end_date);
+        $data['filter_title'] = $this->helper->generate_title_by_filter_bills($request->customer_name, $request->type, $request->start_date, $request->end_date);
+//       dump($data['filter_title']);
+        if($request->downloadPDF == 'PDF') {
+            $pdf = PDF::loadView('bills.pdf_list', $data);
+            return $pdf->download('invoice.pdf');
+        }
 
         return view('bills.bills_index', $data);
 

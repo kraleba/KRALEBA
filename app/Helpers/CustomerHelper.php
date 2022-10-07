@@ -102,7 +102,7 @@ class CustomerHelper extends Controller
 
         if (($customer_name || $customer_type) && $category) {
             $title_text .= ' / ' . $this->product->get_customer_category_by_id($category)->name;
-        } elseif($category) {
+        } elseif ($category) {
             $title_text .= $this->product->get_customer_category_by_id($category)->name;
 
         }
@@ -309,6 +309,37 @@ class CustomerHelper extends Controller
         $customer = $this->customers->get_customer_and_categories_by_id($customer_id);
 
         return response()->json($customer->categories);
+    }
+
+    public function generate_title_by_filter_bills($customer_name, $bills_type, $start_date, $end_date)
+    {
+
+        if ($bills_type == 1) {
+            $bills_type = "Proforma";
+        } elseif ($bills_type == 2) {
+            $bills_type = "Definitiva";
+        }
+
+        $bills_list_title = $customer_name ?? null;
+
+        if ($customer_name && $bills_type) {
+            $bills_list_title .= ' / ' . $bills_type;
+
+        } elseif ($bills_type) {
+            $bills_list_title .= $bills_type;
+        }
+
+        if (($customer_name || $bills_type) && ($start_date && $end_date)) {
+            $bills_list_title .= ' / ' . $start_date;
+            $bills_list_title .= ' / ' . $end_date;
+
+        } elseif ($start_date && $end_date) {
+            $bills_list_title .= $start_date;
+            $bills_list_title .= ' / ' . $end_date;
+        }
+
+        return $bills_list_title;
+
     }
 
 }

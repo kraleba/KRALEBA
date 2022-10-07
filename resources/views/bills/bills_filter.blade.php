@@ -67,6 +67,13 @@
                 <div class="filter-item_OK">
                     <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
                 </div>
+                <div style="float: right">
+                    @if($bills)
+                        <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca
+                            .pdf
+                        </button>
+                    @endif
+                </div>
             </form>
 
         </div>
