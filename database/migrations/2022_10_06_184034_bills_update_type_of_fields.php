@@ -13,12 +13,12 @@ return new class extends Migration {
     public function up()
     {
         Schema::table('bills', function (Blueprint $table) {
-            $table->unsignedInteger('type')->change();
-            $table->unsignedInteger('bill_number')->change();
-            $table->unsignedInteger('currency')->change();
-            $table->unsignedInteger('exchange')->change();
-            $table->unsignedInteger('tva')->change();
-            $table->unsignedInteger('item')->change();
+            $table->unsignedBigInteger('type')->change();
+            $table->unsignedBigInteger('bill_number')->change();
+            $table->unsignedBigInteger('currency')->change();
+            $table->unsignedBigInteger('exchange')->change();
+            $table->unsignedBigInteger('tva')->change();
+            $table->unsignedBigInteger('item')->change();
         });
     }
 
@@ -40,3 +40,4 @@ return new class extends Migration {
         });
     }
 };
+//trebie sa rezolv problema cu schimbarea tipului coloanei
