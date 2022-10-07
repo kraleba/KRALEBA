@@ -21,7 +21,7 @@ return new class extends Migration {
 //            $table->unsignedBigInteger('tva')->change();
 //            $table->unsignedBigInteger('item')->change();
         DB::statement('alter table bills
-    alter column type type integer(10) using type::integer(10)');
+    alter column type type integer using type::integer');
 //    });
     }
 
