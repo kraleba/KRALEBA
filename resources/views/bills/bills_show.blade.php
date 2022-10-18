@@ -128,13 +128,13 @@
                     </table>
                     <br>
                 @endforeach
-                    <div >
-                        <button id="searchBtn" type="submit" class="btn btn-secondary"> Generare pdf</button>
-                        <button id="searchBtn" type="submit"
-                                class="btn btn-secondary btn-danger btn-flat bills-alert-delete">
-                            Delete
-                        </button>
-                    </div>
+                <form>
+                    <button id="searchBtn" type="submit" name="downloadPDF" value="PDF" class="btn btn-secondary"> Generare pdf</button>
+                    <button id="searchBtn" type="submit"
+                            class="btn btn-secondary btn-danger btn-flat bills-alert-delete">
+                        Delete
+                    </button>
+                </form>
         </div>
 
 

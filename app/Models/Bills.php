@@ -29,24 +29,20 @@ class Bills extends Model
 
     }
 
-    public function get_customer_bill_by_id($customer_id, $bill_id = false)
+    public function get_customer_bill_by_id($bill_id)
     {
-        if (!$customer_id || !is_numeric($customer_id)) {
-            return false;
-        }
-        $bills = DB::table('bills')->where('id', $bill_id)->get();
+
         $i = 0;
         $generatedBills = array();
-        foreach ($bills as $bill) {
             $generatedBills[$i] = DB::select(
                 "SELECT *
-            FROM customer_wares
-            LEFT JOIN bills
-            ON bills.id = customer_wares.bill_id
-            WHERE bills.customer_id = {$customer_id}
-            AND customer_wares.bill_id = {$bill->id}");
+            FROM customer_wares AS w
+            LEFT JOIN bills AS b
+            ON w.bill_id = b.id
+            WHERE w.bill_id = {$bill_id}"
+            );
             $i++;
-        }
+
         if ($generatedBills) {
             return $generatedBills;
         } else {

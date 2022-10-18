@@ -44,6 +44,7 @@ class BillsController extends Controller
         $data['bills'] = $this->bills->get_bills_by_filter($request->customer_name, $request->type, $request->start_date, $request->end_date);
         $data['filter_title'] = $this->helper->generate_title_by_filter_bills($request->customer_name, $request->type, $request->start_date, $request->end_date);
 //       dump($data['filter_title']);
+
         if($request->downloadPDF == 'PDF') {
             $pdf = PDF::loadView('bills.pdf_list', $data);
             return $pdf->download('invoice.pdf');
@@ -83,10 +84,7 @@ class BillsController extends Controller
         $bill = Bills::create($request->input());
 
         $this->wares->create_wares_from_bill($bill->id, $request->input());
-
-
 //        $this->bills->create_bill_and_update_ware($request->input());
-
 
         return redirect()->route('bills.index', $request->customer_id)
             ->with('success', 'Bills has been created successfully.');
@@ -97,10 +95,17 @@ class BillsController extends Controller
     function show(Request $request)
     {
         $data['customer_id'] = $request->customer_id;
-        $bills = $this->bills->get_customer_bill_by_id($request->customer_id, $request->bill);
+        $bills = $this->bills->get_customer_bill_by_id($request->bill);
         $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
 
 //        dd($request->bill);
+//        dump($data);
+
+        if($request->downloadPDF == 'PDF') {
+            $pdf = PDF::loadView('bills.bill_table_pdf', $data);
+            return $pdf->download('invoice.pdf');
+        }
+
         return view('bills.bills_show', $data);
 
     }

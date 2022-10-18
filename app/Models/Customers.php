@@ -29,6 +29,7 @@ class Customers extends Model
      */
     public static function get_customers()
     {
+
         $results = DB::table('customers')
             ->orderBy('name')
             ->get();

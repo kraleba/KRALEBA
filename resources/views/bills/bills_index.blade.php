@@ -81,7 +81,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                 <a class="dropdown-item"
-                                   href="{{ route('bills.show', ['customer_id' => $bill->customer_id, 'bill' => $bill->id]) }}">Vezi
+                                   href="{{ route('bills.show', [ 'bill' => $bill->id]) }}">Vezi
                                     Fctura </a>
 
                                 @csrf
