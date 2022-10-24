@@ -74,10 +74,11 @@
                      $lei_tva = 0;
                      $eu_with_tva = 0;
                      $lei_with_tva = 0;
-
                         @endphp
                         @foreach($bill as $ware)
-
+                            @php
+                            print_r($ware['tva']);
+                            @endphp
                             <tr>
                                 <td>{{$i}}</td>
                                 <td>{{$ware['product_name']}}</td>
@@ -86,26 +87,26 @@
                                 <td>{{$ware['um']}}</td>
                                 <td>{{$ware['amount']}}</td>
                                 {{--pret pe bucata--}}
-                                <td>{{$ware['price_euro']}}</td>
-                                <td>{{$ware['price_lei']}}</td>
+                                <td>{{round($ware['price_euro'],2)}}</td>
+                                <td>{{round($ware['price_lei'], 2)}}</td>
                                 {{--total pret fara tva--}}
                                 <td>{{round($ware['amount'] * $ware['price_euro'] - $ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
-                                <td>{{round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
+                                <td>{{round($ware['amount'] * $ware['price_lei'])-($ware['amount'] * $ware['price_lei']) * ($ware['tva']) * 100 * ($ware['tva'])}}</td>
 
                                 <td>{{round($ware['tva_euro_buc'] * $ware['amount'], 2)}}</td>
-                                <td>{{round($ware['tva_lei_buc'] * $ware['amount'], 2)}}</td>
+                                <td>{{round($ware['amount'] * $ware['price_lei']) * ($ware['tva']) * 100 * ($ware['tva'])}}</td>
                                 {{--total pret tva--}}
-                                <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
+                                <td>{{round($ware['amount'] * $ware['price_euro'], 2)}}</td>
                                 <td>{{round($ware['amount'] * $ware['price_lei'], 2)}}</td>
 
                                 @php
-                                    $eu_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_euro_buc'] * $ware['amount'], 2);
+                                    $eu_wit_out_tva += round($ware['amount'] * $ware['price_euro'] - $ware['tva_euro_buc'] * $ware['amount'], 2);
                                     $lei_wit_out_tva += round($ware['amount'] * $ware['price_lei'] - $ware['tva_lei_buc'] * $ware['amount'], 2);
 
                                     $eu_tva += round($ware['tva_euro_buc'] * $ware['amount'], 2);
                                     $lei_tva += round($ware['tva_lei_buc'] * $ware['amount'], 2);
 
-                                    $eu_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
+                                    $eu_with_tva += round($ware['amount'] * $ware['price_euro'], 2);
                                     $lei_with_tva += round($ware['amount'] * $ware['price_lei'], 2);
 
 
