@@ -140,7 +140,6 @@ class CustomersController extends Controller
         } else {
             $data['customers'] = $customer;
         }
-        dump($data['customers']);
 
         return view('customers.edit', $data);
     }
