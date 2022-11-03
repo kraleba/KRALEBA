@@ -7,6 +7,7 @@ use App\Models\Bills;
 use App\Models\Customers;
 use App\Models\Products;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Dflydev\DotAccessData\Data;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -83,7 +84,7 @@ class CustomersController extends Controller
                 'type' => 'required',
                 'unique_code' => 'required',
                 'country' => 'required',
-                'categories_id' => 'required'
+//                'categories_id' => 'required'
             ]);
         } else {
             $request->validate([
@@ -98,11 +99,11 @@ class CustomersController extends Controller
         if ($request->input('type') == 'provider') {
 
             $categories_id = (array)$request->input('categories_id');
-            if (!in_array(8, $categories_id)) {
-                $request->validate([
-                    'subcategories_id' => 'required',
-                ]);
-            }
+//            if (!in_array(8, $categories_id)) {
+//                $request->validate([
+//                    'subcategories_id' => 'required',
+//                ]);
+//            }
             $customer = Customers::create($data);
             $categories_id = $request->input('categories_id');
             $subcategories_id = $request->input('subcategories_id');
@@ -139,6 +140,7 @@ class CustomersController extends Controller
         } else {
             $data['customers'] = $customer;
         }
+        dump($data['customers']);
 
         return view('customers.edit', $data);
     }
@@ -159,12 +161,6 @@ class CustomersController extends Controller
 
             $subcategories_id = $request->input('subcategories_id');
             $categories_id = (array)$request->input('categories_id');
-
-            if (!in_array(8, $categories_id)) {
-                $request->validate([
-                    'subcategories_id' => 'required',
-                ]);
-            }
 
             $this->product->update_customer_categories_and_subcategories($customer->attributesToArray()['id'], $categories_id, $subcategories_id);
 

@@ -111,38 +111,33 @@ class Customers extends Model
                 s.subcategory_id,
                 cs.name
             FROM customers_id_categories AS c
-            JOIN customer_category_id_subcategories AS s
+            LEFT JOIN customer_category_id_subcategories AS s
                 ON c.category_id = s.category_id
-            JOIN customer_subcategory AS cs
-                ON s.subcategory_id = cs.id
-            JOIN furnace_categories AS cc
+            LEFT JOIN furnace_categories AS cc
                 ON cc.id = c.category_id
+            LEFT JOIN customer_subcategory AS cs
+                ON s.subcategory_id = cs.id
             WHERE c.customer_id = {$id}
                 AND s.category_id = c.category_id
                 AND s.customer_id = {$id}";
 
         $categories_obj = DB::select($query);
 
-        $textile = DB::select("
-                        SELECT
-                            c.category_id,
-                            c.customer_id,
-                            f.name as category_name
-                        FROM customers_id_categories AS c
-                        JOIN furnace_categories AS f
-                            ON f.id = c.category_id
-                        WHERE c.customer_id = {$id}
-                            AND c.category_id = 8");
+        $categories =
+            DB::select("
+                    SELECT
+                        c.customer_id,
+                        c.category_id,
+                        f.name as category_name
+                    FROM customers_id_categories AS c
+                    JOIN furnace_categories AS f
+                    ON f.id = c.category_id
+                    WHERE c.customer_id = {$id}
+                    ");
 
         $customer = $this->get_customer_by_id($id);
 
-        if ($textile) {
-            $textile[0]->name = $textile[0]->category_name;
-            $textile[0]->subcategory_id = ' ';
-            $categories_obj[-1] = $textile[0];
-        }
-
-        $customer->categories = $categories_obj;
+        $customer->categories = array_merge($categories_obj, $categories);
 
         return $customer;
     }
