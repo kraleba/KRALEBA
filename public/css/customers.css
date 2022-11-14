@@ -1,3 +1,6 @@
+.filter-customers {
+    left:190px;
+}
 .list-body {
     list-style-type: none;
     padding: 0;
@@ -28,8 +31,24 @@
     padding: 12px 16px;
     transform: translate(0%, -50%);
 }
+/*PDF*/
+.pdf-style {
+    position: absolute;
+    right: 133px;
+    top: 15px;
+}
 
-
+.revert-customers {
+    position: absolute;
+    top: -30px;
+    right: 140px;
+}
+.filter-customers-OK {
+    position: absolute;
+    right: 150px;
+    top: -78px;
+    display:inline-block;
+}
 
 /*search subcategory*/
 .customInputContainer {
@@ -176,14 +195,6 @@
 
 .delete-icon {
     float: right;
-}
-
-/*PDF*/
-.pdf-style {
-    position: relative;
-    float: right;
-    bottom: -95px;
-
 }
 
 
