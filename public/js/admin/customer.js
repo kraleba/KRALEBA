@@ -1,3 +1,4 @@
+
 var category = document.getElementById("categoryProduct");
 var boxProvider = document.getElementById('checkProvider');
 
@@ -42,26 +43,26 @@ function checkBoxProvider() {
 
 $(".show-subcategory").click(function () {
 
-        var category_id = $("#category_id").val();
+    var category_id = $("#category_id").val();
 
-        $.ajax({
-            url: "/admin/show_subcategory_by_category_id",
-            type: 'GET',
-            dataType: "json",
-            data: {
-                category_id: category_id,
-            },
-            success: function (res) {
-                $('#ddlNationality li').remove();
-                $('#ddlNationality span').remove();
-                $.each(res, function (data, value) {
-                    $("#ddlNationality").append($('<span onclick="deleteSubcategory(' + value.id + ')" class="fa fa-close" style="float:right; padding-top: 10px; padding-right: 10px"></span>')).append($('<li value=' + value.id + '>' + value.name + '</li>'));
+    $.ajax({
+        url: "/admin/show_subcategory_by_category_id",
+        type: 'GET',
+        dataType: "json",
+        data: {
+            category_id: category_id,
+        },
+        success: function (res) {
+            $('#ddlNationality li').remove();
+            $('#ddlNationality span').remove();
+            $.each(res, function (data, value) {
+                $("#ddlNationality").append($('<span onclick="deleteSubcategory(' + value.id + ')" class="fa fa-close" style="float:right; padding-top: 10px; padding-right: 10px"></span>')).append($('<li value=' + value.id + '>' + value.name + '</li>'));
 
-                })
-                // $("#ddlNationality").append(subcategories);
-            }
-        });
-    }
+            })
+            // $("#ddlNationality").append(subcategories);
+        }
+    });
+}
 );
 
 //filter index.blade.php
@@ -97,7 +98,7 @@ function deleteSubcategory(id) {
 
     $.ajax(
         {
-            url: "subcategory/" + id,
+            url: window.location.origin + "/admin/delete_subcategory/",
             type: 'get',
             data: {
                 "id": id,
@@ -121,7 +122,7 @@ function addSubcategoryForCustomersId(category_id) {
 
     $.ajax(
         {
-            url: "create_edit/helper_add_subcategory",
+            url: window.location.origin + "/admin/helper_add_subcategory",
             type: 'get',
             data: {
                 "category_id": category_id,
@@ -148,7 +149,7 @@ function addSubcategoryForCustomersId(category_id) {
 //show existences subcategories
 let customer_id;
 window.onload = (event) => {
-//from edit customer
+    //from edit customer
     var categories = $('#category').attr("categories");
     customer_id = $('#category').attr("customer_id");
 
@@ -180,13 +181,21 @@ function showSubcategoryWhenIsEdited(categories) {
     });
 }
 
-function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
-    let category = document.getElementById('category_id ' + category_id);
+function showSubcategoryByCategoryId(category_id, existing_subcategory = null, categories_id = null) {
+    let category = document.getElementById('category_id' + category_id);
+    let subcategory = document.getElementById('subcategory_box' + category_id);
+
+    if (category.type === 'radio' && categories_id) {
+        hideAllSubcategoriesIfIsSHow(categories_id);
+    }
 
     if (category.checked) {
 
+        // show subcategories if category id is not 8 (Textile)
         if (category_id !== 8) {
-            document.getElementById('category_id' + category_id).style.display = 'block';
+            // category.style.display = 'block';
+            document.getElementById('subcategory_box' + category_id).style.display = 'block';
+
         }
 
         $.ajax({
@@ -219,9 +228,11 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null) {
 
         });
     } else {
-        if (category_id !== 8) {
+
+        if (category_id !== 8 && category.type !== 'radio') {
             document.getElementById('category_id' + category_id).style.display = 'none';
         }
+
         $("#subcategory_list" + category_id + ' input').remove();
         $("#subcategory_list" + category_id + ' label').remove();
         $("#subcategory_list" + category_id + ' span').remove();
@@ -368,3 +379,17 @@ $(document).ready(function () {
 });
 /*---- Customers search ----*/
 
+function hideAllSubcategoriesIfIsSHow(categories_id) {
+    console.log(categories_id);
+    for (let i = 0; i <= categories_id.length; ++i) {
+        $("#subcategory_list" + categories_id[i] + ' input').remove();
+        $("#subcategory_list" + categories_id[i] + ' input').remove();
+        $("#subcategory_list" + categories_id[i] + ' label').remove();
+        $("#subcategory_list" + categories_id[i] + ' span').remove();
+        $("#subcategory_list" + categories_id[i] + ' br').remove();
+        // document.getElementById('subcategory_box' + categories_id[i]).style.display = 'none';
+
+
+    }
+
+}

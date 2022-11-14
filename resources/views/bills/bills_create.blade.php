@@ -106,6 +106,7 @@
                                placeholder="#Articole:"
                                id="indexNumberOfArticle"
                                oninput="this.className = 'form-control'"
+                               value= '12'
                         >
                     </div>
 

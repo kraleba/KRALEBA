@@ -46,21 +46,20 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     //customers
     Route::resource('admin/customers', CustomersController::class);
-    Route::get('admin/customers/{id}/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
-    Route::get('admin/customers/subcategory/{subcategory_id}', [CustomersController::class, 'delete_subcategory']);
+    Route::get('admin/delete_subcategory', [CustomersController::class, 'delete_subcategory']);
     Route::get('admin/downloadPDF', [CustomersController::class, 'downloadPDF']);
 
     //helpers
     Route::get('admin/show_subcategory_by_category_id', [CustomerHelper::class, 'show_subcategory_by_category_id']);
-    Route::get('admin/customers/create_edit/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
-    Route::get('admin/customers/{id}/create_edit/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
+    Route::get('admin/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
+    Route::get('admin/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
     Route::get('admin/customers_autocomplete', [CustomerHelper::class, 'customers_autocomplete']);
     Route::get('admin/find_textiles_filters', [CustomerHelper::class, 'find_textiles_filters']);
     Route::get('admin/find_market_product', [CustomerHelper::class, 'find_market_product']);
     Route::get('admin/bills_autocomplete', [CustomerHelper::class, 'bills_autocomplete']);
     Route::get('admin/search_ware_name', [CustomerHelper::class, 'search_ware_name']);
     Route::get('admin/template_child_validator', [CustomerHelper::class, 'template_child_validator']);
-    Route::get('admin/take_customer_categories_by_customer_id', [CustomerHelper::class, 'take_customer_categories_by_customer_id']);
+    Route::get('admin/take_categories', [CustomerHelper::class, 'take_categories']);
 
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 

@@ -121,8 +121,8 @@ function nextPrev(n) {
 
     var x = document.getElementsByClassName("tab");
 
-    if (n === 1 && !validateForm())
-        return false;
+    // if (n === 1 && !validateForm())
+    //     return false;
 
     let number_of_steps = document.getElementById("indexNumberOfArticle").value;
     number_of_steps++;
@@ -211,30 +211,87 @@ function fixStepIndicator(n) {
 function articleFormGenerate(n, x) {
 
     let customer_id = getFieldValueByFieldClassSelect2('customer-search', '', 'id');
-    let categories = take_customer_categories_by_customer_id(customer_id);
+    let categories = take_categories(customer_id);
 
 
     let option_for_select = '';
     let select_category = '';
     if (n !== -1) {
+
+        // <strong>Categorii:</strong>
+        // <br>
+
+        // @foreach ($furnace_categories as $furnace_category)
+
+        //     <input type="checkbox"
+        //            id="category_id {{$furnace_category->id}}"
+        //            onclick="showSubcategoryByCategoryId({{$furnace_category->id}})"
+        //            class=""
+        //            name="categories_id[]"
+        //            value="{{ $furnace_category->id }}"
+        //     >
+        //     <label>{{ $furnace_category->name }}</label>
+        //     <br>
+
+        //     <div class="card subcategory-card" id="subcategory{{$furnace_category->id}}">
+        //         <div id="subcategory_list{{$furnace_category->id}}"></div>
+
+        //         @if($furnace_category->id != 8)
+        //             <div id="category_id{{$furnace_category->id}}" style="display: none">
+        //                 <input placeholder="add subcategory" type="text"
+        //                        id="subcategoryLabel {{$furnace_category->id}}">
+        //                 <input onclick="addSubcategoryForCustomersId({{$furnace_category->id}})"
+        //                        type="button" value="Add">
+        //             </div>
+        //         @endif
+        //     </div>
+
+        // @endforeach
+        let categories_id = [];
         $.each(categories, function (index, value) {
+            categories_id[index] = value.id;
+        });
+        console.log(categories_id)
+
+        $.each(categories, function (index, value) {
+            // option_for_select +=
+            //     '<optgroup label="' + value.category_name + '">' +
+            //     '   <option category_id="' + value.category_id + '" value="' + value.subcategory_id + '">' + value.name + '</option>' +
+            //     '</optgroup>'
+
             option_for_select +=
-                '<optgroup label="' + value.category_name + '">' +
-                '   <option category_id="' + value.category_id + '" value="' + value.subcategory_id + '">' + value.name + '</option>' +
-                '</optgroup>'
+                '<input type="radio"' +
+                'id="category_id' + value.id + '"' +
+                'onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ')"' +
+                'class=""' +
+                'name="categories_id[]"' +
+                'value="' + value.id + '"' +
+                '>' +
+                '<label>' + value.name + '</label>' +
+                '<br>' +
+                '<div class="card subcategory-card" id="subcategory' + value.id + '">' +
+                '<div id="subcategory_list' + value.id + '"></div>' +
+                '<div id="subcategory_box' + value.id + '" style="display: none">' +
+                '     <input placeholder="add subcategory" type="text"' +
+                '            id="subcategoryLabel' + value.id + '">' +
+                '     <input onclick="addSubcategoryForCustomersId(' + value.id + ')"' +
+                '             type="button" value="Add">' +
+                '  </div>' +
+                // +' }'+
+                ' </div>'
         });
 
         select_category = '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
-            '       <strong>Categorii:</strong>\n' +
-            '       <select name="subcategory_id[]"' +
-            '           class="form-select" ' +
-            '           id="index_of_selects' + x + '" ' +
-            '           onchange="showHideExtraFields(' + x + ')"' +
-            '           oninput="this.className = \'form-control\'"' +
-            '       >' +
-            '        <option disabled selected value> -- select an option -- </option>' +
+            // '       <strong>Categorii:</strong>\n' +
+            // '       <select name="subcategory_id[]"' +
+            // '           class="form-select" ' +
+            // '           id="index_of_selects' + x + '" ' +
+            // '           onchange="showHideExtraFields(' + x + ')"' +
+            // '           oninput="this.className = \'form-control\'"' +
+            // '       >' +
+            // '        <option disabled selected value> -- select an option -- </option>' +
             '              ' + option_for_select + ' ' +
-            '       </select>' +
+            // '       </select>' +
             '   </div>'
     }
 
