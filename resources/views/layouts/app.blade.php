@@ -77,7 +77,7 @@
 
 </head>
 
-<body>
+<body class="body-p">
     <div id="app">
             <div class=" navbar-expand-md">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -130,8 +130,9 @@
                     </ul>
                 </div>
                 {{-- @dump(Auth::guard()->user()->type) --}}
-                <div class="form-control rounded-pill">
+                
                     @if (isset(Auth::guard()->user()->type) && Auth::guard()->user()->type == 'admin')
+                    <div class="form-control rounded-pill nav-css">
                         <div class="navbar-nav justify-content-center">
                             <div class="nav-item">
                                 <a class="nav-link" href="{{ url('admin/customers') }}"><b>Clienti</b></a>
@@ -160,8 +161,8 @@
                                     href="{{ url('admin/market') }}"><b>Productie</b></a>
                             </div>
                         </div>
-                    @endif
-                </div>
+                    
+                </div>@endif
             </div>
         </nav>
 

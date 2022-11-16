@@ -1,5 +1,15 @@
+.body-p {
+    background-blend-mode: lighten;
+    background-color: rgb(248, 244, 191);
+}
+
+.nav-css {
+    background-color: rgba(221, 221, 221, 0.959);
+}
+
 .filter-customers {
     left:190px;
+
 }
 .list-body {
     list-style-type: none;
@@ -10,7 +20,7 @@
 .list-body li {
     border: 1px solid #ddd;
     margin-top: -1px; /* Prevent double borders */
-    background-color: #f6f6f6;
+    background-color: #f8c6ec;
     padding: 12px;
     text-decoration: none;
     font-size: 18px;
@@ -31,23 +41,74 @@
     padding: 12px 16px;
     transform: translate(0%, -50%);
 }
+
+.add {
+    
+    border-radius: 20px;
+    background-color: rgba(221, 221, 221, 0.959);
+    color: rgb(14, 13, 13);
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
+    display: inline-block;   
+    opacity: 0.8;
+}
+
 /*PDF*/
 .pdf-style {
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(221, 221, 221, 0.959);
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
+    display: inline-block;  
     position: absolute;
-    right: 133px;
+    right: 200px;
     top: 15px;
 }
 
 .revert-customers {
+    border: none;
+    border-radius: 20px;
+    background-color:rgba(221, 221, 221, 0.959);
+    color: rgb(14, 13, 13); 
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
     position: absolute;
     top: -30px;
-    right: 140px;
+    right: 202px;
 }
 .filter-customers-OK {
+    border: none;
+    border-radius: 20px;
+    background-color:rgba(221, 221, 221, 0.959);
+    color: rgb(14, 13, 13);
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
     position: absolute;
-    right: 150px;
+    right: 205px;
     top: -78px;
     display:inline-block;
+}
+.select-group {
+    position: absolute;
+    top: -77px;
+    right: -30px;
+}
+.group {
+    background-color:rgba(221, 221, 221, 0.959);
+    
+    opacity: 0.8;
+
+}
+
+.clintes {
+    position: relative;
+    top: 10px;
+
 }
 
 /*search subcategory*/
