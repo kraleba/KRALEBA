@@ -121,8 +121,8 @@ function nextPrev(n) {
 
     var x = document.getElementsByClassName("tab");
 
-    // if (n === 1 && !validateForm())
-    //     return false;
+    if (n === 1 && !validateForm())
+        return false;
 
     let number_of_steps = document.getElementById("indexNumberOfArticle").value;
     number_of_steps++;
@@ -188,7 +188,7 @@ function validatorFormHelper(y, parents) {
     let valid = true
 
     for (let i = 0; i < y.length; i++) {
-
+console.log(y[i]);
         if (y[i].value === "" && parents[i].className.split(" ").includes('required')) {
             y[i].className += " invalid";
             valid = false;
@@ -207,6 +207,7 @@ function fixStepIndicator(n) {
     //... and adds the "active" class on the current step:
     x[n].className += " active";
 }
+// @TREBUIE SA FAC SA VAD DE CE NU SE VALIDEAZA, CEVA CLASE LIPSESC ORI NU IA BINE DIN PARENT.
 
 function articleFormGenerate(n, x) {
 
@@ -218,81 +219,42 @@ function articleFormGenerate(n, x) {
     let select_category = '';
     if (n !== -1) {
 
-        // <strong>Categorii:</strong>
-        // <br>
-
-        // @foreach ($furnace_categories as $furnace_category)
-
-        //     <input type="checkbox"
-        //            id="category_id {{$furnace_category->id}}"
-        //            onclick="showSubcategoryByCategoryId({{$furnace_category->id}})"
-        //            class=""
-        //            name="categories_id[]"
-        //            value="{{ $furnace_category->id }}"
-        //     >
-        //     <label>{{ $furnace_category->name }}</label>
-        //     <br>
-
-        //     <div class="card subcategory-card" id="subcategory{{$furnace_category->id}}">
-        //         <div id="subcategory_list{{$furnace_category->id}}"></div>
-
-        //         @if($furnace_category->id != 8)
-        //             <div id="category_id{{$furnace_category->id}}" style="display: none">
-        //                 <input placeholder="add subcategory" type="text"
-        //                        id="subcategoryLabel {{$furnace_category->id}}">
-        //                 <input onclick="addSubcategoryForCustomersId({{$furnace_category->id}})"
-        //                        type="button" value="Add">
-        //             </div>
-        //         @endif
-        //     </div>
-
-        // @endforeach
         let categories_id = [];
         $.each(categories, function (index, value) {
             categories_id[index] = value.id;
         });
-        console.log(categories_id)
 
         $.each(categories, function (index, value) {
-            // option_for_select +=
-            //     '<optgroup label="' + value.category_name + '">' +
-            //     '   <option category_id="' + value.category_id + '" value="' + value.subcategory_id + '">' + value.name + '</option>' +
-            //     '</optgroup>'
-
+         
             option_for_select +=
                 '<input type="radio"' +
-                'id="category_id' + value.id + '"' +
-                'onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ')"' +
-                'class=""' +
-                'name="categories_id[]"' +
+                'id="category_id' + value.id + x + '"' +
+                'onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ',' + x +')"' +
+                'class="form-item "' +
+                'name="categories_id '+ x +'"' +
                 'value="' + value.id + '"' +
+                'oninput="this.className = \'form-control\' "'+
                 '>' +
                 '<label>' + value.name + '</label>' +
                 '<br>' +
-                '<div class="card subcategory-card" id="subcategory' + value.id + '">' +
-                '<div id="subcategory_list' + value.id + '"></div>' +
-                '<div id="subcategory_box' + value.id + '" style="display: none">' +
-                '     <input placeholder="add subcategory" type="text"' +
-                '            id="subcategoryLabel' + value.id + '">' +
-                '     <input onclick="addSubcategoryForCustomersId(' + value.id + ')"' +
-                '             type="button" value="Add">' +
+                '<div class="card subcategory-card" id="subcategory' + value.id + x +'">' +
+                '<div id="subcategory_list' + value.id + x +'"></div>' +
+                '<div id="subcategory_box' + value.id + x +'" style="display: none">' +
+                '     <input placeholder="add subcategory" type="text class="form-contr" oninput="this.className = \'form-control\' "' +
+                '            id="subcategoryLabel' + value.id + x +'">' +
+                '     <input class="form-control" onclick="addSubcategoryForCustomersId(' + value.id + ', ' + "'radio'" + ',' + x + ')"' +
+                '             oninput="this.className = \'form-control\' "type="button" value="Add">' +
                 '  </div>' +
-                // +' }'+
                 ' </div>'
         });
 
         select_category = '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
-            // '       <strong>Categorii:</strong>\n' +
-            // '       <select name="subcategory_id[]"' +
-            // '           class="form-select" ' +
-            // '           id="index_of_selects' + x + '" ' +
-            // '           onchange="showHideExtraFields(' + x + ')"' +
-            // '           oninput="this.className = \'form-control\'"' +
-            // '       >' +
-            // '        <option disabled selected value> -- select an option -- </option>' +
             '              ' + option_for_select + ' ' +
-            // '       </select>' +
+      
             '   </div>'
+            // '<fieldset id=group'+x+' class="form-group col-xs-12 col-sm-12 col-md-12 required ">' +
+            // ' '+ option_for_select + '' +
+            // '</fieldset>'
     }
 
     $("#article_form").append(

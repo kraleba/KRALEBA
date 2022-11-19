@@ -7,7 +7,6 @@
         <title>Creeaza Factura</title>
     </head>
 
-
     @if ($errors->any())
 
         <div class="alert alert-danger">
@@ -106,7 +105,6 @@
                                placeholder="#Articole:"
                                id="indexNumberOfArticle"
                                oninput="this.className = 'form-control'"
-                               value= '12'
                         >
                     </div>
 

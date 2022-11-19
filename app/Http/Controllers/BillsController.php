@@ -69,6 +69,7 @@ class BillsController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->input());
         $request->validate([
             'customer_id' => 'required',
             'bill_date' => 'required',
