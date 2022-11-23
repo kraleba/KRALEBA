@@ -112,7 +112,6 @@ function addStepsOfArticle() {
         for (let i = 0; i < parseInt(number_of_article); ++i) {
             document.getElementById('steps-area').innerHTML += '<span class="step"></span>'
         }
-
     }
 
 }
@@ -158,10 +157,6 @@ function validateForm() {
             x = document.getElementsByClassName("parent_items" + i);
             y = x[currentTab].getElementsByTagName("input");
             let parents = x[currentTab].children;
-
-            if (x[currentTab].className) {
-
-            }
             if (!validatorFormHelper(y, parents)) {
                 ++index;
             }
@@ -186,12 +181,15 @@ function validateForm() {
 function validatorFormHelper(y, parents) {
 
     let valid = true
+    console.log(parents);
 
     for (let i = 0; i < y.length; i++) {
-console.log(y[i]);
-        if (y[i].value === "" && parents[i].className.split(" ").includes('required')) {
-            y[i].className += " invalid";
-            valid = false;
+        // console.log(y[i].className);
+        if (parents[i].className) {
+            if (y[i].value === "" && parents[i].className.split(" ").includes('required')) {
+                y[i].className += " invalid";
+                valid = false;
+            }
         }
     }
 
@@ -225,44 +223,40 @@ function articleFormGenerate(n, x) {
         });
 
         $.each(categories, function (index, value) {
-         
+
             option_for_select +=
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
                 '<input type="radio"' +
                 'id="category_id' + value.id + x + '"' +
-                'onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ',' + x +')"' +
+                'onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ',' + x + ')"' +
                 'class="form-item "' +
-                'name="categories_id '+ x +'"' +
+                'name="categories_id' + x + '"' +
                 'value="' + value.id + '"' +
-                'oninput="this.className = \'form-control\' "'+
                 '>' +
                 '<label>' + value.name + '</label>' +
                 '<br>' +
                 '<div class="card subcategory-card" id="subcategory' + value.id + x +'">' +
                 '<div id="subcategory_list' + value.id + x +'"></div>' +
                 '<div id="subcategory_box' + value.id + x +'" style="display: none">' +
-                '     <input placeholder="add subcategory" type="text class="form-contr" oninput="this.className = \'form-control\' "' +
-                '            id="subcategoryLabel' + value.id + x +'">' +
-                '     <input class="form-control" onclick="addSubcategoryForCustomersId(' + value.id + ', ' + "'radio'" + ',' + x + ')"' +
-                '             oninput="this.className = \'form-control\' "type="button" value="Add">' +
+                '     <input placeholder="add subcategory" type="text" id="subcategoryLabel' + value.id + x +'">' +
+                '     <input onclick="addSubcategoryForCustomersId(' + value.id + ', ' + "'radio'" + ',' + x + ')"' +
+                '            type="button" value="Add">' +
+                '  </div>' +
                 '  </div>' +
                 ' </div>'
         });
 
-        select_category = '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
-            '              ' + option_for_select + ' ' +
-      
-            '   </div>'
-            // '<fieldset id=group'+x+' class="form-group col-xs-12 col-sm-12 col-md-12 required ">' +
-            // ' '+ option_for_select + '' +
-            // '</fieldset>'
+        select_category =
+            ' ' + option_for_select + ' '
     }
 
     $("#article_form").append(
         '<div class="tab">' +
+        '<filedset>' +
         '        <input type="hidden" name="category_id[]" id="categories_id' + x + '"> ' +
+        '                     ' + select_category + '' +
 
         '       <div class="parent_items0">\n' +
-        '        ' + select_category + '' +
         '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>Product Name:</strong>\n' +
         '                            <input type="text" name="product_name[]" class="form-control"\n' +
@@ -285,12 +279,20 @@ function articleFormGenerate(n, x) {
 
         '                   <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>Moneda:</strong>' +
-        '                            <input type="hidden" id="customer_coin_id' + x + '" name="coin[]">' +
         '                            <input type="text"' +
         '                                   readonly="readonly"' +
-        '                                   class="form-control" id="coin_label_by_customer' + x + '"' +
+        '                                   class="form-control"' +
+        '                                   id="coin_label_by_customer' + x + '"' +
         '                                   placeholder="Moneda">\n' +
-        '\n' +
+        '                   </div>' +
+        '                   <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                          <input' +
+        '                               type="hidden"' +
+        '                               class="form-control"' +
+        '                               id="customer_coin_id' + x + '" ' +
+        '                               name = "coin[]"' +
+        '                               > ' +
+
         '                   </div>' +
         '       </div>' +
 
@@ -324,6 +326,7 @@ function articleFormGenerate(n, x) {
         '                    </div>\n' +
         '\n' +
         '    </div>' +
+        '</filedset>' +
         '</div>'
     )
 
