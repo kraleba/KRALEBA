@@ -1,1 +1,15 @@
+.navBar {
+    border-radius: 20px;
+    background-color: rgba(221, 221, 221, 0.959);
+    display: inline-block;
+    
 
+}.nav-css {
+    border-radius: 20px;
+    background-color: rgba(214, 210, 210, 0.959);
+    display: inline-block;
+}
+.nav-text {
+    text-align: center;
+    font-weight: bold;
+}

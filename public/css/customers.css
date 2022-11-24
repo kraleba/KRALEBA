@@ -1,3 +1,14 @@
+.body-p {
+    background-image: url(public/background/wallpaper-pink.jpg);
+    background-size:cover;
+    overflow-x: hidden;
+}
+
+
+.filter-customers {
+    left:190px;
+
+}
 .list-body {
     list-style-type: none;
     padding: 0;
@@ -5,9 +16,10 @@
 }
 
 .list-body li {
+    border-radius: 20px;
     border: 1px solid #ddd;
     margin-top: -1px; /* Prevent double borders */
-    background-color: #f6f6f6;
+    background-color: #f8c6ec;
     padding: 12px;
     text-decoration: none;
     font-size: 18px;
@@ -29,7 +41,92 @@
     transform: translate(0%, -50%);
 }
 
+.add {
+    border-radius: 20px;
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.8;
+    top:-39px;
+    left: -200px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+}
 
+/*PDF*/
+.pdf-style {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
+    display: inline-block;  
+    position: absolute;
+    top: 50px;
+    right: 202px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+    
+}
+
+.revert-customers {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
+    position: absolute;
+    top: 6px;
+    right: 205px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+}
+.filter-customers-OK {
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
+    padding: 8px 12px;
+    text-align: center;
+    font-size: 13px;
+    position: absolute;
+    right: 208px;
+    top: -38px;
+    display:inline-block;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+}
+.select-group {
+    position: absolute;
+    top: -38px;
+    right: auto;
+}
+.group {
+    border-radius: 20px;
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
+    opacity: 0.8;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+}
+
+.clintes {
+    position: relative;
+    top: 100px;
+
+}
+.clients-group {
+    height: auto;
+    background-color:rgba(221, 221, 221, 0.959);
+    border-radius: 20px;
+}
 
 /*search subcategory*/
 .customInputContainer {
@@ -176,14 +273,6 @@
 
 .delete-icon {
     float: right;
-}
-
-/*PDF*/
-.pdf-style {
-    position: relative;
-    float: right;
-    bottom: -95px;
-
 }
 
 
