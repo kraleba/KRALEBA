@@ -10,10 +10,6 @@
                     <div class=" filter-customers col-lg-12">
                         <form action="{{ route('customers.index') }}" method="get">
                             <div>
-                                <a class="add" href="{{ route('customers.create') }}"> ADAUGA CLIENT</a>
-                            </div>
-
-                            <div class="input-group select-group ">
                                 <div>
                                     <div>
                                         <input type='text' id="find_customer" name="customer_name"
@@ -59,15 +55,16 @@
                             <button id="searchBtn" type="submit" class="filter-customers-OK"> OK</button>
 
 
-                            @if ($customers)
-                                <button type="submit" name="downloadPDF" value="PDF" class="pdf-style">SALVEAZA ca.pdf
-                                </button>
-                            @endif
-
+                                @if ($customers)
+                                    <button type="submit" name="downloadPDF" value="PDF" class="pdf-style">SALVEAZA
+                                        ca.pdf
+                                    </button>
+                                @endif
+                            </form>
+                            <form>
                             <button type="submit" class="revert-customers">REVERT</button>
-
-                        </form>
-
+                            </form>
+                        </div>
                     </div>
 
                 </div>

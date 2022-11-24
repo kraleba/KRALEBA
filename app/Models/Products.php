@@ -17,20 +17,18 @@ class Products extends Model
     }
 
 
-// customers category
+    // customers category
     public function get_furnace_categories()
     {
         return DB::table('furnace_categories')->get();
-
     }
 
     public function get_customer_category_by_id($id)
     {
         return DB::table('furnace_categories')->where('id', $id)->first();
-
     }
 
-//customers subcategory
+    //customers subcategory
 
     public function get_customer_subcategory_by_id($id)
     {
@@ -38,7 +36,6 @@ class Products extends Model
             return DB::table('customer_subcategory')->where('id', $id)->first();
 
         return false;
-
     }
 
     public function get_subcategory_by_category_id($category_id)
@@ -54,7 +51,6 @@ class Products extends Model
     public function find_subcategory_by_label($label)
     {
         return DB::table('customer_subcategory')->where('name', $label)->first();
-
     }
 
     public function set_customers_subcategory($data)
@@ -65,7 +61,6 @@ class Products extends Model
     public function delete_subcategory_by($id)
     {
         DB::table('customer_subcategory')->where('id', $id)->delete();
-
     }
 
     // customer_category_sbcategory ->money to money
@@ -73,24 +68,16 @@ class Products extends Model
     {
 
         if ($categories_id) {
-            if (in_array(8, $categories_id)) {
-                DB::insert("INSERT INTO customers_id_categories (customer_id, category_id) VALUES ($customer_id, 8)");
+            foreach ($categories_id as $category_id) {
+                DB::insert("INSERT INTO customers_id_categories (customer_id, category_id) VALUES ($customer_id, $category_id)");
 
-                if (count($categories_id) <= 1) {
-                    return true;
-                }
-            }
-        }
-
-        foreach ($categories_id as $category_id) {
-
-            DB::insert("INSERT INTO customers_id_categories (customer_id, category_id) VALUES ($customer_id, $category_id)");
-
-            foreach ($subcategories_id as $subcategory_id) {
-                $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
-                if ($subcategory->category_id == $category_id) {
-                    DB::insert("INSERT INTO customer_category_id_subcategories (customer_id, category_id, subcategory_id) VALUES ($customer_id, $category_id, $subcategory_id)");
-
+                if ($subcategories_id) {
+                    foreach ($subcategories_id as $subcategory_id) {
+                        $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
+                        if ($subcategory->category_id == $category_id) {
+                            DB::insert("INSERT INTO customer_category_id_subcategories (customer_id, category_id, subcategory_id) VALUES ($customer_id, $category_id, $subcategory_id)");
+                        }
+                    }
                 }
             }
         }
@@ -104,32 +91,22 @@ class Products extends Model
         DB::table('customers_id_categories')->where('customer_id', $customer_id)->delete();
         DB::table('customer_category_id_subcategories')->where('customer_id', $customer_id)->delete();
 
-        if ($categories_id) {
-            if (in_array(8, $categories_id)) {
-                DB::insert('insert into customers_id_categories (customer_id, category_id) values (?, ?)',
-                    [$customer_id, 8]);
-                if (count($categories_id) <= 1) {
-                    return true;
-                }
-            }
-        }
-//        dd($categories_id);
         foreach ($categories_id as $category_id) {
-            DB::insert('insert into customers_id_categories (customer_id, category_id) values (?, ?)',
-                [$customer_id, $category_id]);
-
-            foreach ($subcategories_id as $subcategory_id) {
-                $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
-                if ($subcategory->category_id == $category_id) {
-                    DB::insert('insert into customer_category_id_subcategories (customer_id, category_id, subcategory_id) values (?, ?, ?)',
-                        [$customer_id, $category_id, $subcategory_id]);
+            DB::insert(
+                'insert into customers_id_categories (customer_id, category_id) values (?, ?)',
+                [$customer_id, $category_id]
+            );
+            if ($subcategories_id) {
+                foreach ($subcategories_id as $subcategory_id) {
+                    $subcategory = $this->get_customer_subcategory_by_id($subcategory_id);
+                    if ($subcategory->category_id == $category_id) {
+                        DB::insert(
+                            'insert into customer_category_id_subcategories (customer_id, category_id, subcategory_id) values (?, ?, ?)',
+                            [$customer_id, $category_id, $subcategory_id]
+                        );
+                    }
                 }
             }
         }
     }
-
 }
-
-
-
-

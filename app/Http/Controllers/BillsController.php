@@ -99,7 +99,7 @@ class BillsController extends Controller
         $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
 
 //        dd($request->bill);
-       dump($data['bills']);
+//       dump($data['bills']);
 
         if($request->downloadPDF == 'PDF') {
             $pdf = PDF::loadView('bills.bill_table_pdf', $data);
