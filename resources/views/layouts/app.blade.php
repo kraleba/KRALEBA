@@ -94,14 +94,14 @@
                 </div>
 
                 <!-- Right Side Of Navbar -->
-                <div class="logins">
+                <div class=" logins">
                     <!-- Authentication Links -->
                     @guest
                         @if (Route::has('login'))
                             
-                                <p href="{{ route('login') }}">{{ __('Login') }}</p>
+                                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                            
                         @endif
-                        
 
                         {{-- @if (Route::has('register'))
                     <li class="nav-item">
@@ -109,7 +109,6 @@
                     </li>
                 @endif --}}
                     @else
-                    
                         <div class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -129,9 +128,10 @@
                             </div>
                         </div>
                     @endguest
-                    </div>
+                </div>
             </div>
             <br>
+            
             {{-- @dump(Auth::guard()->user()->type) --}}
 
             @if (isset(Auth::guard()->user()->type) && Auth::guard()->user()->type == 'admin')
