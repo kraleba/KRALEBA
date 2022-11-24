@@ -10,63 +10,62 @@
                     <div class=" filter-customers col-lg-12">
                         <form action="{{ route('customers.index') }}" method="get">
                             <div>
-                                <div>
-                                    <a class="add" href="{{ route('customers.create') }}"> ADAUGA CLIENT</a>
-                                </div>
-
-                                <div class="input-group select-group ">
-                                    <div>
-                                        <div>
-                                            <input type='text' id="find_customer" name="customer_name"
-                                                placeholder="--Selecteaza un Client--"
-                                                class="form-control filter-control group"
-                                                value="{{ $filtering_criteria['customer_name'] ?? '' }}">
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <div>
-                                            <select name="type" id="department"
-                                                class="form-control rounded-pill filter-control group">
-                                                <option selected value> -- Selecteaza tipul --</option>
-                                                <option value="customer" @if (isset($filtering_criteria['type']) && $filtering_criteria['type'] == 'customer') selected @endif>
-                                                    Beneficiar
-                                                </option>
-                                                <option value="provider" @if (isset($filtering_criteria['type']) && $filtering_criteria['type'] == 'provider') selected @endif>
-                                                    Furnizor
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
-                                    <div>
-                                        <select name="category" id="department" class="form-control filter-control group">
-
-                                            <option selected value> -- select an option --</option>
-                                            @foreach ($furnace_categories as $furnace_category)
-                                                <option value="{{ $furnace_category->id }}"
-                                                    @if (isset($filtering_criteria['category']->id) && $furnace_category->id == $filtering_criteria['category']->id) selected @endif>
-                                                    {{ $furnace_category->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-
-                                </div>
-
-                                <button id="searchBtn" type="submit" class="filter-customers-OK"> OK</button>
-
-
-                                @if ($customers)
-                                    <button type="submit" name="downloadPDF" value="PDF" class="pdf-style">SALVEAZA
-                                        ca.pdf
-                                    </button>
-                                @endif
-
-                                <button type="submit" class="revert-customers">REVERT</button>
+                                <a class="add" href="{{ route('customers.create') }}"> ADAUGA CLIENT</a>
                             </div>
+
+                            <div class="input-group select-group ">
+                                <div>
+                                    <div>
+                                        <input type='text' id="find_customer" name="customer_name"
+                                            placeholder="--Selecteaza un Client--"
+                                            class="form-control filter-control group"
+                                            value="{{ $filtering_criteria['customer_name'] ?? '' }}">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div>
+                                        <select name="type" id="department"
+                                            class="form-control rounded-pill filter-control group">
+                                            <option selected value> -- Selecteaza tipul --</option>
+                                            <option value="customer" @if (isset($filtering_criteria['type']) && $filtering_criteria['type'] == 'customer') selected @endif>
+                                                Beneficiar
+                                            </option>
+                                            <option value="provider" @if (isset($filtering_criteria['type']) && $filtering_criteria['type'] == 'provider') selected @endif>
+                                                Furnizor
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <select name="category" id="department"
+                                        class="form-control filter-control group">
+
+                                        <option selected value> -- select an option --</option>
+                                        @foreach ($furnace_categories as $furnace_category)
+                                            <option value="{{ $furnace_category->id }}"
+                                                @if (isset($filtering_criteria['category']->id) && $furnace_category->id == $filtering_criteria['category']->id) selected @endif>
+                                                {{ $furnace_category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                            <button id="searchBtn" type="submit" class="filter-customers-OK"> OK</button>
+
+
+                            @if ($customers)
+                                <button type="submit" name="downloadPDF" value="PDF" class="pdf-style">SALVEAZA ca.pdf
+                                </button>
+                            @endif
+
+                            <button type="submit" class="revert-customers">REVERT</button>
+
                         </form>
 
                     </div>
@@ -77,7 +76,7 @@
             <!--end filter-->
             <div class="clintes">
                 @if ($customers)
-                    <div>
+                    <div >
                         <h3 style="font-weight: lighter;"> {{ $filter_title ?? 'Toti clientii' }}</h3>
                     </div>
                 @endif
