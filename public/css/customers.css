@@ -1,11 +1,7 @@
-.html-all {
-    height: 100%;
-    margin: 0;
-  }
 .body-p {
-    background-color: rgb(218, 218, 218);
-    /* background-image: url(public/background/wallpaper-pink.jpg) center; */
-    /* background-size: cover; */
+    /* background-color: rgb(218, 218, 218); */
+    background-image: url(public/background/wallpaper-pink.jpg);
+    background-size:cover;
     overflow-x: hidden;
 }
 
