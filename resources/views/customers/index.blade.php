@@ -8,8 +8,9 @@
                 <div class="row searchFilter-custom round3">
 
                     <div class=" filter-customers col-lg-12">
-                        <form action="{{ route('customers.index') }}" method="get">
-                            <div>
+                        <div>
+
+                            <form action="{{ route('customers.index') }}" method="get">
                                 <div>
                                     <a class="add" href="{{ route('customers.create') }}"> ADAUGA CLIENT</a>
                                 </div>
@@ -64,11 +65,11 @@
                                         ca.pdf
                                     </button>
                                 @endif
-
-                                <button type="submit" class="revert-customers">REVERT</button>
-                            </div>
-                        </form>
-
+                            </form>
+                            <form>
+                            <button type="submit" class="revert-customers">REVERT</button>
+                            </form>
+                        </div>
                     </div>
 
                 </div>
