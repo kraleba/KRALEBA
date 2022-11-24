@@ -299,12 +299,9 @@ class CustomerHelper extends Controller
         return response()->json(false);
     }
 
-    public function take_categories(Request $request): bool|\Illuminate\Http\JsonResponse
+    public function take_categories(): bool|\Illuminate\Http\JsonResponse
     {
-        if (!$request->customer_id) {
-            return false;
-        }
-
+      
         $categories = $this->product->get_furnace_categories();
         return response()->json($categories);
 

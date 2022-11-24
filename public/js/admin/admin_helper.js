@@ -43,16 +43,13 @@ function getFieldValueByFieldClassSelect2(position_index, field_class_name, fiel
 
 }
 
-function take_categories(customer_id) {
-
+function take_categories() {
+    
     let categories = '';
 
     $.ajax({
         url: "/admin/take_categories",
         type: 'GET',
-        data: {
-            customer_id: customer_id
-        },
         dataType: "json",
         async: false,
 

@@ -231,7 +231,6 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null, c
             contentType: "application/json",
             success: function (res) {
                 $.each(res, function (data, value) {
-                    console.log(page_index);
 
                     $("#subcategory_list" + category_id + page_index)
                         .append($("<input name='subcategories_id" + array_or_unique + "' id='subcategory_id_input" + value.id + page_index + "' type=" + subcategories_field_type + " value='" + value.id + "'>" +
@@ -404,7 +403,6 @@ $(document).ready(function () {
 /*---- Customers search ----*/
 
 function hideAllSubcategoriesIfIsSHow(categories_id, page_index) {
-    console.log(categories_id);
     for (let i = 0; i <= categories_id.length; ++i) {
         if (categories_id[i]) {
 

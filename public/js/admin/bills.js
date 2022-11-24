@@ -119,8 +119,7 @@ function addStepsOfArticle() {
 function nextPrev(n) {
 
     var x = document.getElementsByClassName("tab");
-
-    if (n === 1 && !validateForm())
+    if (n === 1 && !validateForm(x.length))
         return false;
 
     let number_of_steps = document.getElementById("indexNumberOfArticle").value;
@@ -147,9 +146,10 @@ function nextPrev(n) {
     showTab(currentTab);
 }
 
-function validateForm() {
+function validateForm(page_index) {
     // This function deals with validation of the form fields
     let x, y, valid = true, index = 0, parent = '';
+    console.log(page_index);
 
     for (let i = 0; i < 3; ++i) {
 
@@ -170,18 +170,38 @@ function validateForm() {
 
     }
 
-    if (index === 0) {
+    if (validateSubcategoryForm(page_index) && index === 0) {
         document.getElementsByClassName("step")[currentTab].className += ' finish';
     } else {
         valid = false;
     }
     return valid; // return the valid status
 }
+//trebuie sa vad ca x nu este un inidcator bun, daca dau pagina inainte si inapoi atunci imi creste valoarea si nu mai valideaza corect
+function validateSubcategoryForm(page_index) {
+
+    page_index--;
+    if (page_index > 0) {
+        console.log($('input[name=categories_id' + page_index + ']:checked').length)
+        console.log(page_index)
+
+        if (!$('input[name=categories_id' + page_index + ']:checked').length) {
+            alert('Nu ai selectat nici o categorie');
+            return false;
+
+        } else if (!$('input[name=categories_id' + page_index + ']:checked').length) {
+            alert('Nu ai selectat nici o subcategorie');
+            return false;
+        }
+    }
+
+    return true;
+
+}
 
 function validatorFormHelper(y, parents) {
 
     let valid = true
-    console.log(parents);
 
     for (let i = 0; i < y.length; i++) {
         // console.log(y[i].className);
@@ -205,7 +225,6 @@ function fixStepIndicator(n) {
     //... and adds the "active" class on the current step:
     x[n].className += " active";
 }
-// @TREBUIE SA FAC SA VAD DE CE NU SE VALIDEAZA, CEVA CLASE LIPSESC ORI NU IA BINE DIN PARENT.
 
 function articleFormGenerate(n, x) {
 
@@ -235,10 +254,10 @@ function articleFormGenerate(n, x) {
                 '>' +
                 '<label>' + value.name + '</label>' +
                 '<br>' +
-                '<div class="card subcategory-card" id="subcategory' + value.id + x +'">' +
-                '<div id="subcategory_list' + value.id + x +'"></div>' +
-                '<div id="subcategory_box' + value.id + x +'" style="display: none">' +
-                '     <input placeholder="add subcategory" type="text" id="subcategoryLabel' + value.id + x +'">' +
+                '<div class="card subcategory-card" id="subcategory' + value.id + x + '">' +
+                '<div id="subcategory_list' + value.id + x + '"></div>' +
+                '<div id="subcategory_box' + value.id + x + '" style="display: none">' +
+                '     <input placeholder="add subcategory" type="text" id="subcategoryLabel' + value.id + x + '">' +
                 '     <input onclick="addSubcategoryForCustomersId(' + value.id + ', ' + "'radio'" + ',' + x + ')"' +
                 '            type="button" value="Add">' +
                 '  </div>' +
@@ -246,16 +265,14 @@ function articleFormGenerate(n, x) {
                 ' </div>'
         });
 
-        select_category =
-            ' ' + option_for_select + ' '
     }
-
     $("#article_form").append(
         '<div class="tab">' +
         '<filedset>' +
         '        <input type="hidden" name="category_id[]" id="categories_id' + x + '"> ' +
-        '                     ' + select_category + '' +
-
+        '<div id="categories_select' + x + '">' +
+        '' + option_for_select + '' +
+        '</div>' +
         '       <div class="parent_items0">\n' +
         '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>Product Name:</strong>\n' +
@@ -296,11 +313,9 @@ function articleFormGenerate(n, x) {
         '                   </div>' +
         '       </div>' +
 
-
         '  ' + secondaryFields(x) + '' +
 
         '       <div class="parent_items2">\n' +
-
         '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>UM:</strong>\n' +
         '                            <select name="um[]" class="form-select" oninput="this.className = \'form-control\' ">\n' +
@@ -336,7 +351,6 @@ function articleFormGenerate(n, x) {
 
 function showHideExtraFields(value) {
     let option_selected = $('option:selected', '#index_of_selects' + value).attr('category_id');
-    console.log(option_selected);
     document.getElementById('categories_id' + value).value = option_selected;
 
     if (option_selected === '8') {
