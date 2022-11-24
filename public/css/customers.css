@@ -1,10 +1,11 @@
-.body-p {
-    /* background-color: rgb(218, 218, 218); */
-    background-image: url(public/background/wallpaper-pink.jpg);
-    background-size:cover;
-    overflow-x: hidden;
-}
 
+.body-p { 
+    background: url(public/background/wallpaper-pink.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
 
 .filter-customers {
     left:190px;
