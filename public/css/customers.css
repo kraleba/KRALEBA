@@ -1,11 +1,9 @@
 .body-p {
-    background-blend-mode: lighten;
-    background-color: rgb(248, 244, 191);
+    background-image: url(public/background/wallpaper-pink.jpg);
+    background-size:cover;
+    overflow-x: hidden;
 }
 
-.nav-css {
-    background-color: rgba(221, 221, 221, 0.959);
-}
 
 .filter-customers {
     left:190px;
@@ -18,6 +16,7 @@
 }
 
 .list-body li {
+    border-radius: 20px;
     border: 1px solid #ddd;
     margin-top: -1px; /* Prevent double borders */
     background-color: #f8c6ec;
@@ -43,72 +42,90 @@
 }
 
 .add {
-    
     border-radius: 20px;
-    background-color: rgba(221, 221, 221, 0.959);
-    color: rgb(14, 13, 13);
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
+    position: absolute;
     padding: 8px 12px;
     text-align: center;
     font-size: 13px;
-    display: inline-block;   
     opacity: 0.8;
+    top:-39px;
+    left: -200px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
 
 /*PDF*/
 .pdf-style {
     border: none;
     border-radius: 20px;
-    background-color: rgba(221, 221, 221, 0.959);
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
     padding: 8px 12px;
     text-align: center;
     font-size: 13px;
     display: inline-block;  
     position: absolute;
-    right: 200px;
-    top: 15px;
+    top: 50px;
+    right: 202px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
+    
 }
 
 .revert-customers {
     border: none;
     border-radius: 20px;
-    background-color:rgba(221, 221, 221, 0.959);
-    color: rgb(14, 13, 13); 
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
     padding: 8px 12px;
     text-align: center;
     font-size: 13px;
     position: absolute;
-    top: -30px;
-    right: 202px;
+    top: 6px;
+    right: 205px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
 .filter-customers-OK {
     border: none;
     border-radius: 20px;
-    background-color:rgba(221, 221, 221, 0.959);
-    color: rgb(14, 13, 13);
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
     padding: 8px 12px;
     text-align: center;
     font-size: 13px;
     position: absolute;
-    right: 205px;
-    top: -78px;
+    right: 208px;
+    top: -38px;
     display:inline-block;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
 .select-group {
     position: absolute;
-    top: -77px;
-    right: -30px;
+    top: -38px;
+    right: auto;
 }
 .group {
-    background-color:rgba(221, 221, 221, 0.959);
-    
+    border-radius: 20px;
+    background-color: rgb(163, 162, 162);
+    color: white;
+    font-weight: bold;
     opacity: 0.8;
-
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
 
 .clintes {
     position: relative;
-    top: 10px;
+    top: 100px;
 
+}
+.clients-group {
+    height: auto;
+    background-color:rgba(221, 221, 221, 0.959);
+    border-radius: 20px;
 }
 
 /*search subcategory*/

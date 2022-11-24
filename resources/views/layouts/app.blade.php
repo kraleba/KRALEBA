@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="html-all" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -76,99 +76,99 @@
     <link href="{{ asset('css/filter_card.css') }}" rel="stylesheet">
 
 </head>
+{{-- <img src="{{ asset('background/simple.jpg')}}" width="100px"> --}}
 
 <body class="body-p">
     <div id="app">
-            <div class=" navbar-expand-md">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <div class=" navbar-expand-md">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="{{ __('Toggle navigation') }}">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Left Side Of Navbar -->
+                <ul class="navbar-nav me-auto">
 
-                    </ul>
+                </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- Authentication Links -->
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                        @endif
 
-                            {{-- @if (Route::has('register'))
+                        {{-- @if (Route::has('register'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </li>
                 @endif --}}
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                            document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-                {{-- @dump(Auth::guard()->user()->type) --}}
-                
-                    @if (isset(Auth::guard()->user()->type) && Auth::guard()->user()->type == 'admin')
-                    <div class="form-control rounded-pill nav-css">
-                        <div class="navbar-nav justify-content-center">
-                            <div class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/customers') }}"><b>Clienti</b></a>
-                            </div>
-
-                            <div class="nav-item dropdown navbar-dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: red">
-                                    <b>Cheltueli de productie </b>
+                                    {{ __('Logout') }}
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ url('admin/bills') }}">Facturi</a>
-                                    <a class="dropdown-item " href="{{ url('admin/wares') }}">Articole</a>
-                                    <a class="dropdown-item" href="{{ url('admin/textile') }}">Textile</a>
-
-                                </div>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </div>
+                        </li>
+                    @endguest
+                </ul>
+            </div>
+            {{-- @dump(Auth::guard()->user()->type) --}}
 
-                            <div class="nav-item">
-                                <a class="nav-link" href="{{ url('admin/templates') }}"><b>Prototipuri</b></a>
-                            </div>
+            @if (isset(Auth::guard()->user()->type) && Auth::guard()->user()->type == 'admin')
+                <div class="form-control nav-css">
+                    <div class="navbar-nav justify-content-center">
+                        <div class="nav-item">
+                            <a class="nav-link" href="{{ url('admin/customers') }}"><b>Clienti</b></a>
+                        </div>
 
-                            <div class="nav-item">
-                                <a class="nav-link"
-                                    href="{{ url('admin/market') }}"><b>Productie</b></a>
+                        <div class="nav-item dropdown navbar-dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: red">
+                                <b>Cheltueli de productie </b>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                <a class="dropdown-item" href="{{ url('admin/bills') }}">Facturi</a>
+                                <a class="dropdown-item " href="{{ url('admin/wares') }}">Articole</a>
+                                <a class="dropdown-item" href="{{ url('admin/textile') }}">Textile</a>
+
                             </div>
                         </div>
-                    
-                </div>@endif
-            </div>
-        </nav>
 
-        <main class="py-4 container">
-            @yield('content')
-        </main>
+                        <div class="nav-item">
+                            <a class="nav-link" href="{{ url('admin/templates') }}"><b>Prototipuri</b></a>
+                        </div>
+
+                        <div class="nav-item">
+                            <a class="nav-link" href="{{ url('admin/market') }}"><b>Productie</b></a>
+                        </div>
+                    </div>
+            @endif
+        </div>
+    </div>
+    </nav>
+
+    <main class="py-4 container">
+        @yield('content')
+    </main>
 
     </div>
 </body>
