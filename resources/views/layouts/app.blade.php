@@ -81,42 +81,6 @@
 <body class="body-p">
     <div id="app">
         <div class=" navbar-expand-md">
-        
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', '') }}
-            </a>
-            {{--@dump(Auth::guard()->user()->type)--}}
-
-            @if(isset(Auth::guard()->user()->type) && Auth::guard()->user()->type == 'admin')
-                <div class="navbar-nav ">
-                    <div class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/customers') }}"><b>Clienti</b></a>
-                    </div>
-
-                    <div class="nav-item dropdown navbar-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <b>Cheltueli de productie </b>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
-                            <a class="dropdown-item" href="{{ url('admin/bills') }}">Facturi</a>
-                            <a class="dropdown-item " href="{{ url('admin/wares') }}">Articole</a>
-                            <a class="dropdown-item" href="{{ url('admin/textile') }}">Textile</a>
-
-                        </div>
-                    </div>
-
-                    <div class="nav-item">
-                        <a class="nav-link" href="{{ url('admin/templates') }}"><b>Prototipuri</b></a>
-                    </div>
-                    
-                    <div class="nav-item">
-                        <a style="color: red" class="nav-link" href="{{ url('admin/market') }}"><b>Productie</b></a>
-                    </div>
-                </div>
-            @endif
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="{{ __('Toggle navigation') }}">
