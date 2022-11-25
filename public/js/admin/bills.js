@@ -75,25 +75,25 @@ $(document).ready(function () {
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
-function showTab(n) {
+function showTab(index_tab) {
 
     var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
+    x[index_tab].style.display = "block";
 
-    if (n === 0) {
+    if (index_tab === 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
     let number_of_article = document.getElementById("indexNumberOfArticle").value;
 
-    if (n === (x.length - 1) && n === parseInt(number_of_article)) {
+    if (index_tab === (x.length - 1) && index_tab === parseInt(number_of_article)) {
         document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
 
-    fixStepIndicator(n)
+    fixStepIndicator(index_tab)
 
 }
 
@@ -115,23 +115,23 @@ function addStepsOfArticle() {
     }
 
 }
-
-function nextPrev(n) {
+// trebuie sa testez sa vad acum daca merge corect
+function nextPrev(previous_or_next) {
 
     var x = document.getElementsByClassName("tab");
-    if (n === 1 && !validateForm(x.length))
+    if (previous_or_next === 1 && !validateForm(previous_or_next, currentTab))
         return false;
 
     let number_of_steps = document.getElementById("indexNumberOfArticle").value;
     number_of_steps++;
 
     x[currentTab].style.display = "none";
-    currentTab = currentTab + n;
+    currentTab = currentTab + previous_or_next;
 
     if (x.length < number_of_steps) {
         addStepsOfArticle();
-        if (n === 1) {
-            articleFormGenerate(n, x.length);
+        if (previous_or_next === 1) {
+            articleFormGenerate(previous_or_next, currentTab);
 
         }
     }
@@ -146,10 +146,9 @@ function nextPrev(n) {
     showTab(currentTab);
 }
 
-function validateForm(page_index) {
+function validateForm(previous_or_next, page_index) {
     // This function deals with validation of the form fields
     let x, y, valid = true, index = 0, parent = '';
-    console.log(page_index);
 
     for (let i = 0; i < 3; ++i) {
 
@@ -170,7 +169,7 @@ function validateForm(page_index) {
 
     }
 
-    if (validateSubcategoryForm(page_index) && index === 0) {
+    if (validateSubcategoryForm(previous_or_next, page_index) && index === 0) {
         document.getElementsByClassName("step")[currentTab].className += ' finish';
     } else {
         valid = false;
@@ -178,20 +177,23 @@ function validateForm(page_index) {
     return valid; // return the valid status
 }
 //trebuie sa vad ca x nu este un inidcator bun, daca dau pagina inainte si inapoi atunci imi creste valoarea si nu mai valideaza corect
-function validateSubcategoryForm(page_index) {
+function validateSubcategoryForm(previous_or_next, page_index) {
 
-    page_index--;
-    if (page_index > 0) {
-        console.log($('input[name=categories_id' + page_index + ']:checked').length)
-        console.log(page_index)
+    if ((previous_or_next !== -1)) {
+        // page_index--;
+        if (page_index > 0) {
+            console.log($('input[name=categories_id' + page_index + ']:checked').length)
+            console.log(page_index)
 
-        if (!$('input[name=categories_id' + page_index + ']:checked').length) {
-            alert('Nu ai selectat nici o categorie');
-            return false;
+            // if (!$('input[name=categories_id' + page_index + ']:checked').length) {
+            //     alert('Nu ai selectat nici o categorie');
+            //     return false;
 
-        } else if (!$('input[name=categories_id' + page_index + ']:checked').length) {
-            alert('Nu ai selectat nici o subcategorie');
-            return false;
+            // }
+            // if (!$('input[name=subcategories_id' + page_index + ']:checked').length) {
+            //     alert('Nu ai selectat nici o subcategorie');
+            //     return false;
+            // }
         }
     }
 
@@ -216,17 +218,17 @@ function validatorFormHelper(y, parents) {
     return valid;
 }
 
-function fixStepIndicator(n) {
+function fixStepIndicator(index_tab) {
     // This function removes the "active" class of all steps...
     var i, x = document.getElementsByClassName("step");
     for (i = 0; i < x.length; i++) {
         x[i].className = x[i].className.replace(" active", "");
     }
     //... and adds the "active" class on the current step:
-    x[n].className += " active";
+    x[index_tab].className += " active";
 }
 
-function articleFormGenerate(n, x) {
+function articleFormGenerate(previous_or_next, x) {
 
     let customer_id = getFieldValueByFieldClassSelect2('customer-search', '', 'id');
     let categories = take_categories(customer_id);
@@ -234,13 +236,13 @@ function articleFormGenerate(n, x) {
 
     let option_for_select = '';
     let select_category = '';
-    if (n !== -1) {
+
+    if (previous_or_next !== -1) {
 
         let categories_id = [];
         $.each(categories, function (index, value) {
             categories_id[index] = value.id;
         });
-
         $.each(categories, function (index, value) {
 
             option_for_select +=
