@@ -44,7 +44,7 @@
     padding: 12px 16px;
     transform: translate(0%, -50%);
 }
-
+.active, .add:hover {background-color:#717172;}
 .add {
     border-radius: 20px;
     background-color: rgb(163, 162, 162);
@@ -61,6 +61,7 @@
 }
 
 /*PDF*/
+.active, .pdf-style:hover {background-color:#717172;}
 .pdf-style {
     border: none;
     border-radius: 20px;
@@ -78,6 +79,7 @@
     
 }
 
+.active, .revert-customers:hover {background-color:#717172;}
 .revert-customers {
     border: none;
     border-radius: 20px;
@@ -92,6 +94,8 @@
     right: 205px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
+
+.active, .filter-customers-OK:hover {background-color:#717172;}
 .filter-customers-OK {
     border: none;
     border-radius: 20px;
@@ -107,6 +111,7 @@
     display:inline-block;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
+.active, .group:hover {background-color:#717172;}
 .select-group {
     position: absolute;
     top: -38px;
@@ -130,6 +135,13 @@
     height: auto;
     background-color:transparent;
     border-radius: 20px;
+}
+
+.filter-selection {
+    /* color: rgb(7, 7, 148); */
+    font-weight: bold;
+    /* font-weight: lighter; */
+
 }
 
 /*search subcategory*/

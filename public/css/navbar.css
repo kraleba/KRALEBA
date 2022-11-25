@@ -2,8 +2,8 @@
     border-radius: 20px;
     background-color: rgb(184, 184, 184);
     color: white;
- 
-    padding: 2px 4px;
+    font-weight: bold;
+    padding: 4px 6px;
     text-align: center;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
@@ -15,6 +15,7 @@
 
 }.nav-css {
     top: -50px;
+    font-size: medium;
     border-radius: 20px;
     background-color: rgba(207, 204, 204, 0.959);
     display: inline-block;
