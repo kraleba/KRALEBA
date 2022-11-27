@@ -45,7 +45,7 @@ class BillsController extends Controller
         $data['filter_title'] = $this->helper->generate_title_by_filter_bills($request->customer_name, $request->type, $request->start_date, $request->end_date);
 //       dump($data['filter_title']);
 
-        if($request->downloadPDF == 'PDF') {
+        if ($request->downloadPDF == 'PDF') {
             $pdf = PDF::loadView('bills.pdf_list', $data);
             return $pdf->download('invoice.pdf');
         }
@@ -67,9 +67,10 @@ class BillsController extends Controller
 
     }
 
-    public
-    function store(Request $request)
+    public function store(Request $request)
     {
+        // dd($request->input());
+        // tre sa fac sa se salveze datele din request si sa adauge si la provideri datele
         $request->validate([
             'customer_id' => 'required',
             'bill_date' => 'required',
@@ -91,8 +92,7 @@ class BillsController extends Controller
     }
 
 
-    public
-    function show(Request $request)
+    public function show(Request $request)
     {
         $data['customer_id'] = $request->customer_id;
         $bills = $this->bills->get_customer_bill_by_id($request->bill);
@@ -101,7 +101,7 @@ class BillsController extends Controller
 //        dd($request->bill);
 //       dump($data['bills']);
 
-        if($request->downloadPDF == 'PDF') {
+        if ($request->downloadPDF == 'PDF') {
             $pdf = PDF::loadView('bills.bill_table_pdf', $data);
             return $pdf->download('invoice.pdf');
         }
@@ -110,8 +110,7 @@ class BillsController extends Controller
 
     }
 
-    public
-    function edit(Request $request)
+    public function edit(Request $request)
     {
         $data['bill'] = $this->bills->get_bill_by_id($request->bill);
         $data['customer'] = (array)$this->customers->get_customer_by_id($request->customer_id);
@@ -122,8 +121,7 @@ class BillsController extends Controller
     }
 
 
-    public
-    function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required',
@@ -139,8 +137,7 @@ class BillsController extends Controller
             ->with('success', 'Bills Has Been updated successfully');
     }
 
-    public
-    function destroy(Request $request)
+    public function destroy(Request $request)
     {
 //        dd($request->customer_id);
         $result = $this->bills->delete_bill_and_wares($request->bill);
@@ -152,8 +149,7 @@ class BillsController extends Controller
             ->with('success', $message);
     }
 
-    public
-    function generate_bill(Request $request)
+    public function generate_bill(Request $request)
     {
         $customer = $this->customers->get_customer_and_categories_by_id($request->id);
 
@@ -169,8 +165,7 @@ class BillsController extends Controller
 
     }
 
-    public
-    function customer_bills()
+   public function customer_bills()
     {
         //  dd($data["customer"]);
         dd('asssiiccc');

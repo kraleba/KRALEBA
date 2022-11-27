@@ -86,11 +86,12 @@ class Products extends Model
     }
 
 
-    public function update_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id)
+    public function update_customer_categories_and_subcategories($customer_id, $categories_id, $subcategories_id, $just_ubdate = false)
     {
-        DB::table('customers_id_categories')->where('customer_id', $customer_id)->delete();
-        DB::table('customer_category_id_subcategories')->where('customer_id', $customer_id)->delete();
-
+        if (!$just_ubdate) {
+            DB::table('customers_id_categories')->where('customer_id', $customer_id)->delete();
+            DB::table('customer_category_id_subcategories')->where('customer_id', $customer_id)->delete();
+        }
         foreach ($categories_id as $category_id) {
             DB::insert(
                 'insert into customers_id_categories (customer_id, category_id) values (?, ?)',

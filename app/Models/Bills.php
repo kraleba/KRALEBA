@@ -31,7 +31,6 @@ class Bills extends Model
 
     public function get_customer_bill_by_id($bill_id)
     {
-
         $i = 0;
         $generatedBills = array();
             $generatedBills[$i] = DB::select(

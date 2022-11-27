@@ -299,16 +299,12 @@ class CustomerHelper extends Controller
         return response()->json(false);
     }
 
-    public function take_customer_categories_by_customer_id(Request $request): bool|\Illuminate\Http\JsonResponse
+    public function take_categories(): bool|\Illuminate\Http\JsonResponse
     {
-        if (!$request->customer_id) {
-            return false;
-        }
+      
+        $categories = $this->product->get_furnace_categories();
+        return response()->json($categories);
 
-        $customer_id = $request->customer_id;
-        $customer = $this->customers->get_customer_and_categories_by_id($customer_id);
-
-        return response()->json($customer->categories);
     }
 
     public function generate_title_by_filter_bills($customer_name, $bills_type, $start_date, $end_date)

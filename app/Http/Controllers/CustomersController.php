@@ -186,14 +186,13 @@ class CustomersController extends Controller
     }
 
 
-    public function delete_subcategory($subcategory_id, $id = null)
+    public function delete_subcategory(Request $subcategory_id)
     {
+        dump($subcategory_id->id);
         //when an item is deleted from customer create
-        if (!$id) {
-            $id = $subcategory_id;
-        }
+    
         $products = new Products();
-        $products->delete_subcategory_by($id);
+        $products->delete_subcategory_by($subcategory_id->id);
     }
 
 }

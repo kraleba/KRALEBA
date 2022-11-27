@@ -72,28 +72,36 @@ $(document).ready(function () {
 
 });
 
+/* show  bills form */
+function showBillsCreateForm() {
+    if(document.querySelector('input[name="type"]:checked')) {
+        document.getElementById('form_create_bill').style.display = "block";
+        document.getElementById('form_create_bil_steps').style.display = "block";
+    }
+}
+
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
-function showTab(n) {
+function showTab(index_tab) {
 
     var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
+    x[index_tab].style.display = "block";
 
-    if (n === 0) {
+    if (index_tab === 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
     let number_of_article = document.getElementById("indexNumberOfArticle").value;
 
-    if (n === (x.length - 1) && n === parseInt(number_of_article)) {
+    if (index_tab === (x.length - 1) && index_tab === parseInt(number_of_article)) {
         document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
 
-    fixStepIndicator(n)
+    fixStepIndicator(index_tab)
 
 }
 
@@ -112,28 +120,26 @@ function addStepsOfArticle() {
         for (let i = 0; i < parseInt(number_of_article); ++i) {
             document.getElementById('steps-area').innerHTML += '<span class="step"></span>'
         }
-
     }
 
 }
-
-function nextPrev(n) {
+// trebuie sa testez sa vad acum daca merge corect
+function nextPrev(previous_or_next) {
 
     var x = document.getElementsByClassName("tab");
-
-    if (n === 1 && !validateForm())
+    if (previous_or_next === 1 && !validateForm(previous_or_next, currentTab))
         return false;
 
     let number_of_steps = document.getElementById("indexNumberOfArticle").value;
     number_of_steps++;
 
     x[currentTab].style.display = "none";
-    currentTab = currentTab + n;
+    currentTab = currentTab + previous_or_next;
 
     if (x.length < number_of_steps) {
         addStepsOfArticle();
-        if (n === 1) {
-            articleFormGenerate(n, x.length);
+        if (previous_or_next === 1) {
+            articleFormGenerate(previous_or_next, currentTab);
 
         }
     }
@@ -148,7 +154,7 @@ function nextPrev(n) {
     showTab(currentTab);
 }
 
-function validateForm() {
+function validateForm(previous_or_next, page_index) {
     // This function deals with validation of the form fields
     let x, y, valid = true, index = 0, parent = '';
 
@@ -158,10 +164,6 @@ function validateForm() {
             x = document.getElementsByClassName("parent_items" + i);
             y = x[currentTab].getElementsByTagName("input");
             let parents = x[currentTab].children;
-
-            if (x[currentTab].className) {
-
-            }
             if (!validatorFormHelper(y, parents)) {
                 ++index;
             }
@@ -175,7 +177,7 @@ function validateForm() {
 
     }
 
-    if (index === 0) {
+    if (validateSubcategoryForm(previous_or_next, page_index) && index === 0) {
         document.getElementsByClassName("step")[currentTab].className += ' finish';
     } else {
         valid = false;
@@ -183,67 +185,104 @@ function validateForm() {
     return valid; // return the valid status
 }
 
+function validateSubcategoryForm(previous_or_next, page_index) {
+
+    if ((previous_or_next !== -1)) {
+        if (page_index > 0) {
+            console.log($('input[name=categories_id' + page_index + ']:checked').length)
+            console.log(page_index)
+
+            if (!$('input[name=categories_id' + page_index + ']:checked').length) {
+                alert('Nu ai selectat nici o categorie');
+                return false;
+            }
+            let category_id = $('input[name=categories_id' + page_index + ']:checked').val();
+            if (!$('input[name=subcategories_id' + page_index + ']:checked').length && category_id != 8) {
+                alert('Nu ai selectat nici o subcategorie');
+                return false;
+            }
+        }
+    }
+
+    return true;
+
+}
+
 function validatorFormHelper(y, parents) {
 
     let valid = true
 
     for (let i = 0; i < y.length; i++) {
-
-        if (y[i].value === "" && parents[i].className.split(" ").includes('required')) {
-            y[i].className += " invalid";
-            valid = false;
+        // console.log(y[i].className);
+        if (parents[i].className) {
+            if (y[i].value === "" && parents[i].className.split(" ").includes('required')) {
+                y[i].className += " invalid";
+                valid = false;
+            }
         }
     }
 
     return valid;
 }
 
-function fixStepIndicator(n) {
+function fixStepIndicator(index_tab) {
     // This function removes the "active" class of all steps...
     var i, x = document.getElementsByClassName("step");
     for (i = 0; i < x.length; i++) {
         x[i].className = x[i].className.replace(" active", "");
     }
     //... and adds the "active" class on the current step:
-    x[n].className += " active";
+    x[index_tab].className += " active";
 }
 
-function articleFormGenerate(n, x) {
+function articleFormGenerate(previous_or_next, x) {
 
     let customer_id = getFieldValueByFieldClassSelect2('customer-search', '', 'id');
-    let categories = take_customer_categories_by_customer_id(customer_id);
+    let categories = take_categories(customer_id);
 
 
     let option_for_select = '';
     let select_category = '';
-    if (n !== -1) {
+
+    if (previous_or_next !== -1) {
+
+        let categories_id = [];
         $.each(categories, function (index, value) {
+            categories_id[index] = value.id;
+        });
+        $.each(categories, function (index, value) {
+
             option_for_select +=
-                '<optgroup label="' + value.category_name + '">' +
-                '   <option category_id="' + value.category_id + '" value="' + value.subcategory_id + '">' + value.name + '</option>' +
-                '</optgroup>'
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '<input type="radio"' +
+                '   id="category_id' + value.id + x + '"' +
+                '   onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ',' + x + ')"' +
+                '   class="form-item "' +
+                '   name="categories_id' + x + '"' +
+                '   value="' + value.id + '"' +
+                '>' +
+                '<label>' + value.name + '</label>' +
+                '<br>' +
+                '<div class="card subcategory-card" id="subcategory' + value.id + x + '">' +
+                '<div id="subcategory_list' + value.id + x + '"></div>' +
+                '<div id="subcategory_box' + value.id + x + '" style="display: none">' +
+                '     <input placeholder="add subcategory" type="text" id="subcategoryLabel' + value.id + x + '">' +
+                '     <input onclick="addSubcategoryForCustomersId(' + value.id + ', ' + "'radio'" + ',' + x + ')"' +
+                '            type="button" value="Add">' +
+                '  </div>' +
+                '  </div>' +
+                ' </div>'
         });
 
-        select_category = '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
-            '       <strong>Categorii:</strong>\n' +
-            '       <select name="subcategory_id[]"' +
-            '           class="form-select" ' +
-            '           id="index_of_selects' + x + '" ' +
-            '           onchange="showHideExtraFields(' + x + ')"' +
-            '           oninput="this.className = \'form-control\'"' +
-            '       >' +
-            '        <option disabled selected value> -- select an option -- </option>' +
-            '              ' + option_for_select + ' ' +
-            '       </select>' +
-            '   </div>'
     }
-
     $("#article_form").append(
         '<div class="tab">' +
+        '<filedset>' +
         '        <input type="hidden" name="category_id[]" id="categories_id' + x + '"> ' +
-
+        '<div id="categories_select' + x + '">' +
+        '' + option_for_select + '' +
+        '</div>' +
         '       <div class="parent_items0">\n' +
-        '        ' + select_category + '' +
         '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>Product Name:</strong>\n' +
         '                            <input type="text" name="product_name[]" class="form-control"\n' +
@@ -266,20 +305,26 @@ function articleFormGenerate(n, x) {
 
         '                   <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>Moneda:</strong>' +
-        '                            <input type="hidden" id="customer_coin_id' + x + '" name="coin[]">' +
         '                            <input type="text"' +
         '                                   readonly="readonly"' +
-        '                                   class="form-control" id="coin_label_by_customer' + x + '"' +
+        '                                   class="form-control"' +
+        '                                   id="coin_label_by_customer' + x + '"' +
         '                                   placeholder="Moneda">\n' +
-        '\n' +
+        '                   </div>' +
+        '                   <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
+        '                          <input' +
+        '                               type="hidden"' +
+        '                               class="form-control"' +
+        '                               id="customer_coin_id' + x + '" ' +
+        '                               name = "coin[]"' +
+        '                               > ' +
+
         '                   </div>' +
         '       </div>' +
-
 
         '  ' + secondaryFields(x) + '' +
 
         '       <div class="parent_items2">\n' +
-
         '                    <div class="col-xs-12 col-sm-12 col-md-12 form-group required">\n' +
         '                            <strong>UM:</strong>\n' +
         '                            <select name="um[]" class="form-select" oninput="this.className = \'form-control\' ">\n' +
@@ -305,6 +350,7 @@ function articleFormGenerate(n, x) {
         '                    </div>\n' +
         '\n' +
         '    </div>' +
+        '</filedset>' +
         '</div>'
     )
 
@@ -312,12 +358,11 @@ function articleFormGenerate(n, x) {
     document.getElementById('coin_label_by_customer' + x).setAttribute("value", $("#customer-coin-label").val())
 }
 
-function showHideExtraFields(value) {
-    let option_selected = $('option:selected', '#index_of_selects' + value).attr('category_id');
-    console.log(option_selected);
-    document.getElementById('categories_id' + value).value = option_selected;
+function showHideExtraFields(value, category_id) {
 
-    if (option_selected === '8') {
+    document.getElementById('categories_id' + value).value = category_id;
+
+    if (category_id === 8) {
         document.getElementById('secondary-attr' + value).style.display = "block";
     } else {
         document.getElementById('secondary-attr' + value).style.display = "none";
