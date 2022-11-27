@@ -21,8 +21,21 @@ class CustomerWares extends Model
     public function create_wares_from_bill($bill_id, $form_data)
     {
 
-        if(!$bill_id || !$form_data) {
+        if (!$bill_id || !$form_data) {
             return false;
+        }
+
+        $i = 1;
+        foreach ($form_data as $form) {
+            if (array_key_exists('categories_id' . $i, $form_data))
+                $form_data['category_id'][$i - 1] = $form_data['categories_id' . $i];
+
+            if (array_key_exists('subcategories_id' . $i, $form_data))
+                $form_data['subcategory_id'][$i - 1] = $form_data['subcategories_id' . $i];
+
+            unset($form_data['categories_id' . $i]);
+            unset($form_data['subcategories_id' . $i]);
+            ++$i;
         }
 
         $index = 0;
@@ -32,10 +45,10 @@ class CustomerWares extends Model
                 $index++;
             }
         }
-
         $wares = [];
         $rows = array_keys($form_data);
         foreach ($form_data as $form_values) {
+            // dump($form_values);
             if (is_array($form_values)) {
                 $i = 0;
                 foreach ($form_values as $value) {
@@ -45,13 +58,23 @@ class CustomerWares extends Model
                 ++$index;
             }
         }
-
+        // create weae
         foreach ($wares as $ware) {
             $ware['customer_id'] = $form_data['customer_id'];
             $ware['bill_id'] = $bill_id;
-             CustomerWares::create($ware);
+            CustomerWares::create($ware);
         }
-
+        // dd($form_data);
+       $product = new Products();
+        // update categories and subcategories in customer
+        if ($form_data['customer_id']) {
+            $product->update_customer_categories_and_subcategories(
+                $form_data['customer_id'],
+                $form_data['category_id'],
+                $form_data['subcategory_id'],
+                true
+            );
+        }
     }
 
     public function get_wares_by_customer_id($customer_id = null, $status = null)
@@ -67,7 +90,6 @@ class CustomerWares extends Model
             ON c.id = w.customer_id
             WHERE w.customer_id = {$customer_id}
             AND w.status = {$status}";
-
         } else {
             $status = 1;
             $query = "SELECT *
@@ -75,7 +97,6 @@ class CustomerWares extends Model
             LEFT JOIN customer_wares AS w
             ON c.id = w.customer_id
             WHERE w.status = {$status}";
-
         }
 
         return DB::select($query);
@@ -109,7 +130,6 @@ class CustomerWares extends Model
             return DB::table('customer_wares')->where('id', $ware_id)->first();
         }
         return false;
-
     }
 
     public function ware_update($data, $id)
@@ -160,7 +180,6 @@ class CustomerWares extends Model
 
         if ($type && $subcategory) {
             $query .= " AND w.subcategory_id = {$subcategory}";
-
         } else if ($subcategory) {
             $query .= " AND w.subcategory_id = {$subcategory}";
         }
@@ -177,7 +196,6 @@ class CustomerWares extends Model
         $query = "SELECT {$row_name} FROM customer_wares WHERE {$row_name} LIKE '%{$term}%' GROUP BY {$row_name}";
 
         return DB::select($query);
-
     }
 
     public function get_wares_suggestions_for_customer($search, $row_name, $customer_id = null, $product_name_selected = null, $category_id = null)
@@ -185,7 +203,7 @@ class CustomerWares extends Model
         if (!$row_name) {
             return false;
         }
-//dump($row_name);
+        //dump($row_name);
         $dynamic_query = '';
         if ($customer_id) {
             $dynamic_query .= "AND customer_id = {$customer_id}";
@@ -293,5 +311,4 @@ class CustomerWares extends Model
 
         return $result;
     }
-
 }

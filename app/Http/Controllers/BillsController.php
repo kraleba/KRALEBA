@@ -69,7 +69,8 @@ class BillsController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->input());
+        // dd($request->input());
+        // tre sa fac sa se salveze datele din request si sa adauge si la provideri datele
         $request->validate([
             'customer_id' => 'required',
             'bill_date' => 'required',

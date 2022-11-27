@@ -207,11 +207,6 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null, c
 
     if (category.checked) {
 
-        // show subcategories if category id is not 8 (Textile)
-        if (category_id !== 8) {
-            // category.style.display = 'block';
-            document.getElementById('subcategory_box' + category_id + page_index).style.display = 'block';
-        }
 
         let subcategories_field_type = 'checkbox'
 
@@ -219,7 +214,17 @@ function showSubcategoryByCategoryId(category_id, existing_subcategory = null, c
         if (category.type === 'radio') {
             subcategories_field_type = 'radio'
             array_or_unique = page_index;
+        } else {
+            return true;
         }
+
+        // show subcategories if category id is not 8 (Textile)
+        if (category_id !== 8) {
+            // category.style.display = 'block';
+            document.getElementById('subcategory_box' + category_id + page_index).style.display = 'block';
+        } 
+            
+        showHideExtraFields(page_index, category_id);
 
         $.ajax({
             type: "GET",

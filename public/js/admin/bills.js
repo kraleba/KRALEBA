@@ -72,6 +72,14 @@ $(document).ready(function () {
 
 });
 
+/* show  bills form */
+function showBillsCreateForm() {
+    if(document.querySelector('input[name="type"]:checked')) {
+        document.getElementById('form_create_bill').style.display = "block";
+        document.getElementById('form_create_bil_steps').style.display = "block";
+    }
+}
+
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
@@ -176,24 +184,23 @@ function validateForm(previous_or_next, page_index) {
     }
     return valid; // return the valid status
 }
-//trebuie sa vad ca x nu este un inidcator bun, daca dau pagina inainte si inapoi atunci imi creste valoarea si nu mai valideaza corect
+
 function validateSubcategoryForm(previous_or_next, page_index) {
 
     if ((previous_or_next !== -1)) {
-        // page_index--;
         if (page_index > 0) {
             console.log($('input[name=categories_id' + page_index + ']:checked').length)
             console.log(page_index)
 
-            // if (!$('input[name=categories_id' + page_index + ']:checked').length) {
-            //     alert('Nu ai selectat nici o categorie');
-            //     return false;
-
-            // }
-            // if (!$('input[name=subcategories_id' + page_index + ']:checked').length) {
-            //     alert('Nu ai selectat nici o subcategorie');
-            //     return false;
-            // }
+            if (!$('input[name=categories_id' + page_index + ']:checked').length) {
+                alert('Nu ai selectat nici o categorie');
+                return false;
+            }
+            let category_id = $('input[name=categories_id' + page_index + ']:checked').val();
+            if (!$('input[name=subcategories_id' + page_index + ']:checked').length && category_id != 8) {
+                alert('Nu ai selectat nici o subcategorie');
+                return false;
+            }
         }
     }
 
@@ -248,11 +255,11 @@ function articleFormGenerate(previous_or_next, x) {
             option_for_select +=
                 '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
                 '<input type="radio"' +
-                'id="category_id' + value.id + x + '"' +
-                'onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ',' + x + ')"' +
-                'class="form-item "' +
-                'name="categories_id' + x + '"' +
-                'value="' + value.id + '"' +
+                '   id="category_id' + value.id + x + '"' +
+                '   onchange="showSubcategoryByCategoryId(' + value.id + ',' + null + ',' + JSON.stringify(categories_id) + ',' + x + ')"' +
+                '   class="form-item "' +
+                '   name="categories_id' + x + '"' +
+                '   value="' + value.id + '"' +
                 '>' +
                 '<label>' + value.name + '</label>' +
                 '<br>' +
@@ -351,11 +358,11 @@ function articleFormGenerate(previous_or_next, x) {
     document.getElementById('coin_label_by_customer' + x).setAttribute("value", $("#customer-coin-label").val())
 }
 
-function showHideExtraFields(value) {
-    let option_selected = $('option:selected', '#index_of_selects' + value).attr('category_id');
-    document.getElementById('categories_id' + value).value = option_selected;
+function showHideExtraFields(value, category_id) {
 
-    if (option_selected === '8') {
+    document.getElementById('categories_id' + value).value = category_id;
+
+    if (category_id === 8) {
         document.getElementById('secondary-attr' + value).style.display = "block";
     } else {
         document.getElementById('secondary-attr' + value).style.display = "none";
