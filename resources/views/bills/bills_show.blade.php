@@ -6,9 +6,7 @@
     <br>
     <head>
         <meta charset="UTF-8">
-        <title>Facturii</title>
     </head>
-
     <body>
     <div class="container mt-2">
         <div class="row">
@@ -27,11 +25,7 @@
             </div>
         @endif
 
-
         <br>
-        <div>
-            <h3> {{$filter_title ?? 'Factura!'}}</h3>
-        </div>
 
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
@@ -39,9 +33,30 @@
             </div>
         @endif
         <div>
-
+            @php
+                if($bill->type == 1) {
+                    $bill->type = 'Proforma';
+                } else {
+                    $bill->type = 'Definitiva';
+                } 
+            @endphp
             @if($bills)
-                @foreach($bills as $bill)
+
+            <h4>Emitent: {{$customer->name}}</h4>
+            <p>Cod: {{$bill->bill_number}}</p>
+            <p>Data facturii: {{$bill->bill_date}}</p>
+            <p>Numar: {{$bill->id}}</p>
+            @php
+            if($customer->country == 1) {
+                    $customer->coin = 'LEI';
+                } else {
+                    $customer->coin = 'EURO';
+                }
+            @endphp
+            <p>Moneda: {{$customer->coin}}</p>
+            <p>Curs Valutar: {{$bill->exchange}}</p>
+            <p>TVA: {{$bill->tva}}%</p>
+                @foreach($bills as $bill_ware)
 
                     <table>
 
@@ -75,7 +90,7 @@
                      $eu_with_tva = 0;
                      $lei_with_tva = 0;
                         @endphp
-                        @foreach($bill as $ware)
+                        @foreach($bill_ware as $ware)
 
                             <tr>
                                 <td>{{$i}}</td>
@@ -142,10 +157,17 @@
                         Delete
                     </button>
                 </form>
+                <br>
+                <div>    
+                    <h3>Tipul facturii: {{$bill->type}} </h3>
+                </div>
+                @foreach($bills as $bill)
+                    @foreach($bill as $ware)
+                    <p> Categoria: <b> {{$ware['category_name']->name}}</b>, Specificatia: <b>{{$ware['subcategory_name']->name}} </b> </p>
+                    @endforeach
+                @endforeach
         </div>
-
-
-        @else
+         @else
             <div class="alert alert-warning">
                 <h5>Nici o factura!</h5>
             </div>

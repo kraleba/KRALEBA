@@ -11,7 +11,7 @@ use App\Models\Products;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Termwind\Components\Dt;
 
 class BillsController extends Controller
 {
@@ -43,7 +43,7 @@ class BillsController extends Controller
         $data['customer_id'] = $request->customer_id;
         $data['bills'] = $this->bills->get_bills_by_filter($request->customer_name, $request->type, $request->start_date, $request->end_date);
         $data['filter_title'] = $this->helper->generate_title_by_filter_bills($request->customer_name, $request->type, $request->start_date, $request->end_date);
-//       dump($data['filter_title']);
+        //       dump($data['filter_title']);
 
         if ($request->downloadPDF == 'PDF') {
             $pdf = PDF::loadView('bills.pdf_list', $data);
@@ -51,20 +51,18 @@ class BillsController extends Controller
         }
 
         return view('bills.bills_index', $data);
-
     }
 
     public function create(Request $request)
     {
-//        $customer = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
+        //        $customer = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
 
         $data = array(
             'furnace_categories' => $this->product->get_furnace_categories(),
             'subcategories' => $this->product->get_subcategory_for_customer_category(),
         );
-//        dd($data['customer']['customer_id']);
+        //        dd($data['customer']['customer_id']);
         return view('bills.bills_create', $data);
-
     }
 
     public function store(Request $request)
@@ -85,7 +83,7 @@ class BillsController extends Controller
         $bill = Bills::create($request->input());
 
         $this->wares->create_wares_from_bill($bill->id, $request->input());
-//        $this->bills->create_bill_and_update_ware($request->input());
+        //        $this->bills->create_bill_and_update_ware($request->input());
 
         return redirect()->route('bills.index', $request->customer_id)
             ->with('success', 'Bills has been created successfully.');
@@ -95,19 +93,20 @@ class BillsController extends Controller
     public function show(Request $request)
     {
         $data['customer_id'] = $request->customer_id;
-        $bills = $this->bills->get_customer_bill_by_id($request->bill);
-        $data['bills'] = $this->helper->bills_value_calculated_ware($bills);
+        $bill = $this->bills->get_customer_bill_by_id($request->bill);
+        $data['bills'] = $this->helper->bills_value_calculated_ware($bill);
+        $bill = DB::table('bills')->where('id', $request->bill)->first();
+        $data['bill'] = $bill;
+        // dd($bill);
+        $data['customer'] = DB::table('customers')->where('id', '=', $bill->customer_id)->select('id', 'name', 'country')->first();
 
-//        dd($request->bill);
-//       dump($data['bills']);
-
+        // dd($data['customer']);
         if ($request->downloadPDF == 'PDF') {
             $pdf = PDF::loadView('bills.bill_table_pdf', $data);
             return $pdf->download('invoice.pdf');
         }
 
         return view('bills.bills_show', $data);
-
     }
 
     public function edit(Request $request)
@@ -115,7 +114,7 @@ class BillsController extends Controller
         $data['bill'] = $this->bills->get_bill_by_id($request->bill);
         $data['customer'] = (array)$this->customers->get_customer_by_id($request->customer_id);
         $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id, 1);
-//        dd($data['wares']);
+        //        dd($data['wares']);
 
         return view('bills.bills_edit', $data);
     }
@@ -139,7 +138,7 @@ class BillsController extends Controller
 
     public function destroy(Request $request)
     {
-//        dd($request->customer_id);
+        //        dd($request->customer_id);
         $result = $this->bills->delete_bill_and_wares($request->bill);
         $message = 'Factura stearsa cu succes';
         if (!$result) {
@@ -160,20 +159,18 @@ class BillsController extends Controller
             'furnace_categories' => $this->product->get_furnace_categories(),
             'subcategories' => $this->product->get_subcategory_for_customer_category(),
         );
-//        dd($data['customer']['customer_id']);
+        //        dd($data['customer']['customer_id']);
         return view('bills.bills_create', $data);
-
     }
 
-   public function customer_bills()
+    public function customer_bills()
     {
         //  dd($data["customer"]);
         dd('asssiiccc');
-//        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
-//        $data["generated_bills"]=$this->bills->get_customer_bill_by_id($customer->id);
-//        dd($data);
+        //        $data["customer"]=$this->customers->get_customer_and_categories_by_id($customer->id);
+        //        $data["generated_bills"]=$this->bills->get_customer_bill_by_id($customer->id);
+        //        dd($data);
 
         return view('customers.show', $data);
     }
-
 }

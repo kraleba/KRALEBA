@@ -10,6 +10,7 @@ use App\Models\Products;
 use App\Models\ProductTemplateChild;
 use App\Models\ProductTemplateParent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class CustomerHelper extends Controller
@@ -158,7 +159,8 @@ class CustomerHelper extends Controller
             foreach ($bill as $ware) {
                 $ware = (array)$ware;
 
-
+                $ware['category_name'] = DB::table('furnace_categories')->select('name')->where('id', $ware['category_id'])->first();
+                $ware['subcategory_name'] = DB::table('customer_subcategory')->select('name')->where('id', $ware['subcategory_id'])->first();
                 if ($ware['coin'] == 1) {
                     $exchange = round($ware['price'] / $ware['exchange'], 3);
                     $ware['price_euro'] = $exchange;
@@ -180,11 +182,9 @@ class CustomerHelper extends Controller
 
                 $bills_array[$j][$i] = $ware;
                 $i++;
-
             }
             $j++;
         }
-//        dd($bills_array);
 
         return $bills_array;
     }
@@ -209,7 +209,7 @@ class CustomerHelper extends Controller
     {
 //        dump($request->row_name);
 
-        if (!$request->customer_id) {
+        if (!$request->customer_id) { 
             return response()->json(false);
         }
         if ($request->row_name == 'custom_code' && !$request->product_name_selected) {
