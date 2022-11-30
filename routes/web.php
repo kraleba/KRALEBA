@@ -60,6 +60,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/search_ware_name', [CustomerHelper::class, 'search_ware_name']);
     Route::get('admin/template_child_validator', [CustomerHelper::class, 'template_child_validator']);
     Route::get('admin/take_categories', [CustomerHelper::class, 'take_categories']);
+    Route::get('admin/subcategories_for_category', [CustomerHelper::class, 'subcategories_for_category']);
 
 //    Route::get('admin/customer/helper_add_subcategory', [CustomerHelper::class, 'helper_add_subcategory']);
 

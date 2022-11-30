@@ -169,3 +169,36 @@ function searchWareByCustomerId(request, response, row_name, customer_id, catego
 }
 
 /*---- Ware name autocomplete END----*/
+
+/*--- SEARCH SUBCATEGORYES FOR CATEGORY START ---*/
+$(document).ready(function () {
+    $("#find_subcategories_by_category_id").autocomplete({
+        source: function (request, response) {
+            let category_id = $('#category_select').find(":selected").val();
+            $.ajax({
+                url: "/admin/subcategories_for_category",
+                type: 'GET',
+                data: {
+                    term: request.term,
+                    category_id: category_id
+                },
+                // trebuie sa vad de ce nu imi intra in succes
+                dataType: "json",
+                success: function (data) {
+                    var resp = $.map(data, function (obj) {
+                        console.log(obj);
+
+                        return {
+                            label: obj.name,
+                            id: obj.id,
+                        };
+                    });
+                    response(resp);
+                },
+        
+            });
+        },
+        minLength: 0
+    });
+});
+/*--- SEARCH SUBCATEGORYES FOR CATEGORY END ---*/

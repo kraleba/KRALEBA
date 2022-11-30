@@ -88,15 +88,15 @@
                             >
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
-                                    <a class="dropdown-item"
+                                    {{-- <a class="dropdown-item"
                                        href="{{ route('wares.edit', ['customer_id'=>$ware->customer_id, 'ware'=>$ware->id])}}">
                                         Edit
-                                    </a>
+                                    </a> --}}
 
 
                                     @csrf
                                     @method('DELETE')
-                                    <button class="dropdown-item">Delete</button>
+                                    {{-- <button class="dropdown-item">Delete</button> --}}
 
                                 </div>
                             </form>

@@ -45,7 +45,6 @@ class CustomerHelper extends Controller
             if ($customer['category_id'] && is_numeric($customer['category_id'])) {
                 $category = $this->product->get_customer_category_by_id($customer['category_id']);
                 $customer['category_id'] = $category;
-
             }
 
             if ($customer['subcategory_id'] && is_numeric($customer['subcategory_id'])) {
@@ -69,16 +68,14 @@ class CustomerHelper extends Controller
         if (!$ifSubcategoryExist) {
             $this->product->set_customers_subcategory(array('name' => $subcategory, 'category_id' => $category_id));
             $subcategory = (array)$this->product->find_subcategory_by_label($subcategory);
-
         } else {
             return false;
         }
 
         return $subcategory;
-
     }
 
-//generate title afrer filter
+    //generate title afrer filter
     public function helper_generate_title_after_filter($customer_name, $customer_type, $category)
     {
         if ($customer_type == 'provider') {
@@ -105,7 +102,6 @@ class CustomerHelper extends Controller
             $title_text .= ' / ' . $this->product->get_customer_category_by_id($category)->name;
         } elseif ($category) {
             $title_text .= $this->product->get_customer_category_by_id($category)->name;
-
         }
 
         return $title_text;
@@ -129,10 +125,9 @@ class CustomerHelper extends Controller
     public function show_subcategory_by_category_id(Request $request)
     {
         return $this->product->get_subcategory_by_category_id($request->input('category_id'));
-
     }
 
-//    show customer coin
+    //    show customer coin
     public function show_coin_by_country($country_id)
     {
         $coin = array();
@@ -142,7 +137,6 @@ class CustomerHelper extends Controller
         } else {
             $coin['label'] = "EURO";
             $coin['id'] = $country_id;
-
         }
         return $coin;
     }
@@ -170,14 +164,13 @@ class CustomerHelper extends Controller
                     $ware['tva_lei_buc'] = round(($ware['price'] / 100) * $ware['tva'], 3);
                     $ware['tva_euro_buc'] = round(($exchange / 100) * $ware['tva'], 3);
                 } else {
-//                    dd($ware['price']);
+                    //                    dd($ware['price']);
 
                     $ware['tva_euro_buc'] = round(($ware['price'] / 100) * $ware['tva'], 3);
                     $exchange = round($ware['price'] * $ware['exchange'], 3);
                     $ware['price_euro'] = $ware['price'];
                     $ware['price_lei'] = $exchange;
                     $ware['tva_lei_buc'] = round(($exchange / 100) * $ware['tva'], 3);
-
                 }
 
                 $bills_array[$j][$i] = $ware;
@@ -207,9 +200,9 @@ class CustomerHelper extends Controller
 
     public function search_ware_name(Request $request)
     {
-//        dump($request->row_name);
+        //        dump($request->row_name);
 
-        if (!$request->customer_id) { 
+        if (!$request->customer_id) {
             return response()->json(false);
         }
         if ($request->row_name == 'custom_code' && !$request->product_name_selected) {
@@ -239,13 +232,12 @@ class CustomerHelper extends Controller
         );
 
         return response()->json($res);
-
     }
 
     public function find_textiles_filters(Request $request)
     {
         $res = $this->wares->get_wares_suggestions_for_customer($request->input('term'), $request->input('row_name'));
-//        dd($request->input('row_name'));
+        //        dd($request->input('row_name'));
 
         return response()->json($res);
     }
@@ -254,15 +246,13 @@ class CustomerHelper extends Controller
     {
 
         $res = $this->templateParent->get_parent_template_product_by_suggestions($request->term);
-//        dd($request->input());
+        //        dd($request->input());
         return response()->json($res);
-
     }
 
     public function template_child_validator(Request $request)
     {
         return response()->json($this->templateChild->validate_child_template_if_data_exists($request->form_customer));
-
     }
 
     public function customer_separe_categories_from_subcategories($customer)
@@ -301,10 +291,9 @@ class CustomerHelper extends Controller
 
     public function take_categories(): bool|\Illuminate\Http\JsonResponse
     {
-      
+
         $categories = $this->product->get_furnace_categories();
         return response()->json($categories);
-
     }
 
     public function generate_title_by_filter_bills($customer_name, $bills_type, $start_date, $end_date)
@@ -320,7 +309,6 @@ class CustomerHelper extends Controller
 
         if ($customer_name && $bills_type) {
             $bills_list_title .= ' / ' . $bills_type;
-
         } elseif ($bills_type) {
             $bills_list_title .= $bills_type;
         }
@@ -328,24 +316,47 @@ class CustomerHelper extends Controller
         if (($customer_name || $bills_type) && ($start_date && $end_date)) {
             $bills_list_title .= ' / ' . $start_date;
             $bills_list_title .= ' / ' . $end_date;
-
         } elseif ($start_date && $end_date) {
             $bills_list_title .= $start_date;
             $bills_list_title .= ' / ' . $end_date;
         }
 
         return $bills_list_title;
-
     }
 
+    public function subcategories_for_category(Request $request)
+    {
+        $query = DB::table('customer_subcategory')
+            ->select('id', 'name')
+            ->where('name', 'LIKE', "%$request->term%");
+        if ($request->category_id) {
+            $query
+                ->where('category_id', $request->category_id);
+        }
+
+        return $query->limit(10)->orderBy('name')
+            ->get();
+    }
+
+    public function helper_generate_title_after_filter_wares($name, $category, $subcategory)
+    {
+        if ($category) {
+            $category = DB::table('furnace_categories')
+                ->where('id', $category)
+                ->select('name')
+                ->first()->name;
+        }
+
+        if ($category && $name) {
+            $name .= ' / ';
+        }
+
+        if ($subcategory && ($category || $name)) {
+            $category .= ' / ';
+        }
+
+        $title = "$name$category$subcategory";
+
+        return $title;
+    }
 }
-
-
-
-
-
-
-
-
-
-

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Doctrine\DBAL\Query;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -65,7 +66,7 @@ class CustomerWares extends Model
             CustomerWares::create($ware);
         }
         // dd($form_data);
-       $product = new Products();
+        $product = new Products();
         // update categories and subcategories in customer
         if ($form_data['customer_id']) {
             $product->update_customer_categories_and_subcategories(
@@ -140,51 +141,30 @@ class CustomerWares extends Model
             ->update($data);
     }
 
-    public function get_wares_by_filter($ware_type, $type, $category, $subcategory)
-    {
-        if (!$ware_type) {
-            return false;
+    public function get_wares_by_filter($customer_name, $category, $subcategory)
+    {        
+        $query = DB::table('customer_wares')
+            ->select('*', 'customer_wares.id as id')
+            ->join('customers', 'customers.id', '=', 'customer_wares.customer_id');
+
+        if ($customer_name) {
+            $query = $query
+                ->where('customers.name', 'LIKE', "%$customer_name%");
         }
 
-        /*if category id is 8 */
-        if ($ware_type == 'wares') {
-            $textile = 8;
-            $operator = '!= ';
-        } else {
-            $operator = "=";
-            $textile = 8;
+        if ($category) {
+            $query = $query->where('customer_wares.category_id', $category);
         }
 
-        $query = "SELECT
-                w.id,
-                w.customer_id,
-                w.product_name,
-                w.custom_code,
-                w.description,
-                w.date,
-                w.coin,
-                w.um,
-                w.amount
-                FROM customer_wares AS w
-                JOIN customers AS c
-                ON w.customer_id = c.id
-                WHERE w.category_id {$operator} '{$textile}'";
-
-        if ($type) {
-            $query .= " AND c.type = '{$type}'";
+        if ($subcategory) {
+            $subcategory_id = DB::table('customer_subcategory')->select('id')->where('name', $subcategory )->first();
+            $query = $query->where('customer_wares.subcategory_id', $subcategory_id->id);
         }
 
-        if ($type && $category) {
-            $query .= " AND w.category_id = {$category}";
-        }
-
-        if ($type && $subcategory) {
-            $query .= " AND w.subcategory_id = {$subcategory}";
-        } else if ($subcategory) {
-            $query .= " AND w.subcategory_id = {$subcategory}";
-        }
-
-        return DB::select($query);
+        return $query
+            ->where('customer_wares.category_id', '!=', 8)
+            ->orderBy('customer_wares.product_name')
+            ->get();
     }
 
     public function get_textiles_filters_suggestions($term, $row_name)

@@ -23,7 +23,6 @@ class CustomerWaresControler extends Controller
         $this->customers = new Customers();
         $this->helper = new CustomerHelper();
         $this->wares = new CustomerWares();
-
     }
 
     /**
@@ -33,21 +32,19 @@ class CustomerWaresControler extends Controller
      */
     public function index(Request $request)
     {
-//        dd($request);
+        //        dd($request);
         $data['furnace_categories'] = $this->product->get_furnace_categories();
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
         $data['customer_id'] = $request->customer_id;
-        $data['filter_title'] = $this->helper->helper_generate_title_after_filter($request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
-
-        if ($request->customer_id) {
-            $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
-            $data['wares_count'] = count($data['wares']);
-        } else {
-            $data['wares'] = $this->wares->get_wares_by_filter('wares', $request->customer_type ?? '', $request->category ?? '', $request->subcategory ?? '');
-        }
+        $data['filter_title'] = $this->helper->helper_generate_title_after_filter_wares($request->customer_name ?? '', $request->category ?? '', $request->subcategory ?? '');
+        $data['wares'] = $this->wares->get_wares_by_filter($request->customer_name ?? '', $request->category ?? '', $request->subcategory ?? '');
+        $data['filtering_criteria'] = array(
+            'customer_name' => $request->input('customer_name'),
+            'category' => $this->product->get_customer_category_by_id($request->input('category')),
+            'subcategory' => $request->input('subcategory'),
+        );
 
         return view('ware.ware_index', $data);
-
     }
 
     public function create(Request $request)
@@ -61,7 +58,6 @@ class CustomerWaresControler extends Controller
         }
 
         return view('ware.ware_create', $data);
-
     }
 
     public function store(Request $request)
@@ -73,7 +69,7 @@ class CustomerWaresControler extends Controller
         $data['subcategory_id'] = $customer_categories_subcategories->subcategory_id;
 
         unset($data['categories_json']);
-//dd($data);
+        //dd($data);
         CustomerWares::create($data);
 
         return redirect()->route('wares.index', $request->input('customer_id'))
@@ -83,7 +79,6 @@ class CustomerWaresControler extends Controller
     public function show(CustomerWares $custmerWares)
     {
         dd('testeee343');
-
     }
 
     public function edit(Request $request)
@@ -94,24 +89,23 @@ class CustomerWaresControler extends Controller
         $data['customer'] = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['customer_categories'] = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
-//        dd($data['ware']);
+        //        dd($data['ware']);
 
         return view('ware.ware_edit', $data);
     }
 
     public function update(Request $request)
     {
-//        dd($request->ware);
+        //        dd($request->ware);
         $this->wares->ware_update($request->input(), $request->ware);
 
         return redirect()->route('wares.index', $request->input('customer_id'))
             ->with('success', 'customer updated successfully');
-
     }
 
     public function destroy(Request $request)
     {
-//        dd($request->ware);
+        //        dd($request->ware);
         $result = $this->wares->delete_ware_by_id($request->ware);
 
         $message = 'Client sters cu succes';
@@ -158,12 +152,10 @@ class CustomerWaresControler extends Controller
                 $request->input('textiles_structure'),
                 $request->input('textiles_weaving'),
                 $request->input('textiles_finishing'),
-                $request->input('textiles_rating'));
+                $request->input('textiles_rating')
+            );
         }
 
         return view('ware.textiles.customers_textile', $data);
-
     }
-
-
 }
