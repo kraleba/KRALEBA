@@ -6,7 +6,7 @@
                     <div class="input-group select-group ">
                         <div>
                             <input type='text' id="find_customer" name="customer_name"
-                                placeholder="--Selecteaza un Client--" class="form-control filter-control group"
+                                placeholder="-- Select a Client --" class="form-control filter-control group"
                                 value="{{ $filtering_criteria['customer_name'] ?? '' }}">
                         </div>
 
@@ -14,7 +14,7 @@
                             <select id="category_select" name="category" id="department"
                                 class="form-control filter-control group">
 
-                                <option selected value> -- Select an option --</option>
+                                <option selected value> -- Select an Option --</option>
                                 @foreach ($furnace_categories as $furnace_category)
                                     <option value="{{ $furnace_category->id }}"
                                         @if (isset($filtering_criteria['category']->id) && $furnace_category->id == $filtering_criteria['category']->id) selected @endif>
@@ -26,7 +26,7 @@
 
                         <div>
                             <input type='text' id="find_subcategories_by_category_id" name="subcategory"
-                                placeholder="--Selecteaza Specificatia--" class="form-control filter-control group"
+                                placeholder="-- Select a Specification --" class="form-control filter-control group"
                                 value="{{ $filtering_criteria['subcategory'] ?? '' }}">
                         </div>
                     </div>
