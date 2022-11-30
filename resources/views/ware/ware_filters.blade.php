@@ -1,11 +1,8 @@
 <div class="container ">
-    <div class="row searchFilter-bills card round3">
+    <div class="">
 
         <div class="col-lg-12 box-filter">
             <form method="get">
-                <div>
-                    <h4>SELECTEAZA:</h4>
-                </div>
 
                 <br>
                 <div class="row searchFilter-custom round3">
@@ -39,9 +36,7 @@
                     </div>
 
                 </div>
-                <div class="filter-item_OK ">
-                    <button id="searchBtn" type="submit" class="btn btn-secondary"> OK</button>
-                </div>
+                <button id="searchBtn" type="submit" class="filter-customers-OK"> OK</button>
 
                 <div class="pdf-style">
                     @if ($wares)
@@ -52,9 +47,7 @@
             </form>
         </div>
         <form>
-            <div class="revert-b">
-                <button type="submit" class="btn btn-secondary">REVERT</button>
-            </div>
+            <button type="submit" class="revert-customers">REVERT</button>
         </form>
 
     </div>

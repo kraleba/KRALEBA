@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <h3>Articole</h3>
 
     @if($customer_id && $wares)
         <div class="container ">
