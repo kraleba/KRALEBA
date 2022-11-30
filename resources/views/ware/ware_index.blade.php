@@ -30,7 +30,7 @@
 
         @if($wares)
             <div>
-                <h3> {{$filter_title ?? 'Toti clientii'}}</h3>
+                <h3> {{$filter_title ?? 'Articole'}}</h3>
             </div>
         @endif
 

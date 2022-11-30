@@ -44,11 +44,10 @@
                 </div>
 
                 <div class="pdf-style">
-
-                    {{--                    @if ($customers) --}}
-                    {{--                        <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf --}}
-                    {{--                        </button> --}}
-                    {{--                    @endif --}}
+                    @if ($wares)
+                        <button type="submit" name="downloadPDF" value="PDF" class="btn btn-info">SALVEAZA ca .pdf
+                        </button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -59,10 +58,6 @@
         </form>
 
     </div>
-    <form>
-        <div class="generare">
-            <button type="submit" class="btn btn-secondary">Generare pdf</button>
-        </div>
-    </form>
+
 </div>
 

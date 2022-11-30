@@ -8,7 +8,7 @@ use App\Models\Customers;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Models\Bills;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerWaresControler extends Controller
 {
@@ -43,6 +43,11 @@ class CustomerWaresControler extends Controller
             'category' => $this->product->get_customer_category_by_id($request->input('category')),
             'subcategory' => $request->input('subcategory'),
         );
+
+        if ($request->input('downloadPDF') == 'PDF') {
+            $pdf = PDF::loadView('ware.pdf', $data);
+            return $pdf->download('invoice.pdf');
+        }
 
         return view('ware.ware_index', $data);
     }

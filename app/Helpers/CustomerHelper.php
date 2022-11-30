@@ -354,8 +354,10 @@ class CustomerHelper extends Controller
         if ($subcategory && ($category || $name)) {
             $category .= ' / ';
         }
-
-        $title = "$name$category$subcategory";
+        
+        $title = null;
+        if($name || $category || $subcategory)
+            $title = "$name$category$subcategory";
 
         return $title;
     }
