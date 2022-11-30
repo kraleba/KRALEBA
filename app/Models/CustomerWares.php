@@ -158,7 +158,9 @@ class CustomerWares extends Model
 
         if ($subcategory) {
             $subcategory_id = DB::table('customer_subcategory')->select('id')->where('name', $subcategory )->first();
-            $query = $query->where('customer_wares.subcategory_id', $subcategory_id->id);
+            if($subcategory_id) {
+                $query = $query->where('customer_wares.subcategory_id', $subcategory_id->id);
+            }
         }
 
         return $query
