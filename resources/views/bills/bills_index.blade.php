@@ -33,13 +33,12 @@
                         <div class="align">
                             {{-- <a href="{{ route('bills.show',$bills->id) }}"> --}}
 
-                            <b>{{ $bill->name }} </b> 
+                            <b>{{ $bill->name }} </b>
 
                             @if ($bill->customer_id)
-                                
-                            @endif 
-                            Cod: {{ $bill->customer_id}}
-                                /
+                            @endif
+                            Cod: {{ $bill->customer_id }}
+                            /
                             Data Facturari: {{ $bill->bill_date }}
 
                             @if ($bill->bill_number)
@@ -48,16 +47,19 @@
                             Numarul Facturi: {{ $bill->bill_number }}
 
                             @if ($bill->item)
-                            /
+                                /
                             @endif
-                            # {{ $bill->item}} 
-                            
-                            {{-- @if ($bill->item)
-                            /
-                            @endif --}}
-                            {{-- Total Lei {{ $bill->}} --}}
+                            # {{ $bill->item }}
 
-                            
+                            @if ($bill->total_price_lei)
+                                /
+                            @endif
+                            Total Lei {{ $bill->total_price_lei }}
+
+                            @if ($bill->total_price_euro)
+                                /
+                            @endif
+                            Total Euro {{ $bill->total_price_euro }}
 
                             @if ($bill->tva)
                                 /

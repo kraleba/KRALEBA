@@ -74,7 +74,8 @@ class Bills extends Model
                 b.bill_date,
                 b.bill_number,
                 b.exchange,
-                b.tva
+                b.tva,
+                b.currency
             FROM bills AS b
             JOIN customers AS c
             ON b.customer_id = c.id
@@ -97,15 +98,24 @@ class Bills extends Model
         }
 
         $bills = DB::select($query);
-        // dd($bills[0]->id);
+
         foreach ($bills as $bill) {
             $ware_price = DB::table('bills')
                 ->leftJoin('customer_wares', 'customer_wares.bill_id', 'bills.id')
                 ->where('bill_id', $bill->id)
                 ->sum('price');
-            $bill->total_price = $ware_price;
+
+            if ($bill->currency == 1) {
+                $bill->total_price_euro = $ware_price;
+                $bill->total_price_lei = number_format($ware_price * $bill->exchange, 2);
+
+            } else {
+                $bill->total_price_euro = number_format($ware_price / $bill->exchange, 2);
+                $bill->total_price_lei = $ware_price;
+            }
         }
         return $bills;
+        
     }
 
     public function get_bills_to_autocomplete_suggestions($search, $customer_id, $row_name, $ware_custom_code, $ware_product_name_selected, $bill_date)
