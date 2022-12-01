@@ -20,7 +20,7 @@
             <div>
                 <ul class="list-body">
                     @foreach ($wares as $ware)
-                        <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
+                    <div class="clients-group list-group-item">
 
                             <div class="align">
 
