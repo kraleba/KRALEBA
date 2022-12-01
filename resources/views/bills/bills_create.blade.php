@@ -63,8 +63,8 @@
                         </div>
 
                         <div class="col-xs-12 col-sm-12 col-md-12 form-group required">
-                            <strong>Cod:</strong>
-                            <input type="number" readonly class="form-control" placeholder="Cod"
+                            <strong>Cod client:</strong>
+                            <input type="number" readonly class="form-control" placeholder="Cod client"
                                 id="show_customer_id_selected" oninput="this.className = 'form-control' ">
                         </div>
 

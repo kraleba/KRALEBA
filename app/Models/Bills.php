@@ -73,6 +73,7 @@ class Bills extends Model
                 b.id,
                 b.customer_id,
                 c.name,
+                b.item,
                 b.bill_date,
                 b.bill_number,
                 b.exchange,
