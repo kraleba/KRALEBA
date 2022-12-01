@@ -53,7 +53,7 @@
     position: absolute;
     padding: 8px 12px;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     opacity: 0.8;
     top:-39px;
     left: -200px;
@@ -113,6 +113,7 @@
 }
 .active, .group:hover {background-color:#717172;}
 .select-group {
+
     position: absolute;
     top: -38px;
     right: auto;
