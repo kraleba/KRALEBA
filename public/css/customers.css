@@ -118,6 +118,20 @@
     top: -38px;
     right: auto;
 }
+.select-group1 {
+
+    position: absolute;
+    top: 15px;
+    right: auto;
+}
+
+.select-group2 {
+
+    position: absolute;
+    top: 68px;
+    right: auto;
+}
+
 .group {
     border-radius: 20px;
     background-color: rgb(163, 162, 162);

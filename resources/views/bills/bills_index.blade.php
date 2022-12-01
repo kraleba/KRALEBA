@@ -33,8 +33,13 @@
                         <div class="align">
                             {{-- <a href="{{ route('bills.show',$bills->id) }}"> --}}
 
-                            <b>{{ $bill->name }} </b> /
+                            <b>{{ $bill->name }} </b> 
 
+                            @if ($bill->customer_id)
+                                
+                            @endif 
+                            Cod: {{ $bill->customer_id}}
+                                /
                             Data Facturari: {{ $bill->bill_date }}
 
                             @if ($bill->bill_number)
@@ -42,16 +47,27 @@
                             @endif
                             Numarul Facturi: {{ $bill->bill_number }}
 
-                            @if ($bill->exchange)
-                                /
+                            @if ($bill->item)
+                            /
                             @endif
-                            Curs Valutar: {{ $bill->exchange }}
+                            # {{ $bill->item}} 
+                            
+                            {{-- @if ($bill->item)
+                            /
+                            @endif --}}
+                            {{-- Total Lei {{ $bill->}} --}}
+
+                            
 
                             @if ($bill->tva)
                                 /
                             @endif
-                            Total incl. TVA: {{ $bill->tva }}
+                            TVA: {{ $bill->tva }}
 
+                            @if ($bill->exchange)
+                                /
+                            @endif
+                            Curs Valutar: {{ $bill->exchange }}
                         </div>
                         <div class="dropdown option-button">
                             <div class=" dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown"
