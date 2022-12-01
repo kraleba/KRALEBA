@@ -24,23 +24,21 @@ class Bills extends Model
             DB::select("UPDATE customer_wares
                 SET status = 1, bill_id = " . $bill->id . "
                 WHERE id = {$wares}");
-
         }
-
     }
 
     public function get_customer_bill_by_id($bill_id)
     {
         $i = 0;
         $generatedBills = array();
-            $generatedBills[$i] = DB::select(
-                "SELECT *
+        $generatedBills[$i] = DB::select(
+            "SELECT *
             FROM customer_wares AS w
             LEFT JOIN bills AS b
             ON w.bill_id = b.id
             WHERE w.bill_id = {$bill_id}"
-            );
-            $i++;
+        );
+        $i++;
 
         if ($generatedBills) {
             return $generatedBills;
@@ -62,7 +60,6 @@ class Bills extends Model
 
         DB::table('bills')->where('id', $bill_id)->delete();
         DB::table('customer_wares')->where('bill_id', $bill_id)->delete();
-
     }
 
     public function get_bills_by_filter($customer_name = false, $type = false, $start_date = false, $end_date = false)
@@ -99,8 +96,16 @@ class Bills extends Model
             $query .= " WHERE b.bill_date BETWEEN '{$start_date}' AND '{$end_date}' ORDER BY b.bill_date ASC ";
         }
 
-        return DB::select($query);
-
+        $bills = DB::select($query);
+        // dd($bills[0]->id);
+        foreach ($bills as $bill) {
+            $ware_price = DB::table('bills')
+                ->leftJoin('customer_wares', 'customer_wares.bill_id', 'bills.id')
+                ->where('bill_id', $bill->id)
+                ->sum('price');
+            $bill->total_price = $ware_price;
+        }
+        return $bills;
     }
 
     public function get_bills_to_autocomplete_suggestions($search, $customer_id, $row_name, $ware_custom_code, $ware_product_name_selected, $bill_date)
@@ -135,7 +140,5 @@ class Bills extends Model
         }
 
         return $response;
-
     }
-
 }
