@@ -354,11 +354,37 @@ class CustomerHelper extends Controller
         if ($subcategory && ($category || $name)) {
             $category .= ' / ';
         }
-        
+
         $title = null;
-        if($name || $category || $subcategory)
+        if ($name || $category || $subcategory)
             $title = "$name$category$subcategory";
 
         return $title;
+    }
+
+    public function helper_generate_title_after_filter_textile($data)
+    {
+        // dd($data);
+        if ($data) {
+            return
+                $data['customer_name'] . $this->helper_if_exists_return_simbol($data['textiles_composition'], ' / ') .
+                $data['textiles_composition'] . $this->helper_if_exists_return_simbol($data['textiles_material'], ' / ') .
+                $data['textiles_material'] . $this->helper_if_exists_return_simbol($data['textiles_design'], ' / ') .
+                $data['textiles_design'] . $this->helper_if_exists_return_simbol($data['textiles_color'], ' / ') .
+                $data['textiles_color'] . $this->helper_if_exists_return_simbol($data['textiles_structure'], ' / ') .
+                $data['textiles_structure'] . $this->helper_if_exists_return_simbol($data['textiles_weaving'], ' / ') .
+                $data['textiles_weaving'] . $this->helper_if_exists_return_simbol($data['textiles_finishing'], ' / ') .
+                $data['textiles_finishing'] . $this->helper_if_exists_return_simbol($data['textiles_rating'], ' / ') .
+                $data['textiles_rating'];
+        }
+        return null;
+    }
+
+    private function helper_if_exists_return_simbol($value, $simbol)
+    {
+        if (isset($value)) {
+            return $simbol;
+        }
+        return '';
     }
 }

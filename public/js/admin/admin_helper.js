@@ -182,12 +182,9 @@ $(document).ready(function () {
                     term: request.term,
                     category_id: category_id
                 },
-                // trebuie sa vad de ce nu imi intra in succes
                 dataType: "json",
                 success: function (data) {
                     var resp = $.map(data, function (obj) {
-                        console.log(obj);
-
                         return {
                             label: obj.name,
                             id: obj.id,
