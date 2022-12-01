@@ -9,6 +9,8 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 
 class CustomerWaresControler extends Controller
 {
@@ -57,7 +59,7 @@ class CustomerWaresControler extends Controller
         $data['customer'] = (array)$this->customers->get_customer_and_categories_by_id($request->customer_id);
         $data['customer_categories'] = $this->helper->customer_separe_categories_from_subcategories($data['customer']);
         $data['coin'] = $this->helper->show_coin_by_country($data['customer']['country']);
-//dd($data['customer']);
+        //dd($data['customer']);
         if (!$data['customer_categories']) {
             return '<h1>Acest client nu are categorii</h1>';
         }
@@ -124,42 +126,71 @@ class CustomerWaresControler extends Controller
 
     public function customers_textile(Request $request)
     {
-
         $data['furnace_categories'] = $this->product->get_furnace_categories();
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
         $data['customer_id'] = $request->customer_id;
-        $data['filter_title'] = $this->helper->helper_generate_title_after_filter(
-            $request->customer_type ?? '',
-            $request->category ?? '',
-            $request->subcategory ?? ''
+        $data['filter_title'] = $this->helper->helper_generate_title_after_filter_textile($request->all());
+        $data['filtering_criteria'] = array(
+            'customer_name' => $request->input('customer_name'),
+            'textiles_composition' => $request->input('textiles_composition'),
+            'textiles_material' => $request->input('textiles_material'),
+            'textiles_design' => $request->input('textiles_design'),
+            'textiles_color' => $request->input('textiles_color'),
+            'textiles_structure' => $request->input('textiles_structure'),
+            'textiles_weaving' => $request->input('textiles_weaving'),
+            'textiles_finishing' => $request->input('textiles_finishing'),
+            'textiles_rating' => $request->input('textiles_rating')
         );
 
-        if ($request->customer_id) {
-            $data['wares'] = $this->wares->get_wares_by_customer_id($request->customer_id);
-            $data['wares_count'] = count($data['wares']);
-        } else {
-            $data['wares'] = $this->wares->get_wares_by_filter(
-                'Textile',
-                $request->customer_type ?? '',
-                $request->category ?? '',
-                $request->subcategory ?? ''
-            );
+        $ware_query = DB::table('customer_wares')
+            ->leftJoin('customers', 'customers.id', '=', 'customer_wares.customer_id');
+        if ($request->customer_name) {
+            $ware_query = $ware_query
+                ->where('customers.name', 'LIKE', "%$request->customer_name%");
+        }
+        if ($request->textiles_composition) {
+            $ware_query = $ware_query
+                ->where('customer_wares.composition', $request->textiles_composition);
+        }
+        if ($request->textiles_material) {
+            $ware_query = $ware_query
+                ->where('customer_wares.material', $request->textiles_material);
+        }
+        if ($request->textiles_design) {
+            $ware_query = $ware_query
+                ->where('customer_wares.design', $request->textiles_design);
+        }
+        if ($request->textiles_color) {
+            $ware_query = $ware_query
+                ->where('customer_wares.color', $request->textiles_color);
+        }
+        if ($request->textiles_structure) {
+            $ware_query = $ware_query
+                ->where('customer_wares.structure', $request->textiles_structure);
+        }
+        if ($request->textiles_weaving) {
+            $ware_query = $ware_query
+                ->where('customer_wares.weaving', $request->textiles_weaving);
+        }
+        if ($request->textiles_finishing) {
+            $ware_query = $ware_query
+                ->where('customer_wares.finishing', $request->textiles_finishing);
+        }
+        if ($request->textiles_rating) {
+            $ware_query = $ware_query
+                ->where('customer_wares.rating', $request->textiles_rating);
         }
 
-        /*if filter exist*/
-        if ($request->input()) {
-            $data['wares'] = $this->wares->get_suggestions_for_textiles_filters(
-                $request->input('customer_name'),
-                $request->input('textiles_composition'),
-                $request->input('textiles_material'),
-                $request->input('textiles_design'),
-                $request->input('textiles_color'),
-                $request->input('textiles_structure'),
-                $request->input('textiles_weaving'),
-                $request->input('textiles_finishing'),
-                $request->input('textiles_rating')
-            );
+        $data['wares'] = $ware_query
+            ->where('customer_wares.category_id', 8)
+            ->orderBy('customer_wares.product_name')
+            ->get();
+
+        if ($request->input('downloadPDF') == 'PDF') {
+            $pdf = PDF::loadView('ware.textiles.pdf', $data);
+            return $pdf->download('invoice.pdf');
         }
+
 
         return view('ware.textiles.customers_textile', $data);
     }

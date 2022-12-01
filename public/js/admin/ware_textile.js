@@ -11,14 +11,15 @@ $(document).ready(function () {
 
             $.ajax({
                 url: "/admin/find_textiles_filters",
+                dataType: "json",
+                type: 'GET',
                 data: {
                     term: request.term,
                     row_name: row_name
                 },
-                dataType: "json",
                 success: function (data) {
                     var resp = $.map(data, function (obj) {
-                        return obj[row_name];
+                        return obj.name;
                     });
                     response(resp);
                 }
