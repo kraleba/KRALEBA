@@ -40,7 +40,6 @@ class CustomersController extends Controller
                 'type' => $request->input('type'),
                 'category' => $this->product->get_customer_category_by_id($request->input('category')),
             );
-
         }
 
         $data['customers'] = $this->customers->get_customers_after_filter(
@@ -77,14 +76,14 @@ class CustomersController extends Controller
 
     public function store(Request $request)
     {
-//         dd($request->input());
+        //         dd($request->input());
         if ($request->input('type') == 'Provider') {
             $request->validate([
                 'name' => 'required',
                 'type' => 'required',
                 'unique_code' => 'required',
                 'country' => 'required',
-//                'categories_id' => 'required'
+                //                'categories_id' => 'required'
             ]);
         } else {
             $request->validate([
@@ -99,18 +98,17 @@ class CustomersController extends Controller
         if ($request->input('type') == 'provider') {
 
             $categories_id = (array)$request->input('categories_id');
-//            if (!in_array(8, $categories_id)) {
-//                $request->validate([
-//                    'subcategories_id' => 'required',
-//                ]);
-//            }
+            //            if (!in_array(8, $categories_id)) {
+            //                $request->validate([
+            //                    'subcategories_id' => 'required',
+            //                ]);
+            //            }
             $customer = Customers::create($data);
             $categories_id = $request->input('categories_id');
             $subcategories_id = $request->input('subcategories_id');
             $this->product->set_customer_categories_and_subcategories($customer->id, $categories_id, $subcategories_id);
         } else {
             Customers::create($data);
-
         }
 
         return redirect()->route('customers.index')
@@ -118,10 +116,10 @@ class CustomersController extends Controller
     }
 
 
-//    public function show(Customers $customer)
-//    {
-//
-//    }
+    //    public function show(Customers $customer)
+    //    {
+    //
+    //    }
 
     public function edit(Customers $customer)
     {
@@ -162,7 +160,6 @@ class CustomersController extends Controller
             $categories_id = (array)$request->input('categories_id');
 
             $this->product->update_customer_categories_and_subcategories($customer->attributesToArray()['id'], $categories_id, $subcategories_id);
-
         }
 
         $customer->update($data);
@@ -190,9 +187,8 @@ class CustomersController extends Controller
     {
         dump($subcategory_id->id);
         //when an item is deleted from customer create
-    
+
         $products = new Products();
         $products->delete_subcategory_by($subcategory_id->id);
     }
-
 }

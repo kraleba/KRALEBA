@@ -62,7 +62,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
                                             <a class="dropdown-item"
-                                               href="{{ route('templates.show', $template->id) }}">
+                                               href="{{ route('templates.show_template_child', ['parent_id' => $template->id,'child_id'=> $template->child_id]) }}">
                                                 Vezi Prototipul </a>
 
 
