@@ -38,8 +38,9 @@ class CustomerWaresControler extends Controller
         $data['furnace_categories'] = $this->product->get_furnace_categories();
         $data['subcategories'] = $this->product->get_subcategory_for_customer_category();
         $data['customer_id'] = $request->customer_id;
-        $data['filter_title'] = $this->helper->helper_generate_title_after_filter_wares($request->customer_name ?? '', $request->category ?? '', $request->subcategory ?? '');
+        $data['filter_tiget_wares_by_filtertle'] = $this->helper->helper_generate_title_after_filter_wares($request->customer_name ?? '', $request->category ?? '', $request->subcategory ?? '');
         $data['wares'] = $this->wares->get_wares_by_filter($request->customer_name ?? '', $request->category ?? '', $request->subcategory ?? '');
+        // dd($data['wares'] );
         $data['filtering_criteria'] = array(
             'customer_name' => $request->input('customer_name'),
             'category' => $this->product->get_customer_category_by_id($request->input('category')),

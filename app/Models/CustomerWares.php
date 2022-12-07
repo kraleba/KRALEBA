@@ -145,7 +145,8 @@ class CustomerWares extends Model
     {
         $query = DB::table('customer_wares')
             ->select('*', 'customer_wares.id as id')
-            ->join('customers', 'customers.id', '=', 'customer_wares.customer_id');
+            ->join('customers', 'customers.id', '=', 'customer_wares.customer_id')
+            ->join('bills', 'customer_wares.bill_id', 'bills.id');
 
         if ($customer_name) {
             $query = $query

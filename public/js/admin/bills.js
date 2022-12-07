@@ -329,10 +329,10 @@ function articleFormGenerate(previous_or_next, x) {
         '                            <strong>UM:</strong>\n' +
         '                            <select name="um[]" class="form-select" oninput="this.className = \'form-control\' ">\n' +
         '                                <option disabled selected value> Selecteaza UM </option>\n' +
-        '                                <option>bucati</option>\n' +
-        '                                <option>ml</option>\n' +
-        '                                <option>gr</option>\n' +
-        '                                <option>kg</option>\n' +
+        '                                <option>Bucati</option>\n' +
+        '                                <option>Ml</option>\n' +
+        '                                <option>Gr</option>\n' +
+        '                                <option>Kg</option>\n' +
         '                            </select>\n' +
         '                    </div>\n' +
         '\n' +
