@@ -92,7 +92,7 @@ class ProductTemplateController extends Controller
         $data['templates'] = $templates
             ->orderBy('product_template_parents.product_name')
             ->get();
-        dump($data['templates']);
+        // dump($data['templates']);
 
         return view('products_template.template_index', $data);
     }
@@ -126,7 +126,8 @@ class ProductTemplateController extends Controller
 
     public function show(Request $request)
     {
-        dd('sadfsdf_');
+        // dd('sadfsdf_');
+        return redirect()->route('templates.index');
     }
 
     public function edit(Customers $customer)
