@@ -41,7 +41,7 @@ class ProductTemplateController extends Controller
 
         // $data['templates'] = $this->template_parent->get_product_templates_after_filter();
         $templates = DB::table('product_template_parents')
-            ->select('*', 'product_template_parents.id','product_template_children.id as child_id')
+            ->select('*', 'product_template_parents.id', 'product_template_children.id as child_id')
             ->leftJoin('product_template_children', 'product_template_children.parent_id', 'product_template_parents.id');
 
         if ($request->type) {
@@ -175,4 +175,21 @@ class ProductTemplateController extends Controller
         return view('products_template.product_child.show', $data);
     }
 
+    public function show_template_table(Request $request)
+    {
+      
+
+        $data['template_parent'] = DB::table('product_template_parents')
+            ->where('id', $request->parent_id)
+            ->first();
+
+        $data['template_child'] = DB::table('product_template_children')
+            ->leftJoin('template_child_categories', 'product_template_children.id', 'template_child_categories.template_child_id')
+            ->where('template_child_categories.template_child_id', $request->child_id)
+            ->get();
+
+            dump($data['template_parent']);
+            dump($data['template_child']);
+        return view('products_template.product_child.table_show', $data);
+    }
 }

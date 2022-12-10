@@ -63,6 +63,10 @@
                                             Vezi Prototipul
                                         </a>
 
+                                        <a class="dropdown-item"
+                                            href="{{ route('templates.show_template_table', ['parent_id' => $template->id, 'child_id' => $template->child_id]) }}">
+                                            Vezi Tabelul
+                                        </a>
                                         @csrf
                                         @method('DELETE')
                                         <button class="dropdown-item">Delete</button>
