@@ -45,31 +45,66 @@
                 <ul class="list-body">
                     @foreach ($wares as $ware)
                         <div class="clients-group list-group-item">
-                            
+
                             <div class="align">
 
-                                <b>{{ $ware->product_name }} </b> /
+                                <b>{{ $ware->product_name }} </b> 
 
-                                {{ $ware->custom_code }}
+                                @if ($ware->customer_id)
+                                /
+                                @endif
+                                Cod: {{ $ware->customer_id }} 
+
+                                {{ $ware->custom_code }} /
 
                                 @if ($ware->description)
-                                    /
                                 @endif
-                                {{ $ware->description }}
+                                Descriere: {{ $ware->description }} /
 
-                                @if ($ware->date)
-                                    /
+                                @if ($ware->bill_date)
                                 @endif
-                                {{ $ware->date }} /
+                                Data Facturi: {{ $ware->bill_date }} /
 
                                 {{-- @if ($ware->color)
                                 /
-                            {{-- @endif                                  nu stiu --}}
-                                Curs Valutar: {{ $ware->coin }} / {{-- ???????????? --}}
+                                {{-- @endif                                  nu stiu --}}
+                                {{-- ???????????? --}}
 
                                 UM: @if ($ware->um)
                                 @endif
-                                / Cantitate: {{ $ware->amount }}
+                                {{ $ware->um }} /
+
+                                @if ($ware->price)
+                                @endif
+                               Pret-buc: {{ $ware->price }}
+
+                                / #  {{ $ware->amount }} 
+                                @if ($ware->price)
+                                /
+                                @endif
+                                @if ($ware->currency == 1)  
+                                    Total-Lei: {{ round($ware->price * $ware->amount, 2)}} /
+                                    Total-Euro: {{ round($ware->price * $ware->amount / $ware->exchange, 2)}} /
+
+                                @else
+                                    Total-Lei: {{ round($ware->price * $ware->amount / $ware->exchange, 2)}} /
+                                    Total-Euro: {{ round($ware->price * $ware->amount, 2)}} /
+
+                                @endif
+
+
+                                
+                                Tva-pret-total: @if ($ware->currency == 1)
+                                    {{ round($ware->price * $ware->amount * $ware->tva / (100 + $ware->tva), 2) }} /
+                                        
+                                    @else
+                                    {{ round(($ware->price * $ware->amount / $ware->exchange) * $ware->tva / (100 + $ware->tva), 2) }} /
+                                @endif
+                                
+                                
+                                @if ($ware->exchange)
+                                @endif
+                                Curs Valutar: {{ $ware->exchange }}
                             </div>
 
                             <div class="dropdown option-button">

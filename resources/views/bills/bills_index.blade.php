@@ -34,7 +34,7 @@
                             {{-- <a href="{{ route('bills.show',$bills->id) }}"> --}}
 
                             <b>{{ $bill->name }} </b>
-
+                                       
                             @if ($bill->customer_id)
                             @endif
                             Cod: {{ $bill->customer_id }}
@@ -54,12 +54,12 @@
                             @if ($bill->total_price_lei)
                                 /
                             @endif
-                            Total Lei {{ $bill->total_price_lei }}
+                            Total Lei: {{ $bill->total_price_lei }}
 
                             @if ($bill->total_price_euro)
                                 /
                             @endif
-                            Total Euro {{ $bill->total_price_euro }}
+                            Total Euro: {{ $bill->total_price_euro }}
 
                             @if ($bill->tva)
                                 /

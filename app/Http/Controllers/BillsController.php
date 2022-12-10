@@ -97,7 +97,7 @@ class BillsController extends Controller
         $data['bills'] = $this->helper->bills_value_calculated_ware($bill);
         $bill = DB::table('bills')->where('id', $request->bill)->first();
         $data['bill'] = $bill;
-        dd($bill);
+        // dd($bill);
         $data['customer'] = DB::table('customers')->where('id', '=', $bill->customer_id)->select('id', 'name', 'country')->first();
 
         // dd($data['customer']);
