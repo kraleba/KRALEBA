@@ -41,7 +41,7 @@ class ProductTemplateController extends Controller
 
         // $data['templates'] = $this->template_parent->get_product_templates_after_filter();
         $templates = DB::table('product_template_parents')
-            ->select('*', 'product_template_children.id as child_id')
+            ->select('*', 'product_template_parents.id','product_template_children.id as child_id')
             ->leftJoin('product_template_children', 'product_template_children.parent_id', 'product_template_parents.id');
 
         if ($request->type) {
@@ -92,7 +92,7 @@ class ProductTemplateController extends Controller
         $data['templates'] = $templates
             ->orderBy('product_template_parents.product_name')
             ->get();
-        dump($data['templates']);
+        // dump($data['templates']);
 
         return view('products_template.template_index', $data);
     }
@@ -126,11 +126,37 @@ class ProductTemplateController extends Controller
 
     public function show(Request $request)
     {
+        // dd('sadfsdf_');
+        return redirect()->route('templates.index');
+    }
+
+    public function edit(Customers $customer)
+    {
+
+        return view('customers.edit', '$data');
+    }
+
+    public function update(Request $request, Customers $customer)
+    {
+
+        return redirect()->route('templates.index')
+            ->with('success', 'customer updated successfully');
+    }
+
+    public function destroy(Customers $customer)
+    {
+        //        $customer->delete();
+        $result = $this->customers->delete_customer($customer->attributesToArray()['id']);
+        $message = 'Client sters cu succes';
+        if (!$result) {
+            $message = 'Clientul nu a fost sters, a aparut o eroare';
+        }
+        return redirect()->route('customers.index')
+            ->with('success', $message);
     }
 
     public function show_template_child(Request $request)
     {
-
         $data['template_parent'] = DB::table('product_template_parents')
             ->where('id', $request->parent_id)
             ->first();
@@ -149,29 +175,4 @@ class ProductTemplateController extends Controller
         return view('products_template.product_child.show', $data);
     }
 
-    public function edit(Customers $customer)
-    {
-
-        return view('customers.edit', '$data');
-    }
-
-    public function update(Request $request, Customers $customer)
-    {
-
-
-        return redirect()->route('customers.index')
-            ->with('success', 'customer updated successfully');
-    }
-
-    public function destroy(Customers $customer)
-    {
-        //        $customer->delete();
-        $result = $this->customers->delete_customer($customer->attributesToArray()['id']);
-        $message = 'Client sters cu succes';
-        if (!$result) {
-            $message = 'Clientul nu a fost sters, a aparut o eroare';
-        }
-        return redirect()->route('customers.index')
-            ->with('success', $message);
-    }
 }
