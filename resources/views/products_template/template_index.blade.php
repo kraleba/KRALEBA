@@ -8,14 +8,13 @@
         <!--end filter-->
         <br>
 
-        {{--    @if ($customers) --}}
-        {{--        <div> --}}
-        {{--            <h3> {{$filter_title ?? 'Toti clientii'}}</h3> --}}
-        {{--        </div> --}}
-        {{--    @endif --}}
-
         <br>
-
+        <div class="clintes-p">
+            {{-- @if ($customers) --}}
+                <div>
+                    <h4 class="filter-selection"> {{ $filter_title ?? 'Prototipuri:' }}</h4>
+                </div>
+            {{-- @endif --}}
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -26,7 +25,7 @@
             <div>
                 <ul class="list-body">
                     @foreach ($templates as $template)
-                        <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
+                    <div class="clients-group list-group-item">
 
                             <div class="align">
 
