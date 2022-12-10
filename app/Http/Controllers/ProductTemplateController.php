@@ -107,7 +107,10 @@ class ProductTemplateController extends Controller
 
     public function store(Request $request)
     {
-        $parent_template = $request->input();
+        
+        $image_path = $request->file('template_photo11')->store('image', 'public');
+dd($image_path);
+        $parent_template = $request->input();    
         unset($parent_template['categories_template_child']);
         unset($parent_template['product_template_child']);
 
@@ -117,8 +120,9 @@ class ProductTemplateController extends Controller
 
         $this->template_child->create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template);
 
+        
         //        $this->template->create_parent_and_child_template($parent_template, $child_template);
-
+dd($request->all());
         return redirect()->route('templates.index')
             ->with('success', 'customer created successfully.');
     }
