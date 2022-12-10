@@ -26,26 +26,138 @@
 
                                 <b>{{ $ware->product_name }} </b> /
 
-                                {{ $ware->custom_code }}
+                                {{ $ware->custom_code }} 
+
+                                @if ($ware->composition)
+                                    /
+                                @endif
+                                Composition: {{ $ware->composition }}
+
+                                @if ($ware->material)
+                                    /
+                                @endif
+                                Material: {{ $ware->material }}
+
+                                @if ($ware->structure)
+                                    /
+                                @endif
+                                Structure: {{ $ware->structure }}
+
+                                @if ($ware->design)
+                                    /
+                                @endif
+                                Design: {{ $ware->design }}
+
+                                @if ($ware->weaving)
+                                    /
+                                @endif
+                                Weaving: {{ $ware->weaving }}
+
+                                @if ($ware->color)
+                                    /
+                                @endif
+                                Color: {{ $ware->color }}
+
+                                @if ($ware->finishing)
+                                    /
+                                @endif
+                                Finishing: {{ $ware->finishing }}
+
+                                @if ($ware->perceived_weight)
+                                    /
+                                @endif
+                                Perceived Weight: {{ $ware->perceived_weight }}
+
+                                @if ($ware->softness)
+                                    /
+                                @endif
+                                Softness: {{ $ware->softness }}
+                                <br>
+
+                                @if ($ware->look)
+                                    
+                                @endif
+                                Look: {{ $ware->look }}
+
+                                @if ($ware->grounds)
+                                    /
+                                @endif
+                                Grounds: {{ $ware->grounds }}
+
+                                @if ($ware->weight_in_g_m2)
+                                    /
+                                @endif
+                                Weight in g/m2: {{ $ware->weight_in_g_m2 }}
+
+                                @if ($ware->warp_th_per_cm)
+                                    /
+                                @endif
+                                Warp th per cm: {{ $ware->warp_th_per_cm }}
+
+                                @if ($ware->width)
+                                    /
+                                @endif
+                                Width: {{ $ware->width }}
+
+                                @if ($ware->warp_th_per_yarn_ne)
+                                    /
+                                @endif
+                                Warp th per yarn ne: {{ $ware->warp_th_per_yarn_ne }}
+
+                                @if ($ware->weft_p_per_cm)
+                                    /
+                                @endif
+                                Weft p per cm: {{ $ware->weft_p_per_cm }}
+
+                                @if ($ware->origin)
+                                    /
+                                @endif
+                                Origin: {{ $ware->origin }}
+
+                                @if ($ware->rating)
+                                    /
+                                @endif
+                                Rating: {{ $ware->rating }}
 
                                 @if ($ware->description)
                                     /
                                 @endif
-                                {{ $ware->description }}
+                                Description: {{ $ware->description }}
+                                <br>
 
                                 @if ($ware->date)
+                                    
+                                @endif
+                                Date: {{ $ware->date }}
+                                
+                                @if ($ware->um)
+                                /
+                                @endif
+                                UM: {{ $ware->um }}
+
+                                @if ($ware->amount)
+                                /
+                                @endif
+                                #  {{ $ware->amount }}
+
+                                @if ($ware->price)
                                     /
                                 @endif
-                                {{ $ware->date }} /
+                                Pret-Buc : {{ $ware->price}} 
 
-                                {{-- @if ($ware->color)
-                                /
-                            {{-- @endif                                  nu stiu --}}
-                                Curs Valutar: {{ $ware->coin }} / {{-- ???????????? --}}
-
-                                UM: @if ($ware->um)
+                                @if ($ware->currency == 2)
+                                    Euro  /                                 
+                                @else
+                                    Lei  /
                                 @endif
-                                / Cantitate: {{ $ware->amount }}
+
+                                @if ($ware->currency == 2)
+                                Pret-Lei: {{ round($ware->price * $ware->exchange), 2 }} / 
+                                @endif
+
+                                @if ($ware->exchange)
+                                @endif
+                                 Curs Valutar: {{ $ware->exchange }}
                             </div>
 
                             <div class="dropdown option-button">

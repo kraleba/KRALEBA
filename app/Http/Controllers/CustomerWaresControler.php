@@ -144,7 +144,8 @@ class CustomerWaresControler extends Controller
         );
 
         $ware_query = DB::table('customer_wares')
-            ->leftJoin('customers', 'customers.id', '=', 'customer_wares.customer_id');
+            ->leftJoin('customers', 'customers.id', '=', 'customer_wares.customer_id')
+            ->leftJoin('bills', 'customer_wares.bill_id', '=', 'bills.id');
         if ($request->customer_name) {
             $ware_query = $ware_query
                 ->where('customers.name', 'LIKE', "%$request->customer_name%");
@@ -192,7 +193,7 @@ class CustomerWaresControler extends Controller
             return $pdf->download('invoice.pdf');
         }
 
-
+// dd($data['wares']);
         return view('ware.textiles.customers_textile', $data);
     }
 }

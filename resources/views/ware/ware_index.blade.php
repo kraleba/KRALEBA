@@ -53,7 +53,7 @@
                                 @if ($ware->customer_id)
                                 /
                                 @endif
-                                Cod: {{ $ware->customer_id }} 
+                                Cod: {{ $ware->customer_id }} /
 
                                 {{ $ware->custom_code }} /
 
