@@ -39,12 +39,6 @@ $(document).ready(function () {
 
             if (form_customer.length > 0) {
 
-                child_photos = {
-                    'photo1': $('#template_photo1').val(),
-                    'photo2': $('#template_photo2').val(),
-                    'photo3': $('#template_photo3').val(),
-                }
-
                 template_values[index] = {
                     'form_customer': form_customer,
 
@@ -54,9 +48,8 @@ $(document).ready(function () {
 
                 ++index;
 
-                $('#template_photo1').val('')
-                $('#template_photo2').val('')
-                $('#template_photo3').val('')
+                $('#child_photos' + (template_values.length)).hide()
+                $('#child_photos' + (template_values.length + 1)).show()
             }
         }
     });
@@ -125,7 +118,7 @@ $(document).ready(function () {
         if (!validator) {
             return false;
         }
-
+        //-----------------------------------------------
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
         $('#number_of_child').attr('readonly', true);
@@ -143,6 +136,10 @@ $(document).ready(function () {
         $.each(categories, function (key, value) {
             categoriesFormGenerated(value);
         });
+        // -------Generate photos input ______ //
+        photos_fields_generate()
+
+        $('#child_photos' + (template_values.length + 1)).show()
 
     });
 
@@ -216,12 +213,12 @@ $(document).ready(function () {
 
             '<div class="form-group">' +
             '<label>Cantitatea</label>' +
-            '<input type="number" class="form-control" id="amount' + category['id'] + '"/>' +
+            '<input type="number" class="" id="amount' + category['id'] + '"/>' +
             '</div>' +
             '</div>'
         );
 
-        searchCustomers(category['id'],  custom_category_id);
+        searchCustomers(category['id'], custom_category_id);
         searchWareNameOrCustomCode('product_name', category['id'], custom_category_id, 'product_name');
         searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
         searchBillDateOrBillNumber('bill_date', category['id'], custom_category_id, 'bill_date');
@@ -346,7 +343,7 @@ $(document).ready(function () {
 
     /*generates the number of children created and the maximum number of children*/
     function numberOfChildrenGenerated() {
-        let number_of_child = template_values.length + ' / ' + $('.number_of_child').val();
+        let number_of_child = template_values.length + 1 + ' / ' + $('.number_of_child').val();
 
         $('.number-of-children-area').html(number_of_child);
 
@@ -364,6 +361,20 @@ $(document).ready(function () {
             $(".bill_number" + i).select2('val', 'All');
             $('#amount' + i).val('');
         }
+    }
+
+    function photos_fields_generate() {
+        let child_photos = '';
+        for (let i = 1; i <= $('.number_of_child').val(); ++i) {
+            child_photos +=
+                '<div style="display: none" id="child_photos' + i + '">' +
+                '   <input type="file" id="template_photo1' + i + '" name="template_photo1' + i + '">' +
+                '   <input type="file" id="template_photo2' + i + '" name="template_photo2' + i + '">' +
+                '   <input type="file" id="template_photo3' + i + '" name="template_photo3' + i + '">' +
+                '</div>'
+        }
+        console.log('teat');
+        $('#photos_area').html(child_photos);
     }
 
 });
