@@ -24,10 +24,8 @@
 
 
 
-        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-            <input type="file" id="template_photo1" name="template_photo1">
-            <input type="file" id="template_photo2" name="template_photo2">
-            <input type="file" id="template_photo3" name="template_photo3">
+        <div class="form-group col-xs-12 col-sm-12 col-md-12" id="photos_area" >
+           
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12">
