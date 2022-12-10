@@ -131,6 +131,18 @@
     top: 68px;
     right: auto;
 }
+.select-group3 {
+
+    position: absolute;
+    top: 120px;
+    right: auto;
+}
+.select-group4 {
+
+    position: absolute;
+    top: 170px;
+    right: auto;
+}
 
 .group {
     border-radius: 20px;
@@ -144,6 +156,11 @@
 .clintes {
     position: relative;
     top: 100px;
+
+}
+.clintes-p {
+    position: relative;
+    top: 160px;
 
 }
 .clients-group {

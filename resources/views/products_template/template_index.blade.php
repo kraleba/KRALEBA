@@ -3,31 +3,18 @@
 @section('content')
     <div class="container">
 
-
-        <div>
-            <div class="row">
-                <div class="col-lg-12 margin-tb">
-                    <div class="pull-right">
-                        <a class="btn btn-secondary" href="{{ route('templates.create') }}"> ADAUGA PROTOTIP</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         @include('products_template.template_filter')
 
         <!--end filter-->
         <br>
 
-        {{--    @if ($customers) --}}
-        {{--        <div> --}}
-        {{--            <h3> {{$filter_title ?? 'Toti clientii'}}</h3> --}}
-        {{--        </div> --}}
-        {{--    @endif --}}
-
         <br>
-
+        <div class="clintes-p">
+            {{-- @if ($customers) --}}
+                <div>
+                    <h4 class="filter-selection"> {{ $filter_title ?? 'Prototipuri:' }}</h4>
+                </div>
+            {{-- @endif --}}
         @if ($message = Session::get('success'))
             <div class="alert alert-success">
                 <p>{{ $message }}</p>
@@ -38,7 +25,7 @@
             <div>
                 <ul class="list-body">
                     @foreach ($templates as $template)
-                        <div class="list-group-item white-text rounded-pill" style=" border-radius: 0; height: 80px">
+                    <div class="clients-group list-group-item">
 
                             <div class="align">
 
