@@ -41,7 +41,7 @@ class ProductTemplateController extends Controller
 
         // $data['templates'] = $this->template_parent->get_product_templates_after_filter();
         $templates = DB::table('product_template_parents')
-            ->select('*', 'product_template_parents.id','product_template_children.id as child_id')
+            ->select('*', 'product_template_parents.id', 'product_template_children.id as child_id')
             ->leftJoin('product_template_children', 'product_template_children.parent_id', 'product_template_parents.id');
 
         if ($request->type) {
@@ -107,7 +107,10 @@ class ProductTemplateController extends Controller
 
     public function store(Request $request)
     {
-        $parent_template = $request->input();
+        
+        $image_path = $request->file('template_photo11')->store('image', 'public');
+dd($image_path);
+        $parent_template = $request->input();    
         unset($parent_template['categories_template_child']);
         unset($parent_template['product_template_child']);
 
@@ -117,8 +120,9 @@ class ProductTemplateController extends Controller
 
         $this->template_child->create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template);
 
+        
         //        $this->template->create_parent_and_child_template($parent_template, $child_template);
-
+dd($request->all());
         return redirect()->route('templates.index')
             ->with('success', 'customer created successfully.');
     }
@@ -175,4 +179,21 @@ class ProductTemplateController extends Controller
         return view('products_template.product_child.show', $data);
     }
 
+    public function show_template_table(Request $request)
+    {
+      
+
+        $data['template_parent'] = DB::table('product_template_parents')
+            ->where('id', $request->parent_id)
+            ->first();
+
+        $data['template_child'] = DB::table('product_template_children')
+            ->leftJoin('template_child_categories', 'product_template_children.id', 'template_child_categories.template_child_id')
+            ->where('template_child_categories.template_child_id', $request->child_id)
+            ->get();
+
+            dump($data['template_parent']);
+            dump($data['template_child']);
+        return view('products_template.product_child.table_show', $data);
+    }
 }

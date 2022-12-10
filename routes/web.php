@@ -82,6 +82,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('admin/templates', ProductTemplateController::class);
     Route::post('admin/templates/create_child_templates', [CustomerHelper::class, 'create_child_templates']);
     Route::get('admin/templates/show_template_child/{parent_id}/{child_id}', [ProductTemplateController::class, 'show_template_child'])->name('templates.show_template_child');
+    Route::get('admin/templates/show_template_table/{parent_id}/{child_id}', [ProductTemplateController::class, 'show_template_table'])->name('templates.show_template_table');
 
     /*product market route*/
     Route::resource('admin/market', ProductMarketController::class);

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-12 margin-tb">
                     <div class="pull-right">
-                        {{-- <a class="btn btn-secondary" href="{{ route('templates.create') }}"> ADAUGA PROTOTIP</a> --}}
+                        <a class="btn btn-secondary" href="{{ route('templates.create') }}"> ADAUGA PROTOTIP</a>
                     </div>
                 </div>
 
@@ -63,6 +63,10 @@
                                             Vezi Prototipul
                                         </a>
 
+                                        <a class="dropdown-item"
+                                            href="{{ route('templates.show_template_table', ['parent_id' => $template->id, 'child_id' => $template->child_id]) }}">
+                                            Vezi Tabelul
+                                        </a>
                                         @csrf
                                         @method('DELETE')
                                         <button class="dropdown-item">Delete</button>
