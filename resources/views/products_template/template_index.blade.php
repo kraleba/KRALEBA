@@ -3,18 +3,6 @@
 @section('content')
     <div class="container">
 
-
-        <div>
-            <div class="row">
-                <div class="col-lg-12 margin-tb">
-                    <div class="pull-right">
-                        <a class="btn btn-secondary" href="{{ route('templates.create') }}"> ADAUGA PROTOTIP</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
         @include('products_template.template_filter')
 
         <!--end filter-->
