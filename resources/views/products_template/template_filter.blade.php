@@ -1,34 +1,29 @@
-<div class="row searchFilter-custom-template card round3">
+<div class="row searchFilter-custom round3">
 
-    <div class="col-lg-12 box-filter">
+    <div class=" filter-customers col-lg-12">
         <form action="{{ route('templates.index') }}" method="get">
+
             <div>
-                <h4>SELECTEAZA:</h4>
+                <a class="add" href="{{ route('templates.create') }}"> ADAUGA PROTOTIP</a>
             </div>
-            <br>
 
-            <br>
-            <div class="form-row">
-
-                <div>
-                    <div class="form-group col-md-6">
-                        <select name="customer_type" id="department"
-                                class="form-control rounded-pill filter-control">
+            <div class="input-group select-group">
+                    <div class="filter-item1">
+                        <select name="customer_type" id="department" class="form-control filter-control group">
                             <option value="customer">--Selecteaza tipul--</option>
                             <option value="customer">Abelard</option>
                             <option value="provider">Heloise</option>
                         </select>
                     </div>
-                </div>
 
 
                 <div>
-                    <div class="form-group col-md-6">
+                    <div>
                         <input type='text'
                                id="find_customer"
                                name="product_name"
                                placeholder="--Product Name--"
-                               class="form-control filter-control rounded-pill"
+                               class="form-control filter-control group"
                         >
                     </div>
                 </div>

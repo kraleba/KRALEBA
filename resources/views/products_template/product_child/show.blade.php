@@ -3,8 +3,8 @@
 @section('content')
 
     <p>Product Name: {{ $template_parent->product_name }}</p>
-    {{-- <p>Code: {{$template_parent-> }}</p>                                          //?????????
-    <p>#Colors: {{$template_parent-> }}</p> --}}
+     {{-- <p>Code: {{$template_parent-> }}</p>                                          //????????? --}}
+    {{--<p>#Colors: {{$template_parent-> }}</p> --}}
     {{-- <p>This Product: {{$template_parent-> }}</p> --}}
     <p>Type: {{$template_parent->type}}</p>
     {{-- <p>Tailaring: {{$template_parent-> }}</p> --}}
