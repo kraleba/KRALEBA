@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->string('softness')->nullable();
             $table->string('look')->nullable();
             $table->string('grounds')->nullable();
-            $table->string('weight_in_g/m2')->nullable();
+            $table->string('weight_in_g_m2')->nullable();
             $table->string('width')->nullable();
             $table->string('warp_th_per_cm')->nullable();
             $table->string('warp_th_per_yarn_ne')->nullable();
