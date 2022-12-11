@@ -261,8 +261,8 @@
                                 <strong><i class="fa fa-asterisk"
                                            style="font-size:7px;color:red; vertical-align: top;"></i>Weight in
                                     g/m2:</strong>
-                                <input type="text" name="weight_in_g/m2" class="form-control"
-                                       value="{{$ware['weight_in_g/m2'] ?? ''}}" placeholder="Weight in g/m2">
+                                <input type="text" name="weight_in_g_m2" class="form-control"
+                                       value="{{$ware['weight_in_g_m2'] ?? ''}}" placeholder="Weight in g/m2">
                                 @error('Weight in g/m2')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror

@@ -107,6 +107,7 @@ class ProductTemplateController extends Controller
 
     public function store(Request $request)
     {
+dd($request->all());
         
         $image_path = $request->file('template_photo11')->store('image', 'public');
 dd($image_path);
@@ -122,7 +123,6 @@ dd($image_path);
 
         
         //        $this->template->create_parent_and_child_template($parent_template, $child_template);
-dd($request->all());
         return redirect()->route('templates.index')
             ->with('success', 'customer created successfully.');
     }

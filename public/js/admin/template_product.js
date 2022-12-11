@@ -53,7 +53,7 @@ $(document).ready(function () {
             }
         }
     });
-
+//trebuie sa pun id-ul prototipului in in name atunci cand dau send
     function verifyIfChildFormIsCompletedCorrect(categories_id) {
         let form_customer = [];
         let index = true;
@@ -65,9 +65,9 @@ $(document).ready(function () {
                     'customer_id': getFieldValueByFieldClassSelect2(i, 'customer', 'id'),
                     'category_id': getFieldValueByFieldClassSelect2(i, 'customer', 'category_id'),
                     'product_name': getFieldValueByFieldClassSelect2(i, 'product_name', 'text'),
-                    'custom_code': getFieldValueByFieldClassSelect2(i, 'custom_code', 'text'),
-                    'bill_date': getFieldValueByFieldClassSelect2(i, 'bill_date', 'text'),
-                    'bill_number': getFieldValueByFieldClassSelect2(i, 'bill_number', 'text'),
+                    // 'custom_code': getFieldValueByFieldClassSelect2(i, 'custom_code', 'text'),
+                    // 'bill_date': getFieldValueByFieldClassSelect2(i, 'bill_date', 'text'),
+                    // 'bill_number': getFieldValueByFieldClassSelect2(i, 'bill_number', 'text'),
                     'amount': $('#amount' + i).val(),
                 }
 
@@ -115,9 +115,9 @@ $(document).ready(function () {
 
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
-        if (!validator) {
-            return false;
-        }
+        // if (!validator) {
+        //     return false;
+        // }
         //-----------------------------------------------
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
@@ -193,23 +193,23 @@ $(document).ready(function () {
 
             '<div class="form-group">' +
             '<label>Articol Name</label>' +
-            '<select class="form-control product_name' + category['id'] + '" style="width: 200px;"> </select>' +
+            '<select class="form-control product_name' + category['id'] + '" style="width: 700px;"> </select>' +
             '</div>' +
 
-            '<div class="form-group">' +
-            '<label>Custom Code</label>' +
-            '<select class="form-control custom_code' + category['id'] + '" style="width: 200px;"> </select>' +
-            '</div>' +
+            // '<div class="form-group">' +
+            // '<label>Custom Code</label>' +
+            // '<select class="form-control custom_code' + category['id'] + '" style="width: 200px;"> </select>' +
+            // '</div>' +
 
-            '<div class="form-group">' +
-            '<label>Data Facturarii</label>' +
-            '<select class="form-control bill_date' + category['id'] + '" style="width: 200px;"> </select>' +
-            '</div>' +
+            // '<div class="form-group">' +
+            // '<label>Data Facturarii</label>' +
+            // '<select class="form-control bill_date' + category['id'] + '" style="width: 200px;"> </select>' +
+            // '</div>' +
 
-            '<div class="form-group">' +
-            '<label>Numarul Facturii</label>' +
-            '<select class="form-control bill_number' + category['id'] + '" style="width: 200px;"> </select>' +
-            '</div>' +
+            // '<div class="form-group">' +
+            // '<label>Numarul Facturii</label>' +
+            // '<select class="form-control bill_number' + category['id'] + '" style="width: 200px;"> </select>' +
+            // '</div>' +
 
             '<div class="form-group">' +
             '<label>Cantitatea</label>' +
