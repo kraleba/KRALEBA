@@ -209,13 +209,37 @@ class CustomerHelper extends Controller
             return response()->json(false);
         }
 
-        $res = $this->wares->get_wares_suggestions_for_customer(
-            $request->search,
-            $request->row_name,
-            $request->customer_id,
-            $request->product_name_selected,
-            $request->category_id,
-        );
+        $wares = DB::table('customer_wares')
+            ->select(
+                'bills.id as bill_id',
+                'customer_wares.id as ware_id', 
+                'customer_wares.product_name',
+                'customer_wares.custom_code',
+                'bills.bill_date',
+                'bills.bill_number'
+                )
+            ->leftJoin('bills', 'bills.id', 'customer_wares.bill_id')
+            ->where('customer_wares.product_name', 'LIKE', "%{$request->search}%")
+            ->where('customer_wares.customer_id', $request->customer_id)
+            ->where('customer_wares.category_id', $request->category_id)
+            ->get();
+            
+            $res = array();
+// dd($employees);
+            foreach ($wares as $ware) {
+                $res[] = array(
+                    "id" => $ware->ware_id,
+                    "text" =>'Product name: '. $ware->product_name .'/ Data facturii: '. $ware->bill_date .'/ Custom code: '. $ware->custom_code .'/ Numarul facturii: '. $ware->bill_number ,
+                    "value" => 'sadfsdfsd'
+                );
+            }
+        // $res = $this->wares->get_wares_suggestions_for_customer(
+        //     $request->search,
+        //     $request->row_name,
+        //     $request->customer_id,
+        //     $request->product_name_selected,
+        //     $request->category_id,
+        // );
 
         return response()->json($res);
     }

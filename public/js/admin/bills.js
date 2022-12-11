@@ -450,7 +450,7 @@ function secondaryFields(x) {
         '                        <div class="col-xs-12 col-sm-12 col-md-12 form-group">\n' +
         '                                <strong>Weight in\n' +
         '                                    g/m2:</strong>\n' +
-        '                                <input type="text" name="weight_in_g/m2[]" class="form-control"\n' +
+        '                                <input type="text" name="weight_in_g_m2[]" class="form-control"\n' +
         '                                       placeholder="Weight in g/m2" oninput="this.className = \'form-control\' ">\n' +
         '                              \n' +
         '                        </div>\n' +
