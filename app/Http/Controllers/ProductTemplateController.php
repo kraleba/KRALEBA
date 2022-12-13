@@ -107,10 +107,10 @@ class ProductTemplateController extends Controller
 
     public function store(Request $request)
     {
-dd($request->all());
+// dd($request->all());
         
-        $image_path = $request->file('template_photo11')->store('image', 'public');
-dd($image_path);
+        // $image_path = $request->file('template_photo11')->store('image', 'public');
+// dd($image_path);
         $parent_template = $request->input();    
         unset($parent_template['categories_template_child']);
         unset($parent_template['product_template_child']);
@@ -189,6 +189,8 @@ dd($image_path);
 
         $data['template_child'] = DB::table('product_template_children')
             ->leftJoin('template_child_categories', 'product_template_children.id', 'template_child_categories.template_child_id')
+            ->leftJoin('customer_wares', 'template_child_categories.ware_id', 'customer_wares.id')
+            ->leftJoin('bills', 'customer_wares.bill_id', 'bills.id')
             ->where('template_child_categories.template_child_id', $request->child_id)
             ->get();
 

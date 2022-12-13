@@ -40,29 +40,4 @@ class ProductTemplateChild extends Model
         }
     }
 
-    public function validate_child_template_if_data_exists($child_fields)
-    {
-//        dump($child_fields['customer_id']);
-        if ((!$child_fields['customer_id'] || !$child_fields['product_name'] || !$child_fields['custom_code'] || !$child_fields['bill_number'] || !$child_fields['bill_date'])) {
-            return false;
-        }
-
-        $query = "
-            SELECT c.id
-            FROM customers AS c
-            LEFT JOIN bills AS b
-            ON c.id = b.customer_id
-            LEFT JOIN customer_wares AS w
-            ON w.bill_id = b.id
-            WHERE c.id = {$child_fields['customer_id']}
-            AND w.product_name = '{$child_fields['product_name']}'
-            AND w.custom_code = '{$child_fields['custom_code']}'
-            AND b.bill_number = '{$child_fields['bill_number']}'
-            AND b.bill_date = '{$child_fields['bill_date']}'
-        ";
-        if (DB::select($query)) {
-            return true;
-        }
-    }
-
 }

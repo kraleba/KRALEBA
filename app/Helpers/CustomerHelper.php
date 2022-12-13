@@ -186,13 +186,36 @@ class CustomerHelper extends Controller
     {
 
         $res = null;
-
-        if ($request->term) {
-            $res = $this->customers->get_customer_name_by_search($request->term, $request->category_id ?? '');
-        }
+        $search = null;
         if ($request->search) {
-            $custom_search = true;
-            $res = $this->customers->get_customer_name_by_search($request->search, $request->category_id ?? '', $custom_search);
+            $search = $request->search;
+        }
+        if ($request->term) {
+            $search = $request->term;
+        }
+
+        $customers = DB::table('customers')
+            ->select('customers.id', 'customers.name')
+            ->leftJoin('customer_category_id_subcategories', 'customer_category_id_subcategories.customer_id', 'customers.id');
+
+        if ($request->subcategory_id && $request->category_id) {
+            $customers = $customers
+                ->where('customer_category_id_subcategories.category_id', $request->category_id)
+                ->where('customer_category_id_subcategories.subcategory_id', $request->subcategory_id);
+        }
+
+        $customers = $customers
+            ->where('customers.name', "LIKE", "%{$search}%")
+            ->groupBy('customers.id', 'customers.name')
+            ->orderBy('customers.name')
+            ->get();
+
+        foreach ($customers as $customer) {
+            $res[] = array(
+                "id" => $customer->id,
+                "text" => $customer->name,
+                "category_id" => $request->category_id ?? '',
+            );
         }
 
         return response()->json($res);
@@ -200,9 +223,8 @@ class CustomerHelper extends Controller
 
     public function search_ware_name(Request $request)
     {
-        //        dump($request->row_name);
 
-        if (!$request->customer_id) {
+        if (!$request->customer_id && !$request->category_id && !$request->subcategory_id) {
             return response()->json(false);
         }
         if ($request->row_name == 'custom_code' && !$request->product_name_selected) {
@@ -212,48 +234,70 @@ class CustomerHelper extends Controller
         $wares = DB::table('customer_wares')
             ->select(
                 'bills.id as bill_id',
-                'customer_wares.id as ware_id', 
+                'customer_wares.id as ware_id',
                 'customer_wares.product_name',
                 'customer_wares.custom_code',
                 'bills.bill_date',
                 'bills.bill_number'
-                )
+            )
             ->leftJoin('bills', 'bills.id', 'customer_wares.bill_id')
             ->where('customer_wares.product_name', 'LIKE', "%{$request->search}%")
-            ->where('customer_wares.customer_id', $request->customer_id)
             ->where('customer_wares.category_id', $request->category_id)
+            ->where('customer_wares.subcategory_id', $request->subcategory_id)
+            ->where('customer_wares.customer_id', $request->customer_id)
             ->get();
-            
-            $res = array();
-// dd($employees);
-            foreach ($wares as $ware) {
-                $res[] = array(
-                    "id" => $ware->ware_id,
-                    "text" =>'Product name: '. $ware->product_name .'/ Data facturii: '. $ware->bill_date .'/ Custom code: '. $ware->custom_code .'/ Numarul facturii: '. $ware->bill_number ,
-                    "value" => 'sadfsdfsd'
-                );
-            }
-        // $res = $this->wares->get_wares_suggestions_for_customer(
-        //     $request->search,
-        //     $request->row_name,
-        //     $request->customer_id,
-        //     $request->product_name_selected,
-        //     $request->category_id,
-        // );
+
+        $res = array();
+
+        foreach ($wares as $ware) {
+            $res[] = array(
+                "id" => $ware->ware_id,
+                "text" => 'Product name: ' . $ware->product_name . '/ Data facturii: ' . $ware->bill_date . '/ Custom code: ' . $ware->custom_code . '/ Numarul facturii: ' . $ware->bill_number,
+            );
+        }
+
 
         return response()->json($res);
     }
 
     public function bills_autocomplete(Request $request)
     {
-        $res = $this->bills->get_bills_to_autocomplete_suggestions(
-            $request->search,
-            $request->customer_id,
-            $request->row_name,
-            $request->ware_custom_code,
-            $request->product_name_selected,
-            $request->bill_date
-        );
+        // dd($request->category_id);
+        if (!$request->category_id) {
+            return response()->json(false);
+        }
+        if ($request->category_id != 8) {
+
+            $subcategories = DB::table('customer_subcategory')
+                ->select('name', 'id')
+                ->where('category_id', $request->category_id);
+
+            if ($request->search) {
+                $subcategories = $subcategories
+                    ->where('name', 'LIKE', "%{$request->search}%");
+            }
+            $subcategories = $subcategories
+                ->orderBy('name')
+                ->get();
+        }
+
+        //get subcategories form textiles
+        if ($request->category_id == 8) {
+            $subcategories = DB::table('customer_wares')
+                ->slect('composition')
+                ->where('category_id', $request->category_id)
+                ->get();
+            // ->where('')
+            // trebuie sa vad ce spune clientul
+        }
+        $res = array();
+
+        foreach ($subcategories as $subcategory) {
+            $res[] = array(
+                "id" => $subcategory->id,
+                "text" => $subcategory->name,
+            );
+        }
 
         return response()->json($res);
     }
@@ -276,7 +320,23 @@ class CustomerHelper extends Controller
 
     public function template_child_validator(Request $request)
     {
-        return response()->json($this->templateChild->validate_child_template_if_data_exists($request->form_customer));
+        $ware_exists_or_no = false;
+        $form_ware = $request->form_customer;
+
+        if ($form_ware['customer_id'] || $form_ware['category_id'] || $form_ware['ware_id']) {
+
+            $ware_exists_or_no = DB::table('customer_wares')
+                ->where('customer_id', $form_ware['customer_id'])
+                ->where('category_id', $form_ware['category_id'])
+                ->where('id', $form_ware['ware_id'])
+                ->get();
+
+            if ($ware_exists_or_no) {
+                return response()->json(true);
+            }
+        }
+
+        return response()->json(false);
     }
 
     public function customer_separe_categories_from_subcategories($customer)

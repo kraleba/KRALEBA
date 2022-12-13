@@ -14,8 +14,7 @@ class TemplateChildCategories extends Model
         'category_id',
         'customer_id',
         'custom_code',
-        'bill_date',
-        'bill_number',
+        'ware_id',
         'amount'
     ];
 }
