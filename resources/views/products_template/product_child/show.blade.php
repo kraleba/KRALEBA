@@ -50,15 +50,15 @@
 
     @foreach ($template_child as $child)
         <div class="container">
-            <img src="{{ asset('images.templates/' . $child->template_photo1) }}" />
+            <img src="{{ asset('images/templates/' . $child->template_photo1) }}" />
         </div>
 
         <div class="container">
-            <img src="{{ asset('images.templates/' . $child->template_photo2) }}" />
+            <img src="{{ asset('images/templates/' . $child->template_photo2) }}" />
         </div>
 
         <div class="container">
-            <img src="{{ asset('images.templates/' . $child->template_photo3) }}" />
+            <img src="{{ asset('images/templates/' . $child->template_photo3) }}" />
         </div>
     @endforeach
 
