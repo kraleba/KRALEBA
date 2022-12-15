@@ -72,7 +72,7 @@ class CustomerWares extends Model
             $product->update_customer_categories_and_subcategories(
                 $form_data['customer_id'],
                 $form_data['category_id'],
-                $form_data['subcategory_id'],
+                $form_data['subcategory_id'] ?? '',
                 true
             );
         }

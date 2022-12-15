@@ -163,7 +163,7 @@
                 </div>
                 @foreach($bills as $bill)
                     @foreach($bill as $ware)
-                    <p> Categoria: <b> {{$ware['category_name']->name}}</b>, Specificatia: <b>{{$ware['subcategory_name']->name}} </b> </p>
+                    <p> Categoria: <b> {{$ware['category_name']->name ?? ''}}</b>, Specificatia: <b>{{$ware['subcategory_name']->name ?? ''}} </b> </p>
                     @endforeach
                 @endforeach
         </div>

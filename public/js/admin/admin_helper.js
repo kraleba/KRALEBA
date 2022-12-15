@@ -15,7 +15,7 @@ function searchCustomers(items_index, category_id) {
             data: function (params) {
                 let subcategory_id = false;
                 let subcategory = $('.subcategories' + category_id).select2('data');
-                if(subcategory[0]) {
+                if(subcategory && subcategory[0]) {
                     subcategory_id = subcategory[0].id;
                 }
 
