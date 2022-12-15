@@ -124,7 +124,7 @@ class ProductTemplateController extends Controller
         for ($i = 1; $i <= 3; $i++) {
             foreach ($images['template_photo' . $i] as $key => $image) {
                 $imageName = time() . rand(1, 99) . '.' . $image->extension();
-                $image->move(public_path('images.templates'), $imageName);
+                $image->move(public_path('images/templates'), $imageName);
 
                 $child_template[$key]['template_photo'.$i] = $imageName;
             }
