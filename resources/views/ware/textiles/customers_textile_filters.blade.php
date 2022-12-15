@@ -3,6 +3,7 @@
     <div class=" filter-customers col-lg-12">
 
         <form method="get">
+         
 
             <div class="input-group">
 
@@ -29,7 +30,7 @@
             <br>
 
             <div class="input-group">
-                <div filter-item1 filter-control btn-group">
+                <div class="filter-item1 filter-control btn-group">
                     <input type='text' id="find_textiles_design" row_name="design" name="textiles_design"
                         placeholder="-- Select the Design --" value="{{ $filtering_criteria['textiles_design'] ?? '' }}"
                         class="form-control group">
@@ -71,6 +72,7 @@
                         class="form-control group">
                 </div>
             </div>
+
             
             <button id="searchBtn" type="submit" class="filter-customers-OK"> OK</button>
 
