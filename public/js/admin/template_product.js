@@ -53,7 +53,7 @@ $(document).ready(function () {
             }
         }
     });
-//trebuie sa pun id-ul prototipului in in name atunci cand dau send
+
     function verifyIfChildFormIsCompletedCorrect(categories_id) {
         let form_customer = [];
         let index = true;
@@ -64,13 +64,10 @@ $(document).ready(function () {
                 form_customer[j] = {
                     'customer_id': getFieldValueByFieldClassSelect2(i, 'customer', 'id'),
                     'category_id': getFieldValueByFieldClassSelect2(i, 'customer', 'category_id'),
-                    'product_name': getFieldValueByFieldClassSelect2(i, 'product_name', 'text'),
-                    // 'custom_code': getFieldValueByFieldClassSelect2(i, 'custom_code', 'text'),
-                    // 'bill_date': getFieldValueByFieldClassSelect2(i, 'bill_date', 'text'),
-                    // 'bill_number': getFieldValueByFieldClassSelect2(i, 'bill_number', 'text'),
-                    'amount': $('#amount' + i).val(),
+                    'ware_id': $('.product_name' + i).select2('data')[0].id,
+                    'amount': $('#amount' + i).val()
                 }
-
+                
                 $.ajax({
                     url: "/admin/template_child_validator",
                     type: 'GET',
@@ -101,13 +98,13 @@ $(document).ready(function () {
 
     $(".child-salve").click(function () {
 
-        let template_child = {
-            'product_name': $('#template_name').val(),
-            'photos': child_photos,
-        }
-
+        // let template_child = {
+        //     'product_name': $('#template_name').val(),
+        //     'photos': child_photos,
+        // }
+        // $('.product_name' + category_id).select2('data')[0].id
         $('#categories_template_child').val(JSON.stringify(template_values));
-        $('#product_template_child').val(JSON.stringify(template_child));
+        // $('#product_template_child').val(JSON.stringify(template_child));
 
     });
 
@@ -115,9 +112,9 @@ $(document).ready(function () {
 
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
-        // if (!validator) {
-        //     return false;
-        // }
+        if (!validator) {
+            return false;
+        }
         //-----------------------------------------------
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
@@ -157,7 +154,7 @@ $(document).ready(function () {
 
             category = {
                 id: 8 + i,
-                name: 'Materii prime' + (i)
+                name: 'Textile' + (i)
             };
             ++numberOfTextile;
             categoriesFormGenerated(category, 8);
@@ -184,7 +181,12 @@ $(document).ready(function () {
 
             '<div class="form-control show_form_if_is_checked_' + category['id'] + '"  id="child-form-box" ' +
             'category_id="' + custom_category_id + '" ' +
-            'position_id="' + category['id'] + '" ' + 'style="display: none">' +
+            'position_id="' + category['id'] + '" ' + ' style="display: none">' +
+
+            '<div class="form-group">' +
+            '<label>Subcategorii</label>' +
+            '<select class="form-control subcategories' + category['id'] + '" style="width: 200px;"> </select>' +
+            '</div>' +
 
             '<div class="form-group">' +
             '<label class="agile-label" for="customer">Furnizor</label>' +
@@ -195,11 +197,6 @@ $(document).ready(function () {
             '<label>Articol Name</label>' +
             '<select class="form-control product_name' + category['id'] + '" style="width: 700px;"> </select>' +
             '</div>' +
-
-            // '<div class="form-group">' +
-            // '<label>Custom Code</label>' +
-            // '<select class="form-control custom_code' + category['id'] + '" style="width: 200px;"> </select>' +
-            // '</div>' +
 
             // '<div class="form-group">' +
             // '<label>Data Facturarii</label>' +
@@ -218,11 +215,11 @@ $(document).ready(function () {
             '</div>'
         );
 
+        searchBillDateOrBillNumber('subcategories', category['id'], custom_category_id);
         searchCustomers(category['id'], custom_category_id);
         searchWareNameOrCustomCode('product_name', category['id'], custom_category_id, 'product_name');
-        searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
-        searchBillDateOrBillNumber('bill_date', category['id'], custom_category_id, 'bill_date');
-        searchBillDateOrBillNumber('bill_number', category['id'], custom_category_id, 'bill_number');
+        // searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
+        // searchBillDateOrBillNumber('bill_number', category['id'], custom_category_id, 'bill_number');
 
     }
 
@@ -241,12 +238,17 @@ $(document).ready(function () {
                     if (row_name !== 'product_name') {
                         product_name_selected = getFieldValueByFieldClassSelect2(items_index, 'product_name', 'text')
                     }
-
+                    let subcategory = $('.subcategories' + category_id).select2('data');
+                    let subcategory_id = false;
+                    if (subcategory[0]) {
+                        subcategory_id = subcategory[0].id;
+                    }
                     return {
                         _token: CSRF_TOKEN,
                         search: params.term,
-                        customer_id: getFieldValueByFieldClassSelect2(items_index, 'customer', 'id'),
                         category_id: category_id,
+                        subcategory_id: subcategory_id,
+                        customer_id: getFieldValueByFieldClassSelect2(items_index, 'customer', 'id'),
                         product_name_selected: product_name_selected,
                         row_name: row_name,
 
@@ -266,7 +268,7 @@ $(document).ready(function () {
     }
 
     /*search ware BILL DATE or BILL NUMBER*/
-    function searchBillDateOrBillNumber(item_class, items_index, category_id, row_name) {
+    function searchBillDateOrBillNumber(item_class, items_index, category_id) {
 
         $("." + item_class + items_index).select2({
             ajax: {
@@ -278,13 +280,7 @@ $(document).ready(function () {
                     return {
                         _token: CSRF_TOKEN,
                         search: params.term,
-                        customer_id: getFieldValueByFieldClassSelect2(items_index, 'customer', 'id'),
                         category_id: category_id,
-                        product_name_selected: getFieldValueByFieldClassSelect2(items_index, 'product_name', 'text'),
-                        ware_custom_code: getFieldValueByFieldClassSelect2(items_index, 'custom_code', 'text'),
-                        bill_date: getFieldValueByFieldClassSelect2(items_index, 'bill_date', 'text'),
-                        row_name: row_name,
-
                     };
                 },
                 processResults: function (response) {
@@ -354,6 +350,7 @@ $(document).ready(function () {
         for (let i = 0; i < categories_id.length + numberOfTextile; ++i) {
             $('#check_if_is_checked' + i).prop("checked", false);
             $(".show_form_if_is_checked_" + i).hide();
+            $(".subcategories" + i).select2('val', 'All');
             $(".customer" + i).select2('val', 'All');
             $(".product_name" + i).select2('val', 'All');
             $(".custom_code" + i).select2('val', 'All');
@@ -368,12 +365,11 @@ $(document).ready(function () {
         for (let i = 1; i <= $('.number_of_child').val(); ++i) {
             child_photos +=
                 '<div style="display: none" id="child_photos' + i + '">' +
-                '   <input type="file" id="template_photo1' + i + '" name="template_photo1' + i + '">' +
-                '   <input type="file" id="template_photo2' + i + '" name="template_photo2' + i + '">' +
-                '   <input type="file" id="template_photo3' + i + '" name="template_photo3' + i + '">' +
+                '   <input type="file" id="template_photo1' + i + '" name="template_photo1[]">' +
+                '   <input type="file" id="template_photo2' + i + '" name="template_photo2[]">' +
+                '   <input type="file" id="template_photo3' + i + '" name="template_photo3[]">' +
                 '</div>'
         }
-        console.log('teat');
         $('#photos_area').html(child_photos);
     }
 

@@ -14,7 +14,9 @@ class ProductTemplateChild extends Model
     protected $fillable = [
         'parent_id',
         'suffix',
-        'template_child_photo',
+        'template_photo1',
+        'template_photo2',
+        'template_photo3',
         'created_at',
         'updated_at'
     ];
@@ -27,9 +29,9 @@ class ProductTemplateChild extends Model
 
             for ($i = 0, $j = 0; $i < $parent_template['number_of_child']; $i++) {
 
-                $child_template['parent_id'] = $parent->id;
-                $child_template['suffix'] = $i;
-                $child = ProductTemplateChild::create($child_template);
+                $child_template[$i]['parent_id'] = $parent->id;
+                $child_template[$i]['suffix'] = $i;
+                $child = ProductTemplateChild::create($child_template[$i]);
                 foreach ($child_categories_template[$i] as $child_categories) {
                     foreach ($child_categories as $child_category) {
                         $child_category->template_child_id = $child->id;
@@ -37,31 +39,6 @@ class ProductTemplateChild extends Model
                     }
                 }
             }
-        }
-    }
-
-    public function validate_child_template_if_data_exists($child_fields)
-    {
-//        dump($child_fields['customer_id']);
-        if ((!$child_fields['customer_id'] || !$child_fields['product_name'] || !$child_fields['custom_code'] || !$child_fields['bill_number'] || !$child_fields['bill_date'])) {
-            return false;
-        }
-
-        $query = "
-            SELECT c.id
-            FROM customers AS c
-            LEFT JOIN bills AS b
-            ON c.id = b.customer_id
-            LEFT JOIN customer_wares AS w
-            ON w.bill_id = b.id
-            WHERE c.id = {$child_fields['customer_id']}
-            AND w.product_name = '{$child_fields['product_name']}'
-            AND w.custom_code = '{$child_fields['custom_code']}'
-            AND b.bill_number = '{$child_fields['bill_number']}'
-            AND b.bill_date = '{$child_fields['bill_date']}'
-        ";
-        if (DB::select($query)) {
-            return true;
         }
     }
 

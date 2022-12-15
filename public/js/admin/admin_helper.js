@@ -13,10 +13,17 @@ function searchCustomers(items_index, category_id) {
             dataType: 'json',
             delay: 250,
             data: function (params) {
+                let subcategory_id = false;
+                let subcategory = $('.subcategories' + category_id).select2('data');
+                if(subcategory[0]) {
+                    subcategory_id = subcategory[0].id;
+                }
+
                 return {
                     _token: CSRF_TOKEN,
                     search: params.term,
-                    category_id: category_id
+                    category_id: category_id,
+                    subcategory_id: subcategory_id
                 };
             },
             processResults: function (response) {
@@ -44,7 +51,7 @@ function getFieldValueByFieldClassSelect2(position_index, field_class_name, fiel
 }
 
 function take_categories() {
-    
+
     let categories = '';
 
     $.ajax({
@@ -73,14 +80,16 @@ function searchCustomersSuggestions(request, response, category_id = null, posit
         },
         dataType: "json",
         success: function (data) {
+
             var resp = $.map(data, function (obj) {
                 return {
-                    label: obj.name,
+                    label: obj.text,
                     id: obj.id,
                     category_id: category_id,
                     position_id: position_id
                 };
             });
+
             response(resp);
         },
 
@@ -192,7 +201,7 @@ $(document).ready(function () {
                     });
                     response(resp);
                 },
-        
+
             });
         },
         minLength: 0

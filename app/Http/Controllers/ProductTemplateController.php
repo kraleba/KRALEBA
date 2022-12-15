@@ -107,21 +107,40 @@ class ProductTemplateController extends Controller
 
     public function store(Request $request)
     {
-dd($request->all());
-        
-        $image_path = $request->file('template_photo11')->store('image', 'public');
-dd($image_path);
-        $parent_template = $request->input();    
+
+        // $request->validate([
+        //     'template_photo1' => 'required',
+        //     'template_photo1.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+        //   dd($request->all());
+        // if ($request->images){
+        $images = [
+            'template_photo1' => $request->template_photo1,
+            'template_photo2' => $request->template_photo2,
+            'template_photo3' => $request->template_photo3
+        ];
+        $child_template = [];
+
+        for ($i = 1; $i <= 3; $i++) {
+            foreach ($images['template_photo' . $i] as $key => $image) {
+                $imageName = time() . rand(1, 99) . '.' . $image->extension();
+                $image->move(public_path('images.templates'), $imageName);
+
+                $child_template[$key]['template_photo'.$i] = $imageName;
+            }
+        }
+        $parent_template = $request->input();
         unset($parent_template['categories_template_child']);
-        unset($parent_template['product_template_child']);
+        // unset($parent_template['product_template_child']);
 
         $child_categories_template = (array)json_decode($request->input('categories_template_child'));
-        $child_template = (array)json_decode($request->input('product_template_child'));
-
+        // $child_template = (array)json_decode($request->input('product_template_child'));
+// dump($child_template);
 
         $this->template_child->create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template);
 
-        
+        dd('sdfasd10');
+
         //        $this->template->create_parent_and_child_template($parent_template, $child_template);
         return redirect()->route('templates.index')
             ->with('success', 'customer created successfully.');
@@ -181,7 +200,7 @@ dd($image_path);
 
     public function show_template_table(Request $request)
     {
-      
+
 
         $data['template_parent'] = DB::table('product_template_parents')
             ->where('id', $request->parent_id)
@@ -189,11 +208,14 @@ dd($image_path);
 
         $data['template_child'] = DB::table('product_template_children')
             ->leftJoin('template_child_categories', 'product_template_children.id', 'template_child_categories.template_child_id')
+            ->leftJoin('customer_wares', 'template_child_categories.ware_id', 'customer_wares.id')
+            ->leftJoin('bills', 'customer_wares.bill_id', 'bills.id')
             ->where('template_child_categories.template_child_id', $request->child_id)
             ->get();
 
-            dump($data['template_parent']);
-            dump($data['template_child']);
+        dump($data['template_parent']);
+        dump($data['template_child']);
+
         return view('products_template.product_child.table_show', $data);
     }
 }
