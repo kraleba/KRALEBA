@@ -139,7 +139,7 @@ class ProductTemplateController extends Controller
 
         $this->template_child->create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template);
 
-        dd('sdfasd10');
+        // dd('sdfasd10');
 
         //        $this->template->create_parent_and_child_template($parent_template, $child_template);
         return redirect()->route('templates.index')
