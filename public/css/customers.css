@@ -51,7 +51,7 @@
     color: white;
     font-weight: bold;
     position: absolute;
-    padding: 8px 12px;
+    padding: 8px 9px;
     text-align: center;
     font-size: 14px;
     opacity: 0.8;
@@ -74,7 +74,7 @@
     display: inline-block;  
     position: absolute;
     top: 50px;
-    right: 202px;
+    right: 180px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
     
 }
@@ -91,7 +91,7 @@
     font-size: 13px;
     position: absolute;
     top: 6px;
-    right: 205px;
+    right: 180px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
 }
 
@@ -106,7 +106,7 @@
     text-align: center;
     font-size: 13px;
     position: absolute;
-    right: 208px;
+    right: 180px;
     top: -38px;
     display:inline-block;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)
@@ -118,31 +118,7 @@
     top: -38px;
     right: auto;
 }
-.select-group1 {
 
-    position: absolute;
-    top: 15px;
-    right: auto;
-}
-
-.select-group2 {
-
-    position: absolute;
-    top: 68px;
-    right: auto;
-}
-.select-group3 {
-
-    position: absolute;
-    top: 120px;
-    right: auto;
-}
-.select-group4 {
-
-    position: absolute;
-    top: 170px;
-    right: auto;
-}
 
 .group {
     border-radius: 20px;

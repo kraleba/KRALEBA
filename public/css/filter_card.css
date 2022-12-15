@@ -26,11 +26,12 @@
 }
 
 .filter-item1 {
-    padding-right: 10px;
+    padding-right: 5px;
+    top: -39px;
 }
 
 .filter-control {
-    width: 210px;
+    width: 195px;
 }
 
 /*search button*/
