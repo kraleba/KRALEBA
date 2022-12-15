@@ -14,7 +14,9 @@ class ProductTemplateChild extends Model
     protected $fillable = [
         'parent_id',
         'suffix',
-        'template_child_photo',
+        'template_photo1',
+        'template_photo2',
+        'template_photo3',
         'created_at',
         'updated_at'
     ];
@@ -27,9 +29,9 @@ class ProductTemplateChild extends Model
 
             for ($i = 0, $j = 0; $i < $parent_template['number_of_child']; $i++) {
 
-                $child_template['parent_id'] = $parent->id;
-                $child_template['suffix'] = $i;
-                $child = ProductTemplateChild::create($child_template);
+                $child_template[$i]['parent_id'] = $parent->id;
+                $child_template[$i]['suffix'] = $i;
+                $child = ProductTemplateChild::create($child_template[$i]);
                 foreach ($child_categories_template[$i] as $child_categories) {
                     foreach ($child_categories as $child_category) {
                         $child_category->template_child_id = $child->id;

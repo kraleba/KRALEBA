@@ -98,13 +98,13 @@ $(document).ready(function () {
 
     $(".child-salve").click(function () {
 
-        let template_child = {
-            'product_name': $('#template_name').val(),
-            'photos': child_photos,
-        }
+        // let template_child = {
+        //     'product_name': $('#template_name').val(),
+        //     'photos': child_photos,
+        // }
         // $('.product_name' + category_id).select2('data')[0].id
         $('#categories_template_child').val(JSON.stringify(template_values));
-        $('#product_template_child').val(JSON.stringify(template_child));
+        // $('#product_template_child').val(JSON.stringify(template_child));
 
     });
 
@@ -365,9 +365,9 @@ $(document).ready(function () {
         for (let i = 1; i <= $('.number_of_child').val(); ++i) {
             child_photos +=
                 '<div style="display: none" id="child_photos' + i + '">' +
-                '   <input type="file" id="template_photo1' + i + '" name="template_photo1' + i + '">' +
-                '   <input type="file" id="template_photo2' + i + '" name="template_photo2' + i + '">' +
-                '   <input type="file" id="template_photo3' + i + '" name="template_photo3' + i + '">' +
+                '   <input type="file" id="template_photo1' + i + '" name="template_photo1[]">' +
+                '   <input type="file" id="template_photo2' + i + '" name="template_photo2[]">' +
+                '   <input type="file" id="template_photo3' + i + '" name="template_photo3[]">' +
                 '</div>'
         }
         $('#photos_area').html(child_photos);
