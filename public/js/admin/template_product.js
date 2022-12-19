@@ -67,7 +67,7 @@ $(document).ready(function () {
                     'ware_id': $('.product_name' + i).select2('data')[0].id,
                     'amount': $('#amount' + i).val()
                 }
-                
+
                 $.ajax({
                     url: "/admin/template_child_validator",
                     type: 'GET',
@@ -97,24 +97,16 @@ $(document).ready(function () {
     }
 
     $(".child-salve").click(function () {
-
-        // let template_child = {
-        //     'product_name': $('#template_name').val(),
-        //     'photos': child_photos,
-        // }
-        // $('.product_name' + category_id).select2('data')[0].id
         $('#categories_template_child').val(JSON.stringify(template_values));
-        // $('#product_template_child').val(JSON.stringify(template_child));
-
     });
 
     $('.generate-template-children-form').click(function () {
 
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
-        if (!validator) {
-            return false;
-        }
+        // if (!validator) {
+        //     return false;
+        // }
         //-----------------------------------------------
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
@@ -174,7 +166,7 @@ $(document).ready(function () {
         }
 
         $("#template_child_form").append(
-            '<div class="">' +
+            '<div class="form-group">' +
             '<input type="checkbox" id="check_if_is_checked' + category['id'] + '" ' +
             'category_id="' + custom_category_id + '" position_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category["name"] +
             '</div>' +
@@ -182,12 +174,67 @@ $(document).ready(function () {
             '<div class="form-control show_form_if_is_checked_' + category['id'] + '"  id="child-form-box" ' +
             'category_id="' + custom_category_id + '" ' +
             'position_id="' + category['id'] + '" ' + ' style="display: none">' +
+            '</div>'
 
-            '<div class="form-group">' +
-            '<label>Subcategorii</label>' +
-            '<select class="form-control subcategories' + category['id'] + '" style="width: 200px;"> </select>' +
-            '</div>' +
+        );
 
+        if (category['id'] != 8) {
+            $(".show_form_if_is_checked_" + category['id']).append(
+                '<div class="form-group">' +
+                '<label>Subcategorii</label>' +
+                '<select class="form-control subcategories' + category['id'] + '" style="width: 200px;"> </select>' +
+                '</div>'
+            );
+        } else {
+            $(".show_form_if_is_checked_" + category['id']).append(
+                '<div class="form-group">' +
+                '   <input id="find_textiles_composition" row_name="composition"' +
+                '    placeholder="-- Select a Compozition --"' +
+                '    class="form-control">' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '   <input id="find_material" row_name="material" name="textiles_material"' +
+                '   placeholder="-- Select the Material --"' +
+                '   class="form-control">' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '   <input id="find_textiles_design" row_name="design"' +
+                '    class="form-control ">' +
+                ' </div>' +
+
+                '<div class="form-group">' +
+                '   <input  id="find_textiles_color" row_name="color""' +
+                '    class="form-control ">' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '<input id="find_textiles_structure" row_name="structure" ' +
+                '    placeholder="-- Select the Structure --"' +
+                '    class="form-control ">' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '   <input id="find_textiles_weaving" row_name="weaving" ' +
+                '    class="form-control ">' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '   <input id="find_textiles_finishing" row_name="finishing"' +
+                '   placeholder="-- Select the Finishing --"' +
+                '    class="form-control ">' +
+                '</div>' +
+
+                '<div class="form-group">' +
+                '   <input id="find_textiles_rating" row_name="rating""' +
+                '   class="form-control ">' +
+                '</div>'
+            );
+
+        }
+
+        $(".show_form_if_is_checked_" + category['id']).append(
             '<div class="form-group">' +
             '<label class="agile-label" for="customer">Furnizor</label>' +
             '<select class="form-control customer' + category['id'] + '" style="width: 200px;"> </select>' +
@@ -198,20 +245,9 @@ $(document).ready(function () {
             '<select class="form-control product_name' + category['id'] + '" style="width: 700px;"> </select>' +
             '</div>' +
 
-            // '<div class="form-group">' +
-            // '<label>Data Facturarii</label>' +
-            // '<select class="form-control bill_date' + category['id'] + '" style="width: 200px;"> </select>' +
-            // '</div>' +
-
-            // '<div class="form-group">' +
-            // '<label>Numarul Facturii</label>' +
-            // '<select class="form-control bill_number' + category['id'] + '" style="width: 200px;"> </select>' +
-            // '</div>' +
-
             '<div class="form-group">' +
             '<label>Cantitatea</label>' +
-            '<input type="number" class="" id="amount' + category['id'] + '"/>' +
-            '</div>' +
+            '<input type="number" class="form-group" id="amount' + category['id'] + '"/>' +
             '</div>'
         );
 
@@ -240,7 +276,7 @@ $(document).ready(function () {
                     }
                     let subcategory = $('.subcategories' + category_id).select2('data');
                     let subcategory_id = false;
-                    if (subcategory[0]) {
+                    if (subcategory && subcategory[0]) {
                         subcategory_id = subcategory[0].id;
                     }
                     return {
@@ -373,6 +409,38 @@ $(document).ready(function () {
         $('#photos_area').html(child_photos);
     }
 
-});
+//     let row_name;
+//     $("#find_textiles_composition").on("click", function () {
 
+//         $console.log('asdfads');
+//         row_name = $(this).attr('row_name');
+
+//     });
+
+//     $("#find_textiles_composition, #find_material, #find_textiles_design, #find_textiles_color, #find_textiles_structure, #find_textiles_weaving, #find_textiles_finishing, #find_textiles_rating").autocomplete({
+//         source: function (request, response) {
+//             console.log('sadfsd');
+//             $.ajax({
+//                 url: "/admin/find_textiles_filters",
+//                 dataType: "json",
+//                 type: 'GET',
+//                 data: {
+//                     term: request.term,
+//                     row_name: row_name
+//                 },
+//                 success: function (data) {
+//                     var resp = $.map(data, function (obj) {
+//                         return {
+//                             label: obj.text,
+//                             id: obj.id,
+//                         };
+//                     });
+//                     response(resp);
+//                 }
+//             });
+//         },
+//         minLength: 0
+//     });
+
+});
 

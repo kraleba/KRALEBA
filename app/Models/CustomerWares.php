@@ -159,11 +159,10 @@ class CustomerWares extends Model
 
         if ($subcategory) {
 
-            $subcategory_id = DB::table('customer_subcategory')->select('id')->where('name', $subcategory )->first();
-            if($subcategory_id) {
+            $subcategory_id = DB::table('customer_subcategory')->select('id')->where('name', $subcategory)->first();
+            if ($subcategory_id) {
                 $query = $query->where('customer_wares.subcategory_id', $subcategory_id->id);
             }
-
         }
 
         return $query
@@ -185,39 +184,38 @@ class CustomerWares extends Model
 
     public function get_wares_suggestions_for_customer($search, $row_name, $customer_id = null, $product_name_selected = null, $category_id = null)
     {
-        if (!$row_name) {
-            return false;
+        $query = DB::table('customer_wares')
+            ->select('id', $row_name, 'product_name');
+
+        if ($row_name && $row_name) {
+            $query = $query->where($row_name, "LIKE", "%{$search}%");
         }
-        //dump($row_name);
-        $dynamic_query = '';
+
         if ($customer_id) {
-            $dynamic_query .= "AND customer_id = {$customer_id}";
+            $query = $query->where('customer_id', $customer_id);
         }
 
         if ($product_name_selected) {
-            $dynamic_query .= " AND product_name = '{$product_name_selected}'";
+            $query = $query->where('product_name', $product_name_selected);
         }
 
         if ($category_id) {
-            $dynamic_query .= " AND category_id = '{$category_id}'";
+            $query = $query->where('category_id', $category_id);
         }
 
-        $query = "SELECT {$row_name}, id
-                FROM customer_wares
-                WHERE {$row_name} LIKE '%{$search}%'
-                {$dynamic_query}
-                ORDER BY {$row_name}";
+        $query = $query
+            ->orderBy($row_name)
+            ->groupBy('id', $row_name, 'product_name')
+            ->get();
 
-        $employees = DB::select($query);
         $response = array();
 
-        foreach ($employees as $employee) {
+        foreach ($query as $ware) {
             $response[] = array(
-                "id" => $employee->id,
-                "text" => $employee->$row_name
+                "id" => $ware->id,
+                "text" => $ware->$row_name
             );
         }
         return $response;
     }
-    
 }
