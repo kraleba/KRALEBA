@@ -188,47 +188,55 @@ $(document).ready(function () {
         } else {
             $(".show_form_if_is_checked_" + category['id']).append(
                 '<div class="form-group">' +
-                '   <input id="find_textiles_composition" row_name="composition"' +
-                '    placeholder="-- Select a Compozition --"' +
-                '    class="form-control">' +
+                '   <select id="find_textiles_composition" row_name="composition"' +
+                '       placeholder="-- Select a Compozition --"' +
+                '       class="form-control" style="width: 200px;">' +
+                '   </select> ' +
                 '</div>' +
 
                 '<div class="form-group">' +
-                '   <input id="find_material" row_name="material" name="textiles_material"' +
-                '   placeholder="-- Select the Material --"' +
-                '   class="form-control">' +
+                '   <select id="find_material" row_name="material" name="textiles_material"' +
+                '       placeholder="-- Select the Material --"' +
+                '       class="form-control" style="width: 200px;">' +
+                '   </select>' +
                 '</div>' +
 
                 '<div class="form-group">' +
-                '   <input id="find_textiles_design" row_name="design"' +
-                '    class="form-control ">' +
+                '   <select id="find_textiles_design" row_name="design"' +
+                '       class="form-control" style="width: 200px;">' +
+                '   </select>' +
                 ' </div>' +
 
                 '<div class="form-group">' +
-                '   <input  id="find_textiles_color" row_name="color""' +
-                '    class="form-control ">' +
+                '   <select id="find_textiles_color" row_name="color""' +
+                '       class="form-control" style="width: 200px;">' +
+                '   </select>' +
                 '</div>' +
 
                 '<div class="form-group">' +
-                '<input id="find_textiles_structure" row_name="structure" ' +
-                '    placeholder="-- Select the Structure --"' +
-                '    class="form-control ">' +
+                '   <select id="find_textiles_structure" row_name="structure" ' +
+                '        placeholder="-- Select the Structure --"' +
+                '       class="form-control" style="width: 200px;">' +
+                '   </select>' +
                 '</div>' +
 
                 '<div class="form-group">' +
-                '   <input id="find_textiles_weaving" row_name="weaving" ' +
-                '    class="form-control ">' +
+                '   <select id="find_textiles_weaving" row_name="weaving" ' +
+                '       class="form-control" style="width: 200px;">' +
+                '   </select>' +
                 '</div>' +
 
                 '<div class="form-group">' +
-                '   <input id="find_textiles_finishing" row_name="finishing"' +
-                '   placeholder="-- Select the Finishing --"' +
-                '    class="form-control ">' +
+                '   <select id="find_textiles_finishing" row_name="finishing"' +
+                '       placeholder="-- Select the Finishing --"' +
+                '       class="form-control" style="width: 200px;">' +
+                '   </select>' +
                 '</div>' +
 
                 '<div class="form-group">' +
-                '   <input id="find_textiles_rating" row_name="rating""' +
-                '   class="form-control ">' +
+                '   <select id="find_textiles_rating" row_name="rating""' +
+                '      class="form-control" style="width: 200px;">' +
+                '   </select>' +
                 '</div>'
             );
 
@@ -256,6 +264,42 @@ $(document).ready(function () {
         searchWareNameOrCustomCode('product_name', category['id'], custom_category_id, 'product_name');
         // searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
         // searchBillDateOrBillNumber('bill_number', category['id'], custom_category_id, 'bill_number');
+
+        let row_name;
+        // $("#find_textiles_composition, #find_material, #find_textiles_design, #find_textiles_color, #find_textiles_structure, #find_textiles_weaving, #find_textiles_finishing, #find_textiles_rating").click(function () {
+        //     row_name = $(this).attr('row_name');
+    
+        // });
+
+        $("#find_textiles_composition, #find_material, #find_textiles_design, #find_textiles_color, #find_textiles_structure, #find_textiles_weaving, #find_textiles_finishing, #find_textiles_rating").select2({
+
+            ajax: {
+                url: "/admin/find_textiles_filters",
+                type: "get",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    // let subcategory_id = false;
+                    // // let subcategory = $('.subcategories' + category_id).select2('data');
+                    // if (subcategory && subcategory[0]) {
+                    //     subcategory_id = subcategory[0].id;
+                    // }
+                    return {
+                        _token: CSRF_TOKEN,
+                        term: params.term,
+                        row_name: $(this).attr('row_name')
+                        // category_id: category_id,
+                        // subcategory_id: subcategory_id
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            },
+        });
 
     }
 
@@ -408,39 +452,6 @@ $(document).ready(function () {
         }
         $('#photos_area').html(child_photos);
     }
-
-//     let row_name;
-//     $("#find_textiles_composition").on("click", function () {
-
-//         $console.log('asdfads');
-//         row_name = $(this).attr('row_name');
-
-//     });
-
-//     $("#find_textiles_composition, #find_material, #find_textiles_design, #find_textiles_color, #find_textiles_structure, #find_textiles_weaving, #find_textiles_finishing, #find_textiles_rating").autocomplete({
-//         source: function (request, response) {
-//             console.log('sadfsd');
-//             $.ajax({
-//                 url: "/admin/find_textiles_filters",
-//                 dataType: "json",
-//                 type: 'GET',
-//                 data: {
-//                     term: request.term,
-//                     row_name: row_name
-//                 },
-//                 success: function (data) {
-//                     var resp = $.map(data, function (obj) {
-//                         return {
-//                             label: obj.text,
-//                             id: obj.id,
-//                         };
-//                     });
-//                     response(resp);
-//                 }
-//             });
-//         },
-//         minLength: 0
-//     });
 
 });
 
