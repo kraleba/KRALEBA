@@ -7,23 +7,57 @@ function searchCustomers(items_index, category_id) {
     // Initialize select2
 
     $(".customer" + items_index).select2({
+        // placeholder: "Search for a Customer",    
+        // allowClear: true,
+
         ajax: {
             url: "/admin/customers_autocomplete",
             type: "get",
             dataType: 'json',
             delay: 250,
             data: function (params) {
-                let subcategory_id = false;
+                let subcategory_id = null;
                 let subcategory = $('.subcategories' + category_id).select2('data');
-                if(subcategory && subcategory[0]) {
+                if (subcategory && subcategory[0]) {
                     subcategory_id = subcategory[0].id;
+                }
+
+                const url = window.location.pathname;
+                let find_textiles_composition
+                let find_material
+                let find_textiles_design
+                let find_textiles_color
+                let find_textiles_structure
+                let find_textiles_weaving
+                let find_textiles_finishing
+                let find_textiles_rating
+                //if is in template create
+                if (window.location.pathname == '/admin/templates/create' && category_id === 8) {
+                    let position_id = (this).attr("position_id");
+                    find_textiles_composition = $('#find_textiles_composition' + position_id).select2('data')[0] || null
+                    find_material = $('#find_material' + position_id).select2('data')[0] || null
+                    find_textiles_design = $('#find_textiles_design' + position_id).select2('data')[0] || null
+                    find_textiles_color = $('#find_textiles_color' + position_id).select2('data')[0] || null
+                    find_textiles_structure = $('#find_textiles_structure' + position_id).select2('data')[0] || null
+                    find_textiles_weaving = $('#find_textiles_weaving' + position_id).select2('data')[0] || null
+                    find_textiles_finishing = $('#find_textiles_finishing' + position_id).select2('data')[0] || null
+                    find_textiles_rating = $('#find_textiles_rating' + position_id).select2('data')[0] || null
                 }
 
                 return {
                     _token: CSRF_TOKEN,
                     search: params.term,
                     category_id: category_id,
-                    subcategory_id: subcategory_id
+                    subcategory_id: subcategory_id,
+                    find_textiles_composition: check_if_object_key_exists(find_textiles_composition),
+                    find_material: check_if_object_key_exists(find_material),
+                    find_textiles_design: check_if_object_key_exists(find_textiles_design),
+                    find_textiles_color: check_if_object_key_exists(find_textiles_color),
+                    find_textiles_structure: check_if_object_key_exists(find_textiles_structure),
+                    find_textiles_weaving: check_if_object_key_exists(find_textiles_weaving),
+                    find_textiles_finishing: check_if_object_key_exists(find_textiles_finishing),
+                    find_textiles_rating: check_if_object_key_exists(find_textiles_rating),
+                    url: window.location.pathname
                 };
             },
             processResults: function (response) {
@@ -208,3 +242,13 @@ $(document).ready(function () {
     });
 });
 /*--- SEARCH SUBCATEGORYES FOR CATEGORY END ---*/
+
+function check_if_object_key_exists(value) {
+
+    if (value && value.text) {
+        return value.text;
+    }
+
+    return null;
+
+}
