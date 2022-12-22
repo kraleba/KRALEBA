@@ -161,101 +161,129 @@ $(document).ready(function () {
             return;
         }
 
+        let more_textile_exists_or_not = custom_category_id;
         if (!custom_category_id) {
+            more_textile_exists_or_not = null;
             custom_category_id = category['id'];
         }
 
         $("#template_child_form").append(
-            '<div class="form-group">' +
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
             '<input type="checkbox" id="check_if_is_checked' + category['id'] + '" ' +
             'category_id="' + custom_category_id + '" position_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category["name"] +
             '</div>' +
 
-            '<div class="form-control show_form_if_is_checked_' + category['id'] + '"  id="child-form-box" ' +
+            '<div class="form-control col-xs-12 col-sm-12 col-md-12 show_form_if_is_checked_' + category['id'] + '"  id="child-form-box" ' +
             'category_id="' + custom_category_id + '" ' +
             'position_id="' + category['id'] + '" ' + ' style="display: none">' +
             '</div>'
 
         );
 
-        if (category['id'] != 8) {
+        if (category['id'] != 8 && !more_textile_exists_or_not) {
             $(".show_form_if_is_checked_" + category['id']).append(
-                '<div class="form-group">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
                 '<label>Subcategorii</label>' +
-                '<select class="form-control subcategories' + category['id'] + '" style="width: 200px;"> </select>' +
+                '   <br>' +
+                '<select class="form-control subcategories' + category['id'] + '" style="width: 70%;"> </select>' +
                 '</div>'
             );
-        } else {
+        }
+        if (category['id'] >= 8) {
             $(".show_form_if_is_checked_" + category['id']).append(
-                '<div class="form-group">' +
-                '   <select id="find_textiles_composition" row_name="composition"' +
-                '       placeholder="-- Select a Compozition --"' +
-                '       class="form-control" style="width: 200px;">' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Composition</label>' +
+                '<br>' +
+                '   <select id="find_textiles_composition' + category['id'] + '" row_name="composition"' +
+                '       class="form-control" style="width: 70%;">' +
                 '   </select> ' +
                 '</div>' +
 
-                '<div class="form-group">' +
-                '   <select id="find_material" row_name="material" name="textiles_material"' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <strong>Material</strong>' +
+                '   <br>' +
+                '   <select id="find_material' + category['id'] + '" row_name="material"' +
                 '       placeholder="-- Select the Material --"' +
-                '       class="form-control" style="width: 200px;">' +
+                '       class="form-control" style="width:  70%;">' +
                 '   </select>' +
                 '</div>' +
 
-                '<div class="form-group">' +
-                '   <select id="find_textiles_design" row_name="design"' +
-                '       class="form-control" style="width: 200px;">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Design</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_design' + category['id'] + '" row_name="design"' +
+                '       class="form-control" style="width:  70%;">' +
                 '   </select>' +
                 ' </div>' +
 
-                '<div class="form-group">' +
-                '   <select id="find_textiles_color" row_name="color""' +
-                '       class="form-control" style="width: 200px;">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Color</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_color' + category['id'] + '" row_name="color""' +
+                '       class="form-control" style="width: 70%;">' +
                 '   </select>' +
                 '</div>' +
 
-                '<div class="form-group">' +
-                '   <select id="find_textiles_structure" row_name="structure" ' +
-                '        placeholder="-- Select the Structure --"' +
-                '       class="form-control" style="width: 200px;">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Structure</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_structure' + category['id'] + '" row_name="structure" ' +
+                '       class="form-control" style="width: 70%;">' +
                 '   </select>' +
                 '</div>' +
 
-                '<div class="form-group">' +
-                '   <select id="find_textiles_weaving" row_name="weaving" ' +
-                '       class="form-control" style="width: 200px;">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Weaving</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_weaving' + category['id'] + '" row_name="weaving" ' +
+                '       class="form-control" style="width: 70%;">' +
                 '   </select>' +
                 '</div>' +
 
-                '<div class="form-group">' +
-                '   <select id="find_textiles_finishing" row_name="finishing"' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Finishing</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_finishing' + category['id'] + '" row_name="finishing"' +
                 '       placeholder="-- Select the Finishing --"' +
-                '       class="form-control" style="width: 200px;">' +
+                '       class="form-control" style="width: 70%;">' +
                 '   </select>' +
                 '</div>' +
 
-                '<div class="form-group">' +
-                '   <select id="find_textiles_rating" row_name="rating""' +
-                '      class="form-control" style="width: 200px;">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label for="find_textiles_rating">Rating</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_rating' + category['id'] + '" row_name="rating""' +
+                '      class="form-control" style="width: 70%;">' +
                 '   </select>' +
+                '</div>' +
+
                 '</div>'
             );
 
         }
 
         $(".show_form_if_is_checked_" + category['id']).append(
-            '<div class="form-group">' +
-            '<label class="agile-label" for="customer">Furnizor</label>' +
-            '<select class="form-control customer' + category['id'] + '" style="width: 200px;"> </select>' +
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+            '   <label class="agile-label" for="customer">Furnizor</label>' +
+            '   <br>' +
+            '   <select class="form-control customer' + category['id'] + '"' +
+            '   position_id="' + category['id'] + '"' +
+            '   style="width: 70%;"> </select>' +
             '</div>' +
 
-            '<div class="form-group">' +
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
             '<label>Articol Name</label>' +
-            '<select class="form-control product_name' + category['id'] + '" style="width: 700px;"> </select>' +
+            '   <br>' +
+            '   <select class="form-control product_name' + category['id'] + '"'+
+            '   position_id="' + category['id'] + '"' +
+            '   style="width: 70%;"> </select>' +
             '</div>' +
 
-            '<div class="form-group">' +
-            '<label>Cantitatea</label>' +
-            '<input type="number" class="form-group" id="amount' + category['id'] + '"/>' +
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+            '   <label>Cantitatea</label>' +
+            '   <br>' +
+            '   <input type="number" class="form-group" id="amount' + category['id'] + '" style="width: 70%;"/>' +
             '</div>'
         );
 
@@ -265,31 +293,27 @@ $(document).ready(function () {
         // searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
         // searchBillDateOrBillNumber('bill_number', category['id'], custom_category_id, 'bill_number');
 
-        let row_name;
-        // $("#find_textiles_composition, #find_material, #find_textiles_design, #find_textiles_color, #find_textiles_structure, #find_textiles_weaving, #find_textiles_finishing, #find_textiles_rating").click(function () {
-        //     row_name = $(this).attr('row_name');
-    
-        // });
-
-        $("#find_textiles_composition, #find_material, #find_textiles_design, #find_textiles_color, #find_textiles_structure, #find_textiles_weaving, #find_textiles_finishing, #find_textiles_rating").select2({
-
+        $('#find_textiles_composition' + category['id'] +
+            ', #find_material' + category['id'] +
+            ', #find_textiles_design' + category['id'] +
+            ', #find_textiles_color' + category['id'] +
+            ', #find_textiles_structure' + category['id'] +
+            ', #find_textiles_weaving' + category['id'] +
+            ', #find_textiles_finishing' + category['id'] +
+            ', #find_textiles_rating' + category['id']
+        ).select2({
+            allowClear: true,
+            placeholder: "Search for a option",
             ajax: {
                 url: "/admin/find_textiles_filters",
                 type: "get",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
-                    // let subcategory_id = false;
-                    // // let subcategory = $('.subcategories' + category_id).select2('data');
-                    // if (subcategory && subcategory[0]) {
-                    //     subcategory_id = subcategory[0].id;
-                    // }
                     return {
                         _token: CSRF_TOKEN,
                         term: params.term,
                         row_name: $(this).attr('row_name')
-                        // category_id: category_id,
-                        // subcategory_id: subcategory_id
                     };
                 },
                 processResults: function (response) {
@@ -323,6 +347,28 @@ $(document).ready(function () {
                     if (subcategory && subcategory[0]) {
                         subcategory_id = subcategory[0].id;
                     }
+
+                    let find_textiles_composition
+                    let find_material
+                    let find_textiles_design
+                    let find_textiles_color
+                    let find_textiles_structure
+                    let find_textiles_weaving
+                    let find_textiles_finishing
+                    let find_textiles_rating
+                    //if is in template create
+                    if (window.location.pathname == '/admin/templates/create' && category_id === 8) {
+                        let position_id = (this).attr("position_id");
+                        find_textiles_composition = $('#find_textiles_composition' + position_id).select2('data')[0] || null
+                        find_material = $('#find_material' + position_id).select2('data')[0] || null
+                        find_textiles_design = $('#find_textiles_design' + position_id).select2('data')[0] || null
+                        find_textiles_color = $('#find_textiles_color' + position_id).select2('data')[0] || null
+                        find_textiles_structure = $('#find_textiles_structure' + position_id).select2('data')[0] || null
+                        find_textiles_weaving = $('#find_textiles_weaving' + position_id).select2('data')[0] || null
+                        find_textiles_finishing = $('#find_textiles_finishing' + position_id).select2('data')[0] || null
+                        find_textiles_rating = $('#find_textiles_rating' + position_id).select2('data')[0] || null
+                    }
+
                     return {
                         _token: CSRF_TOKEN,
                         search: params.term,
@@ -330,6 +376,15 @@ $(document).ready(function () {
                         subcategory_id: subcategory_id,
                         customer_id: getFieldValueByFieldClassSelect2(items_index, 'customer', 'id'),
                         product_name_selected: product_name_selected,
+                        find_textiles_composition: check_if_object_key_exists(find_textiles_composition),
+                        find_material: check_if_object_key_exists(find_material),
+                        find_textiles_design: check_if_object_key_exists(find_textiles_design),
+                        find_textiles_color: check_if_object_key_exists(find_textiles_color),
+                        find_textiles_structure: check_if_object_key_exists(find_textiles_structure),
+                        find_textiles_weaving: check_if_object_key_exists(find_textiles_weaving),
+                        find_textiles_finishing: check_if_object_key_exists(find_textiles_finishing),
+                        find_textiles_rating: check_if_object_key_exists(find_textiles_rating),
+
                         row_name: row_name,
 
                     };

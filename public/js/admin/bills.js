@@ -81,6 +81,8 @@ function showBillsCreateForm() {
 }
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
+const url = window.location.pathname;
+if(url == '/admin/bills/create')
 showTab(currentTab); // Display the current tab
 
 function showTab(index_tab) {

@@ -184,7 +184,7 @@ class CustomerHelper extends Controller
 
     public function customers_autocomplete(Request $request)
     {
-
+        // dd($request->all());
         $res = null;
         $search = null;
         if ($request->search) {
@@ -193,15 +193,58 @@ class CustomerHelper extends Controller
         if ($request->term) {
             $search = $request->term;
         }
-
+        DB::enableQueryLog();
         $customers = DB::table('customers')
             ->select('customers.id', 'customers.name')
-            ->leftJoin('customer_category_id_subcategories', 'customer_category_id_subcategories.customer_id', 'customers.id');
+            ->leftJoin('customer_category_id_subcategories', 'customer_category_id_subcategories.customer_id', 'customers.id')
+            ->leftJoin('customer_wares', 'customer_wares.customer_id', 'customers.id');
 
-        if ($request->subcategory_id && $request->category_id) {
+        // dd($request->subcategory_id);
+
+        if ($request->category_id != 8) {
             $customers = $customers
                 ->where('customer_category_id_subcategories.category_id', $request->category_id)
                 ->where('customer_category_id_subcategories.subcategory_id', $request->subcategory_id);
+        } elseif ($request->url == '/admin/templates/create') {
+
+            // ---- from template/create START \\
+            if ($request->category_id) {
+                $customers = $customers
+                    ->where('customer_wares.category_id', $request->category_id);
+            }
+            if ($request->find_textiles_composition) {
+                $customers = $customers
+                    ->where('customer_wares.composition', "LIKE", "%{$request->find_textiles_composition}%");
+            }
+            if ($request->find_material) {
+                $customers = $customers
+                    ->where('customer_wares.material', "LIKE", "%{$request->find_material}%");
+            }
+            if ($request->find_textiles_design) {
+                $customers = $customers
+                    ->where('customer_wares.design', "LIKE", "%{$request->find_textiles_design}%");
+            }
+            if ($request->find_textiles_color) {
+                $customers = $customers
+                    ->where('customer_wares.color', "LIKE", "%{$request->find_textiles_color}%");
+            }
+            if ($request->find_textiles_structure) {
+                $customers = $customers
+                    ->where('customer_wares.structure', "LIKE", "%{$request->find_textiles_structure}%");
+            }
+            if ($request->find_textiles_weaving) {
+                $customers = $customers
+                    ->where('customer_wares.weaving', "LIKE", "%{$request->find_textiles_weaving}%");
+            }
+            if ($request->find_textiles_finishing) {
+                $customers = $customers
+                    ->where('customer_wares.finishing', "LIKE", "%{$request->find_textiles_finishing}%");
+            }
+            if ($request->find_textiles_rating) {
+                $customers = $customers
+                    ->where('customer_wares.rating', "LIKE",  "%{$request->find_textiles_rating}%");
+            }
+            // ---- from template/create END ---- \\
         }
 
         $customers = $customers
@@ -224,7 +267,9 @@ class CustomerHelper extends Controller
     public function search_ware_name(Request $request)
     {
 
-        if (!$request->customer_id && !$request->category_id && !$request->subcategory_id) {
+        // dd($request->all());
+
+        if (!$request->customer_id && !$request->category_id && $request->category_id != 8 && $request->subcategory_id) {
             return response()->json(false);
         }
         if ($request->row_name == 'custom_code' && !$request->product_name_selected) {
@@ -238,15 +283,53 @@ class CustomerHelper extends Controller
                 'customer_wares.product_name',
                 'customer_wares.custom_code',
                 'bills.bill_date',
-                'bills.bill_number'
+                'bills.bill_number',
             )
             ->leftJoin('bills', 'bills.id', 'customer_wares.bill_id')
             ->where('customer_wares.product_name', 'LIKE', "%{$request->search}%")
-            ->where('customer_wares.category_id', $request->category_id)
-            ->where('customer_wares.subcategory_id', $request->subcategory_id)
+            ->where('customer_wares.category_id', $request->category_id);
+
+        if ($request->category_id != 8) {
+            $wares = $wares
+                ->where('customer_wares.subcategory_id', $request->subcategory_id);
+        } else {
+
+            if ($request->find_textiles_composition) {
+                $wares = $wares
+                    ->where('customer_wares.composition', "LIKE", "%{$request->find_textiles_composition}%");
+            }
+            if ($request->find_material) {
+                $wares = $wares
+                    ->where('customer_wares.material', "LIKE", "%{$request->find_material}%");
+            }
+            if ($request->find_textiles_design) {
+                $wares = $wares
+                    ->where('customer_wares.design', "LIKE", "%{$request->find_textiles_design}%");
+            }
+            if ($request->find_textiles_color) {
+                $wares = $wares
+                    ->where('customer_wares.color', "LIKE", "%{$request->find_textiles_color}%");
+            }
+            if ($request->find_textiles_structure) {
+                $wares = $wares
+                    ->where('customer_wares.structure', "LIKE", "%{$request->find_textiles_structure}%");
+            }
+            if ($request->find_textiles_weaving) {
+                $wares = $wares
+                    ->where('customer_wares.weaving', "LIKE", "%{$request->find_textiles_weaving}%");
+            }
+            if ($request->find_textiles_finishing) {
+                $wares = $wares
+                    ->where('customer_wares.finishing', "LIKE", "%{$request->find_textiles_finishing}%");
+            }
+            if ($request->find_textiles_rating) {
+                $wares = $wares
+                    ->where('customer_wares.rating', "LIKE",  "%{$request->find_textiles_rating}%");
+            }
+        }
+        $wares = $wares
             ->where('customer_wares.customer_id', $request->customer_id)
             ->get();
-
         $res = array();
 
         foreach ($wares as $ware) {
@@ -281,15 +364,6 @@ class CustomerHelper extends Controller
                 ->get();
         }
 
-        //get subcategories form textiles
-        if ($request->category_id == 8) {
-            $subcategories = DB::table('customer_wares')
-                ->slect('composition')
-                ->where('category_id', $request->category_id)
-                ->get();
-            // ->where('')
-            // trebuie sa vad ce spune clientul
-        }
         $res = array();
 
         foreach ($subcategories as $subcategory) {
