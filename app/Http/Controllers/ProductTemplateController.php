@@ -192,6 +192,7 @@ class ProductTemplateController extends Controller
             ->leftJoin('template_child_categories', 'product_template_children.id', 'template_child_categories.template_child_id')
             ->where('template_child_categories.template_child_id', $request->child_id)
             ->get();
+            // tre sa vad cum fac sa nu se mai repete pozele
         dump($data['template_parent']);
         dump($data['template_child']);
 

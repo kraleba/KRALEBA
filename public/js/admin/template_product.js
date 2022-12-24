@@ -10,7 +10,6 @@ $(document).ready(function () {
     const template_values = [];
     let index = 0;
     let numberOfTextile = 1;
-    let child_photos = null;
 
     $(".child-validate").click(function () {
 
@@ -57,14 +56,17 @@ $(document).ready(function () {
     function verifyIfChildFormIsCompletedCorrect(categories_id) {
         let form_customer = [];
         let index = true;
+        let verifi_if_category_is_checked = false;
         for (let i = 0, j = 0; i < categories_id.length + numberOfTextile; ++i) {
 
             if ($('#check_if_is_checked' + i).is(":checked") !== false) {
+                verifi_if_category_is_checked = true;
 
+                validatorFormTemplateChildren(i);
                 form_customer[j] = {
                     'customer_id': getFieldValueByFieldClassSelect2(i, 'customer', 'id'),
                     'category_id': getFieldValueByFieldClassSelect2(i, 'customer', 'category_id'),
-                    'ware_id': $('.product_name' + i).select2('data')[0].id,
+                    'ware_id': getFieldValueByFieldClassSelect2(i, 'product_name', 'id'),
                     'amount': $('#amount' + i).val()
                 }
 
@@ -93,6 +95,11 @@ $(document).ready(function () {
                 ++j
             }
         }
+
+        if (!verifi_if_category_is_checked) {
+            alert('Trebui selectata o categorie pentru a putea continua!')
+        }
+
         return form_customer;
     }
 
@@ -275,7 +282,7 @@ $(document).ready(function () {
             '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
             '<label>Articol Name</label>' +
             '   <br>' +
-            '   <select class="form-control product_name' + category['id'] + '"'+
+            '   <select class="form-control product_name' + category['id'] + '"' +
             '   position_id="' + category['id'] + '"' +
             '   style="width: 70%;"> </select>' +
             '</div>' +
@@ -470,6 +477,34 @@ $(document).ready(function () {
             }
         }
         return true;
+    }
+
+    function validatorFormTemplateChildren(i) {
+
+        let validator = [];
+
+        if (i < 8) {
+            validator[0] = getFieldValueByFieldClassSelect2(i, 'subcategories', 'id');
+        }
+
+        validator[1] = getFieldValueByFieldClassSelect2(i, 'customer', 'id');
+        validator[2] = getFieldValueByFieldClassSelect2(i, 'product_name', 'id');
+        validator[3] = $('#amount' + i).val();
+        let is_complet = 0;
+        for(let j = 0; j <= 3; ++j) {
+            if(validator[i]) {
+                ++is_complet;
+            }
+        } 
+        console.log(validator);
+        if(i < 8 && is_complet != 4 && i >= 8 && is_complet != 3) {
+            alert('Trebuie completate toate campurile pentru a putea valida!')
+        }
+
+        if() {
+            alert('Trebuie completate toate campurile pentru a putea valida!sss')
+        }
+
     }
 
     /*generates the number of children created and the maximum number of children*/
