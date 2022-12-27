@@ -56,7 +56,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('admin/customers_autocomplete', [CustomerHelper::class, 'customers_autocomplete']);
     Route::get('admin/find_textiles_filters', [CustomerHelper::class, 'find_textiles_filters']);
     Route::get('admin/find_market_product', [CustomerHelper::class, 'find_market_product']);
-    Route::get('admin/bills_autocomplete', [CustomerHelper::class, 'bills_autocomplete']);
+    Route::get('admin/get_subcategoires_by_category_id', [CustomerHelper::class, 'get_subcategoires_by_category_id']);
     Route::get('admin/search_ware_name', [CustomerHelper::class, 'search_ware_name']);
     Route::get('admin/template_child_validator', [CustomerHelper::class, 'template_child_validator']);
     Route::get('admin/take_categories', [CustomerHelper::class, 'take_categories']);

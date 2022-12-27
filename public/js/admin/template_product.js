@@ -60,11 +60,16 @@ $(document).ready(function () {
         for (let i = 0, j = 0; i < categories_id.length + numberOfTextile; ++i) {
 
             if ($('#check_if_is_checked' + i).is(":checked") !== false) {
-                verifi_if_category_is_checked = true;
 
-                validatorFormTemplateChildren(i);
+                verifi_if_category_is_checked = true;
+                let subcategory_id = null;
+                if (i < 8) {
+                    subcategory_id = getFieldValueByFieldClassSelect2(i, 'subcategories', 'id');
+                }
+
                 form_customer[j] = {
                     'customer_id': getFieldValueByFieldClassSelect2(i, 'customer', 'id'),
+                    'subcategory_id': subcategory_id,
                     'category_id': getFieldValueByFieldClassSelect2(i, 'customer', 'category_id'),
                     'ware_id': getFieldValueByFieldClassSelect2(i, 'product_name', 'id'),
                     'amount': $('#amount' + i).val()
@@ -87,11 +92,16 @@ $(document).ready(function () {
                     },
 
                 });
+                let photo1 = $('#template_photo1' + (j + 1)).val();
+                let photo2 = $('#template_photo2' + (j + 1)).val();
+                let photo3 = $('#template_photo3' + (j + 1)).val();
 
-                if (!index || !form_customer[j]['amount']) {
+
+                if ((!photo1 || !photo2 || !photo3) || (!index || !form_customer[j]['amount'])) {
+                    console.log((!photo1 || !photo2 || !photo3), (!index || !form_customer[j]['amount']));
+                    alert('Trebuie completate toate campurile pentru a putea valida!')
                     return false;
                 }
-
                 ++j
             }
         }
@@ -111,10 +121,11 @@ $(document).ready(function () {
 
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
-        // if (!validator) {
-        //     return false;
-        // }
-        //-----------------------------------------------
+        //if is false show warning
+        if (!validator) {
+            return false;
+        }
+
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
         $('#number_of_child').attr('readonly', true);
@@ -269,6 +280,16 @@ $(document).ready(function () {
             );
 
         }
+        //if need to hide filters for textiles
+        // $('.show_hide_textile_filters').on('click', function () {
+        //     let field = $(this).parent().parent().children('.textile_filters_template');
+        //     if (field.is(":hidden")) {
+        //         field.css("display", "block");
+        //     } else {
+        //         field.css("display", "none");
+        //     }
+
+        // });
 
         $(".show_form_if_is_checked_" + category['id']).append(
             '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
@@ -294,7 +315,7 @@ $(document).ready(function () {
             '</div>'
         );
 
-        searchBillDateOrBillNumber('subcategories', category['id'], custom_category_id);
+        searchCustomerSubcategories('subcategories', category['id'], custom_category_id);
         searchCustomers(category['id'], custom_category_id);
         searchWareNameOrCustomCode('product_name', category['id'], custom_category_id, 'product_name');
         // searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
@@ -410,11 +431,11 @@ $(document).ready(function () {
     }
 
     /*search ware BILL DATE or BILL NUMBER*/
-    function searchBillDateOrBillNumber(item_class, items_index, category_id) {
+    function searchCustomerSubcategories(item_class, items_index, category_id) {
 
         $("." + item_class + items_index).select2({
             ajax: {
-                url: "/admin/bills_autocomplete",
+                url: "/admin/get_subcategoires_by_category_id",
                 type: "get",
                 dataType: 'json',
                 delay: 250,
@@ -479,34 +500,6 @@ $(document).ready(function () {
         return true;
     }
 
-    function validatorFormTemplateChildren(i) {
-
-        let validator = [];
-
-        if (i < 8) {
-            validator[0] = getFieldValueByFieldClassSelect2(i, 'subcategories', 'id');
-        }
-
-        validator[1] = getFieldValueByFieldClassSelect2(i, 'customer', 'id');
-        validator[2] = getFieldValueByFieldClassSelect2(i, 'product_name', 'id');
-        validator[3] = $('#amount' + i).val();
-        let is_complet = 0;
-        for(let j = 0; j <= 3; ++j) {
-            if(validator[i]) {
-                ++is_complet;
-            }
-        } 
-        console.log(validator);
-        if(i < 8 && is_complet != 4 && i >= 8 && is_complet != 3) {
-            alert('Trebuie completate toate campurile pentru a putea valida!')
-        }
-
-        if() {
-            alert('Trebuie completate toate campurile pentru a putea valida!sss')
-        }
-
-    }
-
     /*generates the number of children created and the maximum number of children*/
     function numberOfChildrenGenerated() {
         let number_of_child = template_values.length + 1 + ' / ' + $('.number_of_child').val();
@@ -527,6 +520,17 @@ $(document).ready(function () {
             $(".bill_date" + i).select2('val', 'All');
             $(".bill_number" + i).select2('val', 'All');
             $('#amount' + i).val('');
+
+            if (i >= 8) {
+                $("#find_textiles_composition" + i).select2('val', 'All');
+                $("#find_material" + i).select2('val', 'All');
+                $("#find_textiles_design" + i).select2('val', 'All');
+                $("#find_textiles_color" + i).select2('val', 'All');
+                $("#find_textiles_structure" + i).select2('val', 'All');
+                $("#find_textiles_weaving" + i).select2('val', 'All');
+                $("#find_textiles_finishing" + i).select2('val', 'All');
+                $("#find_textiles_rating" + i).select2('val', 'All');
+            }
         }
     }
 

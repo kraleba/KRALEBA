@@ -343,7 +343,7 @@ class CustomerHelper extends Controller
         return response()->json($res);
     }
 
-    public function bills_autocomplete(Request $request)
+    public function get_subcategoires_by_category_id(Request $request)
     {
         // dd($request->category_id);
         if (!$request->category_id) {
@@ -402,15 +402,23 @@ class CustomerHelper extends Controller
             $ware_exists_or_no = DB::table('customer_wares')
                 ->where('customer_id', $form_ware['customer_id'])
                 ->where('category_id', $form_ware['category_id'])
+                ->where('id', $form_ware['ware_id']);
+
+            if ($form_ware['subcategory_id'] && $form_ware['category_id'] != 8) {
+                $ware_exists_or_no = $ware_exists_or_no
+                    ->where('subcategory_id', $form_ware['subcategory_id']);
+            }
+
+            $ware_exists_or_no = $ware_exists_or_no
                 ->where('id', $form_ware['ware_id'])
-                ->get();
+                ->first();
 
             if ($ware_exists_or_no) {
                 return response()->json(true);
             }
         }
 
-        return response()->json(false);
+        return response()->json([false]);
     }
 
     public function customer_separe_categories_from_subcategories($customer)

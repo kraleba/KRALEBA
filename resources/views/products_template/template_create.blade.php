@@ -35,9 +35,27 @@
             </div>
 
             <div class="row" id="template_parent_box" style="display: none">
-                {{--                marketing_category_id--}}
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Number of Products</strong>
+                        <input type="number"
+                               name="number_of_child"
+                               class="form-control required number_of_child"
+                               id="number_of_child"
+                               placeholder="Number of Products"
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <strong>Product Name</strong>
+                    <input type="text" name="product_name" id="template_name" class="form-control required"
+                           placeholder="Product Name">
+                </div>
+
                 <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                    <label for="marketing_category_id">Category:</label>
+                    <label for="marketing_category_id">Tayloring:</label>
                     <select class="form-control required" name="marketing_category_id" id="marketing_category_id"
                             required>
                         @foreach($marketing_categories as $marketing_category)
@@ -158,24 +176,6 @@
                         <input type="text" name="interlining" class="form-control required" placeholder="Interlining"
                                id="interlining">
                     </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <strong>Number of Products</strong>
-                        <input type="number"
-                               name="number_of_child"
-                               class="form-control required number_of_child"
-                               id="number_of_child"
-                               placeholder="Number of Products"
-                        >
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <strong>Product Name</strong>
-                    <input type="text" name="product_name" id="template_name" class="form-control required"
-                           placeholder="Product Name">
                 </div>
 
                 <input type="hidden" name="categories_template_child" id="categories_template_child">
