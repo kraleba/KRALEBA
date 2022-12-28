@@ -30,14 +30,14 @@
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
-                <input type="radio" class="required" name="type" value="Heloise" id="template_gender_type1">
+                <input type="radio" class="" name="type" value="Heloise" id="template_gender_type1">
                 <label for="Heloise">Heloise</label>
             </div>
 
             <div class="row" id="template_parent_box" style="display: none">
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <strong>Number of Products</strong>
                         <input type="number"
                                name="number_of_child"
@@ -48,13 +48,13 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group required">
                     <strong>Product Name</strong>
                     <input type="text" name="product_name" id="template_name" class="form-control required"
                            placeholder="Product Name">
                 </div>
 
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 required">
                     <label for="marketing_category_id">Tayloring:</label>
                     <select class="form-control required" name="marketing_category_id" id="marketing_category_id"
                             required>
@@ -123,14 +123,14 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <strong>Slits:</strong>
                         <input type="text" name="slits" class="form-control required" placeholder="Slits" id="slits">
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <strong>Sleeves :</strong>
                         <input type="text" name="sleeves" class="form-control required" placeholder="Sleeves"
                                id="sleeves">
@@ -138,7 +138,7 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <strong>Pockets:</strong>
                         <input type="text" name="pockets" class="form-control required" placeholder="Pockets"
                                id="pockets">
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <strong>Stitching:</strong>
                         <input type="text" name="stitching" class="form-control required" placeholder="Stitching"
                                id="stitching">
@@ -154,14 +154,14 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <strong>Seams colour:</strong>
                         <input type="text" name="seams_colour" class="form-control required" placeholder="Seams colour"
                                id="seams_colour">
                     </div>
                 </div>
 
-                <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group col-xs-12 col-sm-12 col-md-12 required">
                     <strong for="cars">Buttons:</strong>
                     <select name="template_buttons" id="template_buttons" class="form-control required">
                         <option>forms</option>
@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
+                    <div class="form-group required">
                         <strong>Interlining:</strong>
                         <input type="text" name="interlining" class="form-control required" placeholder="Interlining"
                                id="interlining">

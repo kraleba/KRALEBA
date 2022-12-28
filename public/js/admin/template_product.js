@@ -33,7 +33,7 @@ $(document).ready(function () {
 
             if (index === parseInt($('.number_of_child').val()) - 1) {
                 $('#salve_parent_product').show();
-                $('.child-validate').hide();
+                $('#categories_form').hide();
             }
 
             if (form_customer.length > 0) {
@@ -122,9 +122,9 @@ $(document).ready(function () {
         //validate if required fields is implemented.
         let validator = validateTemplateFields();
         //if is false show warning
-        if (!validator) {
-            return false;
-        }
+        // if (!validator) {
+        //     return false;
+        // }
 
         $('.generate-template-children-form').hide();
         $('.categories_area').show();
@@ -200,7 +200,7 @@ $(document).ready(function () {
 
         if (category['id'] != 8 && !more_textile_exists_or_not) {
             $(".show_form_if_is_checked_" + category['id']).append(
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
                 '<label>Subcategorii</label>' +
                 '   <br>' +
                 '<select class="form-control subcategories' + category['id'] + '" style="width: 70%;"> </select>' +
@@ -235,7 +235,7 @@ $(document).ready(function () {
                 '   </select>' +
                 ' </div>' +
 
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12 ">' +
                 '   <label>Color</label>' +
                 '   <br>' +
                 '   <select id="find_textiles_color' + category['id'] + '" row_name="color""' +
@@ -292,7 +292,7 @@ $(document).ready(function () {
         // });
 
         $(".show_form_if_is_checked_" + category['id']).append(
-            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
             '   <label class="agile-label" for="customer">Furnizor</label>' +
             '   <br>' +
             '   <select class="form-control customer' + category['id'] + '"' +
@@ -300,7 +300,7 @@ $(document).ready(function () {
             '   style="width: 70%;"> </select>' +
             '</div>' +
 
-            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
             '<label>Articol Name</label>' +
             '   <br>' +
             '   <select class="form-control product_name' + category['id'] + '"' +
@@ -308,7 +308,7 @@ $(document).ready(function () {
             '   style="width: 70%;"> </select>' +
             '</div>' +
 
-            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12 ">' +
             '   <label>Cantitatea</label>' +
             '   <br>' +
             '   <input type="number" class="form-group" id="amount' + category['id'] + '" style="width: 70%;"/>' +
@@ -539,9 +539,9 @@ $(document).ready(function () {
         for (let i = 1; i <= $('.number_of_child').val(); ++i) {
             child_photos +=
                 '<div style="display: none" id="child_photos' + i + '">' +
-                '   <input type="file" id="template_photo1' + i + '" name="template_photo1[]">' +
-                '   <input type="file" id="template_photo2' + i + '" name="template_photo2[]">' +
-                '   <input type="file" id="template_photo3' + i + '" name="template_photo3[]">' +
+                '   <input type="file" accept="image/*" id="template_photo1' + i + '" name="template_photo1[]">' +
+                '   <input type="file" accept="image/*" id="template_photo2' + i + '" name="template_photo2[]">' +
+                '   <input type="file" accept="image/*" id="template_photo3' + i + '" name="template_photo3[]">' +
                 '</div>'
         }
         $('#photos_area').html(child_photos);
