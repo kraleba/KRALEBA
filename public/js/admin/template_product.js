@@ -55,7 +55,7 @@ $(document).ready(function () {
 
     function verifyIfChildFormIsCompletedCorrect(categories_id) {
         let form_customer = [];
-        let index = true;
+        let form_is_completed = true;
         let verifi_if_category_is_checked = false;
         for (let i = 0, j = 0; i < categories_id.length + numberOfTextile; ++i) {
 
@@ -86,22 +86,22 @@ $(document).ready(function () {
 
                     success: function (data) {
                         if (!data) {
-                            index = false;
+                            form_is_completed = false;
                         }
 
                     },
 
                 });
-                let photo1 = $('#template_photo1' + (j + 1)).val();
-                let photo2 = $('#template_photo2' + (j + 1)).val();
-                let photo3 = $('#template_photo3' + (j + 1)).val();
 
+                let photo1 = $('#template_photo1' + (index + 1)).val();
+                let photo2 = $('#template_photo2' + (index + 1)).val();
+                let photo3 = $('#template_photo3' + (index + 1)).val();
 
-                if ((!photo1 || !photo2 || !photo3) || (!index || !form_customer[j]['amount'])) {
-                    console.log((!photo1 || !photo2 || !photo3), (!index || !form_customer[j]['amount']));
+                if ((!photo1 || !photo2 || !photo3) || (!form_is_completed || !form_customer[j]['amount'])) {
                     alert('Trebuie completate toate campurile pentru a putea valida!')
                     return false;
                 }
+
                 ++j
             }
         }
