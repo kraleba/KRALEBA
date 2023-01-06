@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="filter-item1 filter-control btn-group">
-                        <input type='text' id="find_customer" name="product_name" placeholder="--Product Name--"
+                        <input type='text' id="find_customer" name="product_name" placeholder="--Prototip Name--"
                             class="form-control group">
                     </div>
 
@@ -51,8 +51,13 @@
                     </div>
 
                     <div class="filter-item1 filter-control btn-group">
-                        <input type='text' id="find_customer" name="customer_name" placeholder="--Tayloring--"
-                            class="form-control group">
+                        <select placeholder="--Tayloring--" name="marketing_category_id" class="form-control group">
+                            @foreach($taylorings as $tayloring)
+                                <option >
+                                    {{$tayloring->name}}
+                                </option>
+                            @endforeach
+                        <select>
                     </div>
                 </div>
 

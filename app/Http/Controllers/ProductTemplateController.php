@@ -94,6 +94,8 @@ class ProductTemplateController extends Controller
             ->get();
         // dump($data['templates']);
 
+        $data['taylorings'] = DB::table('marketing_template_categories')->select('name')->get();
+
         return view('products_template.template_index', $data);
     }
 
@@ -112,8 +114,8 @@ class ProductTemplateController extends Controller
         //     'template_photo1' => 'required',
         //     'template_photo1.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         // ]);
-        //   dd($request->all());
         // if ($request->images){
+            //tre sa fac validatorul pentru imagini
         $images = [
             'template_photo1' => $request->template_photo1,
             'template_photo2' => $request->template_photo2,
@@ -121,27 +123,22 @@ class ProductTemplateController extends Controller
         ];
         $child_template = [];
 
-        for ($i = 1; $i <= 3; $i++) {
-            foreach ($images['template_photo' . $i] as $key => $image) {
-                $imageName = time() . rand(1, 99) . '.' . $image->extension();
-                $image->move(public_path('images/templates'), $imageName);
+        // for ($i = 1; $i <= 3; $i++) {
+        //     foreach ($images['template_photo' . $i] as $key => $image) {
+        //         $imageName = time() . rand(1, 99) . '.' . $image->extension();
+        //         $image->move(public_path('images/templates'), $imageName);
 
-                $child_template[$key]['template_photo'.$i] = $imageName;
-            }
-        }
+        //         $child_template[$key]['template_photo'.$i] = $imageName;
+        //     }
+        // }
         $parent_template = $request->input();
         unset($parent_template['categories_template_child']);
-        // unset($parent_template['product_template_child']);
-
         $child_categories_template = (array)json_decode($request->input('categories_template_child'));
-        // $child_template = (array)json_decode($request->input('product_template_child'));
-// dump($child_template);
+        dd($child_categories_template);
 
         $this->template_child->create_template_children_by_parent_id($parent_template, $child_template, $child_categories_template);
 
-        // dd('sdfasd10');
 
-        //        $this->template->create_parent_and_child_template($parent_template, $child_template);
         return redirect()->route('templates.index')
             ->with('success', 'customer created successfully.');
     }

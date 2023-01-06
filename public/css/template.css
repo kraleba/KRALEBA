@@ -24,3 +24,59 @@
 #search_customers {
     width: 200px;
 }
+
+.add-button {
+    display: inline-block;
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-button:hover {
+    background-color: darkgreen;
+  }
+
+  .add-button:hover {
+    background-color: darkgreen;
+  }
+
+  .checkbox-box {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .checkbox-box input[type="checkbox"] + i {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 18px;
+    color: #ccc;
+  }
+
+  .checkbox-box input[type="checkbox"]:checked + i {
+    color: green;
+  }
+
+
+  .delete-button {
+    display: inline-block;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: darkred;
+  }
+
+  

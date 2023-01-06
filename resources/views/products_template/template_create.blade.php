@@ -62,7 +62,6 @@
                             <option value="{{$marketing_category->id}}">{{$marketing_category->name}}</option>
                         @endforeach
                         <option selected="selected" value="">No category</option>
-
                     </select>
                 </div>
 

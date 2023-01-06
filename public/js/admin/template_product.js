@@ -150,174 +150,16 @@ $(document).ready(function () {
 
     });
 
-    // add new form for textile
-    $('#add_mote_items').click(function () {
-
-        let number_of_extra_items = $('#child_number_of_extra_items').val();
-        let category = [];
-
-        if (number_of_extra_items > 0) {
-            $('#add_more_items_box').hide();
-        }
-
-        for (let i = 2; i < parseInt(number_of_extra_items) + 2; ++i) {
-
-            category = {
-                id: 8 + i,
-                name: 'Textile' + (i)
-            };
-            ++numberOfTextile;
-            categoriesFormGenerated(category, 8);
-        }
-
-    });
-
     //children form
-    function categoriesFormGenerated(category, custom_category_id) {
+    function categoriesFormGenerated(category) {
 
         if (!category) {
             return;
         }
-
-        let more_textile_exists_or_not = custom_category_id;
-        if (!custom_category_id) {
-            more_textile_exists_or_not = null;
-            custom_category_id = category['id'];
-        }
-
-        $("#template_child_form").append(
-            '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-            '<input type="checkbox" id="check_if_is_checked' + category['id'] + '" ' +
-            'category_id="' + custom_category_id + '" position_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category["name"] +
-            '</div>' +
-
-            '<div class="form-control col-xs-12 col-sm-12 col-md-12 show_form_if_is_checked_' + category['id'] + '"  id="child-form-box" ' +
-            'category_id="' + custom_category_id + '" ' +
-            'position_id="' + category['id'] + '" ' + ' style="display: none">' +
-            '</div>'
-
-        );
-
-        if (category['id'] != 8 && !more_textile_exists_or_not) {
-            $(".show_form_if_is_checked_" + category['id']).append(
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
-                '<label>Subcategorii</label>' +
-                '   <br>' +
-                '<select class="form-control subcategories' + category['id'] + '" style="width: 70%;"> </select>' +
-                '</div>'
-            );
-        }
-        if (category['id'] >= 8) {
-            $(".show_form_if_is_checked_" + category['id']).append(
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-                '   <label>Composition</label>' +
-                '<br>' +
-                '   <select id="find_textiles_composition' + category['id'] + '" row_name="composition"' +
-                '       class="form-control" style="width: 70%;">' +
-                '   </select> ' +
-                '</div>' +
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-                '   <strong>Material</strong>' +
-                '   <br>' +
-                '   <select id="find_material' + category['id'] + '" row_name="material"' +
-                '       placeholder="-- Select the Material --"' +
-                '       class="form-control" style="width:  70%;">' +
-                '   </select>' +
-                '</div>' +
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-                '   <label>Design</label>' +
-                '   <br>' +
-                '   <select id="find_textiles_design' + category['id'] + '" row_name="design"' +
-                '       class="form-control" style="width:  70%;">' +
-                '   </select>' +
-                ' </div>' +
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12 ">' +
-                '   <label>Color</label>' +
-                '   <br>' +
-                '   <select id="find_textiles_color' + category['id'] + '" row_name="color""' +
-                '       class="form-control" style="width: 70%;">' +
-                '   </select>' +
-                '</div>' +
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-                '   <label>Structure</label>' +
-                '   <br>' +
-                '   <select id="find_textiles_structure' + category['id'] + '" row_name="structure" ' +
-                '       class="form-control" style="width: 70%;">' +
-                '   </select>' +
-                '</div>' +
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-                '   <label>Weaving</label>' +
-                '   <br>' +
-                '   <select id="find_textiles_weaving' + category['id'] + '" row_name="weaving" ' +
-                '       class="form-control" style="width: 70%;">' +
-                '   </select>' +
-                '</div>' +
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-                '   <label>Finishing</label>' +
-                '   <br>' +
-                '   <select id="find_textiles_finishing' + category['id'] + '" row_name="finishing"' +
-                '       placeholder="-- Select the Finishing --"' +
-                '       class="form-control" style="width: 70%;">' +
-                '   </select>' +
-                '</div>' +
-
-                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
-                '   <label for="find_textiles_rating">Rating</label>' +
-                '   <br>' +
-                '   <select id="find_textiles_rating' + category['id'] + '" row_name="rating""' +
-                '      class="form-control" style="width: 70%;">' +
-                '   </select>' +
-                '</div>' +
-
-                '</div>'
-            );
-
-        }
-        //if need to hide filters for textiles
-        // $('.show_hide_textile_filters').on('click', function () {
-        //     let field = $(this).parent().parent().children('.textile_filters_template');
-        //     if (field.is(":hidden")) {
-        //         field.css("display", "block");
-        //     } else {
-        //         field.css("display", "none");
-        //     }
-
-        // });
-
-        $(".show_form_if_is_checked_" + category['id']).append(
-            '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
-            '   <label class="agile-label" for="customer">Furnizor</label>' +
-            '   <br>' +
-            '   <select class="form-control customer' + category['id'] + '"' +
-            '   position_id="' + category['id'] + '"' +
-            '   style="width: 70%;"> </select>' +
-            '</div>' +
-
-            '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
-            '<label>Articol Name</label>' +
-            '   <br>' +
-            '   <select class="form-control product_name' + category['id'] + '"' +
-            '   position_id="' + category['id'] + '"' +
-            '   style="width: 70%;"> </select>' +
-            '</div>' +
-
-            '<div class="form-group col-xs-12 col-sm-12 col-md-12 ">' +
-            '   <label>Cantitatea</label>' +
-            '   <br>' +
-            '   <input type="number" class="form-group" id="amount' + category['id'] + '" style="width: 70%;"/>' +
-            '</div>'
-        );
-
-        searchCustomerSubcategories('subcategories', category['id'], custom_category_id);
-        searchCustomers(category['id'], custom_category_id);
-        searchWareNameOrCustomCode('product_name', category['id'], custom_category_id, 'product_name');
+        // chech boxes and add remove buttons
+        checkBoxCategories(category)
+        // filters template
+        catehoriesBoxItems(category['id'])
         // searchWareNameOrCustomCode('custom_code', category['id'], custom_category_id, 'custom_code');
         // searchBillDateOrBillNumber('bill_number', category['id'], custom_category_id, 'bill_number');
 
@@ -355,6 +197,161 @@ $(document).ready(function () {
 
     }
 
+    function checkBoxCategories(category) {
+        $("#template_child_form").append(
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12 checkbox-box">' +
+            '   <input type="checkbox" id="check_if_is_checked' + category['id'] + '" value= "' + category['id'] + '" ' +
+            '      "category_id="' + category['id'] + '" class="checkbox_customer_category"> ' + category["name"] +
+            '   <div class="col-xs-12 col-sm-12 col-md-12 show_form_if_is_checked_' + category['id'] + '"  id="child-form-box" ' +
+            '       category_id="' + category['id'] + '" ' +
+            '       style="display:none">' +
+            '   </div>' +
+            '   <div class="form-group col-xs-12 col-sm-12 col-md-12 add-remove-categorie' + category['id'] + '" style="display:none">' +
+            '       <br>' +
+            '       <button type="button" class="form-group add-button" value="" id="amount' + category['id'] + '" />' +
+            '           <i class="fas fa-plus"></i>' +
+            '       </button>' +
+            '       <button type="button" class="delete-button">' +
+            '           <i class="fas fa-minus"></i>' +
+            '       </button>' +
+            '   </div>' +
+            '</div>'
+        );
+
+    }
+
+    function catehoriesBoxItems(category_id) {
+
+        if (category_id != 8) {
+            $(".show_form_if_is_checked_" + category_id).append(
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
+                '<label>Subcategorii</label>' +
+                '   <br>' +
+                '<select class="form-control subcategories test' + category_id + '" style="width: 70%;"> </select>' +
+                '</div>'
+            );
+        }
+
+        if (category_id >= 8) {
+            $(".show_form_if_is_checked_" + category_id).append(
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Composition</label>' +
+                '<br>' +
+                '   <select id="find_textiles_composition' + category_id + '" row_name="composition"' +
+                '       class="form-control" style="width: 70%;">' +
+                '   </select> ' +
+                '</div>' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <strong>Material</strong>' +
+                '   <br>' +
+                '   <select id="find_material' + category_id + '" row_name="material"' +
+                '       placeholder="-- Select the Material --"' +
+                '       class="form-control" style="width:  70%;">' +
+                '   </select>' +
+                '</div>' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Design</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_design' + category_id + '" row_name="design"' +
+                '       class="form-control" style="width:  70%;">' +
+                '   </select>' +
+                ' </div>' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12 ">' +
+                '   <label>Color</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_color' + category_id + '" row_name="color""' +
+                '       class="form-control" style="width: 70%;">' +
+                '   </select>' +
+                '</div>' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Structure</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_structure' + category_id + '" row_name="structure" ' +
+                '       class="form-control" style="width: 70%;">' +
+                '   </select>' +
+                '</div>' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Weaving</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_weaving' + category_id + '" row_name="weaving" ' +
+                '       class="form-control" style="width: 70%;">' +
+                '   </select>' +
+                '</div>' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label>Finishing</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_finishing' + category_id + '" row_name="finishing"' +
+                '       placeholder="-- Select the Finishing --"' +
+                '       class="form-control" style="width: 70%;">' +
+                '   </select>' +
+                '</div>' +
+
+                '<div class="form-group col-xs-12 col-sm-12 col-md-12">' +
+                '   <label for="find_textiles_rating">Rating</label>' +
+                '   <br>' +
+                '   <select id="find_textiles_rating' + category_id + '" row_name="rating""' +
+                '      class="form-control" style="width: 70%;">' +
+                '   </select>' +
+                '</div>' +
+                '</div>'
+            );
+
+        }
+
+        $(".show_form_if_is_checked_" + category_id).append(
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
+            '   <label class="agile-label" for="customer">Furnizor</label>' +
+            '   <br>' +
+            '   <select class="form-control customer' + category_id + '"' +
+            '   position_id="' + category_id + '"' +
+            '   style="width: 70%;"> </select>' +
+            '</div>' +
+
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12 required">' +
+            '<label>Articol Name</label>' +
+            '   <br>' +
+            '   <select class="form-control product_name' + category_id + '"' +
+            '   position_id="' + category_id + '"' +
+            '   style="width: 70%;"> </select>' +
+            '</div>' +
+
+            '<div class="form-group col-xs-12 col-sm-12 col-md-12 ">' +
+            '   <label>Cantitatea</label>' +
+            '   <br>' +
+            '   <input type="number" class="form-group" id="amount' + category_id + '" style="width: 70%;"/>' +
+            '</div>'
+
+        );
+
+        searchCustomerSubcategories('subcategories');
+        searchCustomers(category_id);
+        searchWareNameOrCustomCode('product_name', category_id, 'product_name');
+
+    }
+
+    $('#template_child_form').on('click', '.add-button', function () {
+        let category = $(this).parent().parent().children(1).val()
+        // let position_id = $(this).parent().parent().children(1).attr('position_id')
+        console.log(category);
+        catehoriesBoxItems(category);
+    })
+
+    //asta e pentru remove
+    $('#template_child_form').on('click', '.remove-button', function () {
+        let category = $(this).parent().parent().children(1).attr('category_id')
+        // let position_id = $(this).parent().parent().children(1).attr('position_id')
+
+        // $(this).parent().remove();
+
+    })
+
     /*search WARE PRODUCT NAME or CUSTOM CODE*/
     function searchWareNameOrCustomCode(item_class, items_index, category_id, row_name) {
 
@@ -370,7 +367,7 @@ $(document).ready(function () {
                     if (row_name !== 'product_name') {
                         product_name_selected = getFieldValueByFieldClassSelect2(items_index, 'product_name', 'text')
                     }
-                    let subcategory = $('.subcategories' + category_id).select2('data');
+                    let subcategory = $('.subcategories').select2('data');
                     let subcategory_id = false;
                     if (subcategory && subcategory[0]) {
                         subcategory_id = subcategory[0].id;
@@ -431,15 +428,17 @@ $(document).ready(function () {
     }
 
     /*search ware BILL DATE or BILL NUMBER*/
-    function searchCustomerSubcategories(item_class, items_index, category_id) {
+    function searchCustomerSubcategories(item_class) {
 
-        $("." + item_class + items_index).select2({
+        $("." + item_class).select2({
             ajax: {
                 url: "/admin/get_subcategoires_by_category_id",
                 type: "get",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
+                    let category_id = $(this).parent().parent().attr("category_id");
+
                     return {
                         _token: CSRF_TOKEN,
                         search: params.term,
@@ -460,12 +459,14 @@ $(document).ready(function () {
     }
 
     $('#template_child_form').on('click', '.checkbox_customer_category', function () {
-
-        let position_id = $(this).attr('position_id');
+        let category_id = $(this).val();
+        console.log(category_id);
         if ($(this).is(':checked')) {
-            $('#template_child_form').children('.show_form_if_is_checked_' + position_id).show();
+            $('.show_form_if_is_checked_' + category_id).show();
+            $('.add-remove-categorie' + category_id).show();
         } else {
-            $('#template_child_form').children('.show_form_if_is_checked_' + position_id).hide();
+            $('.show_form_if_is_checked_' + category_id).hide();
+            $('.add-remove-categorie' + category_id).hide();
 
         }
     });

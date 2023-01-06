@@ -12,14 +12,14 @@
         <div id='categories_form'>
             <div id="template_child_form"></div>
 
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <div id="add_more_items_box">
                     <input type="number" id="child_number_of_extra_items">
                     <small>
                         <input type="button" id="add_mote_items" value="Adauga mai multe Textile" />
                     </small>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="form-group col-xs-12 col-sm-12 col-md-12" id="photos_area">
             </div>
