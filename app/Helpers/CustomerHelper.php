@@ -12,7 +12,6 @@ use App\Models\ProductTemplateParent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
 class CustomerHelper extends Controller
 {
     public Products $product;
