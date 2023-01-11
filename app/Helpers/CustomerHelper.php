@@ -192,60 +192,69 @@ class CustomerHelper extends Controller
         if ($request->term) {
             $search = $request->term;
         }
-        DB::enableQueryLog();
+
+        if ($request->url == '/admin/templates/create' && $request->category_id != 8 && !$request->subcategory_id) {
+            return response()->json();
+        }
+
         $customers = DB::table('customers')
             ->select('customers.id', 'customers.name')
-            ->leftJoin('customer_category_id_subcategories', 'customer_category_id_subcategories.customer_id', 'customers.id')
-            ->leftJoin('customer_wares', 'customer_wares.customer_id', 'customers.id');
+            ->leftJoin('customer_category_id_subcategories', 'customer_category_id_subcategories.customer_id', 'customers.id');
 
-        // dd($request->subcategory_id);
-
-        if ($request->category_id != 8) {
+        if ($request->url == '/admin/templates/create') {
             $customers = $customers
-                ->where('customer_category_id_subcategories.category_id', $request->category_id)
-                ->where('customer_category_id_subcategories.subcategory_id', $request->subcategory_id);
-        } elseif ($request->url == '/admin/templates/create') {
+                ->leftJoin('customer_wares', 'customer_wares.customer_id', 'customers.id');
 
-            // ---- from template/create START \\
-            if ($request->category_id) {
+            if ($request->category_id != 8) {
                 $customers = $customers
-                    ->where('customer_wares.category_id', $request->category_id);
-            }
-            if ($request->find_textiles_composition) {
-                $customers = $customers
-                    ->where('customer_wares.composition', "LIKE", "%{$request->find_textiles_composition}%");
-            }
-            if ($request->find_material) {
-                $customers = $customers
-                    ->where('customer_wares.material', "LIKE", "%{$request->find_material}%");
-            }
-            if ($request->find_textiles_design) {
-                $customers = $customers
-                    ->where('customer_wares.design', "LIKE", "%{$request->find_textiles_design}%");
-            }
-            if ($request->find_textiles_color) {
-                $customers = $customers
-                    ->where('customer_wares.color', "LIKE", "%{$request->find_textiles_color}%");
-            }
-            if ($request->find_textiles_structure) {
-                $customers = $customers
-                    ->where('customer_wares.structure', "LIKE", "%{$request->find_textiles_structure}%");
-            }
-            if ($request->find_textiles_weaving) {
-                $customers = $customers
-                    ->where('customer_wares.weaving', "LIKE", "%{$request->find_textiles_weaving}%");
-            }
-            if ($request->find_textiles_finishing) {
-                $customers = $customers
-                    ->where('customer_wares.finishing', "LIKE", "%{$request->find_textiles_finishing}%");
-            }
-            if ($request->find_textiles_rating) {
-                $customers = $customers
-                    ->where('customer_wares.rating', "LIKE",  "%{$request->find_textiles_rating}%");
+                    ->leftJoin('customer_wares', 'customer_wares.customer_id', 'customers.id')
+                    ->where('customer_category_id_subcategories.category_id', $request->category_id)
+                    ->where('customer_category_id_subcategories.subcategory_id', $request->subcategory_id);
+            } else {
+                // ---- from template/create START \\
+                if ($request->category_id) {
+                    $customers = $customers
+                        ->where('customer_wares.category_id', $request->category_id);
+                }
+                if ($request->find_textiles_composition) {
+                    $customers = $customers
+                        ->where('customer_wares.composition', "LIKE", "%{$request->find_textiles_composition}%");
+                }
+                if ($request->find_material) {
+                    $customers = $customers
+                        ->where('customer_wares.material', "LIKE", "%{$request->find_material}%");
+                }
+                if ($request->find_textiles_design) {
+                    $customers = $customers
+                        ->where('customer_wares.design', "LIKE", "%{$request->find_textiles_design}%");
+                }
+                if ($request->find_textiles_color) {
+                    $customers = $customers
+                        ->where('customer_wares.color', "LIKE", "%{$request->find_textiles_color}%");
+                }
+                if ($request->find_textiles_structure) {
+                    $customers = $customers
+                        ->where('customer_wares.structure', "LIKE", "%{$request->find_textiles_structure}%");
+                }
+                if ($request->find_textiles_weaving) {
+                    $customers = $customers
+                        ->where('customer_wares.weaving', "LIKE", "%{$request->find_textiles_weaving}%");
+                }
+                if ($request->find_textiles_finishing) {
+                    $customers = $customers
+                        ->where('customer_wares.finishing', "LIKE", "%{$request->find_textiles_finishing}%");
+                }
+                if ($request->find_textiles_rating) {
+                    $customers = $customers
+                        ->where('customer_wares.rating', "LIKE", "%{$request->find_textiles_rating}%");
+                }
             }
             // ---- from template/create END ---- \\
         }
-
+        if($request->url != '/admin/customers') {
+            $customers = $customers
+                ->where('customers.type',  'provider');
+        }
         $customers = $customers
             ->where('customers.name', "LIKE", "%{$search}%")
             ->groupBy('customers.id', 'customers.name')

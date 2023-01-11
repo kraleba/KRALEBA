@@ -110,7 +110,9 @@ function searchCustomersSuggestions(request, response, category_id = null, posit
         type: 'GET',
         data: {
             term: request.term,
-            category_id: category_id
+            category_id: category_id,
+            url: window.location.pathname
+
         },
         dataType: "json",
         success: function (data) {
