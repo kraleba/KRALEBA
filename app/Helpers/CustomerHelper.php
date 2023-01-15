@@ -7,8 +7,8 @@ use App\Models\Bills;
 use App\Models\Customers;
 use App\Models\CustomerWares;
 use App\Models\Products;
-use App\Models\ProductTemplateChild;
-use App\Models\ProductTemplateParent;
+use App\Models\TemplateChildren;
+use App\Models\TemplateParents;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,8 +17,8 @@ class CustomerHelper extends Controller
     public Products $product;
     public Customers $customers;
     public CustomerWares $wares;
-    public ProductTemplateParent $templateParent;
-    public ProductTemplateChild $templateChild;
+    public TemplateParents $templateParent;
+    public TemplateChildren $templateChild;
     public Bills $bills;
 
     public function __construct()
@@ -26,8 +26,8 @@ class CustomerHelper extends Controller
         $this->product = new Products();
         $this->customers = new Customers();
         $this->wares = new CustomerWares();
-        $this->templateParent = new ProductTemplateParent();
-        $this->templateChild = new ProductTemplateChild();
+        $this->templateParent = new TemplateParents();
+        $this->templateChild = new TemplateChildren();
         $this->bills = new Bills();
     }
 
