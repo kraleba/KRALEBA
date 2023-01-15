@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class ProductTemplateParent extends Model
+class TemplateParents extends Model
 {
+    protected $table = 'template_parents';
+
     use HasFactory;
 
     protected $fillable = [
@@ -32,6 +34,22 @@ class ProductTemplateParent extends Model
         'number_of_child'
     ];
 
+    public function getTableName()
+    {
+        return $this->getTable();
+    }
+
+    public function children()
+    {
+        return $this->belongsToMany(TemplateChildren::class, 'template_parent_template_child', 'template_parent_id', 'template_child_id');
+    }
+
+    public function child_templates()
+    {
+        return $this->hasMany(TemplateChildren::class, 'parent_id');
+    }
+
+
     public function get_product_templates_after_filter()
     {
 
@@ -48,7 +66,7 @@ class ProductTemplateParent extends Model
               /*  GROUP BY ptp.id*/
                 ";
         $result = DB::select($query);
-//dd($result);
+        //dd($result);
         return $result;
     }
 
