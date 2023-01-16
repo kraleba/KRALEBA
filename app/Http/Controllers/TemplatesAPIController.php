@@ -27,8 +27,8 @@ class TemplatesAPIController extends Controller
         //         ->get();
 
         $data = TemplateParents::with('child_templates.categories')->get()->toArray();
-        dd($data);
-        return TemplateParents::select('id')->get();
+        // dd($data);
+        return $data;
     }
 
 /**

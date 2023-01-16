@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('marketing_template_categories', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable();
-            $table->string('status')->nullable();
+        Schema::table('template_child_categories', function (Blueprint $table) {
+            $table->renameColumn('category', 'amount');
         });
     }
 
@@ -27,7 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marketing_template_categories');
-
+        Schema::table('template_child_categories', function (Blueprint $table) {
+            $table->renameColumn('amount', 'category');
+        });
     }
 };
