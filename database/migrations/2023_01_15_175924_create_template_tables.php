@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists(('product_template_parents'));
-
-        Schema::create('product_template_parents', function (Blueprint $table) {
+        Schema::create('template_parents', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->integer('marketing_category_id')->nullable();
+            $table->integer('tailoring_id')->nullable();
             $table->string('category')->nullable();
             $table->string('theme')->nullable();
             $table->string('styles')->nullable();
@@ -36,8 +34,8 @@ return new class extends Migration
             $table->string('interlining')->nullable();
             $table->string('product_name')->nullable();
             $table->string('number_of_child')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
-
         });
     }
 
@@ -48,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_template_parents');
+        Schema::dropIfExists('template_parents');
     }
 };

@@ -8,8 +8,8 @@ use App\Models\Customers;
 use App\Models\Products;
 use App\Models\ProductsMarket;
 use App\Models\ProductTemplate;
-use App\Models\ProductTemplateChild;
-use App\Models\ProductTemplateParent;
+use App\Models\TemplateChildren;
+use App\Models\TemplateParents;
 use Illuminate\Http\Request;
 
 class ProductMarketController extends Controller
@@ -19,8 +19,8 @@ class ProductMarketController extends Controller
     public Bills $bills;
     public CustomerHelper $helper;
     public ProductTemplate $template;
-    public ProductTemplateParent $template_parent;
-    public ProductTemplateChild $template_child;
+    public TemplateParents $template_parent;
+    public TemplateChildren $template_child;
 
     public function __construct()
     {
@@ -29,8 +29,8 @@ class ProductMarketController extends Controller
         $this->helper = new CustomerHelper();
         $this->bills = new Bills();
         $this->template = new ProductTemplate();
-        $this->template_parent = new ProductTemplateParent();
-        $this->template_child = new ProductTemplateChild();
+        $this->template_parent = new TemplateParents();
+        $this->template_child = new TemplateChildren();
     }
 
     public function index(Request $request)

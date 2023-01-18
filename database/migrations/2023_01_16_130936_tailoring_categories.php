@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('template_child_categories', function (Blueprint $table) {
-
-            $table->renameColumn('bill_number', 'ware_id');
-            $table->dropColumn('bill_date');
-
+        Schema::create('tailoring_categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->string('status')->nullable();
         });
     }
 
@@ -28,10 +27,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('template_child_categories', function (Blueprint $table) {
-            $table->renameColumn('bill_number', 'ware_id');
-            $table->string('bill_date');
+        Schema::dropIfExists('tailoring_categories');
 
-        });
     }
 };
