@@ -150,14 +150,15 @@ $(document).ready(function () {
         // alert('asdf');
 
         $(template_tab[templateCurrentTab]).append(`
-            <div class="category-box" data-cloneable> 
-                <div class="col-xs-12 col-sm-12 col-md-12 checkbox-box">
+            <div class="category-box"> 
+                <div class="col-xs-12 col-sm-12 col-md-12 checkbox-box" data-cloneable>
                     <input 
                         type="checkbox"
                         value="${category['id']}"
                         class="checkbox_customer_category"
                     >  ${category["name"]}
                 </div>
+
                 <div class="flex-container">
                     <button 
                         type="button"
@@ -168,27 +169,24 @@ $(document).ready(function () {
                         <i class="fa fa-plus"></i> Adauga
                     </button>
 
-                    <button type="button" class="btn btn-secondary btn-sm remove-category">
+                    <button
+                        type="button"
+                        class="btn btn-secondary btn-sm remove-category"
+                        >
                         <i class="fa fa-times"></i> Sterg
                     </button>
                 </div>
             </div>
-
+                
         `);
     }
 
     $('.children-fields').on('click', '.add-category', function () {
-        
+        // $(this).hide();
+        var newItem = $(this).closest(".category-box").clone();
+        $(this).closest(".category-box").after(newItem);
+        $(this).last().hide();
 
-        var newItem = $(this).closest(".category-box[data-cloneable]").clone();
-        $(this).closest(".category-box[data-cloneable]").after(newItem);
 
-        // var newItem = $(this).prev(".category-box[data-cloneable]").clone();
-        // $(this).prev(".category-box[data-cloneable]").after(newItem);
-
-    });
-    $("#item-list").on("click", ".add-button", function () {
-        var newItem = $(this).prev(".item[data-cloneable]").clone();
-        $(this).prev(".item[data-cloneable]").after(newItem);
     });
 });

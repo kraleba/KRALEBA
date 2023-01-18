@@ -233,21 +233,19 @@
         display: none;
     }
 </style>
-<div id="item-list">
-    <div class="item" data-cloneable>
-        <p>Item 1</p>
-    </div>
-    <button class="add-button">Add</button>
 
-    <div class="item" data-cloneable>
-        <p>Item 2</p>
-        
-    </div>
+<ul>
+  <li class="item">
+    <span>Item 1</span>
+  </li>
+  <div class="add-container">
     <button class="add-button">Add</button>
-</div>
-
-<script>
-    // $(document).ready(function() {
-        
-    // });
-</script>
+  </div>
+  <li class="item">
+    <span>Item 2</span>
+  </li>
+  <div class="add-container">
+    <button class="add-button">Add</button>
+  </div>
+  <!-- alte elemente item -->
+</ul>
