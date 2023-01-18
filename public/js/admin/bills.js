@@ -277,6 +277,7 @@ function articleFormGenerate(previous_or_next, x) {
         });
 
     }
+    
     $("#article_form").append(
         '<div class="tab">' +
         '<filedset>' +

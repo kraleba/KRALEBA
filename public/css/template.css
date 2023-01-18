@@ -48,7 +48,6 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
-    margin-bottom: 10px;
   }
 
   .checkbox-box input[type="checkbox"] + i {
@@ -79,4 +78,16 @@
     background-color: darkred;
   }
 
+ /* templates create START */
+  .template_tab {
+    display: none;
+}
+  .flex-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+  }
+
   
+ /* templates create END */

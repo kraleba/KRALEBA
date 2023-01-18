@@ -27,11 +27,6 @@ class ProductTemplate extends Model
     ];
 
 
-    public function get_marketing_template_categories()
-    {
-        return DB::table('marketing_template_categories')->get();
-    }
-
     public function create_parent_and_child_template($parent, $child)
     {
         $query_insert = "INSERT INTO product_template_parent

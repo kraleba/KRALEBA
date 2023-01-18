@@ -102,14 +102,14 @@ class ProductTemplateController extends Controller
     public function create()
     {
         $data['customer_categories'] = $this->product->get_furnace_categories();
-        $data['marketing_categories'] = $this->template->get_marketing_template_categories();
+        $data['tailoring_categories'] = DB::table('tailoring_categories')->get();;
 
         return view('products_template.template_create', $data);
     }
 
     public function store(Request $request)
     {
-
+dd($request->all());
         // $request->validate([
         //     'template_photo1' => 'required',
         //     'template_photo1.*' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
