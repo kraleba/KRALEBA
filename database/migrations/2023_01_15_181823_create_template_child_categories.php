@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('child_id');
             $table->unsignedBigInteger('ware_id');
+            $table->string('category');
             $table
                 ->foreign('child_id')
                 ->references('id')
